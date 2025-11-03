@@ -492,20 +492,19 @@ def adapt_namespaces_3to4(data):
 
 
 def adapt_type_4to3(uri):
-        if isinstance(uri, list):
-            assert len(uri) == 1
-            uri = uri[0]
-        cls = lookup_type(uri, OPENMINDS_VERSION)
+    if isinstance(uri, list):
+        assert len(uri) == 1
+        uri = uri[0]
+    cls = lookup_type(uri, OPENMINDS_VERSION)
 
-        if cls.__module__ == "test.test_client":
-            return cls.type_
+    if cls.__module__ == "test.test_client":
+        return cls.type_
 
-        module_name = cls.__module__.split(".")[2]  # e.g., 'fairgraph.openminds.core.actors.person' -> "core"
-        module_name = {
-            "controlled_terms": "controlledTerms",
-            "specimen_prep": "specimenPrep"
-        }.get(module_name, module_name)
-        return f"https://openminds.ebrains.eu/{module_name}/{cls.__name__}"
+    module_name = cls.__module__.split(".")[2]  # e.g., 'fairgraph.openminds.core.actors.person' -> "core"
+    module_name = {"controlled_terms": "controlledTerms", "specimen_prep": "specimenPrep"}.get(
+        module_name, module_name
+    )
+    return f"https://openminds.ebrains.eu/{module_name}/{cls.__name__}"
 
 
 def adapt_namespaces_4to3(data):
@@ -538,8 +537,7 @@ def adapt_namespaces_for_query(query):
             if "typeFilter" in item_path:
                 if isinstance(item_path["typeFilter"], list):
                     new_item_path["typeFilter"] = [
-                        {"@id": adapt_type_4to3(subitem["@id"])}
-                        for subitem in item_path["typeFilter"]
+                        {"@id": adapt_type_4to3(subitem["@id"])} for subitem in item_path["typeFilter"]
                     ]
                 else:
                     new_item_path["typeFilter"]["@id"] = adapt_type_4to3(item_path["typeFilter"]["@id"])
@@ -581,7 +579,11 @@ def handle_scope_keyword(scope, release_status):
     use of 'scope' is deprecated but still accepted.
     """
     if scope in ("released", "in progress", "any"):
-        warnings.warn("The keyword 'scope' is deprecated, and will be removed in version 1.0; it has been renamed to 'release_status'", DeprecationWarning, stacklevel=2)
+        warnings.warn(
+            "The keyword 'scope' is deprecated, and will be removed in version 1.0; it has been renamed to 'release_status'",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         return scope
     else:
         return release_status

@@ -336,7 +336,9 @@ class TestKGObject(object):
             a_required_string="apple",
             a_required_list_of_strings=["banana", "pear"],
             an_optional_string="melon",
-            an_optional_list_of_strings=["plum, peach, apricot"],  # note that this is a single string containing commas
+            an_optional_list_of_strings=[
+                "plum, peach, apricot"
+            ],  # note that this is a single string containing commas
             a_required_datetime=datetime(1789, 7, 14),
             a_required_list_of_datetimes=[datetime(1900, 1, 1), datetime(2000, 1, 1)],
             an_optional_datetime=datetime(1605, 11, 5),
@@ -530,7 +532,7 @@ class TestKGObject(object):
             id=orig_object.id,
             a_required_list_of_strings=["coconut"],
             an_optional_string="lime",
-            a_required_embedded_object=MockEmbeddedObject(a_number=41, a_string="forty one")
+            a_required_embedded_object=MockEmbeddedObject(a_number=41, a_string="forty one"),
         )
         MockKGObject.set_error_handling("error")
         assert new_obj.a_required_list_of_strings == ["coconut"]
@@ -549,7 +551,7 @@ class TestKGObject(object):
             "https://openminds.ebrains.eu/vocab/aRequiredDateTime": "1789-07-14T00:00:00",
             "https://openminds.ebrains.eu/vocab/aRequiredEmbeddedObject": {
                 "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
-                "https://openminds.ebrains.eu/vocab/aNumber": 41
+                "https://openminds.ebrains.eu/vocab/aNumber": 41,
             },
             "https://openminds.ebrains.eu/vocab/aRequiredLinkedObject": {
                 "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234"
@@ -592,7 +594,7 @@ class TestKGObject(object):
                 # not just those that have changed
                 "https://openminds.ebrains.eu/vocab/aNumber": 41,
                 "https://openminds.ebrains.eu/vocab/aString": "forty one",
-                #"https://openminds.ebrains.eu/vocab/aDate": None,
+                # "https://openminds.ebrains.eu/vocab/aDate": None,
             },
         }
         assert new_obj.modified_data() == expected

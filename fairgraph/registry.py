@@ -42,7 +42,8 @@ class Node(Registry):
         # e.g.   'fairgraph.openminds.sands.miscellaneous.anatomical_target_position'
         #   -->  'openminds.v4.sands.AnatomicalTargetPosition'
         class_dict["class_name"] = ".".join(
-            class_dict["__module__"].replace("fairgraph.openminds", f"openminds.{OPENMINDS_VERSION}").split(".")[:3] + [name]
+            class_dict["__module__"].replace("fairgraph.openminds", f"openminds.{OPENMINDS_VERSION}").split(".")[:3]
+            + [name]
         )
         class_dict["preferred_import_path"] = class_dict["class_name"]
         cls = Registry.__new__(meta, name, bases, class_dict)

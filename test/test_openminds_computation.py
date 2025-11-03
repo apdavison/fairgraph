@@ -15,7 +15,7 @@ class TestEnvironment:
                 "description": "bar",
                 "software": SoftwareVersion(id="another_id"),
             },
-            with_reverse_properties=True
+            with_reverse_properties=True,
         )
         expected = {
             "@context": {

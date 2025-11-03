@@ -162,7 +162,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 follow_links=follow_links,
                 with_reverse_properties=with_reverse_properties,
             )
-            results = client.query(query, instance_id=client.uuid_from_uri(uri), size=1, release_status=release_status).data
+            results = client.query(
+                query, instance_id=client.uuid_from_uri(uri), size=1, release_status=release_status
+            ).data
             if results:
                 data = results[0]
             else:
@@ -417,7 +419,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 raise ValueError("Cannot use filters with api='core'")
             if follow_links:
                 raise NotImplementedError("Following links with api='core' not yet implemented")
-            instances = client.list(cls.type_, space=space, from_index=from_index, size=size, release_status=release_status).data
+            instances = client.list(
+                cls.type_, space=space, from_index=from_index, size=size, release_status=release_status
+            ).data
         else:
             raise ValueError("'api' must be either 'query', 'core', or 'auto'")
         return [cls.from_jsonld(data=instance, release_status=release_status) for instance in instances]
@@ -522,12 +526,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     differences["properties"][prop.name] = (val_self, val_other)
         return differences
 
-    def exists(
-        self,
-        client: KGClient,
-        ignore_duplicates: bool = False,
-        in_spaces: Optional[List[str]] = None
-    ) -> bool:
+    def exists(self, client: KGClient, ignore_duplicates: bool = False, in_spaces: Optional[List[str]] = None) -> bool:
         """Check if this object already exists in the KnowledgeGraph"""
 
         if self.id:
@@ -575,7 +574,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
 
                 if instances:
                     if len(instances) > 1 and not ignore_duplicates:
-                        raise Exception(f"Existence query is not specific enough. Type: {self.__class__.__name__}; filters: {query_filter}")
+                        raise Exception(
+                            f"Existence query is not specific enough. Type: {self.__class__.__name__}; filters: {query_filter}"
+                        )
 
                     # it seems that sometimes the "query" endpoint returns instances
                     # which the "instances" endpoint doesn't know about, so here we double check that
@@ -604,13 +605,16 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     return False
                 return all(values_are_equal(a, b) for a, b in zip(local, remote))
             elif isinstance(local, dict):
-                return all(values_are_equal(local[key], remote.get(key, None)) for key in local.keys() if not (local[key] is None and key not in remote))
+                return all(
+                    values_are_equal(local[key], remote.get(key, None))
+                    for key in local.keys()
+                    if not (local[key] is None and key not in remote)
+                )
             else:
                 return local == remote
 
         current_data = normalize_data(
-            self.to_jsonld(include_empty_properties=True, embed_linked_nodes=False),
-            self.context
+            self.to_jsonld(include_empty_properties=True, embed_linked_nodes=False), self.context
         )
         modified_data = {}
         for key, current_value in current_data.items():
@@ -630,7 +634,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         activity_log: Optional[ActivityLog] = None,
         replace: bool = False,
         ignore_auth_errors: bool = False,
-        ignore_duplicates: bool = False
+        ignore_duplicates: bool = False,
     ):
         """
         Store the current object in the Knowledge Graph, either updating an existing instance
@@ -674,7 +678,10 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                             target_space = space
                         if target_space == "controlled":
                             assert isinstance(value, KGObject)  # for type checking
-                            if value.exists(client, ignore_duplicates=ignore_duplicates) and value.space == "controlled":
+                            if (
+                                value.exists(client, ignore_duplicates=ignore_duplicates)
+                                and value.space == "controlled"
+                            ):
                                 continue
                             else:
                                 raise AuthorizationError("Cannot write to controlled space")
@@ -683,7 +690,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                             space=target_space,
                             recursive=True,
                             activity_log=activity_log,
-                            ignore_duplicates=ignore_duplicates
+                            ignore_duplicates=ignore_duplicates,
                         )
         if space is None:
             if self.space is None:
@@ -780,7 +787,11 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     activity_log.update(item=self, delta=instance_data, space=self.space, entry_type="create")
         # not handled yet: save existing object to new space - requires changing uuid
         if self.id:
-            logger.debug("Updating cache for object {}. Current state: {}".format(self.id, self.to_jsonld(embed_linked_nodes=False)))
+            logger.debug(
+                "Updating cache for object {}. Current state: {}".format(
+                    self.id, self.to_jsonld(embed_linked_nodes=False)
+                )
+            )
             object_cache[self.id] = self
         else:
             logger.warning("Object has no id - see log for the underlying error")
@@ -827,7 +838,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         # todo: move this to openminds generation, and include only in those subclasses
         # that have a name
         # todo: also count 'lookup_name', "family_name", "given_name" as a name
-        objects = cls.list(client, space=space, release_status=release_status, api="query", name=name, follow_links=follow_links)
+        objects = cls.list(
+            client, space=space, release_status=release_status, api="query", name=name, follow_links=follow_links
+        )
         if match == "equals":
             objects = [obj for obj in objects if hasattr(obj, "name") and obj.name == name]
         if len(objects) == 0:

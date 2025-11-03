@@ -10,7 +10,7 @@ from fairgraph.errors import AuthenticationError, AuthorizationError
 import pytest
 
 kg_host = "core.kg-ppd.ebrains.eu"  # don't use production for testing
-#kg_host = "core.kg.ebrains.eu"  # don't use production for testing
+# kg_host = "core.kg.ebrains.eu"  # don't use production for testing
 have_kg_connection = False
 no_kg_err_msg = "No KG connection - have you set the environment variable KG_AUTH_TOKEN?"
 
@@ -79,7 +79,16 @@ class MockKGClient:
         else:
             raise NotImplementedError
 
-    def query(self, query, filter=None, space=None, size=100, from_index=0, release_status="released", restrict_to_spaces=None):
+    def query(
+        self,
+        query,
+        filter=None,
+        space=None,
+        size=100,
+        from_index=0,
+        release_status="released",
+        restrict_to_spaces=None,
+    ):
         for prop in query["structure"]:
             if prop.get("propertyName", "") in ("Qname", "Qfull_name"):
                 filter_value = prop["filter"]["value"]

@@ -71,7 +71,9 @@ def test_retrieve_released_models_filter_species_by_obj(kg_client):
 @skip_if_no_connection
 def test_retrieve_released_models_filter_species_by_uuid(kg_client):
     human = omterms.Species.by_name("Homo sapiens", kg_client)
-    models = omcore.Model.list(kg_client, release_status="released", space="model", api="query", study_targets=UUID(human.uuid))
+    models = omcore.Model.list(
+        kg_client, release_status="released", space="model", api="query", study_targets=UUID(human.uuid)
+    )
     assert len(models) > 0
     for model in models:
         if model.study_targets:
@@ -81,7 +83,9 @@ def test_retrieve_released_models_filter_species_by_uuid(kg_client):
 @skip_if_no_connection
 def test_retrieve_released_models_filter_species_by_id(kg_client):
     mouse = omterms.Species.by_name("Mus musculus", kg_client)
-    models = omcore.Model.list(kg_client, release_status="released", space="model", api="query", study_targets=IRI(mouse.id))
+    models = omcore.Model.list(
+        kg_client, release_status="released", space="model", api="query", study_targets=IRI(mouse.id)
+    )
     # todo: fix so that don't need to wrap the id in an IRI
     assert len(models) > 0
     for model in models:
@@ -102,8 +106,12 @@ def test_retrieve_released_models_filter_custodian(kg_client):
 @skip_if_no_connection
 def test_retrieve_models_filter_by_space(kg_client):
     all_models = omcore.Model.list(kg_client, release_status="in progress", space=None, size=10000)
-    n_models_in_model_space_core = omcore.Model.count(kg_client, release_status="in progress", space="model", api="core")
-    n_models_in_model_space_query = omcore.Model.count(kg_client, release_status="in progress", space="model", api="query")
+    n_models_in_model_space_core = omcore.Model.count(
+        kg_client, release_status="in progress", space="model", api="core"
+    )
+    n_models_in_model_space_query = omcore.Model.count(
+        kg_client, release_status="in progress", space="model", api="query"
+    )
     assert n_models_in_model_space_core == n_models_in_model_space_query
     assert len(all_models) > n_models_in_model_space_core
     assert len([m for m in all_models if m.space == "model"]) == n_models_in_model_space_query
@@ -165,7 +173,7 @@ def test_retrieve_released_models_follow_links(kg_client):
         size=5,
         from_index=randint(0, 80),
         follow_links={"versions": {}, "developers": {"affiliations": {"member_of": {}}}, "abstraction_level": {}},
-        with_reverse_properties=True
+        with_reverse_properties=True,
     )
     assert len(models) == 5
     for model in models:
@@ -194,7 +202,7 @@ def test_retrieve_released_model_versions_no_follow(kg_client):
             api=api,
             size=5,
             from_index=randint(0, 80),
-            with_reverse_properties=True
+            with_reverse_properties=True,
         )
         for ver in versions:
             if ver.formats:
@@ -227,7 +235,7 @@ def test_retrieve_released_model_versions_follow_reverse_links(kg_client):
                 "developers": {"affiliation": {"member_of": {}}},
             },
         },
-        with_reverse_properties=True
+        with_reverse_properties=True,
     )
     for ver in versions:
         # check first level forward links have been resolved
@@ -421,12 +429,14 @@ def test__update():
         ],
         "https://core.kg.ebrains.eu/vocab/meta/revision": "_fCLxIMC---",
         "https://core.kg.ebrains.eu/vocab/meta/space": "common",
-        "https://openminds.om-i.org/props/affiliation": [{
-            "@type": "https://openminds.om-i.org/types/Affiliation",
-            "https://openminds.om-i.org/props/memberOf": {
-                "@id": "https://kg.ebrains.eu/api/instances/05c23d56-b27e-4cf2-8c47-ed12c1a441e7"
-            },
-        }],
+        "https://openminds.om-i.org/props/affiliation": [
+            {
+                "@type": "https://openminds.om-i.org/types/Affiliation",
+                "https://openminds.om-i.org/props/memberOf": {
+                    "@id": "https://kg.ebrains.eu/api/instances/05c23d56-b27e-4cf2-8c47-ed12c1a441e7"
+                },
+            }
+        ],
         "https://openminds.om-i.org/props/contactInformation": [
             {"@id": "https://kg.ebrains.eu/api/instances/4b88cd1e-e222-47e9-9b4a-32b648bddbca"},
             {"@id": "https://kg.ebrains.eu/api/instances/bc036c71-084b-4ffa-8430-4543095660f2"},
@@ -478,18 +488,18 @@ def test_to_jsonld():
         affiliations=omcore.Affiliation(member_of=omcore.Organization(name="The Lonely Mountain")),
     )
     expected1 = {
-        "@context": {
-            "@vocab": "https://openminds.om-i.org/props/"
-        },
+        "@context": {"@vocab": "https://openminds.om-i.org/props/"},
         "@id": "0000",
         "@type": "https://openminds.om-i.org/types/Person",
-        "affiliation": [{
-            "@type": "https://openminds.om-i.org/types/Affiliation",
-            "memberOf": {
-                "@type": "https://openminds.om-i.org/types/Organization",
-                "fullName": "The Lonely Mountain",
-            },
-        }],
+        "affiliation": [
+            {
+                "@type": "https://openminds.om-i.org/types/Affiliation",
+                "memberOf": {
+                    "@type": "https://openminds.om-i.org/types/Organization",
+                    "fullName": "The Lonely Mountain",
+                },
+            }
+        ],
         "familyName": "Oakenshield",
         "givenName": "Thorin",
     }
@@ -505,32 +515,32 @@ def test_to_jsonld():
         affiliations=omcore.Affiliation(member_of=omcore.Organization(id="1111", name="The Lonely Mountain")),
     )
     expected2a = {
-        "@context": {
-            "@vocab": "https://openminds.om-i.org/props/"
-        },
+        "@context": {"@vocab": "https://openminds.om-i.org/props/"},
         "@id": "0000",
         "@type": "https://openminds.om-i.org/types/Person",
-        "affiliation": [{
-            "@type": "https://openminds.om-i.org/types/Affiliation",
-            "memberOf": {
-                "@id": "1111",
-                "@type": "https://openminds.om-i.org/types/Organization",
-                "fullName": "The Lonely Mountain",
-            },
-        }],
+        "affiliation": [
+            {
+                "@type": "https://openminds.om-i.org/types/Affiliation",
+                "memberOf": {
+                    "@id": "1111",
+                    "@type": "https://openminds.om-i.org/types/Organization",
+                    "fullName": "The Lonely Mountain",
+                },
+            }
+        ],
         "familyName": "Oakenshield",
         "givenName": "Thorin",
     }
     expected2b = {
-        "@context": {
-            "@vocab": "https://openminds.om-i.org/props/"
-        },
+        "@context": {"@vocab": "https://openminds.om-i.org/props/"},
         "@id": "0000",
         "@type": "https://openminds.om-i.org/types/Person",
-        "affiliation": [{
-            "@type": "https://openminds.om-i.org/types/Affiliation",
-            "memberOf": {"@id": "1111"},
-        }],
+        "affiliation": [
+            {
+                "@type": "https://openminds.om-i.org/types/Affiliation",
+                "memberOf": {"@id": "1111"},
+            }
+        ],
         "familyName": "Oakenshield",
         "givenName": "Thorin",
     }
@@ -701,15 +711,14 @@ def test_normalize_filter():
 
 def test_normalize_filter_with_invalid_keys():
     with pytest.raises(ValueError) as excinfo:
-        omcore.ModelVersion.normalize_filter({
-            "authors": {"given_name": "Zaphod"},
-            "documentation": {"iri": "http://example.org"}
-        })  # should be "developers", "full_documentation"
+        omcore.ModelVersion.normalize_filter(
+            {"authors": {"given_name": "Zaphod"}, "documentation": {"iri": "http://example.org"}}
+        )  # should be "developers", "full_documentation"
     assert str(excinfo.value) == "Invalid filters: authors, documentation"
     with pytest.raises(ValueError) as excinfo:
-        omcore.ModelVersion.normalize_filter({
-            "developers": {"digital_identifiers": {"id": "https://orcid.org/some-id"}}
-        }) # should be "identifier", not "id"
+        omcore.ModelVersion.normalize_filter(
+            {"developers": {"digital_identifiers": {"id": "https://orcid.org/some-id"}}}
+        )  # should be "identifier", not "id"
     assert str(excinfo.value) == "Invalid filter: id"
 
 
@@ -725,7 +734,7 @@ def test_property_names():
         "contact_information",
         "digital_identifiers",
         "family_name",
-        "given_name"
+        "given_name",
     ]
     assert omcore.Person.reverse_property_names == [
         "activities",
@@ -966,7 +975,7 @@ def test_with_new_namespace_from_query():
         "hasPart": [],
         "@context": {"@vocab": "https://openminds.om-i.org/props/"},
     }
-    #omcore.set_error_handling("error")
+    # omcore.set_error_handling("error")
     orig_types = (omcore.Model.type_, omcore.Person.type_)
     obj = omcore.Model.from_jsonld(data, release_status="released")
     assert obj.abstraction_level

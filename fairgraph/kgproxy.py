@@ -62,10 +62,10 @@ class KGProxy(RepresentsSingleObject, Link):
     # todo: rename uri to id, for consistency?
 
     def __init__(
-            self,
-            classes: Union[str, KGObject, List[KGObject], Tuple[KGObject]],
-            uri: str,
-            preferred_release_status: str = "released"
+        self,
+        classes: Union[str, KGObject, List[KGObject], Tuple[KGObject]],
+        uri: str,
+        preferred_release_status: str = "released",
     ):
         self.classes: List[KGObject]  # todo: make this a set?
         if isinstance(classes, str):
@@ -105,9 +105,7 @@ class KGProxy(RepresentsSingleObject, Link):
             raise AttributeError("This KGProxy has multiple possible types, use the 'classes' attribute instead")
 
     def to_jsonld(self, **kwargs):
-        return {
-            "@id": self.id
-        }
+        return {"@id": self.id}
 
     def resolve(
         self,

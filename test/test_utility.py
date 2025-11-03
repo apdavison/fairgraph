@@ -10,7 +10,7 @@ from fairgraph.utility import (
     sha1sum,
     normalize_data,
     adapt_namespaces_3to4,
-    adapt_namespaces_4to3
+    adapt_namespaces_4to3,
 )
 from .utils import kg_client, skip_if_no_connection
 
@@ -103,32 +103,36 @@ def test_normalize_data():
 def test_adapt_namespaces():
     import fairgraph.openminds.core  # needed to populate the registry for lookup
 
-    data_v3 = [{
-        "@id": "0000",
-        "@type": "https://openminds.ebrains.eu/core/Person",
-        "https://openminds.ebrains.eu/vocab/affiliation": {
-            "@type": "https://openminds.ebrains.eu/core/Affiliation",
-            "https://openminds.ebrains.eu/vocab/memberOf": {
-                "@type": "https://openminds.ebrains.eu/core/Organization",
-                "https://openminds.ebrains.eu/vocab/fullName": "The Lonely Mountain",
+    data_v3 = [
+        {
+            "@id": "0000",
+            "@type": "https://openminds.ebrains.eu/core/Person",
+            "https://openminds.ebrains.eu/vocab/affiliation": {
+                "@type": "https://openminds.ebrains.eu/core/Affiliation",
+                "https://openminds.ebrains.eu/vocab/memberOf": {
+                    "@type": "https://openminds.ebrains.eu/core/Organization",
+                    "https://openminds.ebrains.eu/vocab/fullName": "The Lonely Mountain",
+                },
             },
-        },
-        "https://openminds.ebrains.eu/vocab/familyName": "Oakenshield",
-        "https://openminds.ebrains.eu/vocab/givenName": "Thorin",
-    }]
-    data_v4 = [{
-        "@id": "0000",
-        "@type": "https://openminds.om-i.org/types/Person",
-        "https://openminds.om-i.org/props/affiliation": {
-            "@type": "https://openminds.om-i.org/types/Affiliation",
-            "https://openminds.om-i.org/props/memberOf": {
-                "@type": "https://openminds.om-i.org/types/Organization",
-                "https://openminds.om-i.org/props/fullName": "The Lonely Mountain",
+            "https://openminds.ebrains.eu/vocab/familyName": "Oakenshield",
+            "https://openminds.ebrains.eu/vocab/givenName": "Thorin",
+        }
+    ]
+    data_v4 = [
+        {
+            "@id": "0000",
+            "@type": "https://openminds.om-i.org/types/Person",
+            "https://openminds.om-i.org/props/affiliation": {
+                "@type": "https://openminds.om-i.org/types/Affiliation",
+                "https://openminds.om-i.org/props/memberOf": {
+                    "@type": "https://openminds.om-i.org/types/Organization",
+                    "https://openminds.om-i.org/props/fullName": "The Lonely Mountain",
+                },
             },
-        },
-        "https://openminds.om-i.org/props/familyName": "Oakenshield",
-        "https://openminds.om-i.org/props/givenName": "Thorin",
-    }]
+            "https://openminds.om-i.org/props/familyName": "Oakenshield",
+            "https://openminds.om-i.org/props/givenName": "Thorin",
+        }
+    ]
 
     data = deepcopy(data_v3)
     adapt_namespaces_3to4(data)

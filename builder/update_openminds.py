@@ -20,7 +20,7 @@ global_aliases = {
     "has_versions": "versions",
     "has_entity": "entities",
     "hashes": "hash",
-    "scope": "model_scope"
+    "scope": "model_scope",
 }
 
 
@@ -225,15 +225,14 @@ number_names = {
     "6": "six",
     "7": "seven",
     "8": "eight",
-    "9": "nine"
+    "9": "nine",
 }
+
 
 def generate_python_name(json_name):
     python_name = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", json_name.strip())
     python_name = re.sub("([a-z0-9])([A-Z])", r"\1_\2", python_name).lower()
-    replacements = [
-        ("-", "_"), (".", "_"), ("+", "plus"), ("#", "sharp"), (",", "comma"), ("(", ""), (")", "")
-    ]
+    replacements = [("-", "_"), (".", "_"), ("+", "plus"), ("#", "sharp"), (",", "comma"), ("(", ""), (")", "")]
     for before, after in replacements:
         python_name = python_name.replace(before, after)
     if python_name[0] in number_names:  # Python variables can't start with a number
@@ -445,7 +444,7 @@ custom_existence_queries = {
     "Periodical": ("abbreviation",),
     "AmountOfChemical": ("chemical_product", "amount"),
     "QuantitativeValue": ("value", "unit", "uncertainties"),
-    "Hash": ("algorithm", "digest")
+    "Hash": ("algorithm", "digest"),
 }
 
 
@@ -765,11 +764,11 @@ class FairgraphClassBuilder:
             "existence_query_properties": get_existence_query(class_name, properties),
             "standard_init_properties": standard_init_properties,
             "additional_methods": additional_methods,
-            "aliases":  aliases,
+            "aliases": aliases,
             "constructor_arguments": sorted(
                 [p["name"] for p in chain(properties, reverse_properties)] + list(aliases.keys()),
-                key=property_name_sort_key
-            )
+                key=property_name_sort_key,
+            ),
         }
         import_map = {
             "date": "from datetime import date",
@@ -777,7 +776,7 @@ class FairgraphClassBuilder:
             "time": "from datetime import time",
             "IRI": "from openminds import IRI",
             "[datetime, time]": "from datetime import datetime, time",
-            "Real": "from numbers import Real"
+            "Real": "from numbers import Real",
         }
         extra_imports = set()
         for prop in self.context["properties"]:
@@ -921,17 +920,21 @@ def main(openminds_root, ignore=[]):
             fp.write(om_module_functions)
 
     with open("../fairgraph/openminds/controlledterms.py", "w") as fp:
-        fp.writelines([
-            "from warnings import warn\n"
-            "from .controlled_terms import *\n"
-            "warn('The `controlledterms` module has been renamed to `controlled_terms`, please update your code', DeprecationWarning)"
-        ])
+        fp.writelines(
+            [
+                "from warnings import warn\n"
+                "from .controlled_terms import *\n"
+                "warn('The `controlledterms` module has been renamed to `controlled_terms`, please update your code', DeprecationWarning)"
+            ]
+        )
     with open("../fairgraph/openminds/specimenprep.py", "w") as fp:
-        fp.writelines([
-            "from warnings import warn\n"
-            "from .specimen_prep import *\n"
-            "warn('The `specimenprep` module has been renamed to `specimen_prep`, please update your code', DeprecationWarning)"
-        ])
+        fp.writelines(
+            [
+                "from warnings import warn\n"
+                "from .specimen_prep import *\n"
+                "warn('The `specimenprep` module has been renamed to `specimen_prep`, please update your code', DeprecationWarning)"
+            ]
+        )
 
     init_file_path = os.path.join("..", "fairgraph", "openminds", "__init__.py")
     with open(init_file_path, "w") as fp:

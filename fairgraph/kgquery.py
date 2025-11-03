@@ -77,7 +77,9 @@ class KGQuery(Resolvable, SupportsQuerying):
         self.preferred_release_status = preferred_release_status
 
     def __repr__(self):
-        return f"""{self.__class__.__name__}([{", ".join(cls.__name__ for cls in self.classes)}], filter="{self.filter!r}")""".replace("https://kg.ebrains.eu/api/instances/", "")
+        return f"""{self.__class__.__name__}([{", ".join(cls.__name__ for cls in self.classes)}], filter="{self.filter!r}")""".replace(
+            "https://kg.ebrains.eu/api/instances/", ""
+        )
 
     def resolve(
         self,

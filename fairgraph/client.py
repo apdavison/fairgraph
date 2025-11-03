@@ -37,7 +37,13 @@ except ImportError:
 from openminds.registry import lookup_type
 
 from .errors import AuthenticationError, AuthorizationError, ResourceExistsError
-from .utility import adapt_namespaces_for_query, adapt_namespaces_3to4, adapt_namespaces_4to3, adapt_type_4to3, handle_scope_keyword
+from .utility import (
+    adapt_namespaces_for_query,
+    adapt_namespaces_3to4,
+    adapt_namespaces_4to3,
+    adapt_type_4to3,
+    handle_scope_keyword,
+)
 from .base import OPENMINDS_VERSION
 
 if TYPE_CHECKING:
@@ -108,9 +114,7 @@ class KGClient(object):
         allow_interactive: bool = True,
     ):
         if not have_kg_core:
-            raise ImportError(
-                "Please install the ebrains-kg-core package"
-            )
+            raise ImportError("Please install the ebrains-kg-core package")
         if client_id and client_secret:
             self._kg_client_builder = kg(host).with_credentials(client_id, client_secret)
         elif token:
@@ -124,8 +128,7 @@ class KGClient(object):
                 if allow_interactive:
                     iam_config_url = "https://iam.ebrains.eu/auth/realms/hbp/.well-known/openid-configuration"
                     self._kg_client_builder = kg(host).with_device_flow(
-                        client_id="kg-core-python",
-                        open_id_configuration_url=iam_config_url
+                        client_id="kg-core-python", open_id_configuration_url=iam_config_url
                     )
                 else:
                     raise AuthenticationError("Need to provide either token or client id/secret.")
@@ -199,7 +202,9 @@ class KGClient(object):
             self._migrated = True  # to stop the call to _check_response() in instance_from_full_uri from recurring
 
             # This is the released controlled term for "left handedness", which should be accessible to everyone
-            result = self.instance_from_full_uri("https://kg.ebrains.eu/api/instances/92631f2e-fc6e-4122-8015-a0731c67f66c", release_status="released")
+            result = self.instance_from_full_uri(
+                "https://kg.ebrains.eu/api/instances/92631f2e-fc6e-4122-8015-a0731c67f66c", release_status="released"
+            )
             if "om-i.org" in result["@type"]:
                 self._migrated = True
             else:
@@ -217,7 +222,7 @@ class KGClient(object):
         scope: Optional[str] = None,
         id_key: str = "@id",
         use_stored_query: bool = False,
-        restrict_to_spaces: Optional[List[str]] = None
+        restrict_to_spaces: Optional[List[str]] = None,
     ) -> ResultPage[JsonLdDocument]:
         """
         Execute a Knowledge Graph (KG) query with the given filters and query definition.
@@ -249,7 +254,7 @@ class KGClient(object):
                     stage=STAGE_MAP[release_status],
                     pagination=Pagination(start=from_index, size=size),
                     instance_id=instance_id,
-                    restrict_to_spaces=restrict_to_spaces
+                    restrict_to_spaces=restrict_to_spaces,
                 )
                 error_context = f"_query(release_status={release_status} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
                 return self._check_response(
@@ -267,7 +272,7 @@ class KGClient(object):
                     stage=STAGE_MAP[release_status],
                     pagination=Pagination(start=from_index, size=size),
                     instance_id=instance_id,
-                    restrict_to_spaces=restrict_to_spaces
+                    restrict_to_spaces=restrict_to_spaces,
                 )
                 error_context = f"_query(release_status={release_status} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
                 return self._check_response(
@@ -335,9 +340,7 @@ class KGClient(object):
                 response_configuration=default_response_configuration,
                 pagination=Pagination(start=from_index, size=size),
             )
-            error_context = (
-                f"_list(release_status={release_status} space={space} target_type={target_type} size={size} from_index={from_index})"
-            )
+            error_context = f"_list(release_status={release_status} space={space} target_type={target_type} size={size} from_index={from_index})"
             return self._check_response(response, error_context=error_context)
 
         if release_status == "any":
@@ -384,6 +387,7 @@ class KGClient(object):
             logger.debug("Retrieving instance {} from cache".format(uri))
             data = self.cache[uri]
         else:
+
             def _get_instance(release_status):
                 error_context = f"_get_instance(release_status={release_status} uri={uri})"
                 # Normal KG URIs start with https://kg.ebrains.eu/api/instances/ with a UUID
@@ -404,7 +408,9 @@ class KGClient(object):
                         data = None
                     else:
                         data = response.data
-                elif uri.startswith("https://openminds.om-i.org/instances") or uri.startswith("https://openminds.ebrains.eu/instances"):
+                elif uri.startswith("https://openminds.om-i.org/instances") or uri.startswith(
+                    "https://openminds.ebrains.eu/instances"
+                ):
                     if self.migrated and uri.startswith("https://openminds.ebrains.eu"):
                         payload = [uri.replace("ebrains.eu", "om-i.org")]
                     elif uri.startswith("https://openminds.om-i.org"):
@@ -630,10 +636,7 @@ class KGClient(object):
                 if permission.upper() not in AVAILABLE_PERMISSIONS:
                     raise ValueError(f"Invalid permission '{permission}'")
         response = self._check_response(
-            self._kg_client.spaces.list(
-                permissions=bool(permissions),
-                pagination=Pagination(start=0, size=50)
-            )
+            self._kg_client.spaces.list(permissions=bool(permissions), pagination=Pagination(start=0, size=50))
         )
         accessible_spaces = list(response.items())  # makes additional requests if multiple pages of results
         if permissions and isinstance(permissions, Iterable):
@@ -690,7 +693,9 @@ class KGClient(object):
         if result:  # error
             err_msg = f"Unable to configure KG space for space '{space_name}': {result}"
             if not space_name.startswith("collab-"):
-                err_msg += f". If you are trying to configure a collab space, ensure the space name starts with 'collab-'"
+                err_msg += (
+                    f". If you are trying to configure a collab space, ensure the space name starts with 'collab-'"
+                )
             raise Exception(err_msg)
         for cls in types:
             if self.migrated:
@@ -713,7 +718,13 @@ class KGClient(object):
         if response.error:
             raise Exception(response.error)
 
-    def space_info(self, space_name: str, release_status: str = "released", scope: Optional[str] = None, ignore_errors: bool = False):
+    def space_info(
+        self,
+        space_name: str,
+        release_status: str = "released",
+        scope: Optional[str] = None,
+        ignore_errors: bool = False,
+    ):
         """
         Return information about the types and number of instances in a space.
 
@@ -740,7 +751,7 @@ class KGClient(object):
                     "https://core.kg.ebrains.eu/vocab/type/Bookmark",
                     "https://core.kg.ebrains.eu/vocab/meta/type/Query",
                     "https://openminds.om-i.org/types/Query",
-                    "https://openminds.ebrains.eu/core/URL"
+                    "https://openminds.ebrains.eu/core/URL",
                 ]
                 if ignore_errors or any(ignore in str(err) for ignore in ignore_list):
                     pass
@@ -809,7 +820,6 @@ class KGClient(object):
                     print()
         else:
             print(f"The space '{source_space}' is empty, nothing to move.")
-
 
     def is_released(self, uri: str, with_children: bool = False) -> bool:
         """

@@ -152,9 +152,7 @@ class QueryProperty:
                 first_path_element = {"@id": self.path[0]}
             if self.type_filter:
                 if isinstance(self.type_filter, (list, tuple)):
-                    first_path_element["typeFilter"] = [
-                        {"@id": type_iri} for type_iri in self.type_filter
-                    ]
+                    first_path_element["typeFilter"] = [{"@id": type_iri} for type_iri in self.type_filter]
                 else:
                     assert isinstance(self.type_filter, str)
                     first_path_element["typeFilter"] = {"@id": self.type_filter}
@@ -241,7 +239,7 @@ class Query:
                     QueryProperty(
                         "https://core.kg.ebrains.eu/vocab/meta/space",
                         name="query:space",
-                        filter=Filter("EQUALS", value=self.space)
+                        filter=Filter("EQUALS", value=self.space),
                     )
                 )
 
@@ -270,7 +268,6 @@ class Query:
 
 
 # todo: I think only one property can have "sort": True - need to check this
-
 
 
 def _get_query_property_name(property, possible_classes):
@@ -444,7 +441,9 @@ def get_filter_value(property, value: Any) -> Union[str, List[str]]:
                 val = UUID(val)
             except ValueError:
                 pass
-        return isinstance(val, (IRI, UUID, *property.types)) or (isinstance(val, KGProxy) and not set(val.classes).isdisjoint(property.types))
+        return isinstance(val, (IRI, UUID, *property.types)) or (
+            isinstance(val, KGProxy) and not set(val.classes).isdisjoint(property.types)
+        )
 
     if isinstance(value, list) and len(value) > 0:
         valid_type = all(is_valid(item) for item in value)

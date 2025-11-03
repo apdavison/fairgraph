@@ -12,19 +12,14 @@ from .registry import Node
 from .base import Resolvable, ErrorHandling, RepresentsSingleObject
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
-from .queries import (
-    QueryProperty,
-    get_query_properties,
-    get_query_filter_property,
-    get_filter_value
-)
+from .queries import QueryProperty, get_query_properties, get_query_filter_property, get_filter_value
 from .errors import ResolutionFailure, CannotBuildExistenceQuery
 from .utility import (
     as_list,  # temporary for backwards compatibility (a lot of code imports it from here)
     expand_uri,
     invert_dict,
     normalize_data,
-    types_match
+    types_match,
 )
 
 if TYPE_CHECKING:
@@ -73,7 +68,9 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                     setattr(self, alias_, val)
         if len(properties_copy) > 0:
             if len(properties_copy) == 1:
-                raise NameError(f'{self.__class__.__name__} does not have a property named "{list(properties_copy)[0]}".')
+                raise NameError(
+                    f'{self.__class__.__name__} does not have a property named "{list(properties_copy)[0]}".'
+                )
             else:
                 raise NameError(
                     f"""{self.__class__.__name__} does not have properties named "{'", "'.join(properties_copy)}"."""
@@ -85,8 +82,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
         self.remote_data = {}
         if data:
             self.remote_data = normalize_data(
-                self.to_jsonld(include_empty_properties=True, embed_linked_nodes=False),
-                self.context
+                self.to_jsonld(include_empty_properties=True, embed_linked_nodes=False), self.context
             )
 
     def __getattribute__(self, name):
@@ -133,14 +129,12 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
         activity_log: Optional[ActivityLog] = None,
         replace: bool = False,
         ignore_auth_errors: bool = False,
-        ignore_duplicates: bool = False
+        ignore_duplicates: bool = False,
     ):
         raise NotImplementedError("This should be implemented by subclasses")
 
     @classmethod
-    def set_error_handling(
-        cls, value: Union[ErrorHandling, None]
-    ):
+    def set_error_handling(cls, value: Union[ErrorHandling, None]):
         """
         Control validation for this class.
 
@@ -301,7 +295,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
     def _deserialize_data(cls, data: JSONdict, include_id: bool = False):
 
         def _get_type_from_data(data_item):
-             # KG returns a list of types, openMINDS expects only a single string
+            # KG returns a list of types, openMINDS expects only a single string
             if isinstance(data_item, dict) and "@type" in data_item:
                 if isinstance(data_item["@type"], (list, tuple)):
                     assert len(data_item["@type"]) == 1
@@ -359,7 +353,8 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                 # so we extract only those sub-items whose types match
                 try:
                     data_item = [
-                        part for part in as_list(data_item)
+                        part
+                        for part in as_list(data_item)
                         if _get_type_from_data(part) in [t.type_ for t in prop.types]
                     ]
                 except AttributeError:
@@ -432,7 +427,9 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                             resolved_values: List[Any] = []
                             for value in as_list(values):
                                 if isinstance(value, Resolvable):
-                                    if isinstance(value, ContainsMetadata) and isinstance(value, RepresentsSingleObject):
+                                    if isinstance(value, ContainsMetadata) and isinstance(
+                                        value, RepresentsSingleObject
+                                    ):
                                         # i.e. isinstance(value, KGObject) - already resolved
                                         resolved_values.append(value)
                                     else:

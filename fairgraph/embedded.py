@@ -66,7 +66,9 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
         return template.format(self=self)
 
     def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.to_jsonld(embed_linked_nodes=False) == other.to_jsonld(embed_linked_nodes=False)
+        return isinstance(other, self.__class__) and self.to_jsonld(embed_linked_nodes=False) == other.to_jsonld(
+            embed_linked_nodes=False
+        )
 
     @classmethod
     def from_jsonld(cls, data: JSONdict) -> Union[None, EmbeddedMetadata]:
@@ -84,7 +86,7 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
         recursive: bool = True,
         activity_log: Optional[ActivityLog] = None,
         replace: bool = False,
-        ignore_duplicates: bool = False
+        ignore_duplicates: bool = False,
     ):
         """
         Save to the KG any sub-components of the metadata object that are KGObjects.
@@ -111,5 +113,10 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
                             continue
                         else:
                             raise Exception("Cannot write to controlled space")
-                    value.save(client, space=target_space, recursive=recursive, activity_log=activity_log,
-                               ignore_duplicates=ignore_duplicates)
+                    value.save(
+                        client,
+                        space=target_space,
+                        recursive=recursive,
+                        activity_log=activity_log,
+                        ignore_duplicates=ignore_duplicates,
+                    )
