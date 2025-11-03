@@ -137,6 +137,8 @@ class KGClient(object):
         self._query_cache: Dict[str, str] = {}
         self.accepted_terms_of_use = False
         self._migrated = None
+        if allow_interactive:
+            self.user_info()
 
     @property
     def _kg_admin_client(self):
