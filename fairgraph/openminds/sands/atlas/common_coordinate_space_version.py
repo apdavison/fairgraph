@@ -202,3 +202,40 @@ class CommonCoordinateSpaceVersion(KGObject, OMCommonCoordinateSpaceVersion):
             version_identifier=version_identifier,
             version_innovation=version_innovation,
         )
+
+    def download(self, local_path, client, accept_terms_of_use=False):
+        if accepted_terms_of_use(client, accept_terms_of_use=accept_terms_of_use):
+            repo = self.repository.resolve(client, release_status=self.release_status or None)
+            if repo.iri.value.startswith("https://object.cscs.ch/v1/AUTH") or repo.iri.value.startswith(
+                "https://data-proxy.ebrains.eu/api/v1/public"
+            ):
+                zip_archive_url = f"https://data.kg.ebrains.eu/zip?container={repo.iri.value}"
+            else:
+                raise NotImplementedError("Download not yet implemented for this repository type")
+            if local_path.endswith(".zip"):
+                local_filename = Path(local_path)
+            else:
+                local_filename = Path(local_path) / (zip_archive_url.split("/")[-1] + ".zip")
+            local_filename.parent.mkdir(parents=True, exist_ok=True)
+            local_filename, headers = urlretrieve(zip_archive_url, local_filename)
+            return local_filename, repo.iri.value
+
+    def _get_inherited_property(self, property_name, client, release_status="released"):
+        value = getattr(self, property_name)
+        if value:
+            return value
+        else:
+            parent = self.is_version_of.resolve(client, release_status=release_status)
+            return getattr(parent, property_name)
+
+    def get_full_name(self, client, release_status="released"):
+        return self._get_inherited_property("full_name", client, release_status)
+
+    def get_short_name(self, client, release_status="released"):
+        return self._get_inherited_property("short_name", client, release_status)
+
+    def get_description(self, client, release_status="released"):
+        return self._get_inherited_property("description", client, release_status)
+
+    def get_authors(self, client, release_status="released"):
+        return self._get_inherited_property("authors", client, release_status)

@@ -218,3 +218,23 @@ class DatasetVersion(KGObject, OMDatasetVersion):
             local_filename.parent.mkdir(parents=True, exist_ok=True)
             local_filename, headers = urlretrieve(zip_archive_url, local_filename)
             return local_filename, repo.iri.value
+
+    def _get_inherited_property(self, property_name, client, release_status="released"):
+        value = getattr(self, property_name)
+        if value:
+            return value
+        else:
+            parent = self.is_version_of.resolve(client, release_status=release_status)
+            return getattr(parent, property_name)
+
+    def get_full_name(self, client, release_status="released"):
+        return self._get_inherited_property("full_name", client, release_status)
+
+    def get_short_name(self, client, release_status="released"):
+        return self._get_inherited_property("short_name", client, release_status)
+
+    def get_description(self, client, release_status="released"):
+        return self._get_inherited_property("description", client, release_status)
+
+    def get_authors(self, client, release_status="released"):
+        return self._get_inherited_property("authors", client, release_status)

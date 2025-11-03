@@ -32,5 +32,5 @@
     def get_description(self, client, release_status="released"):
         return self._get_inherited_property("description", client, release_status)
 
-    def get_authors(self, client, release_status="released"):
-        return self._get_inherited_property("authors", client, release_status)
+    def get_developers(self, client, release_status="released"):
+        return self._get_inherited_property("developers", client, release_status)
