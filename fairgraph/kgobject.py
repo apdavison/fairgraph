@@ -117,10 +117,16 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         return self._space
 
     @classmethod
-    def from_jsonld(cls, data: JSONdict, release_status: Optional[str] = None) -> KGObject:
+    def from_jsonld(
+        cls,
+        data: JSONdict,
+        ignore_unexpected_keys: Optional[bool] = False,
+        release_status: Optional[str] = None
+    ) -> KGObject:
         """Create an instance of the class from a JSON-LD document."""
+        # todo: handle ignore_unexpected_keys
         deserialized_data = cls._deserialize_data(data, include_id=True)
-        return cls(id=data["@id"], data=data, release_status=release_status, **deserialized_data)
+        return cls(id=data.get("@id", None), data=data, release_status=release_status, **deserialized_data)
 
     # @classmethod
     # def _fix_keys(cls, data):
@@ -796,7 +802,9 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 self.remote_data = local_data
                 if activity_log:
                     activity_log.update(item=self, delta=instance_data, space=self.space, entry_type="create")
-        # not handled yet: save existing object to new space - requires changing uuid
+
+        # not handled yet: if an existing object is in a different space to the one specified here,
+        #                  should we move it to the new space, or raise an Exception?
         if self.id:
             logger.debug(
                 "Updating cache for object {}. Current state: {}".format(
@@ -806,6 +814,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             object_cache[self.id] = self
         else:
             logger.warning("Object has no id - see log for the underlying error")
+        return self.id
 
     def delete(self, client: KGClient, ignore_not_found: bool = True):
         """Delete the current metadata object from the KG.
@@ -816,6 +825,12 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         client.delete_instance(self.uuid, ignore_not_found=ignore_not_found)
         if self.id in object_cache:
             object_cache.pop(self.id)
+
+    def dump(self, file_path, indent=2):
+        """
+        Save this object to a file in JSON-LD format.
+        """
+        LinkedMetadata.save(self, file_path, indent)
 
     @classmethod
     def by_name(

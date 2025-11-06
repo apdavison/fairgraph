@@ -614,7 +614,7 @@ class KGClient(object):
         return self._user_info
 
     def spaces(
-        self, permissions: Optional[Iterable[str]] = None, names_only: bool = False
+        self, permissions: Optional[Iterable[str] | bool] = None, names_only: bool = False
     ) -> Union[List[str], List[SpaceInformation]]:
         f"""
         Return a list of the Knowledge Graph spaces the user can access.
@@ -752,6 +752,7 @@ class KGClient(object):
                     "https://core.kg.ebrains.eu/vocab/meta/type/Query",
                     "https://openminds.om-i.org/types/Query",
                     "https://openminds.ebrains.eu/core/URL",
+                    "https://openminds.om-i.org/types/URL"
                 ]
                 if ignore_errors or any(ignore in str(err) for ignore in ignore_list):
                     pass
