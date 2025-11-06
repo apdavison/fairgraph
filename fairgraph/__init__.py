@@ -42,3 +42,19 @@ utility.initialise_instances(
     ]
     + openminds.controlled_terms.list_kg_classes()
 )
+
+
+def set_error_handling(value):
+    """Set error handling globally for all modules"""
+    for module in (
+        openminds.chemicals,
+        openminds.computation,
+        openminds.controlled_terms,
+        openminds.core,
+        openminds.ephys,
+        openminds.publications,
+        openminds.sands,
+        openminds.specimen_prep,
+        openminds.stimulation,
+    ):
+        module.set_error_handling(value)
