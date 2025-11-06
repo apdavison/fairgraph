@@ -35,7 +35,7 @@ except ImportError:
     have_tabulate = False
 
 from openminds.registry import lookup_type
-from openminds import IRI
+from openminds import IRI, LinkedMetadata
 
 from .utility import expand_uri, as_list, expand_filter, ActivityLog, normalize_data, handle_scope_keyword
 from .queries import Query, QueryProperty
@@ -86,6 +86,17 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     prop.types, {prop.reverse: self.id}, callback=lambda value: setattr(self, prop.name, value)
                 )
                 setattr(self, prop.name, query)
+
+        self._raw_remote_data = None
+        self.remote_data = {}
+        if self.id:
+            # we store the original remote data in `_raw_remote_data`
+            # and a normalized version in `remote_data`
+            self._raw_remote_data = data  # for debugging
+            if data:
+                self.remote_data = normalize_data(
+                    self.to_jsonld(include_empty_properties=True, embed_linked_nodes=False), self.context
+                )
 
     def __repr__(self):
         template_parts = (

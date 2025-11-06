@@ -76,15 +76,6 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                     f"""{self.__class__.__name__} does not have properties named "{'", "'.join(properties_copy)}"."""
                 )
 
-        # we store the original remote data in `_raw_remote_data`
-        # and a normalized version in `remote_data`
-        self._raw_remote_data = data  # for debugging
-        self.remote_data = {}
-        if data:
-            self.remote_data = normalize_data(
-                self.to_jsonld(include_empty_properties=True, embed_linked_nodes=False), self.context
-            )
-
     def __getattribute__(self, name):
         try:
             return object.__getattribute__(self, name)
@@ -323,7 +314,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
 
         # normalize data by expanding keys
         D = {"@type": type_from_data}
-        if include_id:
+        if include_id and "@id" in data:
             D["@id"] = data["@id"]
         for key, value in data.items():
             if "__" in key:
