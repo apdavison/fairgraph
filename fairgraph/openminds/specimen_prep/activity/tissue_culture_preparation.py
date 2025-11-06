@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.specimen_prep import TissueCulturePreparation as OMTissueCulturePreparation
+from openminds.v4.specimen_prep import TissueCulturePreparation as OMTissueCulturePreparation
 from fairgraph import KGObject
 
 

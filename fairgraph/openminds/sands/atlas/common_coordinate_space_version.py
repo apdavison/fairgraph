@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import CommonCoordinateSpaceVersion as OMCommonCoordinateSpaceVersion
+from openminds.v4.sands import CommonCoordinateSpaceVersion as OMCommonCoordinateSpaceVersion
 from fairgraph import KGObject
 
 from urllib.request import urlretrieve
@@ -26,7 +26,7 @@ class CommonCoordinateSpaceVersion(KGObject, OMCommonCoordinateSpaceVersion):
     reverse_properties = [
         Property(
             "comments",
-            "openminds.latest.core.Comment",
+            "openminds.v4.core.Comment",
             "about",
             reverse="about",
             multiple=True,
@@ -34,7 +34,7 @@ class CommonCoordinateSpaceVersion(KGObject, OMCommonCoordinateSpaceVersion):
         ),
         Property(
             "is_coordinate_space_of",
-            ["openminds.latest.sands.BrainAtlasVersion", "openminds.latest.sands.CustomAnnotation"],
+            ["openminds.v4.sands.BrainAtlasVersion", "openminds.v4.sands.CustomAnnotation"],
             "coordinateSpace",
             reverse="coordinate_space",
             multiple=True,
@@ -43,9 +43,9 @@ class CommonCoordinateSpaceVersion(KGObject, OMCommonCoordinateSpaceVersion):
         Property(
             "is_input_to",
             [
-                "openminds.latest.computation.DataAnalysis",
-                "openminds.latest.core.DatasetVersion",
-                "openminds.latest.core.ProtocolExecution",
+                "openminds.v4.computation.DataAnalysis",
+                "openminds.v4.core.DatasetVersion",
+                "openminds.v4.core.ProtocolExecution",
             ],
             ["input", "inputData"],
             reverse=["input_data", "inputs"],
@@ -54,7 +54,7 @@ class CommonCoordinateSpaceVersion(KGObject, OMCommonCoordinateSpaceVersion):
         ),
         Property(
             "is_old_version_of",
-            "openminds.latest.sands.CommonCoordinateSpaceVersion",
+            "openminds.v4.sands.CommonCoordinateSpaceVersion",
             "isNewVersionOf",
             reverse="is_new_version_of",
             multiple=True,
@@ -63,9 +63,9 @@ class CommonCoordinateSpaceVersion(KGObject, OMCommonCoordinateSpaceVersion):
         Property(
             "is_part_of",
             [
-                "openminds.latest.core.Project",
-                "openminds.latest.core.ResearchProductGroup",
-                "openminds.latest.core.SoftwareVersion",
+                "openminds.v4.core.Project",
+                "openminds.v4.core.ResearchProductGroup",
+                "openminds.v4.core.SoftwareVersion",
             ],
             "hasPart",
             reverse="has_parts",
@@ -74,7 +74,7 @@ class CommonCoordinateSpaceVersion(KGObject, OMCommonCoordinateSpaceVersion):
         ),
         Property(
             "is_used_to_group",
-            "openminds.latest.core.FileBundle",
+            "openminds.v4.core.FileBundle",
             "groupedBy",
             reverse="grouped_by",
             multiple=True,
@@ -82,7 +82,7 @@ class CommonCoordinateSpaceVersion(KGObject, OMCommonCoordinateSpaceVersion):
         ),
         Property(
             "is_version_of",
-            "openminds.latest.sands.CommonCoordinateSpace",
+            "openminds.v4.sands.CommonCoordinateSpace",
             "hasVersion",
             reverse="has_versions",
             multiple=True,
@@ -90,7 +90,7 @@ class CommonCoordinateSpaceVersion(KGObject, OMCommonCoordinateSpaceVersion):
         ),
         Property(
             "learning_resources",
-            "openminds.latest.publications.LearningResource",
+            "openminds.v4.publications.LearningResource",
             "about",
             reverse="about",
             multiple=True,

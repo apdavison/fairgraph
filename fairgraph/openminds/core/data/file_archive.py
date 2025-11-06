@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import FileArchive as OMFileArchive
+from openminds.v4.core import FileArchive as OMFileArchive
 from fairgraph import KGObject
 
 
@@ -23,7 +23,7 @@ class FileArchive(KGObject, OMFileArchive):
     reverse_properties = [
         Property(
             "is_location_of",
-            "openminds.latest.core.ServiceLink",
+            "openminds.v4.core.ServiceLink",
             "dataLocation",
             reverse="data_location",
             multiple=True,
@@ -32,10 +32,10 @@ class FileArchive(KGObject, OMFileArchive):
         Property(
             "is_output_of",
             [
-                "openminds.latest.computation.DataAnalysis",
-                "openminds.latest.computation.GenericComputation",
-                "openminds.latest.computation.Simulation",
-                "openminds.latest.computation.Visualization",
+                "openminds.v4.computation.DataAnalysis",
+                "openminds.v4.computation.GenericComputation",
+                "openminds.v4.computation.Simulation",
+                "openminds.v4.computation.Visualization",
             ],
             "output",
             reverse="outputs",

@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import UBERONParcellation as OMUBERONParcellation
+from openminds.v4.controlled_terms import UBERONParcellation as OMUBERONParcellation
 from fairgraph import KGObject
 
 
@@ -23,7 +23,7 @@ class UBERONParcellation(KGObject, OMUBERONParcellation):
     reverse_properties = [
         Property(
             "defines",
-            ["openminds.latest.sands.CustomAnatomicalEntity", "openminds.latest.sands.ParcellationEntity"],
+            ["openminds.v4.sands.CustomAnatomicalEntity", "openminds.v4.sands.ParcellationEntity"],
             "relatedUBERONTerm",
             reverse="related_uberon_term",
             multiple=True,
@@ -32,19 +32,19 @@ class UBERONParcellation(KGObject, OMUBERONParcellation):
         Property(
             "describes",
             [
-                "openminds.latest.computation.ValidationTestVersion",
-                "openminds.latest.computation.WorkflowRecipeVersion",
-                "openminds.latest.core.MetaDataModelVersion",
-                "openminds.latest.core.ModelVersion",
-                "openminds.latest.core.SoftwareVersion",
-                "openminds.latest.core.WebServiceVersion",
-                "openminds.latest.publications.Book",
-                "openminds.latest.publications.Chapter",
-                "openminds.latest.publications.LearningResource",
-                "openminds.latest.publications.LivePaperVersion",
-                "openminds.latest.publications.ScholarlyArticle",
-                "openminds.latest.sands.BrainAtlasVersion",
-                "openminds.latest.sands.CommonCoordinateSpaceVersion",
+                "openminds.v4.computation.ValidationTestVersion",
+                "openminds.v4.computation.WorkflowRecipeVersion",
+                "openminds.v4.core.MetaDataModelVersion",
+                "openminds.v4.core.ModelVersion",
+                "openminds.v4.core.SoftwareVersion",
+                "openminds.v4.core.WebServiceVersion",
+                "openminds.v4.publications.Book",
+                "openminds.v4.publications.Chapter",
+                "openminds.v4.publications.LearningResource",
+                "openminds.v4.publications.LivePaperVersion",
+                "openminds.v4.publications.ScholarlyArticle",
+                "openminds.v4.sands.BrainAtlasVersion",
+                "openminds.v4.sands.CommonCoordinateSpaceVersion",
             ],
             "keyword",
             reverse="keywords",
@@ -54,11 +54,11 @@ class UBERONParcellation(KGObject, OMUBERONParcellation):
         Property(
             "is_location_of",
             [
-                "openminds.latest.core.TissueSample",
-                "openminds.latest.core.TissueSampleCollection",
-                "openminds.latest.ephys.ElectrodeArrayUsage",
-                "openminds.latest.ephys.ElectrodeUsage",
-                "openminds.latest.ephys.PipetteUsage",
+                "openminds.v4.core.TissueSample",
+                "openminds.v4.core.TissueSampleCollection",
+                "openminds.v4.ephys.ElectrodeArrayUsage",
+                "openminds.v4.ephys.ElectrodeUsage",
+                "openminds.v4.ephys.PipetteUsage",
             ],
             ["anatomicalLocation", "anatomicalLocationOfElectrodes"],
             reverse=["anatomical_location", "anatomical_locations", "anatomical_locations_of_electrodes"],
@@ -67,7 +67,7 @@ class UBERONParcellation(KGObject, OMUBERONParcellation):
         ),
         Property(
             "is_target_of",
-            "openminds.latest.sands.AnatomicalTargetPosition",
+            "openminds.v4.sands.AnatomicalTargetPosition",
             "anatomicalTarget",
             reverse="anatomical_targets",
             multiple=True,
@@ -75,7 +75,7 @@ class UBERONParcellation(KGObject, OMUBERONParcellation):
         ),
         Property(
             "is_used_to_group",
-            "openminds.latest.core.FileBundle",
+            "openminds.v4.core.FileBundle",
             "groupedBy",
             reverse="grouped_by",
             multiple=True,
@@ -84,24 +84,24 @@ class UBERONParcellation(KGObject, OMUBERONParcellation):
         Property(
             "studied_in",
             [
-                "openminds.latest.computation.DataAnalysis",
-                "openminds.latest.computation.DataCopy",
-                "openminds.latest.computation.GenericComputation",
-                "openminds.latest.computation.ModelValidation",
-                "openminds.latest.computation.Optimization",
-                "openminds.latest.computation.Simulation",
-                "openminds.latest.computation.ValidationTest",
-                "openminds.latest.computation.Visualization",
-                "openminds.latest.core.DatasetVersion",
-                "openminds.latest.core.Model",
-                "openminds.latest.core.ProtocolExecution",
-                "openminds.latest.ephys.CellPatching",
-                "openminds.latest.ephys.ElectrodePlacement",
-                "openminds.latest.ephys.RecordingActivity",
-                "openminds.latest.specimen_prep.CranialWindowPreparation",
-                "openminds.latest.specimen_prep.TissueCulturePreparation",
-                "openminds.latest.specimen_prep.TissueSampleSlicing",
-                "openminds.latest.stimulation.StimulationActivity",
+                "openminds.v4.computation.DataAnalysis",
+                "openminds.v4.computation.DataCopy",
+                "openminds.v4.computation.GenericComputation",
+                "openminds.v4.computation.ModelValidation",
+                "openminds.v4.computation.Optimization",
+                "openminds.v4.computation.Simulation",
+                "openminds.v4.computation.ValidationTest",
+                "openminds.v4.computation.Visualization",
+                "openminds.v4.core.DatasetVersion",
+                "openminds.v4.core.Model",
+                "openminds.v4.core.ProtocolExecution",
+                "openminds.v4.ephys.CellPatching",
+                "openminds.v4.ephys.ElectrodePlacement",
+                "openminds.v4.ephys.RecordingActivity",
+                "openminds.v4.specimen_prep.CranialWindowPreparation",
+                "openminds.v4.specimen_prep.TissueCulturePreparation",
+                "openminds.v4.specimen_prep.TissueSampleSlicing",
+                "openminds.v4.stimulation.StimulationActivity",
             ],
             "studyTarget",
             reverse="study_targets",

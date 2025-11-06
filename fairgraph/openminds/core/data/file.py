@@ -5,7 +5,7 @@ Structured information on a file instance that is accessible via a URL.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import File as OMFile
+from openminds.v4.core import File as OMFile
 from fairgraph import KGObject
 
 import os
@@ -35,12 +35,12 @@ class File(KGObject, OMFile):
         Property(
             "describes",
             [
-                "openminds.latest.core.BehavioralProtocol",
-                "openminds.latest.core.Protocol",
-                "openminds.latest.ephys.ElectrodeArrayUsage",
-                "openminds.latest.ephys.ElectrodeUsage",
-                "openminds.latest.ephys.PipetteUsage",
-                "openminds.latest.specimen_prep.SlicingDeviceUsage",
+                "openminds.v4.core.BehavioralProtocol",
+                "openminds.v4.core.Protocol",
+                "openminds.v4.ephys.ElectrodeArrayUsage",
+                "openminds.v4.ephys.ElectrodeUsage",
+                "openminds.v4.ephys.PipetteUsage",
+                "openminds.v4.specimen_prep.SlicingDeviceUsage",
             ],
             ["describedIn", "metadataLocation"],
             reverse=["described_in", "metadata_locations"],
@@ -50,12 +50,12 @@ class File(KGObject, OMFile):
         Property(
             "fully_documents",
             [
-                "openminds.latest.core.MetaDataModelVersion",
-                "openminds.latest.core.SoftwareVersion",
-                "openminds.latest.core.WebServiceVersion",
-                "openminds.latest.publications.LivePaperVersion",
-                "openminds.latest.sands.BrainAtlasVersion",
-                "openminds.latest.sands.CommonCoordinateSpaceVersion",
+                "openminds.v4.core.MetaDataModelVersion",
+                "openminds.v4.core.SoftwareVersion",
+                "openminds.v4.core.WebServiceVersion",
+                "openminds.v4.publications.LivePaperVersion",
+                "openminds.v4.sands.BrainAtlasVersion",
+                "openminds.v4.sands.CommonCoordinateSpaceVersion",
             ],
             "fullDocumentation",
             reverse="full_documentation",
@@ -64,7 +64,7 @@ class File(KGObject, OMFile):
         ),
         Property(
             "has_copies",
-            "openminds.latest.computation.LocalFile",
+            "openminds.v4.computation.LocalFile",
             "copyOf",
             reverse="copy_of",
             multiple=True,
@@ -72,7 +72,7 @@ class File(KGObject, OMFile):
         ),
         Property(
             "is_also_part_of",
-            "openminds.latest.computation.WorkflowRecipeVersion",
+            "openminds.v4.computation.WorkflowRecipeVersion",
             "hasPart",
             reverse="has_parts",
             multiple=True,
@@ -80,7 +80,7 @@ class File(KGObject, OMFile):
         ),
         Property(
             "is_configuration_of",
-            "openminds.latest.computation.WorkflowExecution",
+            "openminds.v4.computation.WorkflowExecution",
             "configuration",
             reverse="configuration",
             multiple=True,
@@ -88,7 +88,7 @@ class File(KGObject, OMFile):
         ),
         Property(
             "is_default_image_for",
-            "openminds.latest.sands.CustomCoordinateSpace",
+            "openminds.v4.sands.CustomCoordinateSpace",
             "defaultImage",
             reverse="default_images",
             multiple=True,
@@ -96,7 +96,7 @@ class File(KGObject, OMFile):
         ),
         Property(
             "is_input_to",
-            "openminds.latest.core.DatasetVersion",
+            "openminds.v4.core.DatasetVersion",
             "inputData",
             reverse="input_data",
             multiple=True,
@@ -104,7 +104,7 @@ class File(KGObject, OMFile):
         ),
         Property(
             "is_location_of",
-            ["openminds.latest.ephys.Recording", "openminds.latest.sands.ParcellationTerminologyVersion"],
+            ["openminds.v4.ephys.Recording", "openminds.v4.sands.ParcellationTerminologyVersion"],
             "dataLocation",
             reverse="data_location",
             multiple=True,
@@ -113,17 +113,17 @@ class File(KGObject, OMFile):
         Property(
             "is_output_of",
             [
-                "openminds.latest.computation.DataAnalysis",
-                "openminds.latest.computation.DataCopy",
-                "openminds.latest.computation.GenericComputation",
-                "openminds.latest.computation.ModelValidation",
-                "openminds.latest.computation.Optimization",
-                "openminds.latest.computation.Simulation",
-                "openminds.latest.computation.Visualization",
-                "openminds.latest.core.ModelVersion",
-                "openminds.latest.core.ProtocolExecution",
-                "openminds.latest.ephys.RecordingActivity",
-                "openminds.latest.stimulation.StimulationActivity",
+                "openminds.v4.computation.DataAnalysis",
+                "openminds.v4.computation.DataCopy",
+                "openminds.v4.computation.GenericComputation",
+                "openminds.v4.computation.ModelValidation",
+                "openminds.v4.computation.Optimization",
+                "openminds.v4.computation.Simulation",
+                "openminds.v4.computation.Visualization",
+                "openminds.v4.core.ModelVersion",
+                "openminds.v4.core.ProtocolExecution",
+                "openminds.v4.ephys.RecordingActivity",
+                "openminds.v4.stimulation.StimulationActivity",
             ],
             ["output", "outputData"],
             reverse=["output_data", "outputs"],
@@ -132,7 +132,7 @@ class File(KGObject, OMFile):
         ),
         Property(
             "is_preview_of",
-            "openminds.latest.core.ServiceLink",
+            "openminds.v4.core.ServiceLink",
             "previewImage",
             reverse="preview_image",
             multiple=True,
@@ -140,7 +140,7 @@ class File(KGObject, OMFile):
         ),
         Property(
             "is_reference_for",
-            "openminds.latest.computation.ValidationTestVersion",
+            "openminds.v4.computation.ValidationTestVersion",
             "referenceData",
             reverse="reference_data",
             multiple=True,
@@ -148,7 +148,7 @@ class File(KGObject, OMFile):
         ),
         Property(
             "is_source_data_of",
-            "openminds.latest.core.FileArchive",
+            "openminds.v4.core.FileArchive",
             "sourceData",
             reverse="source_data",
             multiple=True,
@@ -156,7 +156,7 @@ class File(KGObject, OMFile):
         ),
         Property(
             "is_used_to_group",
-            "openminds.latest.core.FileBundle",
+            "openminds.v4.core.FileBundle",
             "groupedBy",
             reverse="grouped_by",
             multiple=True,
@@ -165,9 +165,9 @@ class File(KGObject, OMFile):
         Property(
             "specifies",
             [
-                "openminds.latest.sands.AtlasAnnotation",
-                "openminds.latest.sands.CustomAnnotation",
-                "openminds.latest.stimulation.EphysStimulus",
+                "openminds.v4.sands.AtlasAnnotation",
+                "openminds.v4.sands.CustomAnnotation",
+                "openminds.v4.stimulation.EphysStimulus",
             ],
             "specification",
             reverse="specification",

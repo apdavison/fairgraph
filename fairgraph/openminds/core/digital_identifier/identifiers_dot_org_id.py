@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import IdentifiersDotOrgID as OMIdentifiersDotOrgID
+from openminds.v4.core import IdentifiersDotOrgID as OMIdentifiersDotOrgID
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class IdentifiersDotOrgID(KGObject, OMIdentifiersDotOrgID):
     reverse_properties = [
         Property(
             "identifies",
-            ["openminds.latest.core.Dataset", "openminds.latest.core.DatasetVersion"],
+            ["openminds.v4.core.Dataset", "openminds.v4.core.DatasetVersion"],
             "digitalIdentifier",
             reverse="digital_identifier",
             multiple=True,

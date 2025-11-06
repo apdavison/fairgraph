@@ -5,7 +5,7 @@ Structured information about the launch of a computational process.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import LaunchConfiguration as OMLaunchConfiguration
+from openminds.v4.computation import LaunchConfiguration as OMLaunchConfiguration
 from fairgraph import KGObject
 
 
@@ -21,13 +21,13 @@ class LaunchConfiguration(KGObject, OMLaunchConfiguration):
         Property(
             "is_launch_configuration_of",
             [
-                "openminds.latest.computation.DataAnalysis",
-                "openminds.latest.computation.DataCopy",
-                "openminds.latest.computation.GenericComputation",
-                "openminds.latest.computation.ModelValidation",
-                "openminds.latest.computation.Optimization",
-                "openminds.latest.computation.Simulation",
-                "openminds.latest.computation.Visualization",
+                "openminds.v4.computation.DataAnalysis",
+                "openminds.v4.computation.DataCopy",
+                "openminds.v4.computation.GenericComputation",
+                "openminds.v4.computation.ModelValidation",
+                "openminds.v4.computation.Optimization",
+                "openminds.v4.computation.Simulation",
+                "openminds.v4.computation.Visualization",
             ],
             "launchConfiguration",
             reverse="launch_configuration",

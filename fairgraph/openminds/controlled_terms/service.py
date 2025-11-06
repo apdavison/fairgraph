@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import Service as OMService
+from openminds.v4.controlled_terms import Service as OMService
 from fairgraph import KGObject
 
 
@@ -24,20 +24,20 @@ class Service(KGObject, OMService):
         Property(
             "describes",
             [
-                "openminds.latest.computation.ValidationTestVersion",
-                "openminds.latest.computation.WorkflowRecipeVersion",
-                "openminds.latest.core.DatasetVersion",
-                "openminds.latest.core.MetaDataModelVersion",
-                "openminds.latest.core.ModelVersion",
-                "openminds.latest.core.SoftwareVersion",
-                "openminds.latest.core.WebServiceVersion",
-                "openminds.latest.publications.Book",
-                "openminds.latest.publications.Chapter",
-                "openminds.latest.publications.LearningResource",
-                "openminds.latest.publications.LivePaperVersion",
-                "openminds.latest.publications.ScholarlyArticle",
-                "openminds.latest.sands.BrainAtlasVersion",
-                "openminds.latest.sands.CommonCoordinateSpaceVersion",
+                "openminds.v4.computation.ValidationTestVersion",
+                "openminds.v4.computation.WorkflowRecipeVersion",
+                "openminds.v4.core.DatasetVersion",
+                "openminds.v4.core.MetaDataModelVersion",
+                "openminds.v4.core.ModelVersion",
+                "openminds.v4.core.SoftwareVersion",
+                "openminds.v4.core.WebServiceVersion",
+                "openminds.v4.publications.Book",
+                "openminds.v4.publications.Chapter",
+                "openminds.v4.publications.LearningResource",
+                "openminds.v4.publications.LivePaperVersion",
+                "openminds.v4.publications.ScholarlyArticle",
+                "openminds.v4.sands.BrainAtlasVersion",
+                "openminds.v4.sands.CommonCoordinateSpaceVersion",
             ],
             "keyword",
             reverse="keywords",
@@ -45,16 +45,8 @@ class Service(KGObject, OMService):
             description="reverse of 'keywords'",
         ),
         Property(
-            "hosts",
-            "openminds.latest.publications.LivePaperResourceItem",
-            "hostedBy",
-            reverse="hosted_by",
-            multiple=True,
-            description="reverse of 'hosted_by'",
-        ),
-        Property(
             "linked_from",
-            "openminds.latest.core.ServiceLink",
+            "openminds.v4.core.ServiceLink",
             "service",
             reverse="service",
             multiple=True,
@@ -69,7 +61,6 @@ class Service(KGObject, OMService):
         definition=None,
         describes=None,
         description=None,
-        hosts=None,
         interlex_identifier=None,
         knowledge_space_link=None,
         linked_from=None,
@@ -90,7 +81,6 @@ class Service(KGObject, OMService):
             definition=definition,
             describes=describes,
             description=description,
-            hosts=hosts,
             interlex_identifier=interlex_identifier,
             knowledge_space_link=knowledge_space_link,
             linked_from=linked_from,

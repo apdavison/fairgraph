@@ -5,7 +5,7 @@ Structured information about a protocol used in an experiment studying human or 
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import BehavioralProtocol as OMBehavioralProtocol
+from openminds.v4.core import BehavioralProtocol as OMBehavioralProtocol
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class BehavioralProtocol(KGObject, OMBehavioralProtocol):
     reverse_properties = [
         Property(
             "is_used_to_group",
-            "openminds.latest.core.FileBundle",
+            "openminds.v4.core.FileBundle",
             "groupedBy",
             reverse="grouped_by",
             multiple=True,
@@ -28,7 +28,7 @@ class BehavioralProtocol(KGObject, OMBehavioralProtocol):
         ),
         Property(
             "used_in",
-            ["openminds.latest.core.DatasetVersion", "openminds.latest.core.ProtocolExecution"],
+            ["openminds.v4.core.DatasetVersion", "openminds.v4.core.ProtocolExecution"],
             "behavioralProtocol",
             reverse="behavioral_protocols",
             multiple=True,

@@ -5,7 +5,7 @@ Structured information on a research project.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Project as OMProject
+from openminds.v4.core import Project as OMProject
 from fairgraph import KGObject
 
 

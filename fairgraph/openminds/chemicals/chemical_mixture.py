@@ -5,7 +5,7 @@ Structured information about a mixture of chemical substances.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.chemicals import ChemicalMixture as OMChemicalMixture
+from openminds.v4.chemicals import ChemicalMixture as OMChemicalMixture
 from fairgraph import KGObject
 
 
@@ -20,11 +20,7 @@ class ChemicalMixture(KGObject, OMChemicalMixture):
     reverse_properties = [
         Property(
             "composes",
-            [
-                "openminds.latest.ephys.Electrode",
-                "openminds.latest.ephys.ElectrodeArray",
-                "openminds.latest.ephys.Pipette",
-            ],
+            ["openminds.v4.ephys.Electrode", "openminds.v4.ephys.ElectrodeArray", "openminds.v4.ephys.Pipette"],
             ["insulatorMaterial", "material"],
             reverse=["insulator_material", "material"],
             multiple=True,
@@ -33,10 +29,10 @@ class ChemicalMixture(KGObject, OMChemicalMixture):
         Property(
             "used_in",
             [
-                "openminds.latest.ephys.CellPatching",
-                "openminds.latest.ephys.PipetteUsage",
-                "openminds.latest.specimen_prep.TissueCulturePreparation",
-                "openminds.latest.specimen_prep.TissueSampleSlicing",
+                "openminds.v4.ephys.CellPatching",
+                "openminds.v4.ephys.PipetteUsage",
+                "openminds.v4.specimen_prep.TissueCulturePreparation",
+                "openminds.v4.specimen_prep.TissueSampleSlicing",
             ],
             ["cultureMedium", "pipetteSolution", "tissueBathSolution"],
             reverse=["culture_medium", "pipette_solution", "tissue_bath_solution"],

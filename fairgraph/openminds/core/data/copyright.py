@@ -5,7 +5,7 @@ Structured information on the copyright.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Copyright as OMCopyright
+from openminds.v4.core import Copyright as OMCopyright
 from fairgraph import EmbeddedMetadata
 
 

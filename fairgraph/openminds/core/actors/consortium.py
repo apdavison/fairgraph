@@ -5,7 +5,7 @@ Structured information about an association of two or more persons or organizati
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Consortium as OMConsortium
+from openminds.v4.core import Consortium as OMConsortium
 from fairgraph import KGObject
 
 
@@ -23,7 +23,7 @@ class Consortium(KGObject, OMConsortium):
     reverse_properties = [
         Property(
             "coordinated_projects",
-            "openminds.latest.core.Project",
+            "openminds.v4.core.Project",
             "coordinator",
             reverse="coordinators",
             multiple=True,
@@ -32,18 +32,18 @@ class Consortium(KGObject, OMConsortium):
         Property(
             "developed",
             [
-                "openminds.latest.computation.ValidationTest",
-                "openminds.latest.computation.ValidationTestVersion",
-                "openminds.latest.computation.WorkflowRecipe",
-                "openminds.latest.computation.WorkflowRecipeVersion",
-                "openminds.latest.core.MetaDataModel",
-                "openminds.latest.core.MetaDataModelVersion",
-                "openminds.latest.core.Model",
-                "openminds.latest.core.ModelVersion",
-                "openminds.latest.core.Software",
-                "openminds.latest.core.SoftwareVersion",
-                "openminds.latest.core.WebService",
-                "openminds.latest.core.WebServiceVersion",
+                "openminds.v4.computation.ValidationTest",
+                "openminds.v4.computation.ValidationTestVersion",
+                "openminds.v4.computation.WorkflowRecipe",
+                "openminds.v4.computation.WorkflowRecipeVersion",
+                "openminds.v4.core.MetaDataModel",
+                "openminds.v4.core.MetaDataModelVersion",
+                "openminds.v4.core.Model",
+                "openminds.v4.core.ModelVersion",
+                "openminds.v4.core.Software",
+                "openminds.v4.core.SoftwareVersion",
+                "openminds.v4.core.WebService",
+                "openminds.v4.core.WebServiceVersion",
             ],
             "developer",
             reverse="developers",
@@ -52,7 +52,7 @@ class Consortium(KGObject, OMConsortium):
         ),
         Property(
             "funded",
-            "openminds.latest.core.Funding",
+            "openminds.v4.core.Funding",
             "funder",
             reverse="funder",
             multiple=True,
@@ -60,7 +60,7 @@ class Consortium(KGObject, OMConsortium):
         ),
         Property(
             "has_members",
-            "openminds.latest.core.Affiliation",
+            "openminds.v4.core.Affiliation",
             "memberOf",
             reverse="member_of",
             multiple=True,
@@ -69,14 +69,14 @@ class Consortium(KGObject, OMConsortium):
         Property(
             "is_custodian_of",
             [
-                "openminds.latest.core.Dataset",
-                "openminds.latest.core.DatasetVersion",
-                "openminds.latest.publications.LivePaper",
-                "openminds.latest.publications.LivePaperVersion",
-                "openminds.latest.sands.BrainAtlas",
-                "openminds.latest.sands.BrainAtlasVersion",
-                "openminds.latest.sands.CommonCoordinateSpace",
-                "openminds.latest.sands.CommonCoordinateSpaceVersion",
+                "openminds.v4.core.Dataset",
+                "openminds.v4.core.DatasetVersion",
+                "openminds.v4.publications.LivePaper",
+                "openminds.v4.publications.LivePaperVersion",
+                "openminds.v4.sands.BrainAtlas",
+                "openminds.v4.sands.BrainAtlasVersion",
+                "openminds.v4.sands.CommonCoordinateSpace",
+                "openminds.v4.sands.CommonCoordinateSpaceVersion",
             ],
             "custodian",
             reverse="custodians",
@@ -86,10 +86,10 @@ class Consortium(KGObject, OMConsortium):
         Property(
             "is_owner_of",
             [
-                "openminds.latest.ephys.Electrode",
-                "openminds.latest.ephys.ElectrodeArray",
-                "openminds.latest.ephys.Pipette",
-                "openminds.latest.specimen_prep.SlicingDevice",
+                "openminds.v4.ephys.Electrode",
+                "openminds.v4.ephys.ElectrodeArray",
+                "openminds.v4.ephys.Pipette",
+                "openminds.v4.specimen_prep.SlicingDevice",
             ],
             "owner",
             reverse="owners",
@@ -98,7 +98,7 @@ class Consortium(KGObject, OMConsortium):
         ),
         Property(
             "is_provider_of",
-            "openminds.latest.chemicals.ProductSource",
+            "openminds.v4.chemicals.ProductSource",
             "provider",
             reverse="provider",
             multiple=True,
@@ -106,7 +106,7 @@ class Consortium(KGObject, OMConsortium):
         ),
         Property(
             "manufactured",
-            "openminds.latest.core.Setup",
+            "openminds.v4.core.Setup",
             "manufacturer",
             reverse="manufacturers",
             multiple=True,
@@ -115,10 +115,10 @@ class Consortium(KGObject, OMConsortium):
         Property(
             "published",
             [
-                "openminds.latest.publications.Book",
-                "openminds.latest.publications.Chapter",
-                "openminds.latest.publications.LearningResource",
-                "openminds.latest.publications.ScholarlyArticle",
+                "openminds.v4.publications.Book",
+                "openminds.v4.publications.Chapter",
+                "openminds.v4.publications.LearningResource",
+                "openminds.v4.publications.ScholarlyArticle",
             ],
             "publisher",
             reverse="publisher",

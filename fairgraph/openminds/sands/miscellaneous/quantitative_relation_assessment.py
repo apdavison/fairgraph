@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import QuantitativeRelationAssessment as OMQuantitativeRelationAssessment
+from openminds.v4.sands import QuantitativeRelationAssessment as OMQuantitativeRelationAssessment
 from fairgraph import EmbeddedMetadata
 
 

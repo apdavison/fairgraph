@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.ephys import ElectrodeArrayUsage as OMElectrodeArrayUsage
+from openminds.v4.ephys import ElectrodeArrayUsage as OMElectrodeArrayUsage
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class ElectrodeArrayUsage(KGObject, OMElectrodeArrayUsage):
     reverse_properties = [
         Property(
             "generation_device",
-            "openminds.latest.stimulation.EphysStimulus",
+            "openminds.v4.stimulation.EphysStimulus",
             "generatedBy",
             reverse="generated_by",
             multiple=True,
@@ -28,7 +28,7 @@ class ElectrodeArrayUsage(KGObject, OMElectrodeArrayUsage):
         ),
         Property(
             "placed_by",
-            "openminds.latest.ephys.ElectrodePlacement",
+            "openminds.v4.ephys.ElectrodePlacement",
             "device",
             reverse="devices",
             multiple=True,
@@ -36,7 +36,7 @@ class ElectrodeArrayUsage(KGObject, OMElectrodeArrayUsage):
         ),
         Property(
             "used_in",
-            ["openminds.latest.ephys.CellPatching", "openminds.latest.ephys.RecordingActivity"],
+            ["openminds.v4.ephys.CellPatching", "openminds.v4.ephys.RecordingActivity"],
             "device",
             reverse="devices",
             multiple=True,
@@ -44,7 +44,7 @@ class ElectrodeArrayUsage(KGObject, OMElectrodeArrayUsage):
         ),
         Property(
             "used_to_measure",
-            "openminds.latest.core.Measurement",
+            "openminds.v4.core.Measurement",
             "measuredWith",
             reverse="measured_with",
             multiple=True,
@@ -52,7 +52,7 @@ class ElectrodeArrayUsage(KGObject, OMElectrodeArrayUsage):
         ),
         Property(
             "used_to_record",
-            "openminds.latest.ephys.Recording",
+            "openminds.v4.ephys.Recording",
             "recordedWith",
             reverse="recorded_with",
             multiple=True,

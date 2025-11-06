@@ -5,7 +5,7 @@ A persistent identifier for a research organization, provided by the Research Or
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import RORID as OMRORID
+from openminds.v4.core import RORID as OMRORID
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class RORID(KGObject, OMRORID):
     reverse_properties = [
         Property(
             "identifies",
-            "openminds.latest.core.Organization",
+            "openminds.v4.core.Organization",
             "digitalIdentifier",
             reverse="digital_identifiers",
             multiple=True,

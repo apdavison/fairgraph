@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import ParcellationEntity as OMParcellationEntity
+from openminds.v4.sands import ParcellationEntity as OMParcellationEntity
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class ParcellationEntity(KGObject, OMParcellationEntity):
     reverse_properties = [
         Property(
             "has_children",
-            ["openminds.latest.sands.ParcellationEntity", "openminds.latest.sands.ParcellationEntityVersion"],
+            ["openminds.v4.sands.ParcellationEntity", "openminds.v4.sands.ParcellationEntityVersion"],
             "hasParent",
             reverse="has_parents",
             multiple=True,
@@ -29,11 +29,11 @@ class ParcellationEntity(KGObject, OMParcellationEntity):
         Property(
             "is_location_of",
             [
-                "openminds.latest.core.TissueSample",
-                "openminds.latest.core.TissueSampleCollection",
-                "openminds.latest.ephys.ElectrodeArrayUsage",
-                "openminds.latest.ephys.ElectrodeUsage",
-                "openminds.latest.ephys.PipetteUsage",
+                "openminds.v4.core.TissueSample",
+                "openminds.v4.core.TissueSampleCollection",
+                "openminds.v4.ephys.ElectrodeArrayUsage",
+                "openminds.v4.ephys.ElectrodeUsage",
+                "openminds.v4.ephys.PipetteUsage",
             ],
             ["anatomicalLocation", "anatomicalLocationOfElectrodes"],
             reverse=["anatomical_location", "anatomical_locations", "anatomical_locations_of_electrodes"],
@@ -42,7 +42,7 @@ class ParcellationEntity(KGObject, OMParcellationEntity):
         ),
         Property(
             "is_target_of",
-            "openminds.latest.sands.AnatomicalTargetPosition",
+            "openminds.v4.sands.AnatomicalTargetPosition",
             "anatomicalTarget",
             reverse="anatomical_targets",
             multiple=True,
@@ -50,7 +50,7 @@ class ParcellationEntity(KGObject, OMParcellationEntity):
         ),
         Property(
             "is_used_to_group",
-            "openminds.latest.core.FileBundle",
+            "openminds.v4.core.FileBundle",
             "groupedBy",
             reverse="grouped_by",
             multiple=True,
@@ -59,24 +59,24 @@ class ParcellationEntity(KGObject, OMParcellationEntity):
         Property(
             "studied_in",
             [
-                "openminds.latest.computation.DataAnalysis",
-                "openminds.latest.computation.DataCopy",
-                "openminds.latest.computation.GenericComputation",
-                "openminds.latest.computation.ModelValidation",
-                "openminds.latest.computation.Optimization",
-                "openminds.latest.computation.Simulation",
-                "openminds.latest.computation.ValidationTest",
-                "openminds.latest.computation.Visualization",
-                "openminds.latest.core.DatasetVersion",
-                "openminds.latest.core.Model",
-                "openminds.latest.core.ProtocolExecution",
-                "openminds.latest.ephys.CellPatching",
-                "openminds.latest.ephys.ElectrodePlacement",
-                "openminds.latest.ephys.RecordingActivity",
-                "openminds.latest.specimen_prep.CranialWindowPreparation",
-                "openminds.latest.specimen_prep.TissueCulturePreparation",
-                "openminds.latest.specimen_prep.TissueSampleSlicing",
-                "openminds.latest.stimulation.StimulationActivity",
+                "openminds.v4.computation.DataAnalysis",
+                "openminds.v4.computation.DataCopy",
+                "openminds.v4.computation.GenericComputation",
+                "openminds.v4.computation.ModelValidation",
+                "openminds.v4.computation.Optimization",
+                "openminds.v4.computation.Simulation",
+                "openminds.v4.computation.ValidationTest",
+                "openminds.v4.computation.Visualization",
+                "openminds.v4.core.DatasetVersion",
+                "openminds.v4.core.Model",
+                "openminds.v4.core.ProtocolExecution",
+                "openminds.v4.ephys.CellPatching",
+                "openminds.v4.ephys.ElectrodePlacement",
+                "openminds.v4.ephys.RecordingActivity",
+                "openminds.v4.specimen_prep.CranialWindowPreparation",
+                "openminds.v4.specimen_prep.TissueCulturePreparation",
+                "openminds.v4.specimen_prep.TissueSampleSlicing",
+                "openminds.v4.stimulation.StimulationActivity",
             ],
             "studyTarget",
             reverse="study_targets",

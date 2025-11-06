@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.ephys import RecordingActivity as OMRecordingActivity
+from openminds.v4.ephys import RecordingActivity as OMRecordingActivity
 from fairgraph import KGObject
 
 

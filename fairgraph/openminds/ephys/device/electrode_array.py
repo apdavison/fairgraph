@@ -5,7 +5,7 @@ Structured information on an electrode array.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.ephys import ElectrodeArray as OMElectrodeArray
+from openminds.v4.ephys import ElectrodeArray as OMElectrodeArray
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class ElectrodeArray(KGObject, OMElectrodeArray):
     reverse_properties = [
         Property(
             "is_part_of",
-            "openminds.latest.core.Setup",
+            "openminds.v4.core.Setup",
             "hasPart",
             reverse="has_parts",
             multiple=True,
@@ -28,7 +28,7 @@ class ElectrodeArray(KGObject, OMElectrodeArray):
         ),
         Property(
             "usage",
-            "openminds.latest.ephys.ElectrodeArrayUsage",
+            "openminds.v4.ephys.ElectrodeArrayUsage",
             "device",
             reverse="device",
             multiple=True,

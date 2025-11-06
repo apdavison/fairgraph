@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import WebService as OMWebService
+from openminds.v4.core import WebService as OMWebService
 from fairgraph import KGObject
 
 
@@ -23,7 +23,7 @@ class WebService(KGObject, OMWebService):
     reverse_properties = [
         Property(
             "comments",
-            "openminds.latest.core.Comment",
+            "openminds.v4.core.Comment",
             "about",
             reverse="about",
             multiple=True,
@@ -31,23 +31,15 @@ class WebService(KGObject, OMWebService):
         ),
         Property(
             "has_accounts",
-            "openminds.latest.core.AccountInformation",
+            "openminds.v4.core.AccountInformation",
             "service",
             reverse="service",
             multiple=True,
             description="reverse of 'service'",
         ),
         Property(
-            "hosts",
-            "openminds.latest.publications.LivePaperResourceItem",
-            "hostedBy",
-            reverse="hosted_by",
-            multiple=True,
-            description="reverse of 'hosted_by'",
-        ),
-        Property(
             "is_part_of",
-            ["openminds.latest.core.Project", "openminds.latest.core.ResearchProductGroup"],
+            ["openminds.v4.core.Project", "openminds.v4.core.ResearchProductGroup"],
             "hasPart",
             reverse="has_parts",
             multiple=True,
@@ -55,7 +47,7 @@ class WebService(KGObject, OMWebService):
         ),
         Property(
             "learning_resources",
-            "openminds.latest.publications.LearningResource",
+            "openminds.v4.publications.LearningResource",
             "about",
             reverse="about",
             multiple=True,
@@ -77,7 +69,6 @@ class WebService(KGObject, OMWebService):
         has_accounts=None,
         has_versions=None,
         homepage=None,
-        hosts=None,
         how_to_cite=None,
         is_part_of=None,
         learning_resources=None,
@@ -104,7 +95,6 @@ class WebService(KGObject, OMWebService):
             has_accounts=has_accounts,
             has_versions=has_versions,
             homepage=homepage,
-            hosts=hosts,
             how_to_cite=how_to_cite,
             is_part_of=is_part_of,
             learning_resources=learning_resources,

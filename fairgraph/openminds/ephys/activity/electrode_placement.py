@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.ephys import ElectrodePlacement as OMElectrodePlacement
+from openminds.v4.ephys import ElectrodePlacement as OMElectrodePlacement
 from fairgraph import KGObject
 
 

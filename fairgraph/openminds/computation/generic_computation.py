@@ -5,7 +5,7 @@ Structured information about a computation whose type is unknown or unspecified.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import GenericComputation as OMGenericComputation
+from openminds.v4.computation import GenericComputation as OMGenericComputation
 from fairgraph import KGObject
 
 
@@ -24,13 +24,13 @@ class GenericComputation(KGObject, OMGenericComputation):
         Property(
             "informed",
             [
-                "openminds.latest.computation.DataAnalysis",
-                "openminds.latest.computation.DataCopy",
-                "openminds.latest.computation.GenericComputation",
-                "openminds.latest.computation.ModelValidation",
-                "openminds.latest.computation.Optimization",
-                "openminds.latest.computation.Simulation",
-                "openminds.latest.computation.Visualization",
+                "openminds.v4.computation.DataAnalysis",
+                "openminds.v4.computation.DataCopy",
+                "openminds.v4.computation.GenericComputation",
+                "openminds.v4.computation.ModelValidation",
+                "openminds.v4.computation.Optimization",
+                "openminds.v4.computation.Simulation",
+                "openminds.v4.computation.Visualization",
             ],
             "wasInformedBy",
             reverse="was_informed_by",
@@ -39,7 +39,7 @@ class GenericComputation(KGObject, OMGenericComputation):
         ),
         Property(
             "is_part_of",
-            "openminds.latest.computation.WorkflowExecution",
+            "openminds.v4.computation.WorkflowExecution",
             "stage",
             reverse="stages",
             multiple=True,

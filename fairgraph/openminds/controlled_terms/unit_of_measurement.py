@@ -5,7 +5,7 @@ Structured information on the unit of measurement.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import UnitOfMeasurement as OMUnitOfMeasurement
+from openminds.v4.controlled_terms import UnitOfMeasurement as OMUnitOfMeasurement
 from fairgraph import KGObject
 
 
@@ -24,19 +24,19 @@ class UnitOfMeasurement(KGObject, OMUnitOfMeasurement):
         Property(
             "describes",
             [
-                "openminds.latest.computation.ValidationTestVersion",
-                "openminds.latest.computation.WorkflowRecipeVersion",
-                "openminds.latest.core.DatasetVersion",
-                "openminds.latest.core.MetaDataModelVersion",
-                "openminds.latest.core.ModelVersion",
-                "openminds.latest.core.SoftwareVersion",
-                "openminds.latest.core.WebServiceVersion",
-                "openminds.latest.publications.Book",
-                "openminds.latest.publications.Chapter",
-                "openminds.latest.publications.LearningResource",
-                "openminds.latest.publications.LivePaperVersion",
-                "openminds.latest.publications.ScholarlyArticle",
-                "openminds.latest.sands.BrainAtlasVersion",
+                "openminds.v4.computation.ValidationTestVersion",
+                "openminds.v4.computation.WorkflowRecipeVersion",
+                "openminds.v4.core.DatasetVersion",
+                "openminds.v4.core.MetaDataModelVersion",
+                "openminds.v4.core.ModelVersion",
+                "openminds.v4.core.SoftwareVersion",
+                "openminds.v4.core.WebServiceVersion",
+                "openminds.v4.publications.Book",
+                "openminds.v4.publications.Chapter",
+                "openminds.v4.publications.LearningResource",
+                "openminds.v4.publications.LivePaperVersion",
+                "openminds.v4.publications.ScholarlyArticle",
+                "openminds.v4.sands.BrainAtlasVersion",
             ],
             "keyword",
             reverse="keywords",
@@ -45,7 +45,7 @@ class UnitOfMeasurement(KGObject, OMUnitOfMeasurement):
         ),
         Property(
             "used_by",
-            ["openminds.latest.sands.CommonCoordinateSpaceVersion", "openminds.latest.sands.CustomCoordinateSpace"],
+            ["openminds.v4.sands.CommonCoordinateSpaceVersion", "openminds.v4.sands.CustomCoordinateSpace"],
             "nativeUnit",
             reverse="native_unit",
             multiple=True,
@@ -53,7 +53,7 @@ class UnitOfMeasurement(KGObject, OMUnitOfMeasurement):
         ),
         Property(
             "used_in",
-            "openminds.latest.ephys.Channel",
+            "openminds.v4.ephys.Channel",
             "unit",
             reverse="unit",
             multiple=True,
@@ -61,7 +61,7 @@ class UnitOfMeasurement(KGObject, OMUnitOfMeasurement):
         ),
         Property(
             "value",
-            "openminds.latest.core.QuantitativeValueArray",
+            "openminds.v4.core.QuantitativeValueArray",
             "unit",
             reverse="unit",
             multiple=True,

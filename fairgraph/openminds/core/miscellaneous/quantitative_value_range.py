@@ -5,7 +5,7 @@ A representation of a range of quantitative values.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import QuantitativeValueRange as OMQuantitativeValueRange
+from openminds.v4.core import QuantitativeValueRange as OMQuantitativeValueRange
 from fairgraph import EmbeddedMetadata
 
 

@@ -5,7 +5,7 @@ Structured information about a specific implemented version of a workflow recipe
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import WorkflowRecipeVersion as OMWorkflowRecipeVersion
+from openminds.v4.computation import WorkflowRecipeVersion as OMWorkflowRecipeVersion
 from fairgraph import KGObject
 
 
@@ -24,7 +24,7 @@ class WorkflowRecipeVersion(KGObject, OMWorkflowRecipeVersion):
     reverse_properties = [
         Property(
             "comments",
-            "openminds.latest.core.Comment",
+            "openminds.v4.core.Comment",
             "about",
             reverse="about",
             multiple=True,
@@ -33,14 +33,14 @@ class WorkflowRecipeVersion(KGObject, OMWorkflowRecipeVersion):
         Property(
             "defined",
             [
-                "openminds.latest.computation.DataAnalysis",
-                "openminds.latest.computation.DataCopy",
-                "openminds.latest.computation.GenericComputation",
-                "openminds.latest.computation.ModelValidation",
-                "openminds.latest.computation.Optimization",
-                "openminds.latest.computation.Simulation",
-                "openminds.latest.computation.Visualization",
-                "openminds.latest.computation.WorkflowExecution",
+                "openminds.v4.computation.DataAnalysis",
+                "openminds.v4.computation.DataCopy",
+                "openminds.v4.computation.GenericComputation",
+                "openminds.v4.computation.ModelValidation",
+                "openminds.v4.computation.Optimization",
+                "openminds.v4.computation.Simulation",
+                "openminds.v4.computation.Visualization",
+                "openminds.v4.computation.WorkflowExecution",
             ],
             "recipe",
             reverse="recipe",
@@ -49,7 +49,7 @@ class WorkflowRecipeVersion(KGObject, OMWorkflowRecipeVersion):
         ),
         Property(
             "is_old_version_of",
-            "openminds.latest.computation.WorkflowRecipeVersion",
+            "openminds.v4.computation.WorkflowRecipeVersion",
             "isNewVersionOf",
             reverse="is_new_version_of",
             multiple=True,
@@ -57,7 +57,7 @@ class WorkflowRecipeVersion(KGObject, OMWorkflowRecipeVersion):
         ),
         Property(
             "is_part_of",
-            ["openminds.latest.core.Project", "openminds.latest.core.ResearchProductGroup"],
+            ["openminds.v4.core.Project", "openminds.v4.core.ResearchProductGroup"],
             "hasPart",
             reverse="has_parts",
             multiple=True,
@@ -65,7 +65,7 @@ class WorkflowRecipeVersion(KGObject, OMWorkflowRecipeVersion):
         ),
         Property(
             "is_version_of",
-            "openminds.latest.computation.WorkflowRecipe",
+            "openminds.v4.computation.WorkflowRecipe",
             "hasVersion",
             reverse="has_versions",
             multiple=True,
@@ -73,7 +73,7 @@ class WorkflowRecipeVersion(KGObject, OMWorkflowRecipeVersion):
         ),
         Property(
             "learning_resources",
-            "openminds.latest.publications.LearningResource",
+            "openminds.v4.publications.LearningResource",
             "about",
             reverse="about",
             multiple=True,

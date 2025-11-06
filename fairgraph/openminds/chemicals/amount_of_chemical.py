@@ -5,7 +5,7 @@ Structured information about the amount of a given chemical that was used.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.chemicals import AmountOfChemical as OMAmountOfChemical
+from openminds.v4.chemicals import AmountOfChemical as OMAmountOfChemical
 from fairgraph import EmbeddedMetadata
 
 

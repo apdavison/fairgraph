@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.specimen_prep import CranialWindowPreparation as OMCranialWindowPreparation
+from openminds.v4.specimen_prep import CranialWindowPreparation as OMCranialWindowPreparation
 from fairgraph import KGObject
 
 

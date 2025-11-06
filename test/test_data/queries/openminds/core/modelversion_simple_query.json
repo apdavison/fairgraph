@@ -52,19 +52,6 @@
       "singleValue": "FIRST"
     },
     {
-      "path": "https://openminds.om-i.org/props/configuration",
-      "propertyName": "configuration",
-      "structure": [
-        {
-          "path": "@id"
-        },
-        {
-          "path": "@type"
-        }
-      ],
-      "singleValue": "FIRST"
-    },
-    {
       "path": "https://openminds.om-i.org/props/copyright",
       "propertyName": "copyright",
       "structure": [
@@ -134,10 +121,6 @@
         }
       ],
       "singleValue": "FIRST"
-    },
-    {
-      "path": "https://openminds.om-i.org/props/entryPoint",
-      "propertyName": "entryPoint"
     },
     {
       "path": "https://openminds.om-i.org/props/format",

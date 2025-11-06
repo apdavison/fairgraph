@@ -5,7 +5,7 @@ A GRID (Global Research Identifier Database) identifier.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import GRIDID as OMGRIDID
+from openminds.v4.core import GRIDID as OMGRIDID
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class GRIDID(KGObject, OMGRIDID):
     reverse_properties = [
         Property(
             "identifies",
-            "openminds.latest.core.Organization",
+            "openminds.v4.core.Organization",
             "digitalIdentifier",
             reverse="digital_identifiers",
             multiple=True,

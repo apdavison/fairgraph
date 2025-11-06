@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import CustomCoordinateSpace as OMCustomCoordinateSpace
+from openminds.v4.sands import CustomCoordinateSpace as OMCustomCoordinateSpace
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class CustomCoordinateSpace(KGObject, OMCustomCoordinateSpace):
     reverse_properties = [
         Property(
             "is_coordinate_space_of",
-            "openminds.latest.sands.CustomAnnotation",
+            "openminds.v4.sands.CustomAnnotation",
             "coordinateSpace",
             reverse="coordinate_space",
             multiple=True,
@@ -28,7 +28,7 @@ class CustomCoordinateSpace(KGObject, OMCustomCoordinateSpace):
         ),
         Property(
             "is_used_to_group",
-            "openminds.latest.core.FileBundle",
+            "openminds.v4.core.FileBundle",
             "groupedBy",
             reverse="grouped_by",
             multiple=True,

@@ -5,7 +5,7 @@ Structured information about a measurement performed during a scientific experim
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Measurement as OMMeasurement
+from openminds.v4.core import Measurement as OMMeasurement
 from fairgraph import EmbeddedMetadata
 
 

@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import BrainAtlas as OMBrainAtlas
+from openminds.v4.sands import BrainAtlas as OMBrainAtlas
 from fairgraph import KGObject
 
 
@@ -23,7 +23,7 @@ class BrainAtlas(KGObject, OMBrainAtlas):
     reverse_properties = [
         Property(
             "comments",
-            "openminds.latest.core.Comment",
+            "openminds.v4.core.Comment",
             "about",
             reverse="about",
             multiple=True,
@@ -31,7 +31,7 @@ class BrainAtlas(KGObject, OMBrainAtlas):
         ),
         Property(
             "is_input_to",
-            "openminds.latest.core.DatasetVersion",
+            "openminds.v4.core.DatasetVersion",
             "inputData",
             reverse="input_data",
             multiple=True,
@@ -39,7 +39,7 @@ class BrainAtlas(KGObject, OMBrainAtlas):
         ),
         Property(
             "is_part_of",
-            ["openminds.latest.core.Project", "openminds.latest.core.ResearchProductGroup"],
+            ["openminds.v4.core.Project", "openminds.v4.core.ResearchProductGroup"],
             "hasPart",
             reverse="has_parts",
             multiple=True,
@@ -47,7 +47,7 @@ class BrainAtlas(KGObject, OMBrainAtlas):
         ),
         Property(
             "learning_resources",
-            "openminds.latest.publications.LearningResource",
+            "openminds.v4.publications.LearningResource",
             "about",
             reverse="about",
             multiple=True,

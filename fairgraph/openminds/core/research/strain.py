@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Strain as OMStrain
+from openminds.v4.core import Strain as OMStrain
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class Strain(KGObject, OMStrain):
     reverse_properties = [
         Property(
             "is_background_strain_of",
-            "openminds.latest.core.Strain",
+            "openminds.v4.core.Strain",
             "backgroundStrain",
             reverse="background_strains",
             multiple=True,
@@ -29,10 +29,10 @@ class Strain(KGObject, OMStrain):
         Property(
             "is_species_of",
             [
-                "openminds.latest.core.Subject",
-                "openminds.latest.core.SubjectGroup",
-                "openminds.latest.core.TissueSample",
-                "openminds.latest.core.TissueSampleCollection",
+                "openminds.v4.core.Subject",
+                "openminds.v4.core.SubjectGroup",
+                "openminds.v4.core.TissueSample",
+                "openminds.v4.core.TissueSampleCollection",
             ],
             "species",
             reverse="species",

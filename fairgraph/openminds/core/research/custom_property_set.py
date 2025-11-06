@@ -5,7 +5,7 @@ Structured information about properties of an entity that are not represented in
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import CustomPropertySet as OMCustomPropertySet
+from openminds.v4.core import CustomPropertySet as OMCustomPropertySet
 from fairgraph import EmbeddedMetadata
 
 

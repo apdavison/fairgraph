@@ -11,7 +11,7 @@ import sys
 
 from jinja2 import Environment, select_autoescape, FileSystemLoader
 
-OPENMINDS_VERSION = "latest"
+OPENMINDS_VERSION = "v4"
 
 
 global_aliases = {

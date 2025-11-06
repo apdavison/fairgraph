@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.specimen_prep import SlicingDevice as OMSlicingDevice
+from openminds.v4.specimen_prep import SlicingDevice as OMSlicingDevice
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class SlicingDevice(KGObject, OMSlicingDevice):
     reverse_properties = [
         Property(
             "is_part_of",
-            "openminds.latest.core.Setup",
+            "openminds.v4.core.Setup",
             "hasPart",
             reverse="has_parts",
             multiple=True,
@@ -28,7 +28,7 @@ class SlicingDevice(KGObject, OMSlicingDevice):
         ),
         Property(
             "usage",
-            "openminds.latest.specimen_prep.SlicingDeviceUsage",
+            "openminds.v4.specimen_prep.SlicingDeviceUsage",
             "device",
             reverse="device",
             multiple=True,

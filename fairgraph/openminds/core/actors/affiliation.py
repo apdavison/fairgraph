@@ -5,7 +5,7 @@ Structured information about a relationship between two entities, such as a pers
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Affiliation as OMAffiliation
+from openminds.v4.core import Affiliation as OMAffiliation
 from fairgraph import EmbeddedMetadata
 
 

@@ -5,7 +5,7 @@ Structured information about a file that is not accessible via a URL.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import LocalFile as OMLocalFile
+from openminds.v4.computation import LocalFile as OMLocalFile
 from fairgraph import KGObject
 
 
@@ -21,13 +21,13 @@ class LocalFile(KGObject, OMLocalFile):
         Property(
             "is_output_of",
             [
-                "openminds.latest.computation.DataAnalysis",
-                "openminds.latest.computation.DataCopy",
-                "openminds.latest.computation.GenericComputation",
-                "openminds.latest.computation.ModelValidation",
-                "openminds.latest.computation.Optimization",
-                "openminds.latest.computation.Simulation",
-                "openminds.latest.computation.Visualization",
+                "openminds.v4.computation.DataAnalysis",
+                "openminds.v4.computation.DataCopy",
+                "openminds.v4.computation.GenericComputation",
+                "openminds.v4.computation.ModelValidation",
+                "openminds.v4.computation.Optimization",
+                "openminds.v4.computation.Simulation",
+                "openminds.v4.computation.Visualization",
             ],
             "output",
             reverse="outputs",
@@ -36,7 +36,7 @@ class LocalFile(KGObject, OMLocalFile):
         ),
         Property(
             "is_used_to_group",
-            "openminds.latest.core.FileBundle",
+            "openminds.v4.core.FileBundle",
             "groupedBy",
             reverse="grouped_by",
             multiple=True,

@@ -5,7 +5,7 @@ Structured information on the computer system or set of systems in which a compu
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import Environment as OMEnvironment
+from openminds.v4.computation import Environment as OMEnvironment
 from fairgraph import KGObject
 
 
@@ -21,14 +21,14 @@ class Environment(KGObject, OMEnvironment):
         Property(
             "used_for",
             [
-                "openminds.latest.computation.DataAnalysis",
-                "openminds.latest.computation.DataCopy",
-                "openminds.latest.computation.GenericComputation",
-                "openminds.latest.computation.ModelValidation",
-                "openminds.latest.computation.Optimization",
-                "openminds.latest.computation.Simulation",
-                "openminds.latest.computation.SoftwareAgent",
-                "openminds.latest.computation.Visualization",
+                "openminds.v4.computation.DataAnalysis",
+                "openminds.v4.computation.DataCopy",
+                "openminds.v4.computation.GenericComputation",
+                "openminds.v4.computation.ModelValidation",
+                "openminds.v4.computation.Optimization",
+                "openminds.v4.computation.Simulation",
+                "openminds.v4.computation.SoftwareAgent",
+                "openminds.v4.computation.Visualization",
             ],
             "environment",
             reverse="environment",

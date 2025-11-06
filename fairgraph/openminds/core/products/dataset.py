@@ -5,7 +5,7 @@ Structured information on data originating from human/animal studies or simulati
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Dataset as OMDataset
+from openminds.v4.core import Dataset as OMDataset
 from fairgraph import KGObject
 
 
@@ -23,7 +23,7 @@ class Dataset(KGObject, OMDataset):
     reverse_properties = [
         Property(
             "comments",
-            "openminds.latest.core.Comment",
+            "openminds.v4.core.Comment",
             "about",
             reverse="about",
             multiple=True,
@@ -31,7 +31,7 @@ class Dataset(KGObject, OMDataset):
         ),
         Property(
             "is_part_of",
-            ["openminds.latest.core.Project", "openminds.latest.core.ResearchProductGroup"],
+            ["openminds.v4.core.Project", "openminds.v4.core.ResearchProductGroup"],
             "hasPart",
             reverse="has_parts",
             multiple=True,
@@ -39,7 +39,7 @@ class Dataset(KGObject, OMDataset):
         ),
         Property(
             "learning_resources",
-            "openminds.latest.publications.LearningResource",
+            "openminds.v4.publications.LearningResource",
             "about",
             reverse="about",
             multiple=True,

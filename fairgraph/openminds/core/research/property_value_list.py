@@ -5,7 +5,7 @@ An identifiable list of property-value pairs.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import PropertyValueList as OMPropertyValueList
+from openminds.v4.core import PropertyValueList as OMPropertyValueList
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class PropertyValueList(KGObject, OMPropertyValueList):
     reverse_properties = [
         Property(
             "defines_environment_of",
-            "openminds.latest.computation.LaunchConfiguration",
+            "openminds.v4.computation.LaunchConfiguration",
             "environmentVariable",
             reverse="environment_variable",
             multiple=True,
@@ -28,7 +28,7 @@ class PropertyValueList(KGObject, OMPropertyValueList):
         ),
         Property(
             "is_configuration_of",
-            ["openminds.latest.computation.ValidationTestVersion", "openminds.latest.core.ModelVersion"],
+            "openminds.v4.computation.ValidationTestVersion",
             "configuration",
             reverse="configuration",
             multiple=True,
@@ -36,7 +36,7 @@ class PropertyValueList(KGObject, OMPropertyValueList):
         ),
         Property(
             "specifies",
-            ["openminds.latest.sands.CustomAnnotation", "openminds.latest.stimulation.EphysStimulus"],
+            ["openminds.v4.sands.CustomAnnotation", "openminds.v4.stimulation.EphysStimulus"],
             "specification",
             reverse="specification",
             multiple=True,

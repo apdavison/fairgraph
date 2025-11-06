@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import SoftwareVersion as OMSoftwareVersion
+from openminds.v4.core import SoftwareVersion as OMSoftwareVersion
 from fairgraph import KGObject
 
 
@@ -24,7 +24,7 @@ class SoftwareVersion(KGObject, OMSoftwareVersion):
     reverse_properties = [
         Property(
             "comments",
-            "openminds.latest.core.Comment",
+            "openminds.v4.core.Comment",
             "about",
             reverse="about",
             multiple=True,
@@ -33,13 +33,13 @@ class SoftwareVersion(KGObject, OMSoftwareVersion):
         Property(
             "is_input_to",
             [
-                "openminds.latest.computation.DataAnalysis",
-                "openminds.latest.computation.DataCopy",
-                "openminds.latest.computation.GenericComputation",
-                "openminds.latest.computation.ModelValidation",
-                "openminds.latest.computation.Optimization",
-                "openminds.latest.computation.Simulation",
-                "openminds.latest.computation.Visualization",
+                "openminds.v4.computation.DataAnalysis",
+                "openminds.v4.computation.DataCopy",
+                "openminds.v4.computation.GenericComputation",
+                "openminds.v4.computation.ModelValidation",
+                "openminds.v4.computation.Optimization",
+                "openminds.v4.computation.Simulation",
+                "openminds.v4.computation.Visualization",
             ],
             "input",
             reverse="inputs",
@@ -48,7 +48,7 @@ class SoftwareVersion(KGObject, OMSoftwareVersion):
         ),
         Property(
             "is_old_version_of",
-            "openminds.latest.core.SoftwareVersion",
+            "openminds.v4.core.SoftwareVersion",
             "isNewVersionOf",
             reverse="is_new_version_of",
             multiple=True,
@@ -57,11 +57,11 @@ class SoftwareVersion(KGObject, OMSoftwareVersion):
         Property(
             "is_part_of",
             [
-                "openminds.latest.computation.WorkflowRecipeVersion",
-                "openminds.latest.core.Project",
-                "openminds.latest.core.ResearchProductGroup",
-                "openminds.latest.core.Setup",
-                "openminds.latest.core.WebServiceVersion",
+                "openminds.v4.computation.WorkflowRecipeVersion",
+                "openminds.v4.core.Project",
+                "openminds.v4.core.ResearchProductGroup",
+                "openminds.v4.core.Setup",
+                "openminds.v4.core.WebServiceVersion",
             ],
             "hasPart",
             reverse="has_parts",
@@ -70,7 +70,7 @@ class SoftwareVersion(KGObject, OMSoftwareVersion):
         ),
         Property(
             "is_version_of",
-            "openminds.latest.core.Software",
+            "openminds.v4.core.Software",
             "hasVersion",
             reverse="has_versions",
             multiple=True,
@@ -78,7 +78,7 @@ class SoftwareVersion(KGObject, OMSoftwareVersion):
         ),
         Property(
             "learning_resources",
-            "openminds.latest.publications.LearningResource",
+            "openminds.v4.publications.LearningResource",
             "about",
             reverse="about",
             multiple=True,
@@ -86,7 +86,7 @@ class SoftwareVersion(KGObject, OMSoftwareVersion):
         ),
         Property(
             "publication",
-            "openminds.latest.publications.LivePaperVersion",
+            "openminds.v4.publications.LivePaperVersion",
             "about",
             reverse="about",
             multiple=True,
@@ -94,7 +94,7 @@ class SoftwareVersion(KGObject, OMSoftwareVersion):
         ),
         Property(
             "used_in",
-            ["openminds.latest.computation.Environment", "openminds.latest.computation.SoftwareAgent"],
+            ["openminds.v4.computation.Environment", "openminds.v4.computation.SoftwareAgent"],
             "software",
             reverse="software",
             multiple=True,

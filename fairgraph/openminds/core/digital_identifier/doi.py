@@ -5,7 +5,7 @@ Structured information about a digital object identifier, as standardized by the
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import DOI as OMDOI
+from openminds.v4.core import DOI as OMDOI
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class DOI(KGObject, OMDOI):
     reverse_properties = [
         Property(
             "describes",
-            ["openminds.latest.core.BehavioralProtocol", "openminds.latest.core.Protocol"],
+            ["openminds.v4.core.BehavioralProtocol", "openminds.v4.core.Protocol"],
             "describedIn",
             reverse="described_in",
             multiple=True,
@@ -29,23 +29,23 @@ class DOI(KGObject, OMDOI):
         Property(
             "identifies",
             [
-                "openminds.latest.computation.ValidationTest",
-                "openminds.latest.computation.WorkflowRecipe",
-                "openminds.latest.core.Dataset",
-                "openminds.latest.core.MetaDataModel",
-                "openminds.latest.core.Model",
-                "openminds.latest.core.Software",
-                "openminds.latest.ephys.Electrode",
-                "openminds.latest.ephys.ElectrodeArray",
-                "openminds.latest.ephys.Pipette",
-                "openminds.latest.publications.Book",
-                "openminds.latest.publications.Chapter",
-                "openminds.latest.publications.LearningResource",
-                "openminds.latest.publications.LivePaper",
-                "openminds.latest.publications.ScholarlyArticle",
-                "openminds.latest.sands.BrainAtlas",
-                "openminds.latest.sands.CommonCoordinateSpace",
-                "openminds.latest.specimen_prep.SlicingDevice",
+                "openminds.v4.computation.ValidationTest",
+                "openminds.v4.computation.WorkflowRecipe",
+                "openminds.v4.core.Dataset",
+                "openminds.v4.core.MetaDataModel",
+                "openminds.v4.core.Model",
+                "openminds.v4.core.Software",
+                "openminds.v4.ephys.Electrode",
+                "openminds.v4.ephys.ElectrodeArray",
+                "openminds.v4.ephys.Pipette",
+                "openminds.v4.publications.Book",
+                "openminds.v4.publications.Chapter",
+                "openminds.v4.publications.LearningResource",
+                "openminds.v4.publications.LivePaper",
+                "openminds.v4.publications.ScholarlyArticle",
+                "openminds.v4.sands.BrainAtlas",
+                "openminds.v4.sands.CommonCoordinateSpace",
+                "openminds.v4.specimen_prep.SlicingDevice",
             ],
             "digitalIdentifier",
             reverse="digital_identifier",
@@ -55,16 +55,16 @@ class DOI(KGObject, OMDOI):
         Property(
             "related_to",
             [
-                "openminds.latest.computation.ValidationTestVersion",
-                "openminds.latest.computation.WorkflowRecipeVersion",
-                "openminds.latest.core.DatasetVersion",
-                "openminds.latest.core.MetaDataModelVersion",
-                "openminds.latest.core.ModelVersion",
-                "openminds.latest.core.SoftwareVersion",
-                "openminds.latest.core.WebServiceVersion",
-                "openminds.latest.publications.LivePaperVersion",
-                "openminds.latest.sands.BrainAtlasVersion",
-                "openminds.latest.sands.CommonCoordinateSpaceVersion",
+                "openminds.v4.computation.ValidationTestVersion",
+                "openminds.v4.computation.WorkflowRecipeVersion",
+                "openminds.v4.core.DatasetVersion",
+                "openminds.v4.core.MetaDataModelVersion",
+                "openminds.v4.core.ModelVersion",
+                "openminds.v4.core.SoftwareVersion",
+                "openminds.v4.core.WebServiceVersion",
+                "openminds.v4.publications.LivePaperVersion",
+                "openminds.v4.sands.BrainAtlasVersion",
+                "openminds.v4.sands.CommonCoordinateSpaceVersion",
             ],
             "relatedPublication",
             reverse="related_publications",

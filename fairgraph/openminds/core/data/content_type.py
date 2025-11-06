@@ -5,7 +5,7 @@ Structured information on the content type of a file instance, bundle or reposit
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import ContentType as OMContentType
+from openminds.v4.core import ContentType as OMContentType
 from fairgraph import KGObject
 
 
@@ -23,7 +23,7 @@ class ContentType(KGObject, OMContentType):
     reverse_properties = [
         Property(
             "is_defined_by",
-            "openminds.latest.core.ContentTypePattern",
+            "openminds.v4.core.ContentTypePattern",
             "contentType",
             reverse="content_type",
             multiple=True,
@@ -32,16 +32,16 @@ class ContentType(KGObject, OMContentType):
         Property(
             "is_format_of",
             [
-                "openminds.latest.computation.LocalFile",
-                "openminds.latest.computation.ValidationTestVersion",
-                "openminds.latest.computation.WorkflowRecipeVersion",
-                "openminds.latest.core.Configuration",
-                "openminds.latest.core.File",
-                "openminds.latest.core.FileArchive",
-                "openminds.latest.core.FileBundle",
-                "openminds.latest.core.FileRepository",
-                "openminds.latest.core.ModelVersion",
-                "openminds.latest.core.WebResource",
+                "openminds.v4.computation.LocalFile",
+                "openminds.v4.computation.ValidationTestVersion",
+                "openminds.v4.computation.WorkflowRecipeVersion",
+                "openminds.v4.core.Configuration",
+                "openminds.v4.core.File",
+                "openminds.v4.core.FileArchive",
+                "openminds.v4.core.FileBundle",
+                "openminds.v4.core.FileRepository",
+                "openminds.v4.core.ModelVersion",
+                "openminds.v4.core.WebResource",
             ],
             "format",
             reverse="format",
@@ -50,7 +50,7 @@ class ContentType(KGObject, OMContentType):
         ),
         Property(
             "is_output_format_of",
-            ["openminds.latest.core.SoftwareVersion", "openminds.latest.core.WebServiceVersion"],
+            ["openminds.v4.core.SoftwareVersion", "openminds.v4.core.WebServiceVersion"],
             "outputFormat",
             reverse="output_formats",
             multiple=True,
@@ -58,7 +58,7 @@ class ContentType(KGObject, OMContentType):
         ),
         Property(
             "is_specification_format_of",
-            "openminds.latest.core.MetaDataModelVersion",
+            "openminds.v4.core.MetaDataModelVersion",
             "specificationFormat",
             reverse="specification_formats",
             multiple=True,

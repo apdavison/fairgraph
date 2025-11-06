@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.publications import Periodical as OMPeriodical
+from openminds.v4.publications import Periodical as OMPeriodical
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class Periodical(KGObject, OMPeriodical):
     reverse_properties = [
         Property(
             "has_parts",
-            "openminds.latest.publications.PublicationVolume",
+            "openminds.v4.publications.PublicationVolume",
             "isPartOf",
             reverse="is_part_of",
             multiple=True,

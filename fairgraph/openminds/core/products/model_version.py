@@ -5,7 +5,7 @@ Structured information on a computational model (version level).
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import ModelVersion as OMModelVersion
+from openminds.v4.core import ModelVersion as OMModelVersion
 from fairgraph import KGObject
 
 from urllib.request import urlretrieve
@@ -26,7 +26,7 @@ class ModelVersion(KGObject, OMModelVersion):
     reverse_properties = [
         Property(
             "comments",
-            "openminds.latest.core.Comment",
+            "openminds.v4.core.Comment",
             "about",
             reverse="about",
             multiple=True,
@@ -35,9 +35,9 @@ class ModelVersion(KGObject, OMModelVersion):
         Property(
             "is_input_to",
             [
-                "openminds.latest.computation.DataCopy",
-                "openminds.latest.computation.ModelValidation",
-                "openminds.latest.computation.Simulation",
+                "openminds.v4.computation.DataCopy",
+                "openminds.v4.computation.ModelValidation",
+                "openminds.v4.computation.Simulation",
             ],
             "input",
             reverse="inputs",
@@ -46,7 +46,7 @@ class ModelVersion(KGObject, OMModelVersion):
         ),
         Property(
             "is_location_of",
-            "openminds.latest.core.ServiceLink",
+            "openminds.v4.core.ServiceLink",
             "dataLocation",
             reverse="data_location",
             multiple=True,
@@ -54,7 +54,7 @@ class ModelVersion(KGObject, OMModelVersion):
         ),
         Property(
             "is_old_version_of",
-            "openminds.latest.core.ModelVersion",
+            "openminds.v4.core.ModelVersion",
             "isNewVersionOf",
             reverse="is_new_version_of",
             multiple=True,
@@ -62,7 +62,7 @@ class ModelVersion(KGObject, OMModelVersion):
         ),
         Property(
             "is_output_of",
-            "openminds.latest.computation.Optimization",
+            "openminds.v4.computation.Optimization",
             "output",
             reverse="outputs",
             multiple=True,
@@ -71,9 +71,9 @@ class ModelVersion(KGObject, OMModelVersion):
         Property(
             "is_part_of",
             [
-                "openminds.latest.core.Project",
-                "openminds.latest.core.ResearchProductGroup",
-                "openminds.latest.core.SoftwareVersion",
+                "openminds.v4.core.Project",
+                "openminds.v4.core.ResearchProductGroup",
+                "openminds.v4.core.SoftwareVersion",
             ],
             "hasPart",
             reverse="has_parts",
@@ -82,7 +82,7 @@ class ModelVersion(KGObject, OMModelVersion):
         ),
         Property(
             "is_version_of",
-            "openminds.latest.core.Model",
+            "openminds.v4.core.Model",
             "hasVersion",
             reverse="has_versions",
             multiple=True,
@@ -90,7 +90,7 @@ class ModelVersion(KGObject, OMModelVersion):
         ),
         Property(
             "learning_resources",
-            "openminds.latest.publications.LearningResource",
+            "openminds.v4.publications.LearningResource",
             "about",
             reverse="about",
             multiple=True,
@@ -98,7 +98,7 @@ class ModelVersion(KGObject, OMModelVersion):
         ),
         Property(
             "publication",
-            "openminds.latest.publications.LivePaperVersion",
+            "openminds.v4.publications.LivePaperVersion",
             "about",
             reverse="about",
             multiple=True,
@@ -114,13 +114,11 @@ class ModelVersion(KGObject, OMModelVersion):
         alias=None,
         accessibility=None,
         comments=None,
-        configuration=None,
         copyright=None,
         custodians=None,
         description=None,
         developers=None,
         digital_identifier=None,
-        entry_point=None,
         formats=None,
         full_documentation=None,
         full_name=None,
@@ -164,13 +162,11 @@ class ModelVersion(KGObject, OMModelVersion):
             alias=alias,
             accessibility=accessibility,
             comments=comments,
-            configuration=configuration,
             copyright=copyright,
             custodians=custodians,
             description=description,
             developers=developers,
             digital_identifier=digital_identifier,
-            entry_point=entry_point,
             formats=formats,
             full_documentation=full_documentation,
             full_name=full_name,

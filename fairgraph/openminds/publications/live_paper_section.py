@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.publications import LivePaperSection as OMLivePaperSection
+from openminds.v4.publications import LivePaperSection as OMLivePaperSection
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class LivePaperSection(KGObject, OMLivePaperSection):
     reverse_properties = [
         Property(
             "has_parts",
-            "openminds.latest.publications.LivePaperResourceItem",
+            "openminds.v4.publications.LivePaperResourceItem",
             "isPartOf",
             reverse="is_part_of",
             multiple=True,

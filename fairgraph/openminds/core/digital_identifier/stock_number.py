@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import StockNumber as OMStockNumber
+from openminds.v4.core import StockNumber as OMStockNumber
 from fairgraph import EmbeddedMetadata
 
 

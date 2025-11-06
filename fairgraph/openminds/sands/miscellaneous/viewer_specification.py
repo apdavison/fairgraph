@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import ViewerSpecification as OMViewerSpecification
+from openminds.v4.sands import ViewerSpecification as OMViewerSpecification
 from fairgraph import EmbeddedMetadata
 
 

@@ -5,7 +5,7 @@ Structured information about an execution of a computational workflow.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import WorkflowExecution as OMWorkflowExecution
+from openminds.v4.computation import WorkflowExecution as OMWorkflowExecution
 from fairgraph import KGObject
 
 

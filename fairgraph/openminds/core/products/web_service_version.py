@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import WebServiceVersion as OMWebServiceVersion
+from openminds.v4.core import WebServiceVersion as OMWebServiceVersion
 from fairgraph import KGObject
 
 
@@ -24,7 +24,7 @@ class WebServiceVersion(KGObject, OMWebServiceVersion):
     reverse_properties = [
         Property(
             "comments",
-            "openminds.latest.core.Comment",
+            "openminds.v4.core.Comment",
             "about",
             reverse="about",
             multiple=True,
@@ -32,7 +32,7 @@ class WebServiceVersion(KGObject, OMWebServiceVersion):
         ),
         Property(
             "is_old_version_of",
-            "openminds.latest.core.WebServiceVersion",
+            "openminds.v4.core.WebServiceVersion",
             "isNewVersionOf",
             reverse="is_new_version_of",
             multiple=True,
@@ -40,7 +40,7 @@ class WebServiceVersion(KGObject, OMWebServiceVersion):
         ),
         Property(
             "is_part_of",
-            ["openminds.latest.core.Project", "openminds.latest.core.ResearchProductGroup"],
+            ["openminds.v4.core.Project", "openminds.v4.core.ResearchProductGroup"],
             "hasPart",
             reverse="has_parts",
             multiple=True,
@@ -48,7 +48,7 @@ class WebServiceVersion(KGObject, OMWebServiceVersion):
         ),
         Property(
             "is_version_of",
-            "openminds.latest.core.WebService",
+            "openminds.v4.core.WebService",
             "hasVersion",
             reverse="has_versions",
             multiple=True,
@@ -56,7 +56,7 @@ class WebServiceVersion(KGObject, OMWebServiceVersion):
         ),
         Property(
             "learning_resources",
-            "openminds.latest.publications.LearningResource",
+            "openminds.v4.publications.LearningResource",
             "about",
             reverse="about",
             multiple=True,
@@ -65,13 +65,13 @@ class WebServiceVersion(KGObject, OMWebServiceVersion):
         Property(
             "used_for",
             [
-                "openminds.latest.computation.DataAnalysis",
-                "openminds.latest.computation.DataCopy",
-                "openminds.latest.computation.GenericComputation",
-                "openminds.latest.computation.ModelValidation",
-                "openminds.latest.computation.Optimization",
-                "openminds.latest.computation.Simulation",
-                "openminds.latest.computation.Visualization",
+                "openminds.v4.computation.DataAnalysis",
+                "openminds.v4.computation.DataCopy",
+                "openminds.v4.computation.GenericComputation",
+                "openminds.v4.computation.ModelValidation",
+                "openminds.v4.computation.Optimization",
+                "openminds.v4.computation.Simulation",
+                "openminds.v4.computation.Visualization",
             ],
             "environment",
             reverse="environment",

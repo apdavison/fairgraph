@@ -5,7 +5,7 @@ Structured information on a file repository.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import FileRepository as OMFileRepository
+from openminds.v4.core import FileRepository as OMFileRepository
 from fairgraph import KGObject
 
 
@@ -24,16 +24,16 @@ class FileRepository(KGObject, OMFileRepository):
         Property(
             "contains_content_of",
             [
-                "openminds.latest.computation.ValidationTestVersion",
-                "openminds.latest.computation.WorkflowRecipeVersion",
-                "openminds.latest.core.DatasetVersion",
-                "openminds.latest.core.MetaDataModelVersion",
-                "openminds.latest.core.ModelVersion",
-                "openminds.latest.core.SoftwareVersion",
-                "openminds.latest.core.WebServiceVersion",
-                "openminds.latest.publications.LivePaperVersion",
-                "openminds.latest.sands.BrainAtlasVersion",
-                "openminds.latest.sands.CommonCoordinateSpaceVersion",
+                "openminds.v4.computation.ValidationTestVersion",
+                "openminds.v4.computation.WorkflowRecipeVersion",
+                "openminds.v4.core.DatasetVersion",
+                "openminds.v4.core.MetaDataModelVersion",
+                "openminds.v4.core.ModelVersion",
+                "openminds.v4.core.SoftwareVersion",
+                "openminds.v4.core.WebServiceVersion",
+                "openminds.v4.publications.LivePaperVersion",
+                "openminds.v4.sands.BrainAtlasVersion",
+                "openminds.v4.sands.CommonCoordinateSpaceVersion",
             ],
             "repository",
             reverse="repository",
@@ -42,7 +42,7 @@ class FileRepository(KGObject, OMFileRepository):
         ),
         Property(
             "files",
-            "openminds.latest.core.File",
+            "openminds.v4.core.File",
             "fileRepository",
             reverse="file_repository",
             multiple=True,
@@ -50,7 +50,7 @@ class FileRepository(KGObject, OMFileRepository):
         ),
         Property(
             "has_parts",
-            "openminds.latest.core.FileBundle",
+            "openminds.v4.core.FileBundle",
             "isPartOf",
             reverse="is_part_of",
             multiple=True,

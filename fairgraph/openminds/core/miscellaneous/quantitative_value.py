@@ -5,7 +5,7 @@ Structured information on a quantitative value.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import QuantitativeValue as OMQuantitativeValue
+from openminds.v4.core import QuantitativeValue as OMQuantitativeValue
 from fairgraph import EmbeddedMetadata
 
 

@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import ParcellationTerminologyVersion as OMParcellationTerminologyVersion
+from openminds.v4.sands import ParcellationTerminologyVersion as OMParcellationTerminologyVersion
 from fairgraph import EmbeddedMetadata
 
 

@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.stimulation import StimulationActivity as OMStimulationActivity
+from openminds.v4.stimulation import StimulationActivity as OMStimulationActivity
 from fairgraph import KGObject
 
 

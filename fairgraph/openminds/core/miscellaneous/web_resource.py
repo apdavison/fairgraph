@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import WebResource as OMWebResource
+from openminds.v4.core import WebResource as OMWebResource
 from fairgraph import KGObject
 
 
@@ -23,7 +23,7 @@ class WebResource(KGObject, OMWebResource):
     reverse_properties = [
         Property(
             "describes",
-            ["openminds.latest.core.BehavioralProtocol", "openminds.latest.core.Protocol"],
+            ["openminds.v4.core.BehavioralProtocol", "openminds.v4.core.Protocol"],
             "describedIn",
             reverse="described_in",
             multiple=True,
@@ -32,13 +32,13 @@ class WebResource(KGObject, OMWebResource):
         Property(
             "fully_documents",
             [
-                "openminds.latest.computation.WorkflowRecipeVersion",
-                "openminds.latest.core.MetaDataModelVersion",
-                "openminds.latest.core.SoftwareVersion",
-                "openminds.latest.core.WebServiceVersion",
-                "openminds.latest.publications.LivePaperVersion",
-                "openminds.latest.sands.BrainAtlasVersion",
-                "openminds.latest.sands.CommonCoordinateSpaceVersion",
+                "openminds.v4.computation.WorkflowRecipeVersion",
+                "openminds.v4.core.MetaDataModelVersion",
+                "openminds.v4.core.SoftwareVersion",
+                "openminds.v4.core.WebServiceVersion",
+                "openminds.v4.publications.LivePaperVersion",
+                "openminds.v4.sands.BrainAtlasVersion",
+                "openminds.v4.sands.CommonCoordinateSpaceVersion",
             ],
             "fullDocumentation",
             reverse="full_documentation",
@@ -47,7 +47,7 @@ class WebResource(KGObject, OMWebResource):
         ),
         Property(
             "is_applied_to",
-            "openminds.latest.core.DatasetVersion",
+            "openminds.v4.core.DatasetVersion",
             "license",
             reverse="license",
             multiple=True,
@@ -55,7 +55,7 @@ class WebResource(KGObject, OMWebResource):
         ),
         Property(
             "is_output_of",
-            "openminds.latest.core.ModelVersion",
+            "openminds.v4.core.ModelVersion",
             "outputData",
             reverse="output_data",
             multiple=True,
@@ -63,7 +63,7 @@ class WebResource(KGObject, OMWebResource):
         ),
         Property(
             "is_reference_for",
-            "openminds.latest.computation.ValidationTestVersion",
+            "openminds.v4.computation.ValidationTestVersion",
             "referenceData",
             reverse="reference_data",
             multiple=True,

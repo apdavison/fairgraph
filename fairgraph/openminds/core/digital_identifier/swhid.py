@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import SWHID as OMSWHID
+from openminds.v4.core import SWHID as OMSWHID
 from fairgraph import KGObject
 
 
@@ -21,12 +21,12 @@ class SWHID(KGObject, OMSWHID):
         Property(
             "identifies",
             [
-                "openminds.latest.core.MetaDataModel",
-                "openminds.latest.core.MetaDataModelVersion",
-                "openminds.latest.core.Model",
-                "openminds.latest.core.ModelVersion",
-                "openminds.latest.core.Software",
-                "openminds.latest.core.SoftwareVersion",
+                "openminds.v4.core.MetaDataModel",
+                "openminds.v4.core.MetaDataModelVersion",
+                "openminds.v4.core.Model",
+                "openminds.v4.core.ModelVersion",
+                "openminds.v4.core.Software",
+                "openminds.v4.core.SoftwareVersion",
             ],
             "digitalIdentifier",
             reverse="digital_identifier",

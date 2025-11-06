@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import BrainAtlasVersion as OMBrainAtlasVersion
+from openminds.v4.sands import BrainAtlasVersion as OMBrainAtlasVersion
 from fairgraph import KGObject
 
 from urllib.request import urlretrieve
@@ -26,7 +26,7 @@ class BrainAtlasVersion(KGObject, OMBrainAtlasVersion):
     reverse_properties = [
         Property(
             "comments",
-            "openminds.latest.core.Comment",
+            "openminds.v4.core.Comment",
             "about",
             reverse="about",
             multiple=True,
@@ -35,9 +35,9 @@ class BrainAtlasVersion(KGObject, OMBrainAtlasVersion):
         Property(
             "is_input_to",
             [
-                "openminds.latest.computation.DataAnalysis",
-                "openminds.latest.core.DatasetVersion",
-                "openminds.latest.core.ProtocolExecution",
+                "openminds.v4.computation.DataAnalysis",
+                "openminds.v4.core.DatasetVersion",
+                "openminds.v4.core.ProtocolExecution",
             ],
             ["input", "inputData"],
             reverse=["input_data", "inputs"],
@@ -46,7 +46,7 @@ class BrainAtlasVersion(KGObject, OMBrainAtlasVersion):
         ),
         Property(
             "is_old_version_of",
-            "openminds.latest.sands.BrainAtlasVersion",
+            "openminds.v4.sands.BrainAtlasVersion",
             "isNewVersionOf",
             reverse="is_new_version_of",
             multiple=True,
@@ -55,9 +55,9 @@ class BrainAtlasVersion(KGObject, OMBrainAtlasVersion):
         Property(
             "is_part_of",
             [
-                "openminds.latest.core.Project",
-                "openminds.latest.core.ResearchProductGroup",
-                "openminds.latest.core.SoftwareVersion",
+                "openminds.v4.core.Project",
+                "openminds.v4.core.ResearchProductGroup",
+                "openminds.v4.core.SoftwareVersion",
             ],
             "hasPart",
             reverse="has_parts",
@@ -66,7 +66,7 @@ class BrainAtlasVersion(KGObject, OMBrainAtlasVersion):
         ),
         Property(
             "is_version_of",
-            "openminds.latest.sands.BrainAtlas",
+            "openminds.v4.sands.BrainAtlas",
             "hasVersion",
             reverse="has_versions",
             multiple=True,
@@ -74,7 +74,7 @@ class BrainAtlasVersion(KGObject, OMBrainAtlasVersion):
         ),
         Property(
             "learning_resources",
-            "openminds.latest.publications.LearningResource",
+            "openminds.v4.publications.LearningResource",
             "about",
             reverse="about",
             multiple=True,

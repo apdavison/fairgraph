@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.ephys import Recording as OMRecording
+from openminds.v4.ephys import Recording as OMRecording
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class Recording(KGObject, OMRecording):
     reverse_properties = [
         Property(
             "next_recording",
-            "openminds.latest.ephys.Recording",
+            "openminds.v4.ephys.Recording",
             "previousRecording",
             reverse="previous_recording",
             multiple=True,

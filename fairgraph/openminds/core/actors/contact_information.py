@@ -5,7 +5,7 @@ Structured information about how to contact a given person or consortium.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import ContactInformation as OMContactInformation
+from openminds.v4.core import ContactInformation as OMContactInformation
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class ContactInformation(KGObject, OMContactInformation):
     reverse_properties = [
         Property(
             "is_contact_information_of",
-            ["openminds.latest.core.Consortium", "openminds.latest.core.Person"],
+            ["openminds.v4.core.Consortium", "openminds.v4.core.Person"],
             "contactInformation",
             reverse="contact_information",
             multiple=True,

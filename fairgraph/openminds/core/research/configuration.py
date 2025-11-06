@@ -5,7 +5,7 @@ Structured information about the properties or parameters of an entity or proces
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Configuration as OMConfiguration
+from openminds.v4.core import Configuration as OMConfiguration
 from fairgraph import KGObject
 
 
@@ -21,10 +21,9 @@ class Configuration(KGObject, OMConfiguration):
         Property(
             "is_configuration_of",
             [
-                "openminds.latest.computation.Environment",
-                "openminds.latest.computation.ValidationTestVersion",
-                "openminds.latest.computation.WorkflowExecution",
-                "openminds.latest.core.ModelVersion",
+                "openminds.v4.computation.Environment",
+                "openminds.v4.computation.ValidationTestVersion",
+                "openminds.v4.computation.WorkflowExecution",
             ],
             "configuration",
             reverse="configuration",
@@ -33,7 +32,7 @@ class Configuration(KGObject, OMConfiguration):
         ),
         Property(
             "specifies",
-            "openminds.latest.stimulation.EphysStimulus",
+            "openminds.v4.stimulation.EphysStimulus",
             "specification",
             reverse="specifications",
             multiple=True,

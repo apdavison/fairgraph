@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.publications import PublicationIssue as OMPublicationIssue
+from openminds.v4.publications import PublicationIssue as OMPublicationIssue
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class PublicationIssue(KGObject, OMPublicationIssue):
     reverse_properties = [
         Property(
             "has_parts",
-            "openminds.latest.publications.ScholarlyArticle",
+            "openminds.v4.publications.ScholarlyArticle",
             "isPartOf",
             reverse="is_part_of",
             multiple=True,

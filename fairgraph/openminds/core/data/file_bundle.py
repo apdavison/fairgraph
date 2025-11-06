@@ -5,7 +5,7 @@ Structured information on a bundle of file instances.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import FileBundle as OMFileBundle
+from openminds.v4.core import FileBundle as OMFileBundle
 from fairgraph import KGObject
 
 
@@ -21,10 +21,10 @@ class FileBundle(KGObject, OMFileBundle):
         Property(
             "describes",
             [
-                "openminds.latest.ephys.ElectrodeArrayUsage",
-                "openminds.latest.ephys.ElectrodeUsage",
-                "openminds.latest.ephys.PipetteUsage",
-                "openminds.latest.specimen_prep.SlicingDeviceUsage",
+                "openminds.v4.ephys.ElectrodeArrayUsage",
+                "openminds.v4.ephys.ElectrodeUsage",
+                "openminds.v4.ephys.PipetteUsage",
+                "openminds.v4.specimen_prep.SlicingDeviceUsage",
             ],
             "metadataLocation",
             reverse="metadata_locations",
@@ -33,7 +33,7 @@ class FileBundle(KGObject, OMFileBundle):
         ),
         Property(
             "has_parts",
-            ["openminds.latest.core.File", "openminds.latest.core.FileBundle"],
+            ["openminds.v4.core.File", "openminds.v4.core.FileBundle"],
             "isPartOf",
             reverse="is_part_of",
             multiple=True,
@@ -41,7 +41,7 @@ class FileBundle(KGObject, OMFileBundle):
         ),
         Property(
             "is_also_part_of",
-            "openminds.latest.computation.WorkflowRecipeVersion",
+            "openminds.v4.computation.WorkflowRecipeVersion",
             "hasPart",
             reverse="has_parts",
             multiple=True,
@@ -49,7 +49,7 @@ class FileBundle(KGObject, OMFileBundle):
         ),
         Property(
             "is_input_to",
-            "openminds.latest.core.DatasetVersion",
+            "openminds.v4.core.DatasetVersion",
             "inputData",
             reverse="input_data",
             multiple=True,
@@ -57,7 +57,7 @@ class FileBundle(KGObject, OMFileBundle):
         ),
         Property(
             "is_location_of",
-            ["openminds.latest.core.ServiceLink", "openminds.latest.ephys.Recording"],
+            ["openminds.v4.core.ServiceLink", "openminds.v4.ephys.Recording"],
             "dataLocation",
             reverse="data_location",
             multiple=True,
@@ -66,17 +66,17 @@ class FileBundle(KGObject, OMFileBundle):
         Property(
             "is_output_of",
             [
-                "openminds.latest.computation.DataAnalysis",
-                "openminds.latest.computation.DataCopy",
-                "openminds.latest.computation.GenericComputation",
-                "openminds.latest.computation.ModelValidation",
-                "openminds.latest.computation.Optimization",
-                "openminds.latest.computation.Simulation",
-                "openminds.latest.computation.Visualization",
-                "openminds.latest.core.ModelVersion",
-                "openminds.latest.core.ProtocolExecution",
-                "openminds.latest.ephys.RecordingActivity",
-                "openminds.latest.stimulation.StimulationActivity",
+                "openminds.v4.computation.DataAnalysis",
+                "openminds.v4.computation.DataCopy",
+                "openminds.v4.computation.GenericComputation",
+                "openminds.v4.computation.ModelValidation",
+                "openminds.v4.computation.Optimization",
+                "openminds.v4.computation.Simulation",
+                "openminds.v4.computation.Visualization",
+                "openminds.v4.core.ModelVersion",
+                "openminds.v4.core.ProtocolExecution",
+                "openminds.v4.ephys.RecordingActivity",
+                "openminds.v4.stimulation.StimulationActivity",
             ],
             ["output", "outputData"],
             reverse=["output_data", "outputs"],
@@ -85,7 +85,7 @@ class FileBundle(KGObject, OMFileBundle):
         ),
         Property(
             "is_reference_for",
-            "openminds.latest.computation.ValidationTestVersion",
+            "openminds.v4.computation.ValidationTestVersion",
             "referenceData",
             reverse="reference_data",
             multiple=True,
@@ -93,7 +93,7 @@ class FileBundle(KGObject, OMFileBundle):
         ),
         Property(
             "specifies",
-            "openminds.latest.stimulation.EphysStimulus",
+            "openminds.v4.stimulation.EphysStimulus",
             "specification",
             reverse="specifications",
             multiple=True,

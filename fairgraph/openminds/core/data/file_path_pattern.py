@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import FilePathPattern as OMFilePathPattern
+from openminds.v4.core import FilePathPattern as OMFilePathPattern
 from fairgraph import EmbeddedMetadata
 
 

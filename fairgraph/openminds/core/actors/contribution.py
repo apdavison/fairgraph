@@ -5,7 +5,7 @@ Structured information on the contribution made to a research product.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Contribution as OMContribution
+from openminds.v4.core import Contribution as OMContribution
 from fairgraph import EmbeddedMetadata
 
 

@@ -5,7 +5,7 @@ Structured information on a hash.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Hash as OMHash
+from openminds.v4.core import Hash as OMHash
 from fairgraph import EmbeddedMetadata
 
 

@@ -5,7 +5,7 @@ Structured information about computing hardware.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import HardwareSystem as OMHardwareSystem
+from openminds.v4.computation import HardwareSystem as OMHardwareSystem
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class HardwareSystem(KGObject, OMHardwareSystem):
     reverse_properties = [
         Property(
             "used_by",
-            "openminds.latest.computation.Environment",
+            "openminds.v4.computation.Environment",
             "hardware",
             reverse="hardware",
             multiple=True,

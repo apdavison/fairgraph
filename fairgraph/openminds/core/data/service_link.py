@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import ServiceLink as OMServiceLink
+from openminds.v4.core import ServiceLink as OMServiceLink
 from fairgraph import KGObject
 
 

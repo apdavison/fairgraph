@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.ephys import CellPatching as OMCellPatching
+from openminds.v4.ephys import CellPatching as OMCellPatching
 from fairgraph import KGObject
 
 

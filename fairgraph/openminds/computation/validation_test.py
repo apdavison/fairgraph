@@ -5,7 +5,7 @@ Structured information about the definition of a process for validating a comput
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import ValidationTest as OMValidationTest
+from openminds.v4.computation import ValidationTest as OMValidationTest
 from fairgraph import KGObject
 
 
@@ -23,7 +23,7 @@ class ValidationTest(KGObject, OMValidationTest):
     reverse_properties = [
         Property(
             "comments",
-            "openminds.latest.core.Comment",
+            "openminds.v4.core.Comment",
             "about",
             reverse="about",
             multiple=True,
@@ -31,7 +31,7 @@ class ValidationTest(KGObject, OMValidationTest):
         ),
         Property(
             "is_part_of",
-            ["openminds.latest.core.Project", "openminds.latest.core.ResearchProductGroup"],
+            ["openminds.v4.core.Project", "openminds.v4.core.ResearchProductGroup"],
             "hasPart",
             reverse="has_parts",
             multiple=True,
@@ -39,7 +39,7 @@ class ValidationTest(KGObject, OMValidationTest):
         ),
         Property(
             "learning_resources",
-            "openminds.latest.publications.LearningResource",
+            "openminds.v4.publications.LearningResource",
             "about",
             reverse="about",
             multiple=True,

@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import SingleColor as OMSingleColor
+from openminds.v4.sands import SingleColor as OMSingleColor
 from fairgraph import KGObject
 
 

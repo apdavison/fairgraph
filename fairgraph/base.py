@@ -29,7 +29,7 @@ from .errors import AuthorizationError
 if TYPE_CHECKING:
     from .client import KGClient
 
-OPENMINDS_VERSION = "latest"
+OPENMINDS_VERSION = "v4"
 
 logger = logging.getLogger("fairgraph")
 

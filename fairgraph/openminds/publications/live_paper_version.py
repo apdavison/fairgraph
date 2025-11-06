@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.publications import LivePaperVersion as OMLivePaperVersion
+from openminds.v4.publications import LivePaperVersion as OMLivePaperVersion
 from fairgraph import KGObject
 
 
@@ -25,7 +25,7 @@ class LivePaperVersion(KGObject, OMLivePaperVersion):
     reverse_properties = [
         Property(
             "comments",
-            "openminds.latest.core.Comment",
+            "openminds.v4.core.Comment",
             "about",
             reverse="about",
             multiple=True,
@@ -33,7 +33,7 @@ class LivePaperVersion(KGObject, OMLivePaperVersion):
         ),
         Property(
             "has_parts",
-            "openminds.latest.publications.LivePaperSection",
+            "openminds.v4.publications.LivePaperSection",
             "isPartOf",
             reverse="is_part_of",
             multiple=True,
@@ -41,7 +41,7 @@ class LivePaperVersion(KGObject, OMLivePaperVersion):
         ),
         Property(
             "is_old_version_of",
-            "openminds.latest.publications.LivePaperVersion",
+            "openminds.v4.publications.LivePaperVersion",
             "isNewVersionOf",
             reverse="is_new_version_of",
             multiple=True,
@@ -49,7 +49,7 @@ class LivePaperVersion(KGObject, OMLivePaperVersion):
         ),
         Property(
             "is_part_of",
-            ["openminds.latest.core.Project", "openminds.latest.core.ResearchProductGroup"],
+            ["openminds.v4.core.Project", "openminds.v4.core.ResearchProductGroup"],
             "hasPart",
             reverse="has_parts",
             multiple=True,
@@ -57,7 +57,7 @@ class LivePaperVersion(KGObject, OMLivePaperVersion):
         ),
         Property(
             "is_version_of",
-            "openminds.latest.publications.LivePaper",
+            "openminds.v4.publications.LivePaper",
             "hasVersion",
             reverse="has_versions",
             multiple=True,
@@ -65,7 +65,7 @@ class LivePaperVersion(KGObject, OMLivePaperVersion):
         ),
         Property(
             "learning_resources",
-            "openminds.latest.publications.LearningResource",
+            "openminds.v4.publications.LearningResource",
             "about",
             reverse="about",
             multiple=True,

@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.ephys import Pipette as OMPipette
+from openminds.v4.ephys import Pipette as OMPipette
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class Pipette(KGObject, OMPipette):
     reverse_properties = [
         Property(
             "is_part_of",
-            "openminds.latest.core.Setup",
+            "openminds.v4.core.Setup",
             "hasPart",
             reverse="has_parts",
             multiple=True,
@@ -28,7 +28,7 @@ class Pipette(KGObject, OMPipette):
         ),
         Property(
             "usage",
-            "openminds.latest.ephys.PipetteUsage",
+            "openminds.v4.ephys.PipetteUsage",
             "device",
             reverse="device",
             multiple=True,

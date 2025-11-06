@@ -5,7 +5,7 @@ Structured information about a piece of software or web service that can perform
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import SoftwareAgent as OMSoftwareAgent
+from openminds.v4.computation import SoftwareAgent as OMSoftwareAgent
 from fairgraph import KGObject
 
 
@@ -21,14 +21,14 @@ class SoftwareAgent(KGObject, OMSoftwareAgent):
         Property(
             "activities",
             [
-                "openminds.latest.core.ProtocolExecution",
-                "openminds.latest.ephys.CellPatching",
-                "openminds.latest.ephys.ElectrodePlacement",
-                "openminds.latest.ephys.RecordingActivity",
-                "openminds.latest.specimen_prep.CranialWindowPreparation",
-                "openminds.latest.specimen_prep.TissueCulturePreparation",
-                "openminds.latest.specimen_prep.TissueSampleSlicing",
-                "openminds.latest.stimulation.StimulationActivity",
+                "openminds.v4.core.ProtocolExecution",
+                "openminds.v4.ephys.CellPatching",
+                "openminds.v4.ephys.ElectrodePlacement",
+                "openminds.v4.ephys.RecordingActivity",
+                "openminds.v4.specimen_prep.CranialWindowPreparation",
+                "openminds.v4.specimen_prep.TissueCulturePreparation",
+                "openminds.v4.specimen_prep.TissueSampleSlicing",
+                "openminds.v4.stimulation.StimulationActivity",
             ],
             "performedBy",
             reverse="performed_by",
@@ -38,14 +38,14 @@ class SoftwareAgent(KGObject, OMSoftwareAgent):
         Property(
             "started",
             [
-                "openminds.latest.computation.DataAnalysis",
-                "openminds.latest.computation.DataCopy",
-                "openminds.latest.computation.GenericComputation",
-                "openminds.latest.computation.ModelValidation",
-                "openminds.latest.computation.Optimization",
-                "openminds.latest.computation.Simulation",
-                "openminds.latest.computation.Visualization",
-                "openminds.latest.computation.WorkflowExecution",
+                "openminds.v4.computation.DataAnalysis",
+                "openminds.v4.computation.DataCopy",
+                "openminds.v4.computation.GenericComputation",
+                "openminds.v4.computation.ModelValidation",
+                "openminds.v4.computation.Optimization",
+                "openminds.v4.computation.Simulation",
+                "openminds.v4.computation.Visualization",
+                "openminds.v4.computation.WorkflowExecution",
             ],
             "startedBy",
             reverse="started_by",

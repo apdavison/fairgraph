@@ -5,7 +5,7 @@ Structured information on the grouping mechanism of a file bundle.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import FileBundleGrouping as OMFileBundleGrouping
+from openminds.v4.controlled_terms import FileBundleGrouping as OMFileBundleGrouping
 from fairgraph import KGObject
 
 
@@ -24,20 +24,20 @@ class FileBundleGrouping(KGObject, OMFileBundleGrouping):
         Property(
             "describes",
             [
-                "openminds.latest.computation.ValidationTestVersion",
-                "openminds.latest.computation.WorkflowRecipeVersion",
-                "openminds.latest.core.DatasetVersion",
-                "openminds.latest.core.MetaDataModelVersion",
-                "openminds.latest.core.ModelVersion",
-                "openminds.latest.core.SoftwareVersion",
-                "openminds.latest.core.WebServiceVersion",
-                "openminds.latest.publications.Book",
-                "openminds.latest.publications.Chapter",
-                "openminds.latest.publications.LearningResource",
-                "openminds.latest.publications.LivePaperVersion",
-                "openminds.latest.publications.ScholarlyArticle",
-                "openminds.latest.sands.BrainAtlasVersion",
-                "openminds.latest.sands.CommonCoordinateSpaceVersion",
+                "openminds.v4.computation.ValidationTestVersion",
+                "openminds.v4.computation.WorkflowRecipeVersion",
+                "openminds.v4.core.DatasetVersion",
+                "openminds.v4.core.MetaDataModelVersion",
+                "openminds.v4.core.ModelVersion",
+                "openminds.v4.core.SoftwareVersion",
+                "openminds.v4.core.WebServiceVersion",
+                "openminds.v4.publications.Book",
+                "openminds.v4.publications.Chapter",
+                "openminds.v4.publications.LearningResource",
+                "openminds.v4.publications.LivePaperVersion",
+                "openminds.v4.publications.ScholarlyArticle",
+                "openminds.v4.sands.BrainAtlasVersion",
+                "openminds.v4.sands.CommonCoordinateSpaceVersion",
             ],
             "keyword",
             reverse="keywords",
@@ -46,7 +46,7 @@ class FileBundleGrouping(KGObject, OMFileBundleGrouping):
         ),
         Property(
             "is_defined_by",
-            "openminds.latest.core.FilePathPattern",
+            "openminds.v4.core.FilePathPattern",
             "groupingType",
             reverse="grouping_types",
             multiple=True,
@@ -54,7 +54,7 @@ class FileBundleGrouping(KGObject, OMFileBundleGrouping):
         ),
         Property(
             "is_used_to_group",
-            "openminds.latest.core.FileBundle",
+            "openminds.v4.core.FileBundle",
             "groupingType",
             reverse="grouping_types",
             multiple=True,

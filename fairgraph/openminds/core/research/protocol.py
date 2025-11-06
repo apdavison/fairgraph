@@ -5,7 +5,7 @@ Structured information on a research project.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Protocol as OMProtocol
+from openminds.v4.core import Protocol as OMProtocol
 from fairgraph import KGObject
 
 
@@ -21,15 +21,15 @@ class Protocol(KGObject, OMProtocol):
         Property(
             "used_in",
             [
-                "openminds.latest.core.DatasetVersion",
-                "openminds.latest.core.ProtocolExecution",
-                "openminds.latest.ephys.CellPatching",
-                "openminds.latest.ephys.ElectrodePlacement",
-                "openminds.latest.ephys.RecordingActivity",
-                "openminds.latest.specimen_prep.CranialWindowPreparation",
-                "openminds.latest.specimen_prep.TissueCulturePreparation",
-                "openminds.latest.specimen_prep.TissueSampleSlicing",
-                "openminds.latest.stimulation.StimulationActivity",
+                "openminds.v4.core.DatasetVersion",
+                "openminds.v4.core.ProtocolExecution",
+                "openminds.v4.ephys.CellPatching",
+                "openminds.v4.ephys.ElectrodePlacement",
+                "openminds.v4.ephys.RecordingActivity",
+                "openminds.v4.specimen_prep.CranialWindowPreparation",
+                "openminds.v4.specimen_prep.TissueCulturePreparation",
+                "openminds.v4.specimen_prep.TissueSampleSlicing",
+                "openminds.v4.stimulation.StimulationActivity",
             ],
             "protocol",
             reverse="protocols",

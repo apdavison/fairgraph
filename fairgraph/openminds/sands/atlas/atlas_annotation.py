@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import AtlasAnnotation as OMAtlasAnnotation
+from openminds.v4.sands import AtlasAnnotation as OMAtlasAnnotation
 from fairgraph import EmbeddedMetadata
 
 

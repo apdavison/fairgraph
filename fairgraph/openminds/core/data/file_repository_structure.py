@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import FileRepositoryStructure as OMFileRepositoryStructure
+from openminds.v4.core import FileRepositoryStructure as OMFileRepositoryStructure
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class FileRepositoryStructure(KGObject, OMFileRepositoryStructure):
     reverse_properties = [
         Property(
             "structures",
-            "openminds.latest.core.FileRepository",
+            "openminds.v4.core.FileRepository",
             "structurePattern",
             reverse="structure_pattern",
             multiple=True,

@@ -5,7 +5,7 @@ Structured information about a specific implementation of a validation test.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.computation import ValidationTestVersion as OMValidationTestVersion
+from openminds.v4.computation import ValidationTestVersion as OMValidationTestVersion
 from fairgraph import KGObject
 
 
@@ -24,7 +24,7 @@ class ValidationTestVersion(KGObject, OMValidationTestVersion):
     reverse_properties = [
         Property(
             "comments",
-            "openminds.latest.core.Comment",
+            "openminds.v4.core.Comment",
             "about",
             reverse="about",
             multiple=True,
@@ -32,7 +32,7 @@ class ValidationTestVersion(KGObject, OMValidationTestVersion):
         ),
         Property(
             "is_input_to",
-            ["openminds.latest.computation.DataCopy", "openminds.latest.computation.ModelValidation"],
+            ["openminds.v4.computation.DataCopy", "openminds.v4.computation.ModelValidation"],
             "input",
             reverse="inputs",
             multiple=True,
@@ -40,7 +40,7 @@ class ValidationTestVersion(KGObject, OMValidationTestVersion):
         ),
         Property(
             "is_old_version_of",
-            "openminds.latest.computation.ValidationTestVersion",
+            "openminds.v4.computation.ValidationTestVersion",
             "isNewVersionOf",
             reverse="is_new_version_of",
             multiple=True,
@@ -48,7 +48,7 @@ class ValidationTestVersion(KGObject, OMValidationTestVersion):
         ),
         Property(
             "is_part_of",
-            ["openminds.latest.core.Project", "openminds.latest.core.ResearchProductGroup"],
+            ["openminds.v4.core.Project", "openminds.v4.core.ResearchProductGroup"],
             "hasPart",
             reverse="has_parts",
             multiple=True,
@@ -56,7 +56,7 @@ class ValidationTestVersion(KGObject, OMValidationTestVersion):
         ),
         Property(
             "is_version_of",
-            "openminds.latest.computation.ValidationTest",
+            "openminds.v4.computation.ValidationTest",
             "hasVersion",
             reverse="has_versions",
             multiple=True,
@@ -64,7 +64,7 @@ class ValidationTestVersion(KGObject, OMValidationTestVersion):
         ),
         Property(
             "learning_resources",
-            "openminds.latest.publications.LearningResource",
+            "openminds.v4.publications.LearningResource",
             "about",
             reverse="about",
             multiple=True,

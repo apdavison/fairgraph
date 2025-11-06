@@ -5,7 +5,7 @@ A persistent identifier for a researcher provided by Open Researcher and Contrib
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import ORCID as OMORCID
+from openminds.v4.core import ORCID as OMORCID
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class ORCID(KGObject, OMORCID):
     reverse_properties = [
         Property(
             "identifies",
-            "openminds.latest.core.Person",
+            "openminds.v4.core.Person",
             "digitalIdentifier",
             reverse="digital_identifiers",
             multiple=True,

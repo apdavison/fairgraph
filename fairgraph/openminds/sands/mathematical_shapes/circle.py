@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import Circle as OMCircle
+from openminds.v4.sands import Circle as OMCircle
 from fairgraph import EmbeddedMetadata
 
 

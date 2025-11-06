@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import StringProperty as OMStringProperty
+from openminds.v4.core import StringProperty as OMStringProperty
 from fairgraph import EmbeddedMetadata
 
 

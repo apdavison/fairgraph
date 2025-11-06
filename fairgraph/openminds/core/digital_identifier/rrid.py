@@ -5,7 +5,7 @@ A persistent identifier for a research resource provided by the Resource Identif
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import RRID as OMRRID
+from openminds.v4.core import RRID as OMRRID
 from fairgraph import KGObject
 
 
@@ -21,19 +21,19 @@ class RRID(KGObject, OMRRID):
         Property(
             "identifies",
             [
-                "openminds.latest.chemicals.ProductSource",
-                "openminds.latest.core.Organization",
-                "openminds.latest.core.Software",
-                "openminds.latest.core.SoftwareVersion",
-                "openminds.latest.core.Strain",
-                "openminds.latest.ephys.Electrode",
-                "openminds.latest.ephys.ElectrodeArray",
-                "openminds.latest.ephys.Pipette",
-                "openminds.latest.sands.BrainAtlas",
-                "openminds.latest.sands.BrainAtlasVersion",
-                "openminds.latest.sands.CommonCoordinateSpace",
-                "openminds.latest.sands.CommonCoordinateSpaceVersion",
-                "openminds.latest.specimen_prep.SlicingDevice",
+                "openminds.v4.chemicals.ProductSource",
+                "openminds.v4.core.Organization",
+                "openminds.v4.core.Software",
+                "openminds.v4.core.SoftwareVersion",
+                "openminds.v4.core.Strain",
+                "openminds.v4.ephys.Electrode",
+                "openminds.v4.ephys.ElectrodeArray",
+                "openminds.v4.ephys.Pipette",
+                "openminds.v4.sands.BrainAtlas",
+                "openminds.v4.sands.BrainAtlasVersion",
+                "openminds.v4.sands.CommonCoordinateSpace",
+                "openminds.v4.sands.CommonCoordinateSpaceVersion",
+                "openminds.v4.specimen_prep.SlicingDevice",
             ],
             "digitalIdentifier",
             reverse="digital_identifier",

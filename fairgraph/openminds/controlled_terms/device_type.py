@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import DeviceType as OMDeviceType
+from openminds.v4.controlled_terms import DeviceType as OMDeviceType
 from fairgraph import KGObject
 
 
@@ -24,20 +24,20 @@ class DeviceType(KGObject, OMDeviceType):
         Property(
             "describes",
             [
-                "openminds.latest.computation.ValidationTestVersion",
-                "openminds.latest.computation.WorkflowRecipeVersion",
-                "openminds.latest.core.DatasetVersion",
-                "openminds.latest.core.MetaDataModelVersion",
-                "openminds.latest.core.ModelVersion",
-                "openminds.latest.core.SoftwareVersion",
-                "openminds.latest.core.WebServiceVersion",
-                "openminds.latest.publications.Book",
-                "openminds.latest.publications.Chapter",
-                "openminds.latest.publications.LearningResource",
-                "openminds.latest.publications.LivePaperVersion",
-                "openminds.latest.publications.ScholarlyArticle",
-                "openminds.latest.sands.BrainAtlasVersion",
-                "openminds.latest.sands.CommonCoordinateSpaceVersion",
+                "openminds.v4.computation.ValidationTestVersion",
+                "openminds.v4.computation.WorkflowRecipeVersion",
+                "openminds.v4.core.DatasetVersion",
+                "openminds.v4.core.MetaDataModelVersion",
+                "openminds.v4.core.ModelVersion",
+                "openminds.v4.core.SoftwareVersion",
+                "openminds.v4.core.WebServiceVersion",
+                "openminds.v4.publications.Book",
+                "openminds.v4.publications.Chapter",
+                "openminds.v4.publications.LearningResource",
+                "openminds.v4.publications.LivePaperVersion",
+                "openminds.v4.publications.ScholarlyArticle",
+                "openminds.v4.sands.BrainAtlasVersion",
+                "openminds.v4.sands.CommonCoordinateSpaceVersion",
             ],
             "keyword",
             reverse="keywords",
@@ -47,10 +47,10 @@ class DeviceType(KGObject, OMDeviceType):
         Property(
             "is_type_of",
             [
-                "openminds.latest.ephys.Electrode",
-                "openminds.latest.ephys.ElectrodeArray",
-                "openminds.latest.ephys.Pipette",
-                "openminds.latest.specimen_prep.SlicingDevice",
+                "openminds.v4.ephys.Electrode",
+                "openminds.v4.ephys.ElectrodeArray",
+                "openminds.v4.ephys.Pipette",
+                "openminds.v4.specimen_prep.SlicingDevice",
             ],
             "deviceType",
             reverse="device_type",

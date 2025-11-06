@@ -5,7 +5,7 @@ Structured information about a chemical substance.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.chemicals import ChemicalSubstance as OMChemicalSubstance
+from openminds.v4.chemicals import ChemicalSubstance as OMChemicalSubstance
 from fairgraph import KGObject
 
 
@@ -20,11 +20,7 @@ class ChemicalSubstance(KGObject, OMChemicalSubstance):
     reverse_properties = [
         Property(
             "composes",
-            [
-                "openminds.latest.ephys.Electrode",
-                "openminds.latest.ephys.ElectrodeArray",
-                "openminds.latest.ephys.Pipette",
-            ],
+            ["openminds.v4.ephys.Electrode", "openminds.v4.ephys.ElectrodeArray", "openminds.v4.ephys.Pipette"],
             ["insulatorMaterial", "material"],
             reverse=["insulator_material", "material"],
             multiple=True,
@@ -32,7 +28,7 @@ class ChemicalSubstance(KGObject, OMChemicalSubstance):
         ),
         Property(
             "labels",
-            "openminds.latest.ephys.PipetteUsage",
+            "openminds.v4.ephys.PipetteUsage",
             "labelingCompound",
             reverse="labeling_compound",
             multiple=True,

@@ -5,7 +5,7 @@ Structured information on a subject.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Subject as OMSubject
+from openminds.v4.core import Subject as OMSubject
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class Subject(KGObject, OMSubject):
     reverse_properties = [
         Property(
             "has_study_results_in",
-            "openminds.latest.core.DatasetVersion",
+            "openminds.v4.core.DatasetVersion",
             "studiedSpecimen",
             reverse="studied_specimens",
             multiple=True,
@@ -28,7 +28,7 @@ class Subject(KGObject, OMSubject):
         ),
         Property(
             "is_used_to_group",
-            "openminds.latest.core.FileBundle",
+            "openminds.v4.core.FileBundle",
             "groupedBy",
             reverse="grouped_by",
             multiple=True,
@@ -36,7 +36,7 @@ class Subject(KGObject, OMSubject):
         ),
         Property(
             "used_in",
-            ["openminds.latest.sands.BrainAtlasVersion", "openminds.latest.sands.CommonCoordinateSpaceVersion"],
+            ["openminds.v4.sands.BrainAtlasVersion", "openminds.v4.sands.CommonCoordinateSpaceVersion"],
             "usedSpecimen",
             reverse="used_specimens",
             multiple=True,

@@ -5,7 +5,7 @@ Structured information on data originating from human/animal studies or simulati
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import DatasetVersion as OMDatasetVersion
+from openminds.v4.core import DatasetVersion as OMDatasetVersion
 from fairgraph import KGObject
 
 from urllib.request import urlretrieve
@@ -26,7 +26,7 @@ class DatasetVersion(KGObject, OMDatasetVersion):
     reverse_properties = [
         Property(
             "comments",
-            "openminds.latest.core.Comment",
+            "openminds.v4.core.Comment",
             "about",
             reverse="about",
             multiple=True,
@@ -35,14 +35,14 @@ class DatasetVersion(KGObject, OMDatasetVersion):
         Property(
             "has_parts",
             [
-                "openminds.latest.core.ProtocolExecution",
-                "openminds.latest.ephys.CellPatching",
-                "openminds.latest.ephys.ElectrodePlacement",
-                "openminds.latest.ephys.RecordingActivity",
-                "openminds.latest.specimen_prep.CranialWindowPreparation",
-                "openminds.latest.specimen_prep.TissueCulturePreparation",
-                "openminds.latest.specimen_prep.TissueSampleSlicing",
-                "openminds.latest.stimulation.StimulationActivity",
+                "openminds.v4.core.ProtocolExecution",
+                "openminds.v4.ephys.CellPatching",
+                "openminds.v4.ephys.ElectrodePlacement",
+                "openminds.v4.ephys.RecordingActivity",
+                "openminds.v4.specimen_prep.CranialWindowPreparation",
+                "openminds.v4.specimen_prep.TissueCulturePreparation",
+                "openminds.v4.specimen_prep.TissueSampleSlicing",
+                "openminds.v4.stimulation.StimulationActivity",
             ],
             "isPartOf",
             reverse="is_part_of",
@@ -51,7 +51,7 @@ class DatasetVersion(KGObject, OMDatasetVersion):
         ),
         Property(
             "is_input_to",
-            "openminds.latest.computation.DataCopy",
+            "openminds.v4.computation.DataCopy",
             "input",
             reverse="inputs",
             multiple=True,
@@ -59,7 +59,7 @@ class DatasetVersion(KGObject, OMDatasetVersion):
         ),
         Property(
             "is_old_version_of",
-            "openminds.latest.core.DatasetVersion",
+            "openminds.v4.core.DatasetVersion",
             "isNewVersionOf",
             reverse="is_new_version_of",
             multiple=True,
@@ -67,7 +67,7 @@ class DatasetVersion(KGObject, OMDatasetVersion):
         ),
         Property(
             "is_part_of",
-            ["openminds.latest.core.Project", "openminds.latest.core.ResearchProductGroup"],
+            ["openminds.v4.core.Project", "openminds.v4.core.ResearchProductGroup"],
             "hasPart",
             reverse="has_parts",
             multiple=True,
@@ -75,7 +75,7 @@ class DatasetVersion(KGObject, OMDatasetVersion):
         ),
         Property(
             "is_version_of",
-            "openminds.latest.core.Dataset",
+            "openminds.v4.core.Dataset",
             "hasVersion",
             reverse="has_versions",
             multiple=True,
@@ -83,7 +83,7 @@ class DatasetVersion(KGObject, OMDatasetVersion):
         ),
         Property(
             "learning_resources",
-            "openminds.latest.publications.LearningResource",
+            "openminds.v4.publications.LearningResource",
             "about",
             reverse="about",
             multiple=True,
@@ -91,7 +91,7 @@ class DatasetVersion(KGObject, OMDatasetVersion):
         ),
         Property(
             "publication",
-            "openminds.latest.publications.LivePaperVersion",
+            "openminds.v4.publications.LivePaperVersion",
             "about",
             reverse="about",
             multiple=True,

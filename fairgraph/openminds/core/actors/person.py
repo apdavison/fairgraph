@@ -5,7 +5,7 @@ Structured information on a person.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Person as OMPerson
+from openminds.v4.core import Person as OMPerson
 from fairgraph import KGObject
 
 
@@ -21,14 +21,14 @@ class Person(KGObject, OMPerson):
         Property(
             "activities",
             [
-                "openminds.latest.core.ProtocolExecution",
-                "openminds.latest.ephys.CellPatching",
-                "openminds.latest.ephys.ElectrodePlacement",
-                "openminds.latest.ephys.RecordingActivity",
-                "openminds.latest.specimen_prep.CranialWindowPreparation",
-                "openminds.latest.specimen_prep.TissueCulturePreparation",
-                "openminds.latest.specimen_prep.TissueSampleSlicing",
-                "openminds.latest.stimulation.StimulationActivity",
+                "openminds.v4.core.ProtocolExecution",
+                "openminds.v4.ephys.CellPatching",
+                "openminds.v4.ephys.ElectrodePlacement",
+                "openminds.v4.ephys.RecordingActivity",
+                "openminds.v4.specimen_prep.CranialWindowPreparation",
+                "openminds.v4.specimen_prep.TissueCulturePreparation",
+                "openminds.v4.specimen_prep.TissueSampleSlicing",
+                "openminds.v4.stimulation.StimulationActivity",
             ],
             "performedBy",
             reverse="performed_by",
@@ -37,7 +37,7 @@ class Person(KGObject, OMPerson):
         ),
         Property(
             "comments",
-            "openminds.latest.core.Comment",
+            "openminds.v4.core.Comment",
             "commenter",
             reverse="commenter",
             multiple=True,
@@ -45,7 +45,7 @@ class Person(KGObject, OMPerson):
         ),
         Property(
             "coordinated_projects",
-            "openminds.latest.core.Project",
+            "openminds.v4.core.Project",
             "coordinator",
             reverse="coordinators",
             multiple=True,
@@ -54,18 +54,18 @@ class Person(KGObject, OMPerson):
         Property(
             "developed",
             [
-                "openminds.latest.computation.ValidationTest",
-                "openminds.latest.computation.ValidationTestVersion",
-                "openminds.latest.computation.WorkflowRecipe",
-                "openminds.latest.computation.WorkflowRecipeVersion",
-                "openminds.latest.core.MetaDataModel",
-                "openminds.latest.core.MetaDataModelVersion",
-                "openminds.latest.core.Model",
-                "openminds.latest.core.ModelVersion",
-                "openminds.latest.core.Software",
-                "openminds.latest.core.SoftwareVersion",
-                "openminds.latest.core.WebService",
-                "openminds.latest.core.WebServiceVersion",
+                "openminds.v4.computation.ValidationTest",
+                "openminds.v4.computation.ValidationTestVersion",
+                "openminds.v4.computation.WorkflowRecipe",
+                "openminds.v4.computation.WorkflowRecipeVersion",
+                "openminds.v4.core.MetaDataModel",
+                "openminds.v4.core.MetaDataModelVersion",
+                "openminds.v4.core.Model",
+                "openminds.v4.core.ModelVersion",
+                "openminds.v4.core.Software",
+                "openminds.v4.core.SoftwareVersion",
+                "openminds.v4.core.WebService",
+                "openminds.v4.core.WebServiceVersion",
             ],
             "developer",
             reverse="developers",
@@ -74,7 +74,7 @@ class Person(KGObject, OMPerson):
         ),
         Property(
             "funded",
-            "openminds.latest.core.Funding",
+            "openminds.v4.core.Funding",
             "funder",
             reverse="funder",
             multiple=True,
@@ -83,14 +83,14 @@ class Person(KGObject, OMPerson):
         Property(
             "is_custodian_of",
             [
-                "openminds.latest.core.Dataset",
-                "openminds.latest.core.DatasetVersion",
-                "openminds.latest.publications.LivePaper",
-                "openminds.latest.publications.LivePaperVersion",
-                "openminds.latest.sands.BrainAtlas",
-                "openminds.latest.sands.BrainAtlasVersion",
-                "openminds.latest.sands.CommonCoordinateSpace",
-                "openminds.latest.sands.CommonCoordinateSpaceVersion",
+                "openminds.v4.core.Dataset",
+                "openminds.v4.core.DatasetVersion",
+                "openminds.v4.publications.LivePaper",
+                "openminds.v4.publications.LivePaperVersion",
+                "openminds.v4.sands.BrainAtlas",
+                "openminds.v4.sands.BrainAtlasVersion",
+                "openminds.v4.sands.CommonCoordinateSpace",
+                "openminds.v4.sands.CommonCoordinateSpaceVersion",
             ],
             "custodian",
             reverse="custodians",
@@ -100,10 +100,10 @@ class Person(KGObject, OMPerson):
         Property(
             "is_owner_of",
             [
-                "openminds.latest.ephys.Electrode",
-                "openminds.latest.ephys.ElectrodeArray",
-                "openminds.latest.ephys.Pipette",
-                "openminds.latest.specimen_prep.SlicingDevice",
+                "openminds.v4.ephys.Electrode",
+                "openminds.v4.ephys.ElectrodeArray",
+                "openminds.v4.ephys.Pipette",
+                "openminds.v4.specimen_prep.SlicingDevice",
             ],
             "owner",
             reverse="owners",
@@ -112,7 +112,7 @@ class Person(KGObject, OMPerson):
         ),
         Property(
             "is_provider_of",
-            "openminds.latest.chemicals.ProductSource",
+            "openminds.v4.chemicals.ProductSource",
             "provider",
             reverse="provider",
             multiple=True,
@@ -120,7 +120,7 @@ class Person(KGObject, OMPerson):
         ),
         Property(
             "manufactured",
-            "openminds.latest.core.Setup",
+            "openminds.v4.core.Setup",
             "manufacturer",
             reverse="manufacturers",
             multiple=True,
@@ -129,10 +129,10 @@ class Person(KGObject, OMPerson):
         Property(
             "published",
             [
-                "openminds.latest.publications.Book",
-                "openminds.latest.publications.Chapter",
-                "openminds.latest.publications.LearningResource",
-                "openminds.latest.publications.ScholarlyArticle",
+                "openminds.v4.publications.Book",
+                "openminds.v4.publications.Chapter",
+                "openminds.v4.publications.LearningResource",
+                "openminds.v4.publications.ScholarlyArticle",
             ],
             "publisher",
             reverse="publisher",
@@ -142,14 +142,14 @@ class Person(KGObject, OMPerson):
         Property(
             "started",
             [
-                "openminds.latest.computation.DataAnalysis",
-                "openminds.latest.computation.DataCopy",
-                "openminds.latest.computation.GenericComputation",
-                "openminds.latest.computation.ModelValidation",
-                "openminds.latest.computation.Optimization",
-                "openminds.latest.computation.Simulation",
-                "openminds.latest.computation.Visualization",
-                "openminds.latest.computation.WorkflowExecution",
+                "openminds.v4.computation.DataAnalysis",
+                "openminds.v4.computation.DataCopy",
+                "openminds.v4.computation.GenericComputation",
+                "openminds.v4.computation.ModelValidation",
+                "openminds.v4.computation.Optimization",
+                "openminds.v4.computation.Simulation",
+                "openminds.v4.computation.Visualization",
+                "openminds.v4.computation.WorkflowExecution",
             ],
             "startedBy",
             reverse="started_by",

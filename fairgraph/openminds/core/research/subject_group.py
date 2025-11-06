@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import SubjectGroup as OMSubjectGroup
+from openminds.v4.core import SubjectGroup as OMSubjectGroup
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class SubjectGroup(KGObject, OMSubjectGroup):
     reverse_properties = [
         Property(
             "has_parts",
-            "openminds.latest.core.Subject",
+            "openminds.v4.core.Subject",
             "isPartOf",
             reverse="is_part_of",
             multiple=True,
@@ -28,7 +28,7 @@ class SubjectGroup(KGObject, OMSubjectGroup):
         ),
         Property(
             "has_study_results_in",
-            "openminds.latest.core.DatasetVersion",
+            "openminds.v4.core.DatasetVersion",
             "studiedSpecimen",
             reverse="studied_specimens",
             multiple=True,
@@ -36,7 +36,7 @@ class SubjectGroup(KGObject, OMSubjectGroup):
         ),
         Property(
             "is_used_to_group",
-            "openminds.latest.core.FileBundle",
+            "openminds.v4.core.FileBundle",
             "groupedBy",
             reverse="grouped_by",
             multiple=True,
@@ -44,7 +44,7 @@ class SubjectGroup(KGObject, OMSubjectGroup):
         ),
         Property(
             "used_in",
-            ["openminds.latest.sands.BrainAtlasVersion", "openminds.latest.sands.CommonCoordinateSpaceVersion"],
+            ["openminds.v4.sands.BrainAtlasVersion", "openminds.v4.sands.CommonCoordinateSpaceVersion"],
             "usedSpecimen",
             reverse="used_specimens",
             multiple=True,

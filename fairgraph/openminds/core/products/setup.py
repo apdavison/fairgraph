@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Setup as OMSetup
+from openminds.v4.core import Setup as OMSetup
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class Setup(KGObject, OMSetup):
     reverse_properties = [
         Property(
             "is_part_of",
-            "openminds.latest.core.Setup",
+            "openminds.v4.core.Setup",
             "hasPart",
             reverse="has_parts",
             multiple=True,
@@ -28,7 +28,7 @@ class Setup(KGObject, OMSetup):
         ),
         Property(
             "used_in",
-            "openminds.latest.stimulation.StimulationActivity",
+            "openminds.v4.stimulation.StimulationActivity",
             "setup",
             reverse="setup",
             multiple=True,

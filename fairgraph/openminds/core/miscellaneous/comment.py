@@ -5,7 +5,7 @@ Structured information about a short text expressing an opinion on, or giving in
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import Comment as OMComment
+from openminds.v4.core import Comment as OMComment
 from fairgraph import KGObject
 
 

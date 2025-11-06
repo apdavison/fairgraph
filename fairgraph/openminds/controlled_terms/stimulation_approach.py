@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.controlled_terms import StimulationApproach as OMStimulationApproach
+from openminds.v4.controlled_terms import StimulationApproach as OMStimulationApproach
 from fairgraph import KGObject
 
 
@@ -24,19 +24,19 @@ class StimulationApproach(KGObject, OMStimulationApproach):
         Property(
             "describes",
             [
-                "openminds.latest.computation.ValidationTestVersion",
-                "openminds.latest.computation.WorkflowRecipeVersion",
-                "openminds.latest.core.MetaDataModelVersion",
-                "openminds.latest.core.ModelVersion",
-                "openminds.latest.core.SoftwareVersion",
-                "openminds.latest.core.WebServiceVersion",
-                "openminds.latest.publications.Book",
-                "openminds.latest.publications.Chapter",
-                "openminds.latest.publications.LearningResource",
-                "openminds.latest.publications.LivePaperVersion",
-                "openminds.latest.publications.ScholarlyArticle",
-                "openminds.latest.sands.BrainAtlasVersion",
-                "openminds.latest.sands.CommonCoordinateSpaceVersion",
+                "openminds.v4.computation.ValidationTestVersion",
+                "openminds.v4.computation.WorkflowRecipeVersion",
+                "openminds.v4.core.MetaDataModelVersion",
+                "openminds.v4.core.ModelVersion",
+                "openminds.v4.core.SoftwareVersion",
+                "openminds.v4.core.WebServiceVersion",
+                "openminds.v4.publications.Book",
+                "openminds.v4.publications.Chapter",
+                "openminds.v4.publications.LearningResource",
+                "openminds.v4.publications.LivePaperVersion",
+                "openminds.v4.publications.ScholarlyArticle",
+                "openminds.v4.sands.BrainAtlasVersion",
+                "openminds.v4.sands.CommonCoordinateSpaceVersion",
             ],
             "keyword",
             reverse="keywords",
@@ -45,7 +45,7 @@ class StimulationApproach(KGObject, OMStimulationApproach):
         ),
         Property(
             "is_used_to_group",
-            "openminds.latest.core.FileBundle",
+            "openminds.v4.core.FileBundle",
             "groupedBy",
             reverse="grouped_by",
             multiple=True,
@@ -53,11 +53,7 @@ class StimulationApproach(KGObject, OMStimulationApproach):
         ),
         Property(
             "used_in",
-            [
-                "openminds.latest.core.BehavioralProtocol",
-                "openminds.latest.core.DatasetVersion",
-                "openminds.latest.core.Protocol",
-            ],
+            ["openminds.v4.core.BehavioralProtocol", "openminds.v4.core.DatasetVersion", "openminds.v4.core.Protocol"],
             ["stimulation", "technique"],
             reverse=["stimulations", "techniques"],
             multiple=True,

@@ -5,7 +5,7 @@ Structured information on a protocol execution.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import ProtocolExecution as OMProtocolExecution
+from openminds.v4.core import ProtocolExecution as OMProtocolExecution
 from fairgraph import KGObject
 
 
@@ -23,7 +23,7 @@ class ProtocolExecution(KGObject, OMProtocolExecution):
     reverse_properties = [
         Property(
             "based_on_protocol_execution",
-            ["openminds.latest.sands.AtlasAnnotation", "openminds.latest.sands.CustomAnnotation"],
+            ["openminds.v4.sands.AtlasAnnotation", "openminds.v4.sands.CustomAnnotation"],
             "criteria",
             reverse="criteria",
             multiple=True,

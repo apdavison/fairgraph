@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import Rectangle as OMRectangle
+from openminds.v4.sands import Rectangle as OMRectangle
 from fairgraph import EmbeddedMetadata
 
 

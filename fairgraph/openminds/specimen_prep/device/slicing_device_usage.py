@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.specimen_prep import SlicingDeviceUsage as OMSlicingDeviceUsage
+from openminds.v4.specimen_prep import SlicingDeviceUsage as OMSlicingDeviceUsage
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class SlicingDeviceUsage(KGObject, OMSlicingDeviceUsage):
     reverse_properties = [
         Property(
             "generation_device",
-            "openminds.latest.stimulation.EphysStimulus",
+            "openminds.v4.stimulation.EphysStimulus",
             "generatedBy",
             reverse="generated_by",
             multiple=True,
@@ -28,7 +28,7 @@ class SlicingDeviceUsage(KGObject, OMSlicingDeviceUsage):
         ),
         Property(
             "placed_by",
-            "openminds.latest.ephys.ElectrodePlacement",
+            "openminds.v4.ephys.ElectrodePlacement",
             "device",
             reverse="devices",
             multiple=True,
@@ -36,7 +36,7 @@ class SlicingDeviceUsage(KGObject, OMSlicingDeviceUsage):
         ),
         Property(
             "used_for",
-            "openminds.latest.specimen_prep.TissueSampleSlicing",
+            "openminds.v4.specimen_prep.TissueSampleSlicing",
             "device",
             reverse="device",
             multiple=True,
@@ -44,7 +44,7 @@ class SlicingDeviceUsage(KGObject, OMSlicingDeviceUsage):
         ),
         Property(
             "used_in",
-            "openminds.latest.ephys.CellPatching",
+            "openminds.v4.ephys.CellPatching",
             "device",
             reverse="devices",
             multiple=True,
@@ -52,7 +52,7 @@ class SlicingDeviceUsage(KGObject, OMSlicingDeviceUsage):
         ),
         Property(
             "used_to_measure",
-            "openminds.latest.core.Measurement",
+            "openminds.v4.core.Measurement",
             "measuredWith",
             reverse="measured_with",
             multiple=True,
@@ -60,7 +60,7 @@ class SlicingDeviceUsage(KGObject, OMSlicingDeviceUsage):
         ),
         Property(
             "used_to_record",
-            "openminds.latest.ephys.Recording",
+            "openminds.v4.ephys.Recording",
             "recordedWith",
             reverse="recorded_with",
             multiple=True,

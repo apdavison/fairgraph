@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.specimen_prep import TissueSampleSlicing as OMTissueSampleSlicing
+from openminds.v4.specimen_prep import TissueSampleSlicing as OMTissueSampleSlicing
 from fairgraph import KGObject
 
 

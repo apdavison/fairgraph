@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import ContentTypePattern as OMContentTypePattern
+from openminds.v4.core import ContentTypePattern as OMContentTypePattern
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class ContentTypePattern(KGObject, OMContentTypePattern):
     reverse_properties = [
         Property(
             "identifies_content_of",
-            "openminds.latest.core.FileRepository",
+            "openminds.v4.core.FileRepository",
             "contentTypePattern",
             reverse="content_type_patterns",
             multiple=True,

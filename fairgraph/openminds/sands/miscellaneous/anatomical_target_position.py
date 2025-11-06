@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.sands import AnatomicalTargetPosition as OMAnatomicalTargetPosition
+from openminds.v4.sands import AnatomicalTargetPosition as OMAnatomicalTargetPosition
 from fairgraph import EmbeddedMetadata
 
 

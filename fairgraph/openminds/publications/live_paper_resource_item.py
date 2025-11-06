@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.publications import LivePaperResourceItem as OMLivePaperResourceItem
+from openminds.v4.publications import LivePaperResourceItem as OMLivePaperResourceItem
 from fairgraph import KGObject
 
 
@@ -23,7 +23,7 @@ class LivePaperResourceItem(KGObject, OMLivePaperResourceItem):
     reverse_properties = [
         Property(
             "is_location_of",
-            "openminds.latest.core.ServiceLink",
+            "openminds.v4.core.ServiceLink",
             "dataLocation",
             reverse="data_location",
             multiple=True,

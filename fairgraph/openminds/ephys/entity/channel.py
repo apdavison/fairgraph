@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.ephys import Channel as OMChannel
+from openminds.v4.ephys import Channel as OMChannel
 from fairgraph import EmbeddedMetadata
 
 

@@ -5,7 +5,7 @@ A representation of an array of quantitative values, optionally with uncertainti
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import QuantitativeValueArray as OMQuantitativeValueArray
+from openminds.v4.core import QuantitativeValueArray as OMQuantitativeValueArray
 from fairgraph import KGObject
 
 

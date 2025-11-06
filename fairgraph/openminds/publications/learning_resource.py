@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.publications import LearningResource as OMLearningResource
+from openminds.v4.publications import LearningResource as OMLearningResource
 from fairgraph import KGObject
 
 

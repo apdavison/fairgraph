@@ -5,7 +5,7 @@ Structured information about the source of a chemical substance or mixture.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.chemicals import ProductSource as OMProductSource
+from openminds.v4.chemicals import ProductSource as OMProductSource
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class ProductSource(KGObject, OMProductSource):
     reverse_properties = [
         Property(
             "is_source_of",
-            ["openminds.latest.chemicals.ChemicalMixture", "openminds.latest.chemicals.ChemicalSubstance"],
+            ["openminds.v4.chemicals.ChemicalMixture", "openminds.v4.chemicals.ChemicalSubstance"],
             "productSource",
             reverse="product_source",
             multiple=True,

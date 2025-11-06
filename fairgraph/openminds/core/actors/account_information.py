@@ -5,7 +5,7 @@ Structured information about a user account for a web service.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import AccountInformation as OMAccountInformation
+from openminds.v4.core import AccountInformation as OMAccountInformation
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class AccountInformation(KGObject, OMAccountInformation):
     reverse_properties = [
         Property(
             "belongs_to",
-            "openminds.latest.core.Person",
+            "openminds.v4.core.Person",
             "associatedAccount",
             reverse="associated_accounts",
             multiple=True,

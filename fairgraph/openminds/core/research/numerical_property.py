@@ -5,7 +5,7 @@ Structured information about a property of some entity or process whose value is
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import NumericalProperty as OMNumericalProperty
+from openminds.v4.core import NumericalProperty as OMNumericalProperty
 from fairgraph import EmbeddedMetadata
 
 

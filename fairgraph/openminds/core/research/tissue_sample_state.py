@@ -5,7 +5,7 @@ Structured information on a temporary state of a tissue sample.
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import TissueSampleState as OMTissueSampleState
+from openminds.v4.core import TissueSampleState as OMTissueSampleState
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class TissueSampleState(KGObject, OMTissueSampleState):
     reverse_properties = [
         Property(
             "has_children",
-            ["openminds.latest.core.TissueSampleCollectionState", "openminds.latest.core.TissueSampleState"],
+            ["openminds.v4.core.TissueSampleCollectionState", "openminds.v4.core.TissueSampleState"],
             "descendedFrom",
             reverse="descended_from",
             multiple=True,
@@ -28,7 +28,7 @@ class TissueSampleState(KGObject, OMTissueSampleState):
         ),
         Property(
             "is_input_to",
-            "openminds.latest.ephys.RecordingActivity",
+            "openminds.v4.ephys.RecordingActivity",
             "input",
             reverse="inputs",
             multiple=True,
@@ -37,12 +37,12 @@ class TissueSampleState(KGObject, OMTissueSampleState):
         Property(
             "is_output_of",
             [
-                "openminds.latest.core.ProtocolExecution",
-                "openminds.latest.ephys.CellPatching",
-                "openminds.latest.ephys.ElectrodePlacement",
-                "openminds.latest.specimen_prep.TissueCulturePreparation",
-                "openminds.latest.specimen_prep.TissueSampleSlicing",
-                "openminds.latest.stimulation.StimulationActivity",
+                "openminds.v4.core.ProtocolExecution",
+                "openminds.v4.ephys.CellPatching",
+                "openminds.v4.ephys.ElectrodePlacement",
+                "openminds.v4.specimen_prep.TissueCulturePreparation",
+                "openminds.v4.specimen_prep.TissueSampleSlicing",
+                "openminds.v4.stimulation.StimulationActivity",
             ],
             "output",
             reverse="outputs",
@@ -51,7 +51,7 @@ class TissueSampleState(KGObject, OMTissueSampleState):
         ),
         Property(
             "is_state_of",
-            "openminds.latest.core.TissueSample",
+            "openminds.v4.core.TissueSample",
             "studiedState",
             reverse="studied_states",
             multiple=True,
@@ -59,7 +59,7 @@ class TissueSampleState(KGObject, OMTissueSampleState):
         ),
         Property(
             "is_used_to_group",
-            "openminds.latest.core.FileBundle",
+            "openminds.v4.core.FileBundle",
             "groupedBy",
             reverse="grouped_by",
             multiple=True,
@@ -68,10 +68,10 @@ class TissueSampleState(KGObject, OMTissueSampleState):
         Property(
             "used_in",
             [
-                "openminds.latest.ephys.ElectrodeArrayUsage",
-                "openminds.latest.ephys.ElectrodeUsage",
-                "openminds.latest.ephys.PipetteUsage",
-                "openminds.latest.specimen_prep.SlicingDeviceUsage",
+                "openminds.v4.ephys.ElectrodeArrayUsage",
+                "openminds.v4.ephys.ElectrodeUsage",
+                "openminds.v4.ephys.PipetteUsage",
+                "openminds.v4.specimen_prep.SlicingDeviceUsage",
             ],
             "usedSpecimen",
             reverse="used_specimen",

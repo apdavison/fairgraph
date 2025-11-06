@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.stimulation import EphysStimulus as OMEphysStimulus
+from openminds.v4.stimulation import EphysStimulus as OMEphysStimulus
 from fairgraph import KGObject
 
 
@@ -20,7 +20,7 @@ class EphysStimulus(KGObject, OMEphysStimulus):
     reverse_properties = [
         Property(
             "is_stimulus_for",
-            "openminds.latest.stimulation.StimulationActivity",
+            "openminds.v4.stimulation.StimulationActivity",
             "stimulus",
             reverse="stimuli",
             multiple=True,

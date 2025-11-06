@@ -5,7 +5,7 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.latest.core import ResearchProductGroup as OMResearchProductGroup
+from openminds.v4.core import ResearchProductGroup as OMResearchProductGroup
 from fairgraph import KGObject
 
 
