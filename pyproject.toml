@@ -35,8 +35,14 @@ dev = [
     "setuptools",
     "wheel",
     "sphinx",
+    "sphinxawesome_theme",
     "black",
     "twine"
+]
+
+docs = [
+    "sphinx",
+    "sphinxawesome_theme"
 ]
 
 [project.urls]
