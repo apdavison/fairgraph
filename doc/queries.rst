@@ -5,32 +5,52 @@ Querying the Knowledge Graph
 Setting up a connection
 =======================
 
-Communication between fairgraph metadata objects and the Knowledge Graph web service is through
+Communication between **fairgraph** metadata objects and the Knowledge Graph (KG) web service is through
 a client object, for which an access token associated with an EBRAINS account is needed.
 To obtain an EBRAINS account, please see https://ebrains.eu/register.
 
-If you are working in a Collaboratory Jupyter notebook, the client will find your token automatically.
+The default way to connect to the KG is::
 
-If working outside the Collaboratory, we recommend you obtain a token from whichever authentication endpoint
-is available to you, and save it as an environment variable so the client can find it, e.g. at a shell prompt::
+    from fairgraph import KGClient
+    client = KGClient()
+
+This will connect to the "PPD" KG environment, which should be used for testing and experimentation.
+When you need to connect to the production KG, specify the host, as follows::
+
+    client = KGClient(host="core.kg.ebrains.eu")
+
+If you are working in an EBRAINS Lab Jupyter notebook, you are already authenticated,
+and so the client will find your access token automatically.
+
+If working outside the EBRAINS environment, the client will
+print the URL of a log-in page.
+You should open this URL in a web-browser, log in to your EBRAINS account,
+then close the tab and return to your Python prompt or your notebook.
+
+For more advanced users, you can alternatively obtain a token from another application
+(for example from the `KG Editor`_, or by using ``clb_oauth.get_token()`` in the EBRAINS Lab)
+and provide it directly::
+
+   client = KGClient(token="<token>")
+
+If you save the token as an environment variable named `KG_AUTH_TOKEN`,
+e.g., at a shell prompt::
 
    export KG_AUTH_TOKEN=eyJhbGci...nPq
 
-You can then create the client object::
+then the client will take the token from the environment.
 
-   >>> from fairgraph import KGClient
-   >>> client = KGClient(host="core.kg.ebrains.eu")
+Finally, if you are developing an application that is using **fairgraph** to access the KG,
+you can request a service account from EBRAINS Support::
 
-You can also pass the token explicitly to the client::
-
-   >>> client = KGClient(token=token, host="core.kg.ebrains.eu")
+    client = KGClient(client_id="my_client_id", client_secret="<secret value>")
 
 
 Listing the available metadata types
 ====================================
 
 Each type of metadata node in the Knowledge Graph is represented by a Python class.
-These classes are organized into modules according to the openMINDS schemas.
+These classes are organized into modules according to the openMINDS_ schemas.
 For a full list of modules, see :doc:`modules`.
 
 To get a list of classes in a given module, import the module and then run
@@ -85,14 +105,14 @@ Listing all metadata nodes of a given type
 
 To obtain a list of all the metadata nodes of a given type, import the associated class and use
 the :meth:`list()` method, passing the `client` object you created previously,
-e.g. to get a list of patched cells::
+e.g., to get a list of software or open access document licences::
 
     from fairgraph.openminds.core import License
 
     licenses = License.list(client)
 
 By default, this gives you the first 100 results.
-You can change the number of results retrieved and the starting point, e.g. ::
+You can change the number of results retrieved and the starting point, e.g.::
 
     licenses = License.list(client, from_index=15, size=10)
 
@@ -110,15 +130,22 @@ Filtering/searching
 To obtain only metadata nodes that have certain properties, you can filter the list of nodes.
 For example, to see only datasets whose name contain the phrase 'patch-clamp'::
 
-    from fairgraph.openminds.core import DatasetVersion
+    from fairgraph.openminds.core import Dataset, Organization
 
-    datasets = DatasetVersion.list(client, name="patch-clamp")
+    datasets = Dataset.list(client, full_name="patch-clamp")
 
 .. warning:: the filtering system is currently primitive, and unaware of hierarchies, e.g.
              filtering by "hippocampus" **will not** return cells with the brain region set to
              "hippocampus CA1". This is on our list of things to fix soon!
-             To see a list of possible search terms, use the :meth:`properties` attribute,
-             e.g. ``DatasetVersion.properties``.
+             To see a list of possible search terms, use the :meth:`property_names` attribute,
+             e.g., ``DatasetVersion.property_names``
+             or consult the inline help (``help(omcore.DatasetVersion)``).
+
+To search across multiple links in the graph, join property names with "__".
+For example, to find all datasets whose authors are affiliated with the Karolinska Institute::
+
+    karolinska = Organization.by_name("Karolinska", client)
+    datasets = Dataset.list(client, authors__affiliations__member_of=Karolinska)
 
 
 Retrieving a specific node based on its name or id
@@ -126,8 +153,8 @@ Retrieving a specific node based on its name or id
 
 If you know the name or unique id of a node in the KnowledgeGraph, you can retrieve it directly::
 
-    dataset_of_interest = DatasetVersion.by_name('Whole cell patch-clamp recordings of cerebellar Golgi cells', client)
-    dataset_of_interest = DatasetVersion.from_id('17196b79-04db-4ea4-bb69-d20aab6f1d62', client)
+    dataset_of_interest = DatasetVersion.by_name("Whole cell patch-clamp recordings of cerebellar Golgi cells", client)
+    dataset_of_interest = DatasetVersion.from_id("17196b79-04db-4ea4-bb69-d20aab6f1d62", client)
 
 
 Viewing metadata and connections
@@ -148,7 +175,7 @@ Python object, e.g.::
 Connections between graph nodes are also available as attributes::
 
     >>> dataset_of_interest.license
-    KGProxy([<class 'fairgraph.openminds.core.data.license.License'>], 'https://kg.ebrains.eu/api/instances/6ebce971-7f99-4fbc-9621-eeae47a70d85')
+    KGProxy([License], '6ebce971-7f99-4fbc-9621-eeae47a70d85')
 
 By default, for performance reasons, connections are not followed, and instead you will see either
 a :class:`KGQuery` or :class:`KGProxy` object. In both these cases, follow the connection using the
@@ -156,30 +183,49 @@ a :class:`KGQuery` or :class:`KGProxy` object. In both these cases, follow the c
 
     >>> license = dataset_of_interest.license.resolve(client)
 
-    >>> license.name
+    >>> license.full_name
     'Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International'
 
 
 It is rather cumbersome to have to follow all these connections manually.
-You can ask fairgraph to resolve the connections for you, using the :attr`follow_links` argument, e.g.::
+You can ask **fairgraph** to resolve the connections for you, using the :attr:`follow_links` argument, e.g.::
 
-    >>> dataset_of_interest.resolve(client, follow_links=3)
-
-The value of the argument is the depth to which links are followed.
-Using high values risks poor performance if your node of interest is indirectly
-connected to many other nodes in the graph.
-Note that links are only followed in the "downstream" direction.
+    dataset_of_interest.resolve(
+        client,
+        follow_links={
+            "license": {},
+            "is_version_of": {
+                "authors": {}
+            }
+        }
+    )
 
 
 Error handling
 ==============
 
 If you don't provide all of the metadata attributes and data types expected,
-fairgraph will warn you.
+**fairgraph** will warn you.
 
 If you wish to be certain that all required attributes have been provided,
 you can turn on strict checking for a given node type as follows::
 
-    >>> DatasetVersion.set_error_handling("error")
+    DatasetVersion.set_error_handling("error")
 
 This will then raise an Exception if an attribute is missing or of the wrong data type.
+
+If you wish to turn off all warnings for a given node type::
+
+    DatasetVersion.set_error_handling(None)
+
+You can also turn warnings on and off at the level of individual modules, or for all modules.
+For example, the following turns warnings off for all modules, then sets the "core" module
+to send warning messages to the Python logging system::
+
+    import fairgraph
+    fairgraph.set_error_handling(None)
+    fairgraph.openminds.core.set_error_handling("log")
+
+
+.. _`KG Editor`: https://editor.kg.ebrains.eu
+.. _openMINDS: https://openminds.docs.om-i.org

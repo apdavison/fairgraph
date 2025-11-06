@@ -6,6 +6,13 @@
 # full list see the documentation:
 # http://www.sphinx-doc.org/en/master/config
 
+import json
+import tomllib
+
+with open("authors.json") as fp:
+    author_data = json.load(fp)
+author_list = ", ".join(f"{au['givenName']} {au['familyName']}" for au in author_data)
+
 # -- Path setup --------------------------------------------------------------
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -20,13 +27,15 @@
 # -- Project information -----------------------------------------------------
 
 project = "fairgraph"
-copyright = "2018-2024, Andrew P. Davison, Onur Ates, Yann Zerlaut, Glynis Mattheisen, Peyman Najafi"
-author = "Andrew P. Davison, Onur Ates, Yann Zerlaut, Nico Feld, Glynis Mattheisen, Peyman Najafi"
+copyright = "2018-2025, Andrew P. Davison, Onur Ates, Yann Zerlaut, Glynis Mattheisen, Peyman Najafi"
+author = author_list
+
+# The full version, including alpha/beta/rc tags
+with open("../pyproject.toml", "rb") as fp:
+    release = tomllib.load(fp)['project']["version"]
 
 # The short X.Y version
-version = "0.12"
-# The full version, including alpha/beta/rc tags
-release = "0.12.2"
+version = ".".join(release.split(".")[:2])
 
 
 # -- General configuration ---------------------------------------------------
@@ -49,10 +58,7 @@ extensions = [
 templates_path = ["_templates"]
 
 # The suffix(es) of source filenames.
-# You can specify multiple suffix as a list of string:
-#
-# source_suffix = ['.rst', '.md']
-source_suffix = ".rst"
+source_suffix = {'.rst': 'restructuredtext'}
 
 # The master toctree document.
 master_doc = "index"
@@ -72,13 +78,14 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = None
 
+add_module_names = False
 
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "sphinxdoc"
+html_theme = "sphinxawesome_theme"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -86,10 +93,14 @@ html_theme = "sphinxdoc"
 #
 # html_theme_options = {}
 
+html_logo = "fairgraph-logo.png"
+
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
+
+html_css_files = ["custom.css"]
 
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
@@ -100,6 +111,8 @@ html_static_path = ["_static"]
 # 'searchbox.html']``.
 #
 # html_sidebars = {}
+
+html_permalinks_icon = "<span>¶</span>"
 
 
 # -- Options for HTMLHelp output ---------------------------------------------
@@ -133,7 +146,7 @@ latex_documents = [
         master_doc,
         "fairgraph.tex",
         "fairgraph Documentation",
-        "Andrew P. Davison, Onur Ates, Yann Zerlaut, Nico Feld, Glynis Mattheisen, Peyman Najafi",
+        author_list,
         "manual",
     ),
 ]
@@ -189,4 +202,4 @@ autodoc_member_order = "bysource"
 # -- Options for todo extension ----------------------------------------------
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
-todo_include_todos = True
+todo_include_todos = False

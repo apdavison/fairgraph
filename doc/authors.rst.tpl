@@ -4,15 +4,9 @@ Authors / contributors
 
 The following people have contributed to fairgraph. Their affiliations at the time of the contributions are shown below.
 
-- Andrew P. Davison [1]
-- Onur Ates [1]
-- Yann Zerlaut [1]
-- Nico Feld [2]
-- Glynis Mattheisen [1]
-- Peyman Najafi [1]
+{authors}
 
-1. Paris-Saclay Institute of Neuroscience, Université Paris-Saclay, Centre National de la Recherche Scientifique, Saclay, France
-2. Trier University, Trier, Germany
+{affiliations}
 
 Acknowledgements
 ================

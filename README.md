@@ -11,7 +11,6 @@ Copyright CNRS 2019-2025
 **fairgraph** is a Python library for working with metadata
 in the EBRAINS Knowledge Graph, with a particular focus on data reuse,
 although it is also useful in metadata registration/curation.
-The API is not stable, and is subject to change.
 
 ## Installation
 
@@ -161,14 +160,14 @@ For those users who have the necessary permissions to store and edit metadata in
 **fairgraph** objects can be created or edited in Python, and then saved back to the Knowledge Graph, e.g.:
 
 ```
-from datetime import datetime
+from datetime import date
 from fairgraph.openminds.core import Person, Organization, Affiliation
 
-mgm = Organization(name="Metro-Goldwyn-Mayer", alias="MGM")
+mgm = Organization(full_name="Metro-Goldwyn-Mayer", short_name="MGM")
 mgm.save(client, space="myspace")
 
-affiliation = Affiliation(organization=mgm, start_date=datetime(1942, 1, 1))
-author = Person(family_name="Laurel", given_name="Stan", affiliations=affiliation)
+affiliation = Affiliation(member_of=mgm, start_date=date(1941, 2, 23))
+author = Person(family_name="Laurel", given_name="Stan", affiliations=[affiliation])
 author.save(client, space="myspace")
 ```
 

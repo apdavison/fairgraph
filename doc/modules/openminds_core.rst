@@ -4,289 +4,223 @@ openminds.core
 
 Metadata about the general origin, location and content of research products.
 
+.. currentmodule:: fairgraph.openminds.core
 
 Actors
 ------
 
-.. autoclass:: fairgraph.openminds.core.Person
+.. autoclass:: Person
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.ContactInformation
+.. autoclass:: ContactInformation
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.AccountInformation
+.. autoclass:: AccountInformation
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.Organization
+.. autoclass:: Organization
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.Consortium
+.. autoclass:: Consortium
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.Affiliation
+.. autoclass:: Affiliation
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.Contribution
+.. autoclass:: Contribution
    :members:
-   :show-inheritance:
 
 Data
 ----
 
-.. autoclass:: fairgraph.openminds.core.ContentType
-   :members:
-   :show-inheritance:
+.. autoclass:: ContentType
 
-.. autoclass:: fairgraph.openminds.core.ContentTypePattern
+.. autoclass:: ContentTypePattern
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.Copyright
+.. autoclass:: Copyright
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.File
+.. autoclass:: File
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.FileBundle
+.. autoclass:: FileBundle
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.FileRepository
+.. autoclass:: FileRepository
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.FileArchive
+.. autoclass:: FileArchive
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.FilePathPattern
+.. autoclass:: FilePathPattern
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.FileRepositoryStructure
+.. autoclass:: FileRepositoryStructure
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.Hash
+.. autoclass:: Hash
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.License
-   :members:
-   :show-inheritance:
+.. autoclass:: License
 
-.. autoclass:: fairgraph.openminds.core.ServiceLink
+.. autoclass:: ServiceLink
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.Measurement
+.. autoclass:: Measurement
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.QuantitativeValue
+.. autoclass:: QuantitativeValue
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.QuantitativeValueArray
+.. autoclass:: QuantitativeValueArray
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.QuantitativeValueRange
+.. autoclass:: QuantitativeValueRange
    :members:
-   :show-inheritance:
 
 
 Miscellaneous
 -------------
 
-.. autoclass:: fairgraph.openminds.core.Comment
+.. autoclass:: Comment
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.Funding
+.. autoclass:: Funding
    :members:
-   :show-inheritance:
 
 
 Identifiers
 -----------
 
-.. autoclass:: fairgraph.openminds.core.DOI
+.. autoclass:: DOI
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.GRIDID
+.. autoclass:: GRIDID
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.HANDLE
+.. autoclass:: HANDLE
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.ISBN
+.. autoclass:: ISBN
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.ISSN
+.. autoclass:: ISSN
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.ORCID
+.. autoclass:: ORCID
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.RORID
+.. autoclass:: RORID
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.RRID
+.. autoclass:: RRID
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.SWHID
+.. autoclass:: SWHID
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.StockNumber
+.. autoclass:: StockNumber
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.WebResource
+.. autoclass:: WebResource
    :members:
-   :show-inheritance:
 
 
 Products
 --------
 
-.. autoclass:: fairgraph.openminds.core.Dataset
+.. autoclass:: Dataset
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.DatasetVersion
+.. autoclass:: DatasetVersion
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.Model
+.. autoclass:: Model
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.ModelVersion
+.. autoclass:: ModelVersion
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.Project
+.. autoclass:: Project
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.Software
+.. autoclass:: Software
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.SoftwareVersion
+.. autoclass:: SoftwareVersion
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.MetaDataModel
+.. autoclass:: MetaDataModel
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.MetaDataModelVersion
+.. autoclass:: MetaDataModelVersion
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.WebService
+.. autoclass:: WebService
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.WebServiceVersion
+.. autoclass:: WebServiceVersion
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.ResearchProductGroup
+.. autoclass:: ResearchProductGroup
    :members:
-   :show-inheritance:
 
 
 Research
 --------
 
-.. autoclass:: fairgraph.openminds.core.BehavioralProtocol
+.. autoclass:: BehavioralProtocol
+   :members:
+
+.. autoclass:: Protocol
+   :members:
+
+.. autoclass:: ProtocolExecution
+   :members:
+
+.. autoclass:: Setup
+   :members:
+
+.. autoclass:: Strain
+   :members:
+
+.. autoclass:: Subject
+   :members:
+
+.. autoclass:: SubjectGroup
+   :members:
+
+.. autoclass:: SubjectGroupState
+   :members:
+
+.. autoclass:: SubjectState
+   :members:
+
+.. autoclass:: TissueSample
+   :members:
+
+.. autoclass:: TissueSampleCollection
+   :members:
+
+.. autoclass:: TissueSampleCollectionState
+   :members:
+
+.. autoclass:: TissueSampleState
+   :members:
+
+.. autoclass:: Configuration
+   :members:
+
+.. autoclass:: CustomPropertySet
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.Protocol
+.. autoclass:: PropertyValueList
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.ProtocolExecution
+.. autoclass:: StringProperty
    :members:
-   :show-inheritance:
 
-.. autoclass:: fairgraph.openminds.core.Setup
+.. autoclass:: NumericalProperty
    :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.core.Strain
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.core.Subject
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.core.SubjectGroup
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.core.SubjectGroupState
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.core.SubjectState
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.core.TissueSample
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.core.TissueSampleCollection
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.core.TissueSampleCollectionState
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.core.TissueSampleState
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.core.Configuration
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.core.CustomPropertySet
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.core.PropertyValueList
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.core.StringProperty
-   :members:
-   :show-inheritance:
-
-.. autoclass:: fairgraph.openminds.core.NumericalProperty
-   :members:
-   :show-inheritance:

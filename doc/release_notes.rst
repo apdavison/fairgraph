@@ -8,11 +8,11 @@ Version 0.12.2
 
 This version includes various small changes and bug fixes.
 
-- Improvements to `client.user_info()` implementation, to give better error messages in case of failure.
+- Improvements to :meth:`client.user_info()` implementation, to give better error messages in case of failure.
 - Use numbers.Real in place of float in fields where openMINDS specifies type "number".
 - More informative error message for unserializable values.
-- Optimization of the `exists()` method, to improve performance by using a simpler query.
-- Allow restricting `exists()` to specific spaces.
+- Optimization of the :meth:`exists()` method, to improve performance by using a simpler query.
+- Allow restricting :meth:`exists()` to specific spaces.
 - Don't allow creating IRI objects with an empty string.
 
 Version 0.12.1
@@ -59,18 +59,18 @@ which links back to the :class:`Model`.
 
 These reverse links can be resolved, and can be used for queries.
 For example, if you are starting from a :class:`ModelVersion`,
-and wish to find it's associated :class:`Model`, previously you had to perform a query:
+and wish to find its associated :class:`Model`, previously you had to perform a query:
 
-    .. code-block:: python
+.. code-block:: python
 
-        >>> models = omcore.Model.list(client, versions=model_version)
-        >>> model = models[0]
+    >>> models = omcore.Model.list(client, versions=model_version)
+    >>> model = models[0]
 
 Now, you can just resolve the reverse field:
 
-    .. code-block:: python
+.. code-block:: python
 
-        >>> model = model_version.is_version_of.resolve(client)
+    >>> model = model_version.is_version_of.resolve(client)
 
 The original method also still works, and could be more efficient,
 depending on how many objects of each type there are.
@@ -79,28 +79,28 @@ If performance is an issue, it is best to profile both approaches.
 Perhaps more usefully, you can now ask fairgraph to resolve the :class:`Model` at the moment
 of obtaining the :class:`ModelVersion`, e.g.
 
-    .. code-block:: python
+.. code-block:: python
 
-        >>> model_version = omcore.ModelVersion.from_id(
-        ...     "5c52380c-7bd9-4fe6-8d72-ff340250b238",
-        ...     client,
-        ...     follow_links={"is_version_of": {}}
-        ... )
-        >>> type(model_version.is_version_of)
-        <class 'fairgraph.openminds.core.products.model.Model'>
-        >>> model_version.is_version_of.uuid
-        'be001074-7eab-4c7e-9bde-9e5987b085d2'
+    >>> model_version = omcore.ModelVersion.from_id(
+    ...     "5c52380c-7bd9-4fe6-8d72-ff340250b238",
+    ...     client,
+    ...     follow_links={"is_version_of": {}}
+    ... )
+    >>> type(model_version.is_version_of)
+    <class 'fairgraph.openminds.core.products.model.Model'>
+    >>> model_version.is_version_of.uuid
+    'be001074-7eab-4c7e-9bde-9e5987b085d2'
 
 and you can also make queries across these reverse links, e.g.
 
-    .. code-block:: python
+.. code-block:: python
 
-        >>> model_versions = omcore.ModelVersion.list(
-        ...     client,
-        ...     is_version_of="be001074-7eab-4c7e-9bde-9e5987b085d2"  # id of a Model
-        ... )
-        >>> model_versions[0].uuid
-        '5c52380c-7bd9-4fe6-8d72-ff340250b238'
+    >>> model_versions = omcore.ModelVersion.list(
+    ...     client,
+    ...     is_version_of="be001074-7eab-4c7e-9bde-9e5987b085d2"  # id of a Model
+    ... )
+    >>> model_versions[0].uuid
+    '5c52380c-7bd9-4fe6-8d72-ff340250b238'
 
 
 .. note:: reverse links that pass via :class:`EmbeddedMetadata` instances are not yet supported.
@@ -162,7 +162,7 @@ Version 0.9.0
 =============
 
 - implement the "match" argument of the `by_name()` method
-- change `configure_space()` to take the space name, not the collab id, as it's argument
+- change `configure_space()` to take the space name, not the collab id, as its argument
 - fix DatasetVersion.download() for unreleased data repositories
 - better handling of the scenario when self.exists() gives the wrong answer, so we get an error on creating a new instance
 - distinguish authorization and authentication errors, and allow being more forgiving with authorization errors

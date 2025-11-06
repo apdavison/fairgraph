@@ -36,7 +36,7 @@ Code of conduct
 ---------------
 
 We wish to foster an open and welcoming environment within the project.
-As such we request that contributors abide by our code of conduct (:file:`CODE_OF_CONDUCT.md`).
+As such we request that contributors abide by our code of conduct (see :file:`CODE_OF_CONDUCT.md` `(Link) <https://github.com/HumanBrainProject/fairgraph/blob/master/CODE_OF_CONDUCT.md>`_).
 
 
 Developers' Guide
@@ -101,19 +101,12 @@ The :mod:`fairgraph.openminds` module is built from the openMINDS schemas.
 To obtain the latest schemas, clone the main openMINDS repository to somewhere
 outside the fairgraph directory tree::
 
-    $ git clone https://github.com/HumanBrainProject/openMINDS.git /path/to/openMINDS
-
-then clone the submodules as follows::
-
-    $ cd /path/to/openMINDS
-    $ git checkout v3
-    $ git submodule init
-    $ git submodule update
+    $ git clone https://github.com/openMetadataInitiative/openMINDS.git /path/to/openMINDS
 
 Within the main fairgraph folder::
 
     $ cd builder
-    $ python update_openminds.py /path/to/openMINDS
+    $ python update_openminds.py /path/to/openMINDS/schemas/v4.0
 
 This will over-write the contents of the :file:`fairgraph/openminds` directory.
 
@@ -183,8 +176,8 @@ you can commit them to your local repository::
 
     $ git commit -m 'informative commit message'
 
-If this is your first commit to the project, please add your name and
-affiliation/employer to :file:`doc/authors.rst`
+If this is your first commit to the project, please add your name, ORCID if you have one, and
+affiliation/employer to :file:`doc/authors.json`
 
 You can then push your changes to your online repository on GitHub::
 
@@ -200,17 +193,17 @@ Dealing with pull requests
 --------------------------
 
 Anyone is welcome to review a pull request, although only project maintainers are able to merge them.
-do the CI test pass?
-review the code - at least one person
-give feedback - be sure to thank the contributor, especially if it is a first time contribution!
+
+- do the CI test pass?
+- review the code - at least one person
+- give feedback - be sure to thank the contributor, especially if it is a first time contribution!
 
 Making a release
 ----------------
 
-Add a section in :file:`/doc/source/whatisnew.rst` for the release.
+Add a section in :file:`/doc/release_notes.rst` for the release.
 
-First check that the version string (in :file:`pyproject.toml`, :file:`fairgraph/__init__.py`
-and :file:`doc/conf.py`) is correct.
+First check that the version string (in :file:`pyproject.toml` and :file:`fairgraph/__init__.py`) is correct.
 
 To build source and wheel packages::
 

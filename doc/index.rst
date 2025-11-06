@@ -1,8 +1,3 @@
-.. fairgraph documentation master file, created by
-   sphinx-quickstart on Tue Oct 29 17:04:38 2019.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 =======================================================
 fairgraph: a Python API for the EBRAINS Knowledge Graph
 =======================================================
@@ -10,8 +5,10 @@ fairgraph: a Python API for the EBRAINS Knowledge Graph
 **fairgraph** is a Python library for working with metadata
 in the EBRAINS Knowledge Graph, with a particular focus on data reuse,
 although it is also useful in metadata registration/curation.
-The API is not stable, and is subject to change.
 
+
+.. image:: fairgraph-logo.png
+   :width: 300px
 
 .. toctree::
    :maxdepth: 1
@@ -50,35 +47,26 @@ Basic setup
 
 The basic idea of the library is to represent metadata nodes from the Knowledge Graph as Python objects.
 Communication with the Knowledge Graph service is through a client object,
-for which an access token associated with an EBRAINS account is needed.
-
-If you are working in a Collaboratory Jupyter notebook, the client will take its access token from the notebook automatically::
+for which an access token associated with an EBRAINS account is needed::
 
    >>> from fairgraph import KGClient
 
-   >>> client = KGClient(host="core.kg.ebrains.eu")
+   >>> client = KGClient()
 
-If working outside the Collaboratory, you will need to obtain a token
-(for example from the KG Editor if you are a curator, or using `clb_oauth.get_token()` in a Collaboratory Jupyter notebook)
-and save it as an environment variable, e.g. at a shell prompt::
+If you are working in an EBRAINS Lab Jupyter notebook,
+the client will take its access token from the notebook automatically.
 
-   export KG_AUTH_TOKEN=eyJhbGci...nPq
+If working outside the Lab, the client will print the URL of a log-in page.
+You should open this URL in a web-browser, log in to your EBRAINS account,
+then close the tab and return to your Python prompt or your notebook.
 
-and then in Python::
-
-   >>> token = os.environ['KG_AUTH_TOKEN']
-
-Once you have a token::
-
-   >>> from fairgraph import KGClient
-
-   >>> client = KGClient(token)
+For other ways to provide/obtain an access token, see :doc:`queries`.
 
 
 Retrieving metadata from the Knowledge Graph
 --------------------------------------------
 
-The different metadata/data types available in the Knowledge Graph are grouped into modules
+The different metadata/data types available in the Knowledge Graph are grouped into submodules
 within the `openminds` module.
 For example::
 
@@ -92,66 +80,98 @@ If you know the unique identifier of an object, you can retrieve it directly::
 
    >>> dataset_of_interest = DatasetVersion.from_id("17196b79-04db-4ea4-bb69-d20aab6f1d62", client)
    >>> dataset_of_interest.show()
-   id                         https://kg.ebrains.eu/api/instances/17196b79-04db-4ea4-bb69-d20aab6f1d62
-   authors                    [KGProxy((<class 'fairgraph.openminds.core.actors.organization.Organization'>, <class 'fairgraph.openminds.core.actors.person.Person'>), 'https://kg.ebrains.eu/api/instances/56f86f58-add6-4684-aaf1-91083e1165e9'), KGProxy((<class 'fairgraph.openminds.core.actors.organization.Organization'>, <class 'fairgraph.openminds.core.actors.person.Person'>), 'https://kg.ebrains.eu/api/instances/3b0ceb13-5bcc-4f1d-8ddb-bd888a85b9c0'), KGProxy((<class 'fairgraph.openminds.core.actors.organization.Organization'>, <class 'fairgraph.openminds.core.actors.person.Person'>), 'https://kg.ebrains.eu/api/instances/6e3edece-60bc-4a4a-8399-45b1ee597d71')]
-   behavioral_protocols       None
-   digital_identifier         KGProxy([<class 'fairgraph.openminds.core.miscellaneous.doi.DOI'>], 'https://kg.ebrains.eu/api/instances/c03106e1-1f30-446b-8439-ce77fc8358d6')
-   ethics_assessment          KGProxy([<class 'fairgraph.openminds.controlled_terms.ethics_assessment.EthicsAssessment'>], 'https://kg.ebrains.eu/api/instances/a217a2f8-dcb8-4ca9-9923-517af2aebc5b')
-   experimental_approachs     None
-   input_data                 None
-   is_alternative_version_of  None
-   is_new_version_of          None
-   license                    KGProxy([<class 'fairgraph.openminds.core.data.license.License'>], 'https://kg.ebrains.eu/api/instances/6ebce971-7f99-4fbc-9621-eeae47a70d85')
-   preparation_designs        None
-   studied_specimens          [KGProxy((<class 'fairgraph.openminds.core.research.subject.Subject'>, <class 'fairgraph.openminds.core.research.subject_group.SubjectGroup'>, <class 'fairgraph.openminds.core.research.tissue_sample.TissueSample'>, <class 'fairgraph.openminds.core.research.tissue_sample_collection.TissueSampleCollection'>), 'https://kg.ebrains.eu/api/instances/0ca86a6e-6fa0-4840-b62a-994170a9b6d4'), KGProxy((<class 'fairgraph.openminds.core.research.subject.Subject'>, <class 'fairgraph.openminds.core.research.subject_group.SubjectGroup'>, <class 'fairgraph.openminds.core.research.tissue_sample.TissueSample'>, <class 'fairgraph.openminds.core.research.tissue_sample_collection.TissueSampleCollection'>), 'https://kg.ebrains.eu/api/instances/3907e145-d2d1-42c7-8a05-a58e3dbf326f'), KGProxy((<class 'fairgraph.openminds.core.research.subject.Subject'>, <class 'fairgraph.openminds.core.research.subject_group.SubjectGroup'>, <class 'fairgraph.openminds.core.research.tissue_sample.TissueSample'>, <class 'fairgraph.openminds.core.research.tissue_sample_collection.TissueSampleCollection'>), 'https://kg.ebrains.eu/api/instances/f1336642-27a5-4e4f-a6f1-979610bd853d'), KGProxy((<class 'fairgraph.openminds.core.research.subject.Subject'>, <class 'fairgraph.openminds.core.research.subject_group.SubjectGroup'>, <class 'fairgraph.openminds.core.research.tissue_sample.TissueSample'>, <class 'fairgraph.openminds.core.research.tissue_sample_collection.TissueSampleCollection'>), 'https://kg.ebrains.eu/api/instances/a6e2336a-ba1b-4504-b69a-ef12002b2ed4'), KGProxy((<class 'fairgraph.openminds.core.research.subject.Subject'>, <class 'fairgraph.openminds.core.research.subject_group.SubjectGroup'>, <class 'fairgraph.openminds.core.research.tissue_sample.TissueSample'>, <class 'fairgraph.openminds.core.research.tissue_sample_collection.TissueSampleCollection'>), 'https://kg.ebrains.eu/api/instances/0d54e778-0a6a-4f90-9555-218643dd65a9'), KGProxy((<class 'fairgraph.openminds.core.research.subject.Subject'>, <class 'fairgraph.openminds.core.research.subject_group.SubjectGroup'>, <class 'fairgraph.openminds.core.research.tissue_sample.TissueSample'>, <class 'fairgraph.openminds.core.research.tissue_sample_collection.TissueSampleCollection'>), 'https://kg.ebrains.eu/api/instances/2675865a-5f7e-4d5f-bc86-c4b8dbd47d58'), KGProxy((<class 'fairgraph.openminds.core.research.subject.Subject'>, <class 'fairgraph.openminds.core.research.subject_group.SubjectGroup'>, <class 'fairgraph.openminds.core.research.tissue_sample.TissueSample'>, <class 'fairgraph.openminds.core.research.tissue_sample_collection.TissueSampleCollection'>), 'https://kg.ebrains.eu/api/instances/94664b6e-8979-4cf6-b358-ff04056a4754')]
-   techniques                 None
-   data_types                 None
-   study_targets              None
-   accessibility              KGProxy([<class 'fairgraph.openminds.controlled_terms.product_accessibility.ProductAccessibility'>], 'https://kg.ebrains.eu/api/instances/b2ff7a47-b349-48d7-8ce4-cf51868675f1')
-   copyright                  None
-   custodians                 KGProxy((<class 'fairgraph.openminds.core.actors.organization.Organization'>, <class 'fairgraph.openminds.core.actors.person.Person'>), 'https://kg.ebrains.eu/api/instances/762bd286-9d46-4ac5-889f-63b08d33c895')
-   description                The Golgi cells, together with granule cells and mossy fibers, form a neuronal microcircuit regulating information transfer at the cerebellum input stage. In order to further investigate the Golgi cells properties and their excitatory synapses, whole-cell patch-clamp recordings were performed on acute parasagittal cerebellar slices obtained from juvenile GlyT2-GFP mice (p16-p21). Passive Golgi cells parameters were extracted in voltage-clamp mode by analyzing current relaxation induced by step voltage changes (IV protocol). Excitatory synaptic transmission properties were investigated by electrical stimulation of the mossy fibers bundle (5 pulses at 50 Hz, EPSC protocol, voltage-clamp mode.
-   full_documentation         KGProxy((<class 'fairgraph.openminds.core.miscellaneous.doi.DOI'>, <class 'fairgraph.openminds.core.data.file.File'>, <class 'fairgraph.openminds.core.miscellaneous.url.URL'>), 'https://kg.ebrains.eu/api/instances/d6cd3981-cdb1-460c-a4e4-29458fe0a47f')
-   name                       Whole cell patch-clamp recordings of cerebellar Golgi cells
-   funding                    None
-   homepage                   None
-   how_to_cite                None
-   keywords                   None
-   other_contributions        None
-   related_publications       [KGProxy((<class 'fairgraph.openminds.core.miscellaneous.doi.DOI'>, <class 'fairgraph.openminds.core.miscellaneous.isbn.ISBN'>), 'https://kg.ebrains.eu/api/instances/477b3e5d-5903-4a68-84b3-d29e38214ca8'), KGProxy((<class 'fairgraph.openminds.core.miscellaneous.doi.DOI'>, <class 'fairgraph.openminds.core.miscellaneous.isbn.ISBN'>), 'https://kg.ebrains.eu/api/instances/9f1ec274-329a-4a9b-802a-abd301614c2c')]
-   release_date               None
-   repository                 KGProxy([<class 'fairgraph.openminds.core.data.file_repository.FileRepository'>], 'https://kg.ebrains.eu/api/instances/80e2ca84-b9fa-43b7-b21a-b5f99d89f051')
-   alias                      Whole cell patch-clamp recordings of cerebellar Golgi cells
-   support_channels           None
-   version_identifier         None
-   version_innovation         None
+   id                       https://kg.ebrains.eu/api/instances/17196b79-04db-4ea4-bb69-d20aab6f1d62
+   space                    dataset
+   type                     https://openminds.om-i.org/types/DatasetVersion
+   accessibility            KGProxy([ProductAccessibility], id="b2ff7a47-b349-48d7-8ce4-cf51868675f1")
+   data_types               KGProxy([SemanticDataType], id="f468ee45-37a6-4e71-8b70-0cbe66d367db")
+   description
+   digital_identifier       KGProxy([DOI, IdentifiersDotOrgID], id="c03106e1-1f30-446b-8439-ce77fc8358d6")
+   ethics_assessment        KGProxy([EthicsAssessment], id="a217a2f8-dcb8-4ca9-9923-517af2aebc5b")
+   experimental_approaches  [KGProxy([ExperimentalApproach], id="4ccfa2b8-fe75-4a17-98b7-e01b922c8f03"), KGProxy([Experim ...
+   full_documentation       KGProxy([DOI, File, ISBN, WebResource], id="d6cd3981-cdb1-460c-a4e4-29458fe0a47f")
+   full_name                Whole cell patch-clamp recordings of cerebellar Golgi cells
+   keywords                 [KGProxy([ActionStatusType, AgeCategory, AnalysisTechnique, AnatomicalAxesOrientation, Anatom ...
+   license                  KGProxy([License, WebResource], id="6ebce971-7f99-4fbc-9621-eeae47a70d85")
+   preparation_designs      KGProxy([PreparationType], id="9f3abe1b-af7c-446d-b637-6a4f19ab7939")
+   related_publications     [KGProxy([DOI, HANDLE, ISBN, ISSN, Book, Chapter, ScholarlyArticle], id="477b3e5d-5903-4a68-8 ...
+   release_date             2020-03-26
+   repository               KGProxy([FileRepository], id="80e2ca84-b9fa-43b7-b21a-b5f99d89f051")
+   short_name               Whole cell patch-clamp recordings of cerebellar Golgi cells
+   studied_specimens        [KGProxy([Subject, SubjectGroup, TissueSample, TissueSampleCollection], id="7713a42e-0499-405 ...
+   study_targets            [KGProxy([AuditoryStimulusType, BiologicalOrder, BiologicalSex, BreedingType, CellCultureType ...
+   techniques               [KGProxy([AnalysisTechnique, MRIPulseSequence, MRIWeighting, StimulationApproach, Stimulation ...
+   version_identifier       v1
+   version_innovation       This is the first version of this research product.
+
+
+The associated metadata are accessible as attributes of the Python objects, e.g.::
+
+   >>> print(dataset_of_interest.short_name)
+   Whole cell patch-clamp recordings of cerebellar Golgi cells
+
+
+You can also download any associated data::
+
+   >>> dataset_of_interest.download(client, "local_directory")
+
+
+Inherited attributes
+````````````````````
+
+For :class:`DatasetVersion` and other research product versions, certain metadata like name, description, and authors
+may not be available directly, but can be inherited from the parent :class:`Dataset`. For example::
+
+   >>> dataset_of_interest.description
+   ''
+   >>> dataset_of_interest.get_description(client)
+   'The Golgi cells, together with granule cells and mossy fibers, form a neuronal microcircuit regulating information
+    transfer at the cerebellum input stage. In order to further investigate the Golgi cells properties and their excitatory
+    synapses, whole-cell patch-clamp recordings were performed on acute parasagittal cerebellar slices obtained
+    from juvenile GlyT2-GFP mice (p16-p21). Passive Golgi cells parameters were extracted in voltage-clamp mode by
+    analyzing current relaxation induced by step voltage changes (IV protocol). Excitatory synaptic transmission
+    properties were investigated by electrical stimulation of the mossy fibers bundle (5 pulses at 50 Hz, EPSC protocol,
+    voltage-clamp mode).'
+
+Following links in the knowledge graph
+``````````````````````````````````````
 
 Links between metadata in the Knowledge Graph are not followed automatically,
-to avoid unnecessary network traffic, but can be followed with the :meth:`resolve()` method::
+to avoid unnecessary network traffic.
+Instead the property is set to a :class:`KGProxy` object, representing a link::
+
+   >>> dataset_of_interest.license
+   KGProxy([License, WebResource], id="6ebce971-7f99-4fbc-9621-eeae47a70d85")
+
+This link can be followed with the :meth:`resolve()` method::
 
    >>> dataset_license = dataset_of_interest.license.resolve(client)
    >>> dataset_license.show()
    id          https://kg.ebrains.eu/api/instances/6ebce971-7f99-4fbc-9621-eeae47a70d85
-   name        Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+   space       controlled
+   type        https://openminds.om-i.org/types/License
+   full_name   Creative Commons Attribution Non Commercial Share Alike 4.0 International
    legal_code  https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode
-   alias       CC BY-NC-SA 4.0
+   short_name  CC-BY-NC-SA-4.0
    webpages    ['https://creativecommons.org/licenses/by-nc-sa/4.0', 'https://spdx.org/licenses/CC-BY-NC-SA-4.0.html']
 
-The associated metadata are accessible as attributes of the Python objects, e.g.::
 
-   >>> print(dataset_of_interest.description)
-   The Golgi cells, together with granule cells and mossy fibers, form a neuronal microcircuit
-   regulating information transfer at the cerebellum input stage. In order to further investigate
-   the Golgi cells properties and their excitatory synapses, whole-cell patch-clamp recordings
-   were performed on acute parasagittal cerebellar slices obtained from juvenile GlyT2-GFP mice
-   (p16-p21). Passive Golgi cells parameters were extracted in voltage-clamp mode by analyzing
-   current relaxation induced by step voltage changes (IV protocol). Excitatory synaptic
-   transmission properties were investigated by electrical stimulation of the mossy fibers bundle
-   (5 pulses at 50 Hz, EPSC protocol, voltage-clamp mode.
+If you know in advance which links you wish to follow, you can use the `follow_links` option::
 
-You can also download any associated data::
-
-   >>> dataset.download(client, "local_directory")
+   >>> dataset = DatasetVersion.from_id(
+   ...     "17196b79-04db-4ea4-bb69-d20aab6f1d62",
+   ...     client,
+   ...     follow_links={
+   ...         "license": {},
+   ...         "is_version_of": {
+   ...             "authors": {}
+   ...         }
+   ...     }
+   ... )
+   >>> dataset.is_version_of[0].authors[0].given_name
+   'Francesca'
+   >>> dataset.license.short_name
+   'CC-BY-NC-SA-4.0'
 
 
 Filters
@@ -173,11 +193,24 @@ For example, to filter by words in a dataset name::
 To filter by species, we first need to retrieve the species metadata::
 
    >>> from fairgraph.openminds.controlled_terms import Species
-   >>> rat = Species.by_name("Rattus norvegicus", client)
+   >>> rat = Species.rattus_norvegicus
 
 We can then use this as a filter::
 
    >>> rat_datasets = DatasetVersion.list(client, study_targets=rat)
+   >>> for dsv in rat_datasets:
+   ...     print("- " + ", ".join(st.name for st in dsv.study_targets))
+   - Rattus norvegicus
+   - autism spectrum disorder, Mus musculus, Rattus norvegicus, Homo sapiens, synaptic protein
+   - Rattus norvegicus, brain
+   - Homo sapiens, Mus musculus, Rattus norvegicus, synaptic protein
+   - Rattus norvegicus, basal ganglion, striatum, globus pallidus, substantia nigra, substantia innominata, nucleus accumbens, caudate-putamen, ventral pallidum, ventral tegmental area
+   - Alzheimer's disease, Rattus norvegicus, Mus musculus, vascular system, brain
+   - Rattus norvegicus, medial entorhinal cortex
+   - hippocampus CA1 pyramidal neuron, Rattus norvegicus, CA1 field of hippocampus, CA3 field of hippocampus
+   - Mus musculus, Rattus norvegicus, basal ganglia
+   - Rattus norvegicus
+   - Rattus norvegicus, CA1 field of hippocampus
 
 To see a list of the properties that can be used for filtering::
 
@@ -191,19 +224,123 @@ To see a list of the properties that can be used for filtering::
     'support_channels', 'version_identifier', 'version_innovation']
 
 
-Storing and editing metadata
-----------------------------
+Creating and validating metadata
+-----------------------------------
+
+So far we have talked about retrieving metadata nodes from the Knowledge Graph.
+fairgraph can also be used to create new metadata nodes, and to edit existing ones.
+
+Let's create a Person, with their affiliation
+(note that the following example has deliberate errors, so that we can demonstrate validation)::
+
+   >>> from fairgraph.openminds.core import Person, Organization, Affiliation
+   >>> from fairgraph import set_error_handling
+   >>> set_error_handling(None)
+
+   >>> mgm = Organization(full_name="Metro-Goldwyn-Mayer", short_name="MGM")
+   >>> actor = Person(family_name="Laurel", given_name="Stan", affiliations=mgm)
+   >>> actor.show()
+   id            None
+   space         None
+   type          https://openminds.om-i.org/types/Person
+   affiliations  Organization(full_name='Metro-Goldwyn-Mayer', short_name='MGM', space=None, id=None)
+   family_name   Laurel
+   given_name    Stan
+
+Now let's check we have created this node correctly::
+
+   >>> actor.validate()
+   defaultdict(list,
+               {'type': ["affiliations: Expected Affiliation, value contains <class 'fairgraph.openminds.core.actors.organization.Organization'>"]})
+
+It seems we have added the wrong type of node for affiliation. Let's fix that::
+
+   >>> Affiliation.property_names
+   ['end_date', 'member_of', 'start_date']
+   >>> actor.affiliations = [Affiliation(member_of=mgm, start_date="23rd February 1942")]
+   >>> actor.validate()
+   defaultdict(list,
+               {'type': ["start_date: Expected date, value contains <class 'str'>"]})
+
+Still not quite right:
+
+   >>> Affiliation.get_property("start_date").types
+   (datetime.date,)
+   >>> from datetime import date
+   >>> actor.affiliations[0].start_date = date(1942, 2, 23)
+   >>> actor.validate()
+   defaultdict(list, {})
+
+Now we have no errors.
+
+Saving metadata to file
+-----------------------
+
+For communication with the KG, metadata nodes are represented in `JSON-LD`_ format.
+Let's see how our Person node looks when serialised to JSON-LD::
+
+   >>> actor.to_jsonld()
+   {'@context': {'@vocab': 'https://openminds.om-i.org/props/'},
+   '@type': 'https://openminds.om-i.org/types/Person',
+   'affiliation': [{'@type': 'https://openminds.om-i.org/types/Affiliation',
+      'endDate': None,
+      'memberOf': {'@type': 'https://openminds.om-i.org/types/Organization',
+      'affiliation': None,
+      'digitalIdentifier': None,
+      'fullName': 'Metro-Goldwyn-Mayer',
+      'hasParent': None,
+      'homepage': None,
+      'shortName': 'MGM'},
+      'startDate': '1942-02-23'}],
+   'alternateName': None,
+   'associatedAccount': None,
+   'contactInformation': None,
+   'digitalIdentifier': None,
+   'familyName': 'Laurel',
+   'givenName': 'Stan'}
+
+Note that it includes all properties defined by the openMINDS schemas,
+even those optional properties we haven't given a value to.
+To serialise without these empty properties::
+
+   >>> actor.to_jsonld(include_empty_properties=False)
+   {'@context': {'@vocab': 'https://openminds.om-i.org/props/'},
+   '@type': 'https://openminds.om-i.org/types/Person',
+   'affiliation': [{'@type': 'https://openminds.om-i.org/types/Affiliation',
+      'memberOf': {'@type': 'https://openminds.om-i.org/types/Organization',
+      'fullName': 'Metro-Goldwyn-Mayer',
+      'shortName': 'MGM'},
+      'startDate': '1942-02-23'}],
+   'familyName': 'Laurel',
+   'givenName': 'Stan'}
+
+The same data can be saved to a local file::
+
+   >>> actor.dump("stan_laurel.jsonld")
+
+and loaded again::
+
+   >>> actor2 = Person.load("stan_laurel.jsonld")
+
+
+Storing metadata in the KG
+--------------------------
 
 For those users who have the necessary permissions to store and edit metadata in the Knowledge Graph,
-**fairgraph** objects can be created or edited in Python, and then saved back to the Knowledge Graph, e.g.::
+**fairgraph** objects can be created or edited in Python, and then saved to the Knowledge Graph, e.g.::
 
-   from fairgraph.openminds.core import Person, Organization, Affiliation
+   >>> kg_id = actor.save(client, space="myspace")
 
-   >>> mgm = Organization(name="Metro-Goldwyn-Mayer", alias="MGM")
-   >>> mgm.save(client, space="myspace")
-   >>> author = Person(family_name="Laurel", given_name="Stan",
-   ...                 affiliations=Affiliation(organization=mgm))
-   >>> author.save(client, space="myspace")
+To retrieve the node at a later time::
+
+   >>> actor3 = Person.from_id(kg_id, client, release_status="in progress")
+
+In general, everyone with an EBRAINS account can create metadata nodes in a KG private space named "myspace".
+Only the user who created the node can access it.
+If you would like to collaborate with others, you can create a workspace (called a "collab") in the `EBRAINS Collaboratory`_,
+choose who can access that workspace, and then create a private KG space for that workspace.
+For more details, see :doc:`permissions`.
+
 
 
 Getting help
@@ -221,10 +358,11 @@ Acknowledgements
    :height: 100 px
    :align: right
 
-This open source software code was developed in part or in whole in the Human Brain Project,
-funded from the European Union's Horizon 2020 Framework Programme for Research and Innovation
-under Specific Grant Agreements No. 720270, No. 785907 and No. 945539
-(Human Brain Project SGA1, SGA2 and SGA3).
+This open source software code was developed in part or in whole in the Human Brain Project, funded from the European Union's Horizon 2020 Framework Programme for Research and Innovation under Specific Grant Agreements No. 720270, No. 785907 and No. 945539 (Human Brain Project SGA1, SGA2 and SGA3) and in the EBRAINS research infrastructure,
+funded from the European Union's Horizon Europe funding programme under grant agreement No. 101147319 (EBRAINS-2.0).
 
 
 .. _`issue tracker`: https://github.com/HumanBrainProject/fairgraph/issues
+.. _`KG Editor`: https://editor.kg.ebrains.eu
+.. _`EBRAINS Collaboratory`: https://wiki.ebrains.eu
+.. _`JSON-LD`: https://json-ld.org

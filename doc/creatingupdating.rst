@@ -16,7 +16,7 @@ then use the :meth:`save()` method, e.g.::
 
 To update a node, edit the attributes of the corresponding Python object, then :meth:`save()` again::
 
-    from fairgraph.base import IRI
+    from fairgraph import IRI
 
     sv.homepage = IRI("https://numpy.org")
     sv.save(client)
@@ -35,7 +35,19 @@ If you want to know which properties are included in the match, examine the :att
 attribute, e.g.::
 
     >>> SoftwareVersion.existence_query_properties
-    ('alias', 'version_identifier')
+    ('short_name', 'version_identifier')
+
+
+Saving child nodes
+==================
+
+By default, **fairgraph** will recursively save all child objects of the object that is being directly saved.
+For example, if saving a :class:`Dataset` it will also save all the :class:`Person` objects in the :attr:`authors` property.
+
+To turn off this recursive behaviour (for example, because you know the child objects have not been modified,
+or because you want more fine-grained control over what gets saved), run::
+
+    >>> obj.save(client, space="myspace", recursive=False)
 
 
 Permissions
