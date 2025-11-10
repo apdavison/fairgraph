@@ -840,7 +840,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
     def by_name(
         cls,
         name: str,
-        client: KGClient,
+        client: Optional[KGClient] = None,
         match: str = "equals",
         all: bool = False,
         space: Optional[str] = None,
@@ -851,10 +851,12 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         """
         Retrieve an instance from the Knowledge Graph based on its name.
 
-        Note that not all metadata classes have a name property.
+        This includes properties "name", "lookup_label", "family_name", "full_name", "short_name", and "synonyms".
+
+        Note that not all metadata classes have a name.
 
         Args:
-            name (str): a string to search for in the name property.
+            name (str): a string to search for.
             client: a KGClient
             match (str, optional): either "equals" (exact match - default) or "contains".
             all (bool, optional): Whether to return all objects that match the name, or only the first. Defaults to False.
@@ -866,13 +868,40 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         """
         release_status = handle_scope_keyword(scope, release_status)
         # todo: move this to openminds generation, and include only in those subclasses
-        # that have a name
-        # todo: also count 'lookup_name', "family_name", "given_name" as a name
-        objects = cls.list(
-            client, space=space, release_status=release_status, api="query", name=name, follow_links=follow_links
-        )
+        # that have a name-like property
+        namelike_properties = ("name", "lookup_label", "family_name", "full_name", "short_name", "synonyms")
+        objects = []
+        if client:
+            kwargs = dict(space=space, release_status=release_status, api="query", follow_links=follow_links)
+            for prop_name in namelike_properties:
+                if prop_name in cls.property_names:
+                    kwargs[prop_name] = name
+                    break
+            objects = cls.list(client, **kwargs)
+        elif hasattr(cls, "instances"):  # controlled terms, etc.
+            if cls._instance_lookup is None:
+                cls._instance_lookup = {}
+                for instance in cls.instances():
+                    found = False
+                    for prop_name in namelike_properties[-1]:  # handle 'synonyms' separately
+                        if hasattr(instance, prop_name):
+                            cls._instance_lookup[getattr(instance, prop_name)] = instance
+                            found = True
+                            break
+                    if (not found) and instance.synonyms:
+                        for synonym in instance.synonyms:
+                            cls._instance_lookup[synonym] = instance
+            obj = cls._instance_lookup.get(name, None)
+            if obj:
+                objects.append(obj)
         if match == "equals":
-            objects = [obj for obj in objects if hasattr(obj, "name") and obj.name == name]
+            objects = [
+                obj for obj in objects
+                if any(
+                    getattr(obj, prop_name, None) == name
+                    for prop_name in namelike_properties
+                )
+            ]
         if len(objects) == 0:
             return None
         elif len(objects) == 1:
