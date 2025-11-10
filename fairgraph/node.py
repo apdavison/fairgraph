@@ -340,7 +340,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
 
         deserialized_data = {}
         for prop in cls.all_properties:
-            expanded_path = expand_uri(prop.path, context)
+            expanded_path = expand_uri(prop.path, cls.context)
             data_item = _normalize_type(D.get(expanded_path))
 
             if data_item is not None and prop.reverse:
