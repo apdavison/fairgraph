@@ -510,6 +510,8 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 expanded_path = expand_uri(key, cls.context)
                 assert isinstance(expanded_path, str)
                 self.remote_data[expanded_path] = data[key]
+        if self.space is None and "https://core.kg.ebrains.eu/vocab/meta/space" in data:
+            self._space = data["https://core.kg.ebrains.eu/vocab/meta/space"]
 
     def __eq__(self, other):
         return not self.__ne__(other)
