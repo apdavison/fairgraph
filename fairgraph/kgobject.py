@@ -668,6 +668,8 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             replace (bool, optional): Whether to completely replace an existing KG instance with this one, or just update the existing object
                 with any modified properties. Defaults to False.
             ignore_auth_errors (bool, optional): Whether to continue silently when encountering authentication errors. Defaults to False.
+            ignore_duplicates (bool, optional): Whether to ignore the existence of multiple objects with the same properties
+                (and consider only the first in the list), or to raise an Exception. Defaults to False.
 
         Raises:
             - An `AuthorizationError` if the current user is not authorized to perform the requested operation.
@@ -675,22 +677,22 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         """
         if recursive:
             for prop in self.properties:
-                # we do not save reverse properties, those objects must be saved separately
-                # this could be revisited, but we'll have to be careful about loops
+                # We do not save reverse properties, those objects must be saved separately.
+                # This could be revisited, but we'll have to be careful about loops
                 # if saving recursively
                 values = getattr(self, prop.name)
                 for value in as_list(values):
                     if isinstance(value, ContainsMetadata):
                         target_space: Optional[str]
-                        if value.space:
-                            target_space = value.space
-                        elif (
+                        if (
                             isinstance(value, KGObject)
                             and value.__class__.default_space == "controlled"
                             and value.exists(client, ignore_duplicates=ignore_duplicates)
                             and value.space == "controlled"
                         ):
                             continue
+                        elif value.space:
+                            target_space = value.space
                         elif space is None and self.space is not None:
                             target_space = self.space
                         else:
