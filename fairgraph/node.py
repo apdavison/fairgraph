@@ -314,12 +314,16 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
 
         # normalize data by expanding keys
         D = {"@type": type_from_data}
+        if "@context" in data:
+            context = data["@context"]
+        else:
+            context = cls.context
         if include_id and "@id" in data:
             D["@id"] = data["@id"]
         for key, value in data.items():
             if "__" in key:
                 key, type_filter = key.split("__")
-                normalised_key = expand_uri(key, cls.context)
+                normalised_key = expand_uri(key, context)
                 value = [item for item in as_list(value) if _get_type_from_data(item).endswith(type_filter)]
                 if normalised_key in D:
                     if isinstance(D[normalised_key], list):
@@ -331,12 +335,12 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
             elif key.startswith("Q"):  # for 'Q' properties in data from queries
                 D[key] = value
             elif key[0] != "@":
-                normalised_key = expand_uri(key, cls.context)
+                normalised_key = expand_uri(key, context)
                 D[normalised_key] = value
 
         deserialized_data = {}
         for prop in cls.all_properties:
-            expanded_path = expand_uri(prop.path, cls.context)
+            expanded_path = expand_uri(prop.path, context)
             data_item = _normalize_type(D.get(expanded_path))
 
             if data_item is not None and prop.reverse:
