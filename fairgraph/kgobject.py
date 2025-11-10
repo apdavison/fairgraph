@@ -25,7 +25,7 @@ from uuid import UUID
 from warnings import warn
 from typing import Any, Tuple, Dict, List, Optional, TYPE_CHECKING, Union
 
-from requests.exceptions import HTTPError
+from requests.exceptions import HTTPError, ConnectionError
 
 try:
     from tabulate import tabulate
@@ -589,7 +589,15 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     filters=query_filter,
                 )
 
-                instances = client.query(query=query, size=2, release_status="any", restrict_to_spaces=in_spaces).data
+                try:
+                    instances = client.query(query=query, size=2, release_status="any", restrict_to_spaces=in_spaces).data
+                except ConnectionError as err:
+                    if "RemoteDisconnected" in str(err):
+                        warn(
+                            f"Timeout when checking for existence of object {self}."
+                            "Returning False, check for possible creation of duplicate instances."
+                        )
+                        return False
 
                 if instances:
                     if len(instances) > 1 and not ignore_duplicates:
