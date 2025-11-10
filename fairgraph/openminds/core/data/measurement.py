@@ -20,6 +20,7 @@ class Measurement(EmbeddedMetadata, OMMeasurement):
     type_ = "https://openminds.om-i.org/types/Measurement"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
+    existence_query_properties = ("measured_quantity", "values")
 
     def __init__(
         self,

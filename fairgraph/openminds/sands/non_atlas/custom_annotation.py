@@ -17,6 +17,7 @@ class CustomAnnotation(EmbeddedMetadata, OMCustomAnnotation):
     type_ = "https://openminds.om-i.org/types/CustomAnnotation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
+    existence_query_properties = ("coordinate_space", "criteria_quality_type", "criteria_type", "type")
 
     def __init__(
         self,

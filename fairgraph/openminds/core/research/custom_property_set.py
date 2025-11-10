@@ -17,6 +17,7 @@ class CustomPropertySet(EmbeddedMetadata, OMCustomPropertySet):
     type_ = "https://openminds.om-i.org/types/CustomPropertySet"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
+    existence_query_properties = ("context", "data_location", "relevant_for")
 
     def __init__(
         self, context=None, data_location=None, relevant_for=None, id=None, data=None, space=None, release_status=None

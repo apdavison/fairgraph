@@ -17,6 +17,7 @@ class Copyright(EmbeddedMetadata, OMCopyright):
     type_ = "https://openminds.om-i.org/types/Copyright"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
+    existence_query_properties = ("holders", "years")
 
     def __init__(self, holders=None, years=None, id=None, data=None, space=None, release_status=None):
         return EmbeddedMetadata.__init__(self, data=data, holders=holders, years=years)

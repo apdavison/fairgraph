@@ -20,6 +20,7 @@ class Affiliation(EmbeddedMetadata, OMAffiliation):
     type_ = "https://openminds.om-i.org/types/Affiliation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
+    existence_query_properties = ("member_of",)
 
     def __init__(
         self, end_date=None, member_of=None, start_date=None, id=None, data=None, space=None, release_status=None

@@ -17,6 +17,7 @@ class AtlasAnnotation(EmbeddedMetadata, OMAtlasAnnotation):
     type_ = "https://openminds.om-i.org/types/AtlasAnnotation"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
+    existence_query_properties = ("criteria_quality_type", "criteria_type", "type")
 
     def __init__(
         self,

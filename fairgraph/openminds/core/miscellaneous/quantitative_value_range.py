@@ -20,6 +20,7 @@ class QuantitativeValueRange(EmbeddedMetadata, OMQuantitativeValueRange):
     type_ = "https://openminds.om-i.org/types/QuantitativeValueRange"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
+    existence_query_properties = ("max_value", "min_value")
 
     def __init__(
         self,

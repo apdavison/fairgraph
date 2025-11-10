@@ -17,6 +17,7 @@ class Contribution(EmbeddedMetadata, OMContribution):
     type_ = "https://openminds.om-i.org/types/Contribution"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
+    existence_query_properties = ("contributor", "types")
 
     def __init__(self, contributor=None, types=None, id=None, data=None, space=None, release_status=None):
         return EmbeddedMetadata.__init__(self, data=data, contributor=contributor, types=types)

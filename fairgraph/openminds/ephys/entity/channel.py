@@ -17,6 +17,7 @@ class Channel(EmbeddedMetadata, OMChannel):
     type_ = "https://openminds.om-i.org/types/Channel"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
+    existence_query_properties = ("internal_identifier", "unit")
 
     def __init__(self, internal_identifier=None, unit=None, id=None, data=None, space=None, release_status=None):
         return EmbeddedMetadata.__init__(self, data=data, internal_identifier=internal_identifier, unit=unit)

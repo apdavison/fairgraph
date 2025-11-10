@@ -17,6 +17,7 @@ class AnatomicalTargetPosition(EmbeddedMetadata, OMAnatomicalTargetPosition):
     type_ = "https://openminds.om-i.org/types/AnatomicalTargetPosition"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
+    existence_query_properties = ("anatomical_targets", "target_identification_type")
 
     def __init__(
         self,

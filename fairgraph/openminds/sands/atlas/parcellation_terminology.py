@@ -17,6 +17,7 @@ class ParcellationTerminology(EmbeddedMetadata, OMParcellationTerminology):
     type_ = "https://openminds.om-i.org/types/ParcellationTerminology"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
+    existence_query_properties = ("has_entities",)
 
     def __init__(
         self,
