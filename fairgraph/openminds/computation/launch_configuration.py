@@ -35,6 +35,7 @@ class LaunchConfiguration(KGObject, OMLaunchConfiguration):
             description="reverse of 'launch_configuration'",
         ),
     ]
+    aliases = {"environment_variables": "environment_variable"}
     existence_query_properties = ("executable", "name")
 
     def __init__(
@@ -42,6 +43,7 @@ class LaunchConfiguration(KGObject, OMLaunchConfiguration):
         name=None,
         arguments=None,
         description=None,
+        environment_variable=None,
         environment_variables=None,
         executable=None,
         is_launch_configuration_of=None,
@@ -59,6 +61,7 @@ class LaunchConfiguration(KGObject, OMLaunchConfiguration):
             name=name,
             arguments=arguments,
             description=description,
+            environment_variable=environment_variable,
             environment_variables=environment_variables,
             executable=executable,
             is_launch_configuration_of=is_launch_configuration_of,

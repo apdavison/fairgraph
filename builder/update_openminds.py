@@ -21,6 +21,7 @@ global_aliases = {
     "has_entity": "entities",
     "hashes": "hash",
     "scope": "model_scope",
+    "environment_variable": "environment_variables"
 }
 
 
@@ -654,7 +655,10 @@ class FairgraphClassBuilder:
         properties = []
         plurals_special_cases = {
             # because this is a single item (PropertyValueList), but that item contains a list
-            "environmentVariable": "environmentVariables",
+            # temporarily removing this, since plurals are now defined in the openMINDS schemas,
+            # we'll need to make a PR to change the plural there.
+            # for now, handling this by adding a global alias, see above
+            # "environmentVariable": "environmentVariables",
         }
         aliases = {}
         for iri, prop in self._schema_payload["properties"].items():
