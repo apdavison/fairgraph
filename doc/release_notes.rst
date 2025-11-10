@@ -2,6 +2,22 @@
 Release notes
 =============
 
+Version 0.13.0
+==============
+
+For this version we have extensively rewritten fairgraph,
+to build directly on the [openMINDS Python library](https://pypi.org/project/openMINDS/).
+This
+
+- ensures (almost) perfect compatibility between the openMINDS API and the fairgraph API,
+  so people can start developing locally with openMINDS-Python, then just change to
+  importing "fairgraph.openminds" instead of "openminds.v4" when they wish to upload
+  metadata to the Knowledge Graph.
+- adds functionality for working with local JSON-LD files to fairgraph.
+
+The documentation has been refreshed and extended.
+This version of fairgraph provides the openMINDS v4 schemas.
+
 
 Version 0.12.2
 ==============
