@@ -89,13 +89,14 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
 
         self._raw_remote_data = None
         self.remote_data = {}
-        if self.id:
+        if self.id and self.id.startswith("http"):
             # we store the original remote data in `_raw_remote_data`
             # and a normalized version in `remote_data`
             self._raw_remote_data = data  # for debugging
             if data:
                 self.remote_data = normalize_data(
-                    self.to_jsonld(include_empty_properties=True, embed_linked_nodes=False), self.context
+                    self.to_jsonld(include_empty_properties=True, embed_linked_nodes=False),
+                    data.get("@context", self.context)
                 )
 
     def __repr__(self):
@@ -352,7 +353,8 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
     def uuid(self) -> Union[str, None]:
         # todo: consider using client._kg_client.uuid_from_absolute_id
         if self.id is not None:
-            return self.id.split("/")[-1]
+            value = self.id.split("/")[-1]
+            return str(UUID(value))
         else:
             return None
 
@@ -548,7 +550,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
     def exists(self, client: KGClient, ignore_duplicates: bool = False, in_spaces: Optional[List[str]] = None) -> bool:
         """Check if this object already exists in the KnowledgeGraph"""
 
-        if self.id:
+        if self.id and self.id.startswith("http"):
             # Since the KG now allows user-specified IDs we can't assume that the presence of
             # an id means the object exists
             data = client.instance_from_full_uri(
@@ -601,6 +603,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
 
                 if instances:
                     if len(instances) > 1 and not ignore_duplicates:
+                        # we might want to consider running a second query with "equals" rather than "contains"
                         raise Exception(
                             f"Existence query is not specific enough. Type: {self.__class__.__name__}; filters: {query_filter}"
                         )
@@ -792,9 +795,13 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             # create new
             local_data = normalize_data(self.to_jsonld(embed_linked_nodes=False), self.context)
             logger.info("  - creating instance with data {}".format(local_data))
+            if self.id and self.id.startswith("http"):
+                instance_id = self.uuid
+            else:
+                instance_id = None
             try:
                 instance_data = client.create_new_instance(
-                    local_data, space or self.__class__.default_space, instance_id=self.uuid
+                    local_data, space or self.__class__.default_space, instance_id=instance_id
                 )
             except (AuthorizationError, ResourceExistsError) as err:
                 if ignore_auth_errors:

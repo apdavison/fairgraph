@@ -25,6 +25,7 @@ from .kgobject import KGObject
 from .embedded import EmbeddedMetadata
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
+from .collection import Collection
 from . import client, errors, openminds, utility
 
 __version__ = "0.12.2"

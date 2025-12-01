@@ -220,6 +220,10 @@ def normalize_data(data: Union[None, JSONdict], context: Dict[str, Any]) -> Unio
             pass
         elif value is None:
             pass
+        elif expanded_key == "@id":
+            if value.startswith("http"):
+                # do not take local ids, e.g., those starting with "_"
+                normalized[expanded_key] = value
         elif expanded_key == "@type":
             normalized[expanded_key] = value
         elif isinstance(value, (list, tuple)):
@@ -326,6 +330,15 @@ class LogEntry:
 
     def __repr__(self):
         return f"{self.type}: {self.cls}({self.id}) in '{self.space}'"
+
+    def as_dict(self):
+        return {
+            "cls": self.cls,
+            "id": self.id,
+            "delta": self.delta,
+            "space": self.space,
+            "type_": self.type
+        }
 
 
 class ActivityLog:

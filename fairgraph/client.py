@@ -461,6 +461,8 @@ class KGClient(object):
         """
         if "'@id': None" in str(data):
             raise ValueError("payload contains undefined ids")
+        if instance_id:
+            UUID(instance_id)
         if self.migrated is False:
             data = deepcopy(data)
             adapt_namespaces_4to3(data)
@@ -488,6 +490,7 @@ class KGClient(object):
             instance_id (UUID): the instance's persistent identifier.
             data (dict): a JSON-LD document that modifies some or all of the data of the existing instance.
         """
+        UUID(instance_id)
         if self.migrated is False:
             data = deepcopy(data)
             adapt_namespaces_4to3(data)
@@ -507,6 +510,7 @@ class KGClient(object):
             instance_id (UUID): the instance's persistent identifier.
             data (dict): a JSON-LD document that will replace the existing instance.
         """
+        UUID(instance_id)
         if self.migrated is False:
             data = deepcopy(data)
             adapt_namespaces_4to3(data)
@@ -522,6 +526,7 @@ class KGClient(object):
         """
         Delete a KG instance.
         """
+        UUID(instance_id)
         response = self._kg_client.instances.delete(instance_id)
         # response is None if no errors
         if response:  # error
