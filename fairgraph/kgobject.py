@@ -866,7 +866,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         """
         Retrieve an instance from the Knowledge Graph based on its name.
 
-        This includes properties "name", "lookup_label", "family_name", "full_name", "short_name", and "synonyms".
+        This includes properties "name", "lookup_label", "family_name", "full_name", "short_name", "abbreviation", and "synonyms".
 
         Note that not all metadata classes have a name.
 
@@ -884,7 +884,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         release_status = handle_scope_keyword(scope, release_status)
         # todo: move this to openminds generation, and include only in those subclasses
         # that have a name-like property
-        namelike_properties = ("name", "lookup_label", "family_name", "full_name", "short_name", "synonyms")
+        namelike_properties = ("name", "lookup_label", "family_name", "full_name", "short_name", "abbreviation", "synonyms")
         objects = []
         if client:
             kwargs = dict(space=space, release_status=release_status, api="query", follow_links=follow_links)
@@ -893,36 +893,45 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     kwargs[prop_name] = name
                     break
             objects = cls.list(client, **kwargs)
+            if match == "equals":
+                objects = [
+                    obj for obj in objects
+                    if any(
+                        getattr(obj, prop_name, None) == name
+                        for prop_name in namelike_properties
+                    )
+                ]
         elif hasattr(cls, "instances"):  # controlled terms, etc.
             if cls._instance_lookup is None:
                 cls._instance_lookup = {}
                 for instance in cls.instances():
-                    found = False
-                    for prop_name in namelike_properties[-1]:  # handle 'synonyms' separately
+                    keys = []
+                    for prop_name in namelike_properties[:-1]:  # handle 'synonyms' separately
                         if hasattr(instance, prop_name):
-                            cls._instance_lookup[getattr(instance, prop_name)] = instance
-                            found = True
-                            break
-                    if (not found) and instance.synonyms:
-                        for synonym in instance.synonyms:
-                            cls._instance_lookup[synonym] = instance
-            obj = cls._instance_lookup.get(name, None)
-            if obj:
-                objects.append(obj)
-        if match == "equals":
-            objects = [
-                obj for obj in objects
-                if any(
-                    getattr(obj, prop_name, None) == name
-                    for prop_name in namelike_properties
-                )
-            ]
+                            keys.append(getattr(instance, prop_name))
+                    if hasattr(instance, "synonyms"):
+                        for synonym in instance.synonyms or []:
+                            keys.append(synonym)
+                    for key in keys:
+                        if key in cls._instance_lookup:
+                            cls._instance_lookup[key].append(instance)
+                        else:
+                            cls._instance_lookup[key] = [instance]
+            if match == "equals":
+                objects = cls._instance_lookup.get(name, None)
+            elif match == "contains":
+                objects = []
+                for key, instances in cls._instance_lookup.items():
+                    if name in key:
+                        objects.extend(instances)
+            else:
+                raise ValueError("'match' must be either 'exact' or 'contains'")
         if len(objects) == 0:
             return None
-        elif len(objects) == 1:
-            return objects[0]
         elif all:
             return objects
+        elif len(objects) == 1:
+            return objects[0]
         else:
             warn("Multiple objects with the same name, returning the first. " "Use 'all=True' to retrieve them all")
             return objects[0]
