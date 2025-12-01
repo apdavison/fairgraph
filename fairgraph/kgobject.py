@@ -95,7 +95,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
             self._raw_remote_data = data  # for debugging
             if data:
                 self.remote_data = normalize_data(
-                    self.to_jsonld(include_empty_properties=True, embed_linked_nodes=False),
+                    self.to_jsonld(include_empty_properties=False, embed_linked_nodes=False),
                     data.get("@context", self.context)
                 )
 
@@ -737,7 +737,10 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                     activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
             else:
                 # update
-                local_data = normalize_data(self.to_jsonld(embed_linked_nodes=False), self.context)
+                local_data = normalize_data(
+                    self.to_jsonld(include_empty_properties=False, embed_linked_nodes=False),
+                    self.context
+                )
                 if replace:
                     logger.info(f"  - replacing - {self.__class__.__name__}(id={self.id})")
                     if activity_log:
@@ -793,7 +796,10 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                             activity_log.update(item=self, delta=None, space=space, entry_type="no-op")
         else:
             # create new
-            local_data = normalize_data(self.to_jsonld(embed_linked_nodes=False), self.context)
+            local_data = normalize_data(
+                self.to_jsonld(include_empty_properties=False, embed_linked_nodes=False),
+                self.context
+            )
             logger.info("  - creating instance with data {}".format(local_data))
             if self.id and self.id.startswith("http"):
                 instance_id = self.uuid

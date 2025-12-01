@@ -218,8 +218,6 @@ def normalize_data(data: Union[None, JSONdict], context: Dict[str, Any]) -> Unio
 
         if hasattr(value, "__len__") and len(value) == 0:
             pass
-        elif value is None:
-            pass
         elif expanded_key == "@id":
             if value.startswith("http"):
                 # do not take local ids, e.g., those starting with "_"

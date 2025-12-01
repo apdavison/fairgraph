@@ -82,6 +82,7 @@ def test_normalize_data():
         },
         "familyName": "Oakenshield",
         "givenName": "Thorin",
+        "alternateName": None
     }
     context = {"@vocab": "https://openminds.ebrains.eu/vocab/"}
     expected = {
@@ -96,6 +97,7 @@ def test_normalize_data():
         },
         "https://openminds.ebrains.eu/vocab/familyName": "Oakenshield",
         "https://openminds.ebrains.eu/vocab/givenName": "Thorin",
+        "https://openminds.ebrains.eu/vocab/alternateName": None
     }
     assert normalize_data(data, context) == expected
 

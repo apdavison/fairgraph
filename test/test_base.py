@@ -485,18 +485,24 @@ class TestKGObject(object):
             self._construct_embedded_object_required_properties(-18),
             self._construct_embedded_object_required_properties(19),
         ]
+        obj.an_optional_list_of_linked_objects = None
         expected = {
             "https://openminds.ebrains.eu/vocab/aRequiredString": "pomme",
             "https://openminds.ebrains.eu/vocab/anOptionalListOfEmbeddedObjects": [
                 {
                     "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
+                    "https://openminds.ebrains.eu/vocab/aDate": None,
                     "https://openminds.ebrains.eu/vocab/aNumber": -18,
+                    "https://openminds.ebrains.eu/vocab/aString": None,
                 },
                 {
                     "@type": "https://openminds.ebrains.eu/mock/MockEmbeddedObject",
+                    "https://openminds.ebrains.eu/vocab/aDate": None,
                     "https://openminds.ebrains.eu/vocab/aNumber": 19,
+                    "https://openminds.ebrains.eu/vocab/aString": None,
                 },
             ],
+            "https://openminds.ebrains.eu/vocab/anOptionalListOfLinkedObjects": None
         }
         assert obj.modified_data() == expected
 
@@ -594,7 +600,7 @@ class TestKGObject(object):
                 # not just those that have changed
                 "https://openminds.ebrains.eu/vocab/aNumber": 41,
                 "https://openminds.ebrains.eu/vocab/aString": "forty one",
-                # "https://openminds.ebrains.eu/vocab/aDate": None,
+                "https://openminds.ebrains.eu/vocab/aDate": None,
             },
         }
         assert new_obj.modified_data() == expected
