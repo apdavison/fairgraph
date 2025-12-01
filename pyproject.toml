@@ -1,18 +1,17 @@
 [project]
 name = "fairgraph"
-version = "0.13.0.dev.0"
+version = "0.13.0"
 description = "Python API for the EBRAINS Knowledge Graph"
 readme = "README.md"
 authors = [
     { name="Andrew P. Davison", email="andrew.davison@cnrs.fr" }
 ]
-requires-python = ">=3.8"
-license = {text = "Apache Software License"}
+requires-python = ">=3.9"
+license = "Apache-2.0"
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering",
-    "License :: OSI Approved :: Apache Software License",
     "Programming Language :: Python :: 3"
 ]
 keywords = ["ebrains", "hbp", "metadata", "electrophysiology", "knowledge-graph"]

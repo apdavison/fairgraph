@@ -6,17 +6,23 @@ Version 0.13.0
 ==============
 
 For this version we have extensively rewritten fairgraph,
-to build directly on the [openMINDS Python library](https://pypi.org/project/openMINDS/).
+to build directly on the `openMINDS Python library`_.
 This
 
 - ensures (almost) perfect compatibility between the openMINDS API and the fairgraph API,
   so people can start developing locally with openMINDS-Python, then just change to
   importing "fairgraph.openminds" instead of "openminds.v4" when they wish to upload
   metadata to the Knowledge Graph.
-- adds functionality for working with local JSON-LD files to fairgraph.
+- adds functionality for working with local JSON-LD files in fairgraph.
+- provides the openMINDS instances libraries as class attributes, e.g., ``Species.mus_musculus``
+- adds the :class:`Collection`, which has the functionality of the equivalent class in openMINDS-Python,
+  but in addition has support for uploading an entire metadata collection to the KG in a single call.
 
 The documentation has been refreshed and extended.
+
 This version of fairgraph provides the openMINDS v4 schemas.
+
+There is one breaking change, the keyword argument "scope" has been renamed to "release_status".
 
 
 Version 0.12.2
@@ -275,3 +281,6 @@ Version 0.6.0
 - fix for when query values contain non-ascii characters
 - when updating an object, also update the cached version
 - more robust download method for Dataset
+
+
+.. _`openMINDS Python library`: https://pypi.org/project/openMINDS
