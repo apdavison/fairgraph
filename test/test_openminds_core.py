@@ -596,7 +596,7 @@ def test_save_new_mock(mock_client):
 def test_save_existing_mock(mock_client):
     timestamp = datetime.now()
     new_model = omcore.Model(
-        id="0000",
+        id="http://example.org/00000000-0000-0000-0000-000000000000",
         name=f"Dummy new model created for testing at {timestamp}",
         alias=f"DummyModel-{timestamp.isoformat()}",
         abstraction_level=omterms.ModelAbstractionLevel.by_name("protein structure", mock_client),
@@ -627,7 +627,7 @@ def test_save_existing_mock(mock_client):
 def test_save_existing_mock_no_updates_allowed(mock_client):
     timestamp = datetime.now()
     new_model = omcore.Model(
-        id="0000",
+        id="http://example.org/00000000-0000-0000-0000-000000000000",
         name=f"Dummy new model created for testing at {timestamp}",
         alias=f"DummyModel-{timestamp.isoformat()}",
         abstraction_level=omterms.ModelAbstractionLevel.by_name("protein structure", mock_client),
@@ -659,7 +659,7 @@ def test_save_existing_mock_no_updates_allowed(mock_client):
 def test_save_replace_existing_mock(mock_client):
     timestamp = datetime.now()
     new_model = omcore.Model(
-        id="0000",
+        id="http://example.org/00000000-0000-0000-0000-000000000000",
         name=f"Dummy new model created for testing at {timestamp}",
         alias=f"DummyModel-{timestamp.isoformat()}",
         abstraction_level=omterms.ModelAbstractionLevel.by_name("protein structure", mock_client),

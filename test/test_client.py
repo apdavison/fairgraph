@@ -211,8 +211,9 @@ def test_create_new_instance(kg_client, mocker):
         "create_new_with_id",
         lambda **kw: MockKGResponse({**kw["payload"], **{"@id": kw["instance_id"]}}),
     )
-    response = kg_client.create_new_instance({"a": 1, "b": 2}, instance_id="some-id", space="not-a-real-space")
-    assert response == {"@id": "some-id", "a": 1, "b": 2}
+    fake_id = "00000000-0000-0000-0000-000000000000"
+    response = kg_client.create_new_instance({"a": 1, "b": 2}, instance_id=fake_id, space="not-a-real-space")
+    assert response == {"@id": fake_id, "a": 1, "b": 2}
 
 
 @skip_if_no_connection
@@ -222,12 +223,14 @@ def test_replace_instance(kg_client, mocker):
         "contribute_to_full_replacement",
         lambda **kw: MockKGResponse({**kw["payload"], **{"@id": kw["instance_id"]}}),
     )
-    response = kg_client.replace_instance("some-id", {"a": 1, "b": 2})
-    assert response == {"@id": "some-id", "a": 1, "b": 2}
+    fake_id = "00000000-0000-0000-0000-000000000000"
+    response = kg_client.replace_instance(fake_id, {"a": 1, "b": 2})
+    assert response == {"@id": fake_id, "a": 1, "b": 2}
 
 
 @skip_if_no_connection
 def test_delete_instance(kg_client, mocker):
     mocker.patch.object(kg_client._kg_client.instances, "delete")
-    response = kg_client.delete_instance("some-id")
-    kg_client._kg_client.instances.delete.assert_called_once_with("some-id")
+    fake_id = "00000000-0000-0000-0000-000000000000"
+    response = kg_client.delete_instance(fake_id)
+    kg_client._kg_client.instances.delete.assert_called_once_with(fake_id)

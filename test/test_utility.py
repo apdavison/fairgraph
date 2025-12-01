@@ -71,7 +71,7 @@ def test_sha1sum():
 
 def test_normalize_data():
     data = {
-        "@id": "0000",
+        "@id": "http://example.org/00000000-0000-0000-0000-000000000000",
         "@type": "https://openminds.ebrains.eu/core/Person",
         "affiliation": {
             "@type": "https://openminds.ebrains.eu/core/Affiliation",
@@ -85,7 +85,7 @@ def test_normalize_data():
     }
     context = {"@vocab": "https://openminds.ebrains.eu/vocab/"}
     expected = {
-        "@id": "0000",
+        "@id": "http://example.org/00000000-0000-0000-0000-000000000000",
         "@type": "https://openminds.ebrains.eu/core/Person",
         "https://openminds.ebrains.eu/vocab/affiliation": {
             "@type": "https://openminds.ebrains.eu/core/Affiliation",

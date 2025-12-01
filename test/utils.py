@@ -74,8 +74,9 @@ class MockKGClient:
         release_status: str = "released",
         require_full_data: bool = True,
     ):
-        if uri == "0000":
-            return {"@id": "0000", "@type": ["https://openminds.om-i.org/types/Model"]}
+        mock_id = "http://example.org/00000000-0000-0000-0000-000000000000"
+        if uri == mock_id:
+            return {"@id": mock_id, "@type": ["https://openminds.om-i.org/types/Model"]}
         else:
             raise NotImplementedError
 
