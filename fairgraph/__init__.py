@@ -28,7 +28,7 @@ from .kgquery import KGQuery
 from .collection import Collection
 from . import client, errors, openminds, utility
 
-__version__ = "0.12.2"
+__version__ = "0.13.0"
 
 utility.initialise_instances(
     [

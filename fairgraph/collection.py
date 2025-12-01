@@ -47,10 +47,6 @@ class Collection(OMCollection):
         super().load(*paths)
 
     def upload(self, client, default_space=None, space_map=None, verbosity=0):
-        # if not self.complete:
-        #     raise Exception("Collection contains local ids. Run `generate_ids()` and then re-save the collection")
-        #     # self.generate_ids(lambda node: client.uri_from_uuid(uuid4()))
-
         nodes_to_save = [
             node
             for node in self.sort_nodes_for_upload()

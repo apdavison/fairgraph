@@ -57,6 +57,14 @@ KGClient
    :members:
    :show-inheritance:
 
+
+Collection
+==========
+
+.. autoclass:: fairgraph.Collection
+   :members:
+   :show-inheritance:
+
 Queries
 =======
 
