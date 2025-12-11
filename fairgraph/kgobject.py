@@ -497,15 +497,21 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
         return response.total
 
     def _update_empty_properties(self, data: JSONdict):
-        """Replace any empty properties (value None) with the supplied data"""
+        """
+        Replace any empty properties (value None) with the supplied data
+        unless the property was deliberately set to None.
+        """
         cls = self.__class__
+        locally_modified = self.modified_data()
         deserialized_data = cls._deserialize_data(data, include_id=True)
         for prop in cls.all_properties:
-            current_value = getattr(self, prop.name, None)
-            if current_value is None:
-                value = deserialized_data[prop.name]
-                if value is not None:
-                    setattr(self, prop.name, value)
+            expanded_path = expand_uri(prop.path, cls.context)
+            if expanded_path not in locally_modified:
+                current_value = getattr(self, prop.name, None)
+                if current_value is None:
+                    value = deserialized_data.get(prop.name, None)
+                    if value is not None:
+                        setattr(self, prop.name, value)
         assert self.remote_data is not None
         for key, value in data.items():
             if not (key.startswith("Q") or key == "@context"):
