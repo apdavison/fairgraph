@@ -2,6 +2,13 @@
 Release notes
 =============
 
+
+Version 0.13.1
+==============
+
+Fixed a bug where checking if an object exists was resetting any properties that had been changed to None locally.
+
+
 Version 0.13.0
 ==============
 
