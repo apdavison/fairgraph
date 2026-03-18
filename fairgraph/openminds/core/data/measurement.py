@@ -6,13 +6,13 @@ Structured information about a measurement performed during a scientific experim
 
 from openminds.properties import Property
 from openminds.v4.core import Measurement as OMMeasurement
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
 from datetime import datetime
 
 
-class Measurement(EmbeddedMetadata, OMMeasurement):
+class Measurement(KGEmbedded, OMMeasurement):
     """
     Structured information about a measurement performed during a scientific experiment.
     """
@@ -34,7 +34,7 @@ class Measurement(EmbeddedMetadata, OMMeasurement):
         space=None,
         release_status=None,
     ):
-        return EmbeddedMetadata.__init__(
+        return KGEmbedded.__init__(
             self,
             data=data,
             additional_remarks=additional_remarks,

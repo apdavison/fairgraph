@@ -6,10 +6,10 @@
 
 from openminds.properties import Property
 from openminds.v4.ephys import Channel as OMChannel
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
-class Channel(EmbeddedMetadata, OMChannel):
+class Channel(KGEmbedded, OMChannel):
     """
     <description not available>
     """
@@ -20,4 +20,4 @@ class Channel(EmbeddedMetadata, OMChannel):
     existence_query_properties = ("internal_identifier", "unit")
 
     def __init__(self, internal_identifier=None, unit=None, id=None, data=None, space=None, release_status=None):
-        return EmbeddedMetadata.__init__(self, data=data, internal_identifier=internal_identifier, unit=unit)
+        return KGEmbedded.__init__(self, data=data, internal_identifier=internal_identifier, unit=unit)

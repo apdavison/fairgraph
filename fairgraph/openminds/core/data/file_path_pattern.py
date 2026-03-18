@@ -6,10 +6,10 @@
 
 from openminds.properties import Property
 from openminds.v4.core import FilePathPattern as OMFilePathPattern
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
-class FilePathPattern(EmbeddedMetadata, OMFilePathPattern):
+class FilePathPattern(KGEmbedded, OMFilePathPattern):
     """
     <description not available>
     """
@@ -20,4 +20,4 @@ class FilePathPattern(EmbeddedMetadata, OMFilePathPattern):
     existence_query_properties = ("grouping_types", "regex")
 
     def __init__(self, grouping_types=None, regex=None, id=None, data=None, space=None, release_status=None):
-        return EmbeddedMetadata.__init__(self, data=data, grouping_types=grouping_types, regex=regex)
+        return KGEmbedded.__init__(self, data=data, grouping_types=grouping_types, regex=regex)

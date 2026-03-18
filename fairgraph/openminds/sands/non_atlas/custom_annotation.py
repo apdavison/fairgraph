@@ -6,10 +6,10 @@
 
 from openminds.properties import Property
 from openminds.v4.sands import CustomAnnotation as OMCustomAnnotation
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
-class CustomAnnotation(EmbeddedMetadata, OMCustomAnnotation):
+class CustomAnnotation(KGEmbedded, OMCustomAnnotation):
     """
     <description not available>
     """
@@ -37,7 +37,7 @@ class CustomAnnotation(EmbeddedMetadata, OMCustomAnnotation):
         space=None,
         release_status=None,
     ):
-        return EmbeddedMetadata.__init__(
+        return KGEmbedded.__init__(
             self,
             data=data,
             anchor_points=anchor_points,

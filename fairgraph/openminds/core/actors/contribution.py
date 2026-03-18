@@ -6,10 +6,10 @@ Structured information on the contribution made to a research product.
 
 from openminds.properties import Property
 from openminds.v4.core import Contribution as OMContribution
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
-class Contribution(EmbeddedMetadata, OMContribution):
+class Contribution(KGEmbedded, OMContribution):
     """
     Structured information on the contribution made to a research product.
     """
@@ -20,4 +20,4 @@ class Contribution(EmbeddedMetadata, OMContribution):
     existence_query_properties = ("contributor", "types")
 
     def __init__(self, contributor=None, types=None, id=None, data=None, space=None, release_status=None):
-        return EmbeddedMetadata.__init__(self, data=data, contributor=contributor, types=types)
+        return KGEmbedded.__init__(self, data=data, contributor=contributor, types=types)

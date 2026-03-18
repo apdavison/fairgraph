@@ -8,8 +8,8 @@ from warnings import warn
 from openminds.base import value_to_jsonld, Link
 from openminds.properties import Property
 
-from .registry import Node
-from .base import Resolvable, ErrorHandling, RepresentsSingleObject
+from .registry import NodeMeta
+from .base import Resolvable, ErrorHandling, Releasable
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
 from .queries import QueryProperty, get_query_properties, get_query_filter_property, get_filter_value
@@ -31,7 +31,7 @@ logger = logging.getLogger("fairgraph")
 JSONdict = Dict[str, Any]  # see https://github.com/python/typing/issues/182 for some possible improvements
 
 
-class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMetadata
+class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
     properties: List[Property]
     reverse_properties: List[Property] = []
     context: Dict[str, str]
@@ -106,7 +106,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
         return cls._property_lookup[name]
 
     @classmethod
-    def from_jsonld(cls, data: JSONdict, release_status: Optional[str] = None) -> ContainsMetadata:
+    def from_jsonld(cls, data: JSONdict, release_status: Optional[str] = None) -> KGNode:
         """
         Create an instance of the class from a JSON-LD document.
         """
@@ -142,8 +142,8 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
         # set the same action for all embedded types
         for prop in cls.properties:
             for type_ in prop.types:
-                if issubclass(type_, ContainsMetadata) and not issubclass(type_, RepresentsSingleObject):
-                    # i.e., is EmbeddedMetadata
+                if issubclass(type_, KGNode) and not issubclass(type_, Releasable):
+                    # i.e., is KGEmbedded
                     type_.set_error_handling(value)
 
     @classmethod
@@ -217,12 +217,12 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
             with_reverse_properties (bool): Whether to include reverse properties.
                                        Defaults to False.`
         """
-        if issubclass(cls, RepresentsSingleObject):  # KGObject
+        if issubclass(cls, Releasable):  # KGObject
             query_properties = [
                 QueryProperty("https://core.kg.ebrains.eu/vocab/meta/space", name="query:space"),
                 QueryProperty("@type"),
             ]
-        else:  # EmbeddedMetadata
+        else:  # KGEmbedded
             query_properties = [QueryProperty("@type")]
         reverse_aliases = invert_dict(cls.aliases)
 
@@ -417,13 +417,13 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                         follow_name = reverse_aliases[prop.name]
 
                     if follow_name:
-                        if issubclass(prop.types[0], ContainsMetadata):
+                        if issubclass(prop.types[0], KGNode):
                             values = getattr(self, prop.name)
                             resolved_values: List[Any] = []
                             for value in as_list(values):
                                 if isinstance(value, Resolvable):
-                                    if isinstance(value, ContainsMetadata) and isinstance(
-                                        value, RepresentsSingleObject
+                                    if isinstance(value, KGNode) and isinstance(
+                                        value, Releasable
                                     ):
                                         # i.e. isinstance(value, KGObject) - already resolved
                                         resolved_values.append(value)
@@ -440,7 +440,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                                             resolved_values.append(value)
                                         else:
                                             resolved_values.append(resolved_value)
-                            if isinstance(values, RepresentsSingleObject):
+                            if isinstance(values, Releasable):
                                 assert len(resolved_values) == 1
                                 setattr(self, prop.name, resolved_values[0])
                             elif values is None:
@@ -470,7 +470,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
         for property in query_properties:
             query_property_name = property.name
             value = getattr(self, property.name)
-            if isinstance(value, ContainsMetadata):
+            if isinstance(value, KGNode):
                 if hasattr(value, "id") and value.id:
                     query[query_property_name] = value.id
                 else:
@@ -486,3 +486,7 @@ class ContainsMetadata(Resolvable, metaclass=Node):  # KGObject and EmbeddedMeta
                     raise CannotBuildExistenceQuery(f"Required value for '{query_property_name}' is missing")
                 query[query_property_name] = query_val
         return query
+
+
+# Deprecated alias
+ContainsMetadata = KGNode

@@ -6,13 +6,13 @@ A representation of a range of quantitative values.
 
 from openminds.properties import Property
 from openminds.v4.core import QuantitativeValueRange as OMQuantitativeValueRange
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
 from numbers import Real
 
 
-class QuantitativeValueRange(EmbeddedMetadata, OMQuantitativeValueRange):
+class QuantitativeValueRange(KGEmbedded, OMQuantitativeValueRange):
     """
     A representation of a range of quantitative values.
     """
@@ -33,7 +33,7 @@ class QuantitativeValueRange(EmbeddedMetadata, OMQuantitativeValueRange):
         space=None,
         release_status=None,
     ):
-        return EmbeddedMetadata.__init__(
+        return KGEmbedded.__init__(
             self,
             data=data,
             max_value=max_value,

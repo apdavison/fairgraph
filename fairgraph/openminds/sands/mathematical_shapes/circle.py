@@ -6,10 +6,10 @@
 
 from openminds.properties import Property
 from openminds.v4.sands import Circle as OMCircle
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
-class Circle(EmbeddedMetadata, OMCircle):
+class Circle(KGEmbedded, OMCircle):
     """
     <description not available>
     """
@@ -20,4 +20,4 @@ class Circle(EmbeddedMetadata, OMCircle):
     existence_query_properties = ("radius",)
 
     def __init__(self, radius=None, id=None, data=None, space=None, release_status=None):
-        return EmbeddedMetadata.__init__(self, data=data, radius=radius)
+        return KGEmbedded.__init__(self, data=data, radius=radius)

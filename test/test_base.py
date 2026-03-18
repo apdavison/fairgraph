@@ -7,7 +7,7 @@ from datetime import date, datetime
 from numbers import Real
 from openminds.base import LinkedMetadata, EmbeddedMetadata as OMEmbeddedMetadata
 from openminds.properties import Property
-from fairgraph.embedded import EmbeddedMetadata
+from fairgraph.embedded import KGEmbedded
 from fairgraph.kgobject import KGObject
 from fairgraph.kgproxy import KGProxy
 from fairgraph.caching import generate_cache_key
@@ -17,7 +17,7 @@ from fairgraph.base import ErrorHandling
 import pytest
 
 
-class MockEmbeddedObject(EmbeddedMetadata, OMEmbeddedMetadata):
+class MockEmbeddedObject(KGEmbedded, OMEmbeddedMetadata):
     type_ = "https://openminds.ebrains.eu/mock/MockEmbeddedObject"
     schema_version = "latest"
     preferred_import_path = "test.test_base.MockEmbeddedObject"

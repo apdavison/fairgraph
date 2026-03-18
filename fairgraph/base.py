@@ -63,13 +63,13 @@ class Resolvable:  # all
         pass
 
 
-class RepresentsSingleObject(Resolvable):  # KGObject, KGProxy
+class Releasable(Resolvable):  # KGObject, KGProxy
     id: Optional[str]
     remote_data: Optional[JSONdict]
 
     def children(
         self, client: KGClient, follow_links: Optional[Dict[str, Any]] = None
-    ) -> List[RepresentsSingleObject]:
+    ) -> List[Releasable]:
         pass
 
     def is_released(self, client: KGClient, with_children: bool = False) -> bool:
@@ -100,5 +100,5 @@ class RepresentsSingleObject(Resolvable):  # KGObject, KGProxy
         return response
 
 
-class SupportsQuerying:  # KGObject, KGQuery
-    pass
+# Deprecated aliases
+RepresentsSingleObject = Releasable

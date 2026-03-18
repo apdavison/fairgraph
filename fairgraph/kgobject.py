@@ -41,8 +41,8 @@ from .utility import expand_uri, as_list, expand_filter, ActivityLog, normalize_
 from .queries import Query, QueryProperty
 from .errors import AuthorizationError, ResourceExistsError, CannotBuildExistenceQuery
 from .caching import object_cache, save_cache, generate_cache_key
-from .base import ErrorHandling, RepresentsSingleObject, SupportsQuerying, JSONdict, OPENMINDS_VERSION
-from .node import ContainsMetadata
+from .base import ErrorHandling, Releasable, JSONdict, OPENMINDS_VERSION
+from .node import KGNode
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
 
@@ -54,7 +54,7 @@ if TYPE_CHECKING:
 logger = logging.getLogger("fairgraph")
 
 
-class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
+class KGObject(KGNode, Releasable):
     """
     Base class for Knowledge Graph objects.
 
@@ -705,7 +705,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
                 # if saving recursively
                 values = getattr(self, prop.name)
                 for value in as_list(values):
-                    if isinstance(value, ContainsMetadata):
+                    if isinstance(value, KGNode):
                         target_space: Optional[str]
                         if (
                             isinstance(value, KGObject)
@@ -1070,7 +1070,7 @@ class KGObject(ContainsMetadata, RepresentsSingleObject, SupportsQuerying):
 
     def children(
         self, client: KGClient, follow_links: Optional[Dict[str, Any]] = None
-    ) -> List[RepresentsSingleObject]:
+    ) -> List[Releasable]:
         """Return a list of child objects."""
         if follow_links:
             self.resolve(client, follow_links=follow_links)

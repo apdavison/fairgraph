@@ -6,10 +6,10 @@ Structured information on the copyright.
 
 from openminds.properties import Property
 from openminds.v4.core import Copyright as OMCopyright
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
-class Copyright(EmbeddedMetadata, OMCopyright):
+class Copyright(KGEmbedded, OMCopyright):
     """
     Structured information on the copyright.
     """
@@ -20,4 +20,4 @@ class Copyright(EmbeddedMetadata, OMCopyright):
     existence_query_properties = ("holders", "years")
 
     def __init__(self, holders=None, years=None, id=None, data=None, space=None, release_status=None):
-        return EmbeddedMetadata.__init__(self, data=data, holders=holders, years=years)
+        return KGEmbedded.__init__(self, data=data, holders=holders, years=years)

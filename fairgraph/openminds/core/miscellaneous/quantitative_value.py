@@ -6,13 +6,13 @@ Structured information on a quantitative value.
 
 from openminds.properties import Property
 from openminds.v4.core import QuantitativeValue as OMQuantitativeValue
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
 from numbers import Real
 
 
-class QuantitativeValue(EmbeddedMetadata, OMQuantitativeValue):
+class QuantitativeValue(KGEmbedded, OMQuantitativeValue):
     """
     Structured information on a quantitative value.
     """
@@ -33,7 +33,7 @@ class QuantitativeValue(EmbeddedMetadata, OMQuantitativeValue):
         space=None,
         release_status=None,
     ):
-        return EmbeddedMetadata.__init__(
+        return KGEmbedded.__init__(
             self,
             data=data,
             type_of_uncertainty=type_of_uncertainty,

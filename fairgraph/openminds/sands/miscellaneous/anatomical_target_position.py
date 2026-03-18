@@ -6,10 +6,10 @@
 
 from openminds.properties import Property
 from openminds.v4.sands import AnatomicalTargetPosition as OMAnatomicalTargetPosition
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
-class AnatomicalTargetPosition(EmbeddedMetadata, OMAnatomicalTargetPosition):
+class AnatomicalTargetPosition(KGEmbedded, OMAnatomicalTargetPosition):
     """
     <description not available>
     """
@@ -30,7 +30,7 @@ class AnatomicalTargetPosition(EmbeddedMetadata, OMAnatomicalTargetPosition):
         space=None,
         release_status=None,
     ):
-        return EmbeddedMetadata.__init__(
+        return KGEmbedded.__init__(
             self,
             data=data,
             additional_remarks=additional_remarks,

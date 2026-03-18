@@ -24,8 +24,8 @@ from typing import Optional, TYPE_CHECKING, Union
 from warnings import warn
 
 from .utility import as_list, ActivityLog
-from .base import Resolvable, JSONdict
-from .node import ContainsMetadata
+from .base import JSONdict
+from .node import KGNode
 
 if TYPE_CHECKING:
     from .client import KGClient
@@ -34,7 +34,7 @@ if TYPE_CHECKING:
 logger = logging.getLogger("fairgraph")
 
 
-class EmbeddedMetadata(ContainsMetadata, Resolvable):
+class KGEmbedded(KGNode):
     """
     Base class for metadata structures that are embedded in Knowledge Graph objects.
 
@@ -71,7 +71,7 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
         )
 
     @classmethod
-    def from_jsonld(cls, data: JSONdict) -> Union[None, EmbeddedMetadata]:
+    def from_jsonld(cls, data: JSONdict) -> Union[None, KGEmbedded]:
         """Create an instance of the class from a JSON-LD document."""
         if "@id" in data:
             warn("Expected embedded metadata, but received @id")
@@ -94,7 +94,7 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
         for prop in self.properties:
             values = getattr(self, prop.name)
             for value in as_list(values):
-                if isinstance(value, ContainsMetadata):
+                if isinstance(value, KGNode):
                     if value.space:
                         target_space = value.space
                     elif (
@@ -120,3 +120,7 @@ class EmbeddedMetadata(ContainsMetadata, Resolvable):
                         activity_log=activity_log,
                         ignore_duplicates=ignore_duplicates,
                     )
+
+
+# Deprecated alias
+EmbeddedMetadata = KGEmbedded

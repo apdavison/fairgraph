@@ -6,10 +6,10 @@ Structured information about the amount of a given chemical that was used.
 
 from openminds.properties import Property
 from openminds.v4.chemicals import AmountOfChemical as OMAmountOfChemical
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
-class AmountOfChemical(EmbeddedMetadata, OMAmountOfChemical):
+class AmountOfChemical(KGEmbedded, OMAmountOfChemical):
     """
     Structured information about the amount of a given chemical that was used.
     """
@@ -20,4 +20,4 @@ class AmountOfChemical(EmbeddedMetadata, OMAmountOfChemical):
     existence_query_properties = ("chemical_product", "amount")
 
     def __init__(self, amount=None, chemical_product=None, id=None, data=None, space=None, release_status=None):
-        return EmbeddedMetadata.__init__(self, data=data, amount=amount, chemical_product=chemical_product)
+        return KGEmbedded.__init__(self, data=data, amount=amount, chemical_product=chemical_product)

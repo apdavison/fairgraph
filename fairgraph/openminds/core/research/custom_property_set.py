@@ -6,10 +6,10 @@ Structured information about properties of an entity that are not represented in
 
 from openminds.properties import Property
 from openminds.v4.core import CustomPropertySet as OMCustomPropertySet
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
-class CustomPropertySet(EmbeddedMetadata, OMCustomPropertySet):
+class CustomPropertySet(KGEmbedded, OMCustomPropertySet):
     """
     Structured information about properties of an entity that are not represented in an openMINDS schema.
     """
@@ -22,6 +22,6 @@ class CustomPropertySet(EmbeddedMetadata, OMCustomPropertySet):
     def __init__(
         self, context=None, data_location=None, relevant_for=None, id=None, data=None, space=None, release_status=None
     ):
-        return EmbeddedMetadata.__init__(
+        return KGEmbedded.__init__(
             self, data=data, context=context, data_location=data_location, relevant_for=relevant_for
         )

@@ -4,7 +4,7 @@ API reference
 
 All Python classes that represent openMINDS metadata, such as :class:`~fairgraph.openminds.core.Dataset`,
 inherit from either :class:`~fairgraph.KGObject` (if the object has its own "id" attribute)
-or from :class:`~fairgraph.EmbeddedMetadata` (if the object should be embedded inside another object,
+or from :class:`~fairgraph.KGEmbedded` (if the object should be embedded inside another object,
 without its own id.)
 
 These base classes are documented here, along with :class:`~fairgraph.KGProxy`, :class:`~fairgraph.KGQuery`,
@@ -26,10 +26,10 @@ LinkedMetadata
    :inherited-members:
    :show-inheritance:
 
-EmbeddedMetadata
-================
+KGEmbedded
+==========
 
-.. autoclass:: fairgraph.EmbeddedMetadata
+.. autoclass:: fairgraph.KGEmbedded
    :members:
    :inherited-members:
    :show-inheritance:

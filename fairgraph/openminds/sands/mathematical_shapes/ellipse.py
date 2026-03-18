@@ -6,10 +6,10 @@
 
 from openminds.properties import Property
 from openminds.v4.sands import Ellipse as OMEllipse
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
-class Ellipse(EmbeddedMetadata, OMEllipse):
+class Ellipse(KGEmbedded, OMEllipse):
     """
     <description not available>
     """
@@ -22,6 +22,6 @@ class Ellipse(EmbeddedMetadata, OMEllipse):
     def __init__(
         self, semi_major_axis=None, semi_minor_axis=None, id=None, data=None, space=None, release_status=None
     ):
-        return EmbeddedMetadata.__init__(
+        return KGEmbedded.__init__(
             self, data=data, semi_major_axis=semi_major_axis, semi_minor_axis=semi_minor_axis
         )

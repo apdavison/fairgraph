@@ -15,7 +15,7 @@ from openminds.registry import Registry
 from .base import OPENMINDS_VERSION
 
 if TYPE_CHECKING:
-    from .node import ContainsMetadata
+    from .node import KGNode
 
 
 docstring_template = """
@@ -28,7 +28,7 @@ Args
 """
 
 
-class Node(Registry):
+class NodeMeta(Registry):
     """Metaclass for registering Knowledge Graph classes."""
 
     properties: List[Property] = []
@@ -121,3 +121,7 @@ class Node(Registry):
             DeprecationWarning,
         )
         return cls.existence_query_properties
+
+
+# Deprecated alias
+Node = NodeMeta

@@ -6,10 +6,10 @@
 
 from openminds.properties import Property
 from openminds.v4.sands import ViewerSpecification as OMViewerSpecification
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
-class ViewerSpecification(EmbeddedMetadata, OMViewerSpecification):
+class ViewerSpecification(KGEmbedded, OMViewerSpecification):
     """
     <description not available>
     """
@@ -30,7 +30,7 @@ class ViewerSpecification(EmbeddedMetadata, OMViewerSpecification):
         space=None,
         release_status=None,
     ):
-        return EmbeddedMetadata.__init__(
+        return KGEmbedded.__init__(
             self,
             data=data,
             additional_remarks=additional_remarks,

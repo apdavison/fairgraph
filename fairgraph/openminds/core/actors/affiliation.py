@@ -6,13 +6,13 @@ Structured information about a relationship between two entities, such as a pers
 
 from openminds.properties import Property
 from openminds.v4.core import Affiliation as OMAffiliation
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
 from datetime import date
 
 
-class Affiliation(EmbeddedMetadata, OMAffiliation):
+class Affiliation(KGEmbedded, OMAffiliation):
     """
     Structured information about a relationship between two entities, such as a person and their employer.
     """
@@ -25,6 +25,6 @@ class Affiliation(EmbeddedMetadata, OMAffiliation):
     def __init__(
         self, end_date=None, member_of=None, start_date=None, id=None, data=None, space=None, release_status=None
     ):
-        return EmbeddedMetadata.__init__(
+        return KGEmbedded.__init__(
             self, data=data, end_date=end_date, member_of=member_of, start_date=start_date
         )

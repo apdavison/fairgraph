@@ -6,10 +6,10 @@
 
 from openminds.properties import Property
 from openminds.v4.core import StringProperty as OMStringProperty
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
-class StringProperty(EmbeddedMetadata, OMStringProperty):
+class StringProperty(KGEmbedded, OMStringProperty):
     """
     <description not available>
     """
@@ -20,4 +20,4 @@ class StringProperty(EmbeddedMetadata, OMStringProperty):
     existence_query_properties = ("name", "value")
 
     def __init__(self, name=None, value=None, id=None, data=None, space=None, release_status=None):
-        return EmbeddedMetadata.__init__(self, data=data, name=name, value=value)
+        return KGEmbedded.__init__(self, data=data, name=name, value=value)

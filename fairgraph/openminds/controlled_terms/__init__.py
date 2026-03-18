@@ -1,7 +1,7 @@
 import sys
 import inspect
 from fairgraph.kgobject import KGObject
-from fairgraph.embedded import EmbeddedMetadata
+from fairgraph.embedded import KGEmbedded
 
 from .action_status_type import ActionStatusType
 from .age_category import AgeCategory
@@ -99,7 +99,7 @@ def list_embedded_metadata_classes():
     return [
         obj
         for name, obj in inspect.getmembers(sys.modules[__name__])
-        if inspect.isclass(obj) and issubclass(obj, EmbeddedMetadata) and obj.__module__.startswith(__name__)
+        if inspect.isclass(obj) and issubclass(obj, KGEmbedded) and obj.__module__.startswith(__name__)
     ]
 
 

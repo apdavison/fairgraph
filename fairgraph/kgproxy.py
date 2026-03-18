@@ -27,7 +27,7 @@ from openminds.registry import lookup
 
 from .errors import ResolutionFailure
 from .caching import object_cache
-from .base import RepresentsSingleObject
+from .base import Releasable
 
 if TYPE_CHECKING:
     from .client import KGClient
@@ -37,7 +37,7 @@ if TYPE_CHECKING:
 logger = logging.getLogger("fairgraph")
 
 
-class KGProxy(RepresentsSingleObject, Link):
+class KGProxy(Releasable, Link):
     """
     Representation of an KGObject whose identifier, and possibly type, are known but whose
     other metadata have not been retrieved from the KG.

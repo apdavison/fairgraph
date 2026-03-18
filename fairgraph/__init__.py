@@ -22,7 +22,7 @@ limitations under the License.
 from openminds import IRI
 from .client import KGClient
 from .kgobject import KGObject
-from .embedded import EmbeddedMetadata
+from .embedded import KGEmbedded, EmbeddedMetadata  # EmbeddedMetadata is a deprecated alias
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
 from .collection import Collection

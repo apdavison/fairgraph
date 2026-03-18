@@ -6,10 +6,10 @@
 
 from openminds.properties import Property
 from openminds.v4.sands import AtlasAnnotation as OMAtlasAnnotation
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
-class AtlasAnnotation(EmbeddedMetadata, OMAtlasAnnotation):
+class AtlasAnnotation(KGEmbedded, OMAtlasAnnotation):
     """
     <description not available>
     """
@@ -36,7 +36,7 @@ class AtlasAnnotation(EmbeddedMetadata, OMAtlasAnnotation):
         space=None,
         release_status=None,
     ):
-        return EmbeddedMetadata.__init__(
+        return KGEmbedded.__init__(
             self,
             data=data,
             anchor_points=anchor_points,

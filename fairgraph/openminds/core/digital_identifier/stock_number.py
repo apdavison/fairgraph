@@ -6,10 +6,10 @@
 
 from openminds.properties import Property
 from openminds.v4.core import StockNumber as OMStockNumber
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
-class StockNumber(EmbeddedMetadata, OMStockNumber):
+class StockNumber(KGEmbedded, OMStockNumber):
     """
     <description not available>
     """
@@ -20,4 +20,4 @@ class StockNumber(EmbeddedMetadata, OMStockNumber):
     existence_query_properties = ("identifier", "vendor")
 
     def __init__(self, identifier=None, vendor=None, id=None, data=None, space=None, release_status=None):
-        return EmbeddedMetadata.__init__(self, data=data, identifier=identifier, vendor=vendor)
+        return KGEmbedded.__init__(self, data=data, identifier=identifier, vendor=vendor)

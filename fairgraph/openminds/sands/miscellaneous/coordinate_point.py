@@ -6,10 +6,10 @@
 
 from openminds.properties import Property
 from openminds.v4.sands import CoordinatePoint as OMCoordinatePoint
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
-class CoordinatePoint(EmbeddedMetadata, OMCoordinatePoint):
+class CoordinatePoint(KGEmbedded, OMCoordinatePoint):
     """
     <description not available>
     """
@@ -20,4 +20,4 @@ class CoordinatePoint(EmbeddedMetadata, OMCoordinatePoint):
     existence_query_properties = ("coordinate_space", "coordinates")
 
     def __init__(self, coordinate_space=None, coordinates=None, id=None, data=None, space=None, release_status=None):
-        return EmbeddedMetadata.__init__(self, data=data, coordinate_space=coordinate_space, coordinates=coordinates)
+        return KGEmbedded.__init__(self, data=data, coordinate_space=coordinate_space, coordinates=coordinates)

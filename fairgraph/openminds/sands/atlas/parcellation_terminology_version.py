@@ -6,10 +6,10 @@
 
 from openminds.properties import Property
 from openminds.v4.sands import ParcellationTerminologyVersion as OMParcellationTerminologyVersion
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
-class ParcellationTerminologyVersion(EmbeddedMetadata, OMParcellationTerminologyVersion):
+class ParcellationTerminologyVersion(KGEmbedded, OMParcellationTerminologyVersion):
     """
     <description not available>
     """
@@ -29,7 +29,7 @@ class ParcellationTerminologyVersion(EmbeddedMetadata, OMParcellationTerminology
         space=None,
         release_status=None,
     ):
-        return EmbeddedMetadata.__init__(
+        return KGEmbedded.__init__(
             self,
             data=data,
             data_locations=data_locations,

@@ -645,7 +645,7 @@ class FairgraphClassBuilder:
         class_name = self._schema_payload["name"]
         module_name = self.relative_path_without_extension[0]
         if self._schema_payload["_type"] in embedded:
-            base_class = "EmbeddedMetadata"
+            base_class = "KGEmbedded"
             default_space = None
             standard_init_properties = ""
         else:
@@ -917,7 +917,7 @@ def main(openminds_root, ignore=[]):
                 "import sys\n",
                 "import inspect\n",
                 "from fairgraph.kgobject import KGObject\n",
-                "from fairgraph.embedded import EmbeddedMetadata\n\n",
+                "from fairgraph.embedded import KGEmbedded\n\n",
             ]
             fp.writelines(om_module_header)
             fp.write(content)

@@ -6,10 +6,10 @@ Structured information on a hash.
 
 from openminds.properties import Property
 from openminds.v4.core import Hash as OMHash
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
-class Hash(EmbeddedMetadata, OMHash):
+class Hash(KGEmbedded, OMHash):
     """
     Structured information on a hash.
     """
@@ -20,4 +20,4 @@ class Hash(EmbeddedMetadata, OMHash):
     existence_query_properties = ("algorithm", "digest")
 
     def __init__(self, algorithm=None, digest=None, id=None, data=None, space=None, release_status=None):
-        return EmbeddedMetadata.__init__(self, data=data, algorithm=algorithm, digest=digest)
+        return KGEmbedded.__init__(self, data=data, algorithm=algorithm, digest=digest)

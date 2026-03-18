@@ -26,7 +26,7 @@ from openminds.registry import lookup
 
 from .utility import as_list, expand_filter
 from .caching import object_cache
-from .base import Resolvable, SupportsQuerying
+from .base import Resolvable
 
 if TYPE_CHECKING:
     from .client import KGClient
@@ -35,7 +35,7 @@ if TYPE_CHECKING:
 logger = logging.getLogger("fairgraph")
 
 
-class KGQuery(Resolvable, SupportsQuerying):
+class KGQuery(Resolvable):
     """
     Representation of one or more KGObjects identified by a range of possible types
     and by some of their metadata, but whose specific identifier(s) is/are not known.

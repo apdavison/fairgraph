@@ -6,10 +6,10 @@ Structured information about a property of some entity or process whose value is
 
 from openminds.properties import Property
 from openminds.v4.core import NumericalProperty as OMNumericalProperty
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
-class NumericalProperty(EmbeddedMetadata, OMNumericalProperty):
+class NumericalProperty(KGEmbedded, OMNumericalProperty):
     """
     Structured information about a property of some entity or process whose value is a number.
     """
@@ -20,4 +20,4 @@ class NumericalProperty(EmbeddedMetadata, OMNumericalProperty):
     existence_query_properties = ("name", "values")
 
     def __init__(self, name=None, values=None, id=None, data=None, space=None, release_status=None):
-        return EmbeddedMetadata.__init__(self, data=data, name=name, values=values)
+        return KGEmbedded.__init__(self, data=data, name=name, values=values)

@@ -6,10 +6,10 @@
 
 from openminds.properties import Property
 from openminds.v4.sands import QualitativeRelationAssessment as OMQualitativeRelationAssessment
-from fairgraph import EmbeddedMetadata
+from fairgraph import KGEmbedded
 
 
-class QualitativeRelationAssessment(EmbeddedMetadata, OMQualitativeRelationAssessment):
+class QualitativeRelationAssessment(KGEmbedded, OMQualitativeRelationAssessment):
     """
     <description not available>
     """
@@ -29,6 +29,6 @@ class QualitativeRelationAssessment(EmbeddedMetadata, OMQualitativeRelationAsses
         space=None,
         release_status=None,
     ):
-        return EmbeddedMetadata.__init__(
+        return KGEmbedded.__init__(
             self, data=data, criteria=criteria, in_relation_to=in_relation_to, qualitative_overlap=qualitative_overlap
         )
