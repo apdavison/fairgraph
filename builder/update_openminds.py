@@ -915,9 +915,11 @@ def main(openminds_root, ignore=[]):
         with open(init_file_path, "w") as fp:
             om_module_header = [
                 "import sys\n",
-                "import inspect\n",
-                "from fairgraph.kgobject import KGObject\n",
-                "from fairgraph.embedded import KGEmbedded\n\n",
+                "from fairgraph.openminds import (\n",
+                "    list_kg_classes as _lkgc,\n",
+                "    list_embedded_metadata_classes as _lemc,\n",
+                "    set_error_handling as _seh,\n",
+                ")\n\n",
             ]
             fp.writelines(om_module_header)
             fp.write(content)
