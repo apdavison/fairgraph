@@ -355,15 +355,6 @@ class KGObject(KGNode, Releasable):
             )
             return candidates[0]
 
-    @property
-    def uuid(self) -> Union[str, None]:
-        # todo: consider using client._kg_client.uuid_from_absolute_id
-        if self.id is not None:
-            value = self.id.split("/")[-1]
-            return str(UUID(value))
-        else:
-            return None
-
     @classmethod
     def uri_from_uuid(cls, uuid: str, client: KGClient) -> str:
         """Convert an instances short-form identifier (a UUID) into the long-form (a URI)"""

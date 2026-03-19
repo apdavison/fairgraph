@@ -161,10 +161,6 @@ class KGProxy(Releasable, Link):
             not isinstance(other, self.__class__) or set(self.classes).isdisjoint(other.classes) or self.id != other.id
         )
 
-    @property
-    def uuid(self) -> str:
-        return self.id.split("/")[-1]
-
     def delete(self, client: KGClient, ignore_not_found: bool = True):
         """Delete the instance which this proxy represents"""
         try:

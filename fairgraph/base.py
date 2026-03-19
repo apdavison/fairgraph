@@ -19,9 +19,10 @@ and contain code common to sub-classes, to avoid code duplication.
 
 
 from __future__ import annotations
-from typing import TYPE_CHECKING, Optional, Dict, List, Any
+from typing import TYPE_CHECKING, Optional, Dict, List, Any, Union
 from enum import Enum
 import logging
+from uuid import UUID
 from warnings import warn
 
 from .errors import AuthorizationError
@@ -66,6 +67,14 @@ class Resolvable:  # all
 class Releasable(Resolvable):  # KGObject, KGProxy
     id: Optional[str]
     remote_data: Optional[JSONdict]
+
+    @property
+    def uuid(self) -> Union[str, None]:
+        if self.id is not None:
+            value = self.id.split("/")[-1]
+            return str(UUID(value))
+        else:
+            return None
 
     def children(
         self, client: KGClient, follow_links: Optional[Dict[str, Any]] = None
