@@ -13,6 +13,7 @@ from openminds.properties import Property
 from openminds.registry import Registry
 
 from .base import OPENMINDS_VERSION
+from .utility import invert_dict
 
 if TYPE_CHECKING:
     from .node import KGNode
@@ -48,6 +49,7 @@ class NodeMeta(Registry):
         class_dict["preferred_import_path"] = class_dict["class_name"]
         cls = Registry.__new__(meta, name, bases, class_dict)
         cls._property_lookup = {prop.name: prop for prop in (cls.properties + cls.reverse_properties)}
+        cls._reverse_aliases = invert_dict(class_dict.get("aliases", {}))
         return cls
 
     def _get_doc(cls) -> str:

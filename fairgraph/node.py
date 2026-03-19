@@ -17,7 +17,6 @@ from .errors import ResolutionFailure, CannotBuildExistenceQuery
 from .utility import (
     as_list,  # temporary for backwards compatibility (a lot of code imports it from here)
     expand_uri,
-    invert_dict,
     normalize_data,
     types_match,
 )
@@ -224,7 +223,7 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
             ]
         else:  # KGEmbedded
             query_properties = [QueryProperty("@type")]
-        reverse_aliases = invert_dict(cls.aliases)
+        reverse_aliases = cls._reverse_aliases
 
         if with_reverse_properties:
             included_properties = cls.all_properties
@@ -407,7 +406,7 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
         """
         use_release_status = release_status or self.release_status or "released"
         if follow_links:
-            reverse_aliases = invert_dict(self.__class__.aliases)
+            reverse_aliases = self.__class__._reverse_aliases
             for prop in self.__class__.all_properties:
                 if prop.is_link:
                     follow_name = None
