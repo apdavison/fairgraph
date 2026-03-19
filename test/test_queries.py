@@ -2,9 +2,10 @@ import os
 import json
 import pytest
 from kg_core.request import Stage, Pagination
-from fairgraph.queries import Query, QueryProperty, Filter
+from fairgraph.queries import Query, QueryProperty, Filter, get_filter_value, _get_query_property_name
 from fairgraph.utility import adapt_namespaces_for_query
 import fairgraph.openminds.core as omcore
+from openminds.base import IRI
 from .utils import kg_client, mock_client, skip_if_no_connection
 
 
@@ -580,3 +581,170 @@ def test_generate_query_type_filter_flattened():
         ],
     }
     assert query.serialize() == expected
+
+
+# Unit tests for uncovered branches
+
+def test_filter_repr_with_parameter_and_value():
+    f = Filter("CONTAINS", parameter="name", value="foo")
+    r = repr(f)
+    assert "CONTAINS" in r
+    assert "name" in r
+    assert "foo" in r
+
+
+def test_filter_repr_no_parameter_no_value():
+    f = Filter("EQUALS")
+    r = repr(f)
+    assert "EQUALS" in r
+    assert "parameter" not in r
+    assert "value" not in r
+
+
+def test_query_property_repr():
+    prop = QueryProperty("http://example.com/path", name="myProp")
+    r = repr(prop)
+    assert "QueryProperty" in r
+    assert "myProp" in r
+
+
+def test_query_property_sorted_in_subproperty_raises():
+    """sorted=True is only allowed on root level, raises ValueError in sub-property."""
+    with pytest.raises(ValueError, match="Sorting is only allowed on the root level"):
+        QueryProperty(
+            "http://example.com/outer",
+            properties=[QueryProperty("http://example.com/inner", sorted=True)],
+        )
+
+
+def test_query_property_add_property_sorted_raises():
+    """add_property raises ValueError when adding a sorted sub-property."""
+    outer = QueryProperty("http://example.com/outer")
+    sorted_prop = QueryProperty.__new__(QueryProperty)
+    sorted_prop.sorted = True
+    with pytest.raises(ValueError, match="Sorting is only allowed on the root level"):
+        outer.add_property(sorted_prop)
+
+
+def test_query_property_typefiler_list_serializes():
+    """type_filter as list → produces list in 'typeFilter' in serialized output."""
+    prop = QueryProperty(
+        "http://example.com/path",
+        type_filter=["http://type1.com/A", "http://type2.com/B"],
+    )
+    serialized = prop.serialize()
+    assert isinstance(serialized["path"]["typeFilter"], list)
+    assert len(serialized["path"]["typeFilter"]) == 2
+
+
+def test_query_add_property():
+    query = Query(
+        node_type="https://openminds.om-i.org/types/Person",
+        properties=[],
+    )
+    prop = QueryProperty("https://openminds.om-i.org/props/fullName", name="fullName")
+    query.add_property(prop)
+    # The prop should be present in the serialized structure
+    result = query.serialize()
+    paths = [item["path"] for item in result["structure"]]
+    assert "https://openminds.om-i.org/props/fullName" in paths
+
+
+def test_get_filter_value_with_list():
+    """get_filter_value() returns a list when given a list of values."""
+    from openminds.properties import Property
+    prop = Property("name", str, "http://example.com/name", multiple=True)
+    result = get_filter_value(prop, ["alice", "bob"])
+    assert isinstance(result, list)
+    assert result == ["alice", "bob"]
+
+
+def test_get_filter_value_with_iri():
+    """get_filter_value() handles IRI values correctly."""
+    from openminds.properties import Property
+    prop = Property("location", IRI, "http://example.com/location", multiple=False)
+    iri = IRI("http://example.com/foo")
+    result = get_filter_value(prop, iri)
+    assert result == "http://example.com/foo"
+
+
+def test_get_filter_value_hash_property():
+    """get_filter_value() uses value as-is for 'hash' property name."""
+    from openminds.properties import Property
+    prop = Property("hash", str, "http://example.com/hash", multiple=False)
+    # Pass an int (invalid type), but hash property name bypasses type check
+    result = get_filter_value(prop, 12345)
+    assert result == 12345
+
+
+def test_get_filter_value_invalid_type_raises():
+    """get_filter_value() raises TypeError when value is wrong type."""
+    from openminds.properties import Property
+    prop = Property("myProp", str, "http://example.com/myProp", multiple=False)
+    with pytest.raises(TypeError):
+        get_filter_value(prop, 12345)  # int not valid for str property
+
+
+def test_get_filter_value_plus_in_string():
+    """get_filter_value() truncates strings containing '+' and warns."""
+    from openminds.properties import Property
+    prop = Property("name", str, "http://example.com/name", multiple=False)
+    with pytest.warns(UserWarning):
+        result = get_filter_value(prop, "foo+bar")
+    assert result == "foo"
+
+
+def test_get_filter_value_plus_too_early_raises():
+    """get_filter_value() raises ValueError when '+' appears before index 3."""
+    from openminds.properties import Property
+    prop = Property("name", str, "http://example.com/name", multiple=False)
+    with pytest.raises(ValueError, match="invalid characters"):
+        get_filter_value(prop, "+bad")
+
+
+def test_get_filter_value_with_datetime():
+    """get_filter_value() handles datetime values by calling isoformat()."""
+    from openminds.properties import Property
+    from datetime import datetime
+    prop = Property("date", datetime, "http://example.com/date", multiple=False)
+    dt = datetime(2024, 1, 15, 12, 0, 0)
+    result = get_filter_value(prop, dt)
+    assert result == "2024-01-15T12:00:00"
+
+
+def test_query_property_add_property_happy():
+    """QueryProperty.add_property() appends the property (happy path)."""
+    outer = QueryProperty("http://example.com/outer")
+    inner = QueryProperty("http://example.com/inner")
+    outer.add_property(inner)
+    assert inner in outer.properties
+
+
+def test_get_query_filter_property_numeric_type():
+    """get_query_filter_property() uses EQUALS op for numeric types."""
+    from unittest.mock import MagicMock
+    from fairgraph.queries import get_query_filter_property
+    prop_mock = MagicMock()
+    prop_mock.types = [int]
+    prop_mock.path = "count"
+    prop_mock.reverse = None
+    context = {"@vocab": "https://example.com/"}
+    result = get_query_filter_property(prop_mock, context, 42)
+    assert result is not None
+    # The filter should use EQUALS op
+    serialized = result.serialize()
+    assert serialized.get("filter", {}).get("op") == "EQUALS"
+
+
+def test_get_query_property_name_list_path():
+    """_get_query_property_name() handles list paths by finding the matching property."""
+    from unittest.mock import MagicMock
+    prop_mock = MagicMock()
+    prop_mock.path = ["https://example.com/prop1", "https://example.com/prop2"]
+    # Create a mock class with a matching property path
+    cls_prop = MagicMock()
+    cls_prop.path = "https://example.com/prop1"
+    mock_cls = MagicMock()
+    mock_cls.properties = [cls_prop]
+    result = _get_query_property_name(prop_mock, possible_classes=[mock_cls])
+    assert result == "https://example.com/prop1"

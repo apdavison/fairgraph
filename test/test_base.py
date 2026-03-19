@@ -3,16 +3,18 @@
 Tests of fairgraph.base module.
 """
 
+import logging
 from datetime import date, datetime
 from numbers import Real
+from unittest.mock import MagicMock, patch
 from openminds.base import LinkedMetadata, EmbeddedMetadata as OMEmbeddedMetadata
 from openminds.properties import Property
 from fairgraph.embedded import KGEmbedded
 from fairgraph.kgobject import KGObject
 from fairgraph.kgproxy import KGProxy
 from fairgraph.caching import generate_cache_key
-from fairgraph.errors import CannotBuildExistenceQuery
-from fairgraph.base import ErrorHandling
+from fairgraph.errors import CannotBuildExistenceQuery, AuthorizationError
+from fairgraph.base import ErrorHandling, Releasable
 
 import pytest
 
@@ -642,6 +644,129 @@ class TestKGObject(object):
 def test_generate_cache_key():
     with pytest.raises(TypeError):
         generate_cache_key(None)
+
+
+class TestResolvable:
+    """Test the Resolvable base class."""
+
+    def test_resolve_returns_none(self):
+        from fairgraph.base import Resolvable
+        obj = Resolvable()
+        result = obj.resolve(client=MagicMock())
+        assert result is None
+
+
+class TestErrorHandling:
+
+    def test_handle_violation_error(self):
+        with pytest.raises(ValueError, match="something bad"):
+            ErrorHandling.handle_violation(ErrorHandling.error, "something bad")
+
+    def test_handle_violation_warning(self):
+        with pytest.warns(UserWarning, match="something bad"):
+            ErrorHandling.handle_violation(ErrorHandling.warning, "something bad")
+
+    def test_handle_violation_log(self):
+        with patch("fairgraph.base.logger") as mock_logger:
+            ErrorHandling.handle_violation(ErrorHandling.log, "log this")
+            mock_logger.warning.assert_called_once_with("log this")
+
+    def test_handle_violation_none(self):
+        # Should not raise or warn
+        ErrorHandling.handle_violation(ErrorHandling.none, "ignored")
+
+
+class _MockReleasable(Releasable):
+    """Minimal concrete Releasable for testing."""
+
+    def __init__(self, id, remote_data=None):
+        self.id = id
+        self.remote_data = remote_data or {}
+
+    def children(self, client, follow_links=None):
+        return []
+
+
+class TestReleasable:
+
+    def test_uuid_with_valid_id(self):
+        obj = _MockReleasable("https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234")
+        assert obj.uuid == "00000000-0000-0000-0000-000000001234"
+
+    def test_uuid_with_none_id(self):
+        obj = _MockReleasable(None)
+        assert obj.uuid is None
+
+    def test_is_released_delegates_to_client(self):
+        obj = _MockReleasable("https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234")
+        mock_client = MagicMock()
+        mock_client.is_released.return_value = True
+        assert obj.is_released(mock_client) is True
+        mock_client.is_released.assert_called_once_with(obj.id, with_children=False)
+
+    def test_is_released_auth_error_with_release_date(self):
+        obj = _MockReleasable(
+            "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234",
+            remote_data={"https://core.kg.ebrains.eu/vocab/meta/firstReleasedAt": "2024-01-01"},
+        )
+        mock_client = MagicMock()
+        mock_client.is_released.side_effect = AuthorizationError("no permission")
+        assert obj.is_released(mock_client) is True
+
+    def test_is_released_auth_error_without_release_date(self):
+        obj = _MockReleasable("https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234")
+        mock_client = MagicMock()
+        mock_client.is_released.side_effect = AuthorizationError("no permission")
+        assert obj.is_released(mock_client) is False
+
+    def test_release_when_already_released(self):
+        obj = _MockReleasable("https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234")
+        mock_client = MagicMock()
+        mock_client.is_released.return_value = True
+        obj.release(mock_client)
+        mock_client.release.assert_not_called()
+
+    def test_release_when_not_released(self):
+        obj = _MockReleasable("https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234")
+        mock_client = MagicMock()
+        mock_client.is_released.return_value = False
+        obj.release(mock_client)
+        mock_client.release.assert_called_once_with(obj.id)
+
+    def test_release_with_children(self):
+        child = _MockReleasable("https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000002222")
+        obj = _MockReleasable("https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234")
+        obj.children = lambda client, follow_links=None: [child]
+        mock_client = MagicMock()
+        mock_client.is_released.return_value = False
+        obj.release(mock_client, with_children=True)
+        assert mock_client.release.call_count == 2
+        calls = [call.args[0] for call in mock_client.release.call_args_list]
+        assert child.id in calls
+        assert obj.id in calls
+
+    def test_unrelease(self):
+        obj = _MockReleasable("https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234")
+        mock_client = MagicMock()
+        mock_client.unrelease.return_value = "ok"
+        result = obj.unrelease(mock_client)
+        mock_client.unrelease.assert_called_once_with(obj.id)
+        assert result == "ok"
+
+    def test_unrelease_with_children(self):
+        child1 = _MockReleasable("https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000002222")
+        child2 = _MockReleasable("https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000003333")
+        obj = _MockReleasable("https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234")
+        obj.children = lambda client, follow_links=None: [child1, child2]
+        mock_client = MagicMock()
+        obj.unrelease(mock_client, with_children=True)
+        assert mock_client.unrelease.call_count == 3
+
+    def test_children_returns_empty_list_by_default(self):
+        """The default children() implementation returns None (pass)."""
+        obj = _MockReleasable("https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000001234")
+        result = obj.children(MagicMock())
+        assert result == []
 
 
 class TestKGProxy:
