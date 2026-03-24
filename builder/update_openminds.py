@@ -11,9 +11,6 @@ import sys
 
 from jinja2 import Environment, select_autoescape, FileSystemLoader
 
-OPENMINDS_VERSION = "v4"
-
-
 global_aliases = {
     "short_name": "alias",
     "full_name": "name",
@@ -21,7 +18,7 @@ global_aliases = {
     "has_entity": "entities",
     "hashes": "hash",
     "scope": "model_scope",
-    "environment_variable": "environment_variables"
+    "environment_variable": "environment_variables",
 }
 
 
@@ -43,15 +40,19 @@ reverse_name_map = {
     "anatomicalTarget": "isTargetOf",
     "applicationCategory": "appliesTo",
     "associatedAccount": "belongsTo",
+    "associatedProtocol": "usedIn",
     "attribute": "isAttributeOf",
     "author": "authored",
+    "authoringParty": "authored",
     "backgroundStrain": "isBackgroundStrainOf",
     "behavioralProtocol": "usedIn",
     "biologicalSex": "isBiologicalSexOf",
     "breedingType": "isBreedingTypeOf",
+    "channel": "isChannelOf",
     "chemicalProduct": "usedInAmount",
     "citedPublication": "citedIn",
     "commenter": "comments",
+    "communicationProtocol": "usedIn",
     "components": "isComponentOf",  # or "is_part_of" (TODO "components" redundant with "hasComponent"?)
     "conductorMaterial": "isConductorOf",
     "configuration": "isConfigurationOf",
@@ -59,10 +60,14 @@ reverse_name_map = {
     "contactInformation": "isContactInformationOf",
     "contentType": "isDefinedBy",
     "contentTypePattern": "identifiesContentOf",
+    "contribution": "contributedTo",
     "contributor": "contribution",
+    "coordinateFramework": "isCoordinateFrameworkOf",
     "coordinateSpace": "isCoordinateSpaceOf",
     "coordinator": "coordinatedProjects",
     "copyOf": "hasCopies",
+    "country": "isCountryOf",
+    "countryOfFormation": "formedIn",
     "criteria": "basedOnProtocolExecution",
     "criteriaQualityType": "usedByAnnotation",  # or "isCriteriaQualityTypeOf"
     "criteriaType": "usedByAnnotation",
@@ -74,6 +79,8 @@ reverse_name_map = {
     "defaultImage": "isDefaultImageFor",
     "definedIn": "defines",  # or "containsDefinitionOf",
     "deliveredBy": "stimulationDevice",
+    "dependsOn": "isDependencyOf",
+    "deploymentType": "isDeploymentTypeOf",
     "descendedFrom": "hasChildren",  # equivalent to "hasParent" ?
     "describedIn": "describes",
     "developer": "developed",
@@ -88,24 +95,40 @@ reverse_name_map = {
         "SlicingDeviceUsage": "usage",
         "PipetteUsage": "usage",
         "ElectrodeUsage": "usage",
+        "StaticMRIAcquisition": "usedIn",
+        "DynamicMRIAcquisition": "usedIn",
+        "MRICoilUsage": "usage",
     },
     "deviceType": "isTypeOf",  # TODO: replace with "type"?
+    "diffusionEncodingParameters": "usedIn",
     "digitalIdentifier": "identifies",
     "diseaseModel": "isModeledBy",
+    "distortionCorrection": "usedIn",
+    "documentation": "documents",
     "editor": "edited",
     "educationalLevel": "appliesTo",
+    "eligibility": "isEligibilityOf",
+    "emitter": "emitted",
+    "entryPoint": "isEntryPointOf",
     "environment": "usedFor",  # or "isEnvironmentOf"
     "environmentVariable": "definesEnvironmentOf",
     "ethicsAssessment": "appliesTo",
+    "ethicsJurisdiction": "appliesTo",
     "experimentalApproach": "usedIn",
+    "failureImpact": "isImpactOf",
+    "fatSuppressionTechnique": "usedIn",
     "feature": "characterizes",
+    "fieldOfView": "usedIn",
     "fileRepository": "files",
+    "form": "isFormOf",
     "format": "isFormatOf",
+    "fulfilledBy": "fulfils",
     "fullDocumentation": "fullyDocuments",
     "funder": "funded",
     "funding": "funded",
     "generatedBy": "generationDevice",
     "geneticStrainType": "isGeneticStrainTypeOf",  # or "strain"
+    "gradientCorrection": "usedIn",
     "groupedBy": "isUsedToGroup",
     "groupingType": {
         "FileBundle": "isUsedToGroup",
@@ -120,15 +143,24 @@ reverse_name_map = {
     "hasVersion": "isVersionOf",
     "holder": "holdsCopyright",  # or "intellectualProperty",
     "hostedBy": "hosts",
+    "implements": "isImplementedBy",
     "inRelationTo": "assessment",  # equivalent to "about" ?
     "input": "isInputTo",
     "inputData": "isInputTo",  # could use just "input" ?
     "inputFormat": "isInputFormatOf",
     "inspiredBy": "inspired",
     "insulatorMaterial": "composes",
+    "intendedMountingLocation": "isIntendedLocationOf",
+    "interface": "isInterfaceOf",
+    "interfaceType": "isTypeOf",
     "isAlternativeVersionOf": "isAlternativeVersionOf",  # ??!!
+    "isBasedOn": "hasDerived",
     "isNewVersionOf": "isOldVersionOf",
     "isPartOf": "hasParts",  # hasComponent ?
+    "isPrecededBy": "precedes",
+    "isVariantOf": "hasVariants",
+    "isVersionOf": "hasVersions",
+    "jurisdiction": "appliesTo",
     "keyword": "describes",
     "labelingCompound": "labels",
     "language": "usedIn",
@@ -139,36 +171,55 @@ reverse_name_map = {
     "material": "composes",
     "measuredQuantity": "measurement",
     "measuredWith": "usedToMeasure",
+    "member": "isMemberOf",
     "memberOf": "hasMembers",
     "metadataLocation": "describes",
     "minValueUnit": "range",
     "maxValueUnit": "range",
+    "modificationProfile": "isProfileOf",
     "molecularEntity": "composes",
+    "motionCorrection": "usedIn",
+    "mountingLocation": "isMountingLocationOf",
+    "mountingType": "isMountingTypeOf",
+    "MRIWeighting": "usedIn",
+    "MTPulseShape": "usedIn",
     "nativeUnit": "usedBy",
+    "obtainedWith": "isUsedToObtain",
+    "operatingDevice": "usedBy",
     "operatingSystem": "usedBy",
+    "organization": "affiliations",
     "origin": "sample",
     "output": "isOutputOf",  # or "generatedBy"
     "outputData": "isOutputOf",  # replace with "output"?
     "outputFormat": "isOutputFormatOf",
     "owner": "isOwnerOf",  # or "devices"
+    "parallelAcquisitionTechnique": "usedIn",
     "pathology": "specimenState",
+    "paymentModel": "isPaymentModelOf",
     "performedBy": "activities",
+    "person": "affiliations",
     "pipetteSolution": "usedIn",
     "preferredDisplayColor": "preferredBy",
     "preparationDesign": "usedFor",
+    "preparationType": "usedIn",
     "previewImage": "isPreviewOf",
     "previousRecording": "nextRecording",
+    "process": "isProcessOf",
     "productSource": "isSourceOf",
     "programmingLanguage": "usedIn",
     "protocol": "usedIn",
     "provider": "isProviderOf",  # or "provided",
+    "publicationStatus": "isStatusOf",
     "publisher": "published",
     "qualitativeOverlap": "assessment",
     "recipe": "defined",  # or "defines"
     "recordedWith": "usedToRecord",
+    "reference": "isReferenceOf",
     "referenceData": "isReferenceFor",
     "referenceDataAcquisition": "isReferenceFor",
+    "registrationData": "usedIn",
     "reinforcementType": "usedFor",
+    "relatedInterspeciesAnatomy": "interspeciesRelation",
     "relatedPublication": "relatedTo",
     "relatedUBERONTerm": "defines",
     "relevantFor": "hasProperties",
@@ -179,16 +230,23 @@ reverse_name_map = {
     "service": {
         "ServiceLink": "linkedFrom",
         "AccountInformation": "hasAccounts",
+        "ServiceDeployment": "deployments",
     },
     "setup": "usedIn",
+    "signalDirectionality": "usedIn",
+    "sliceOrientation": "usedIn",
     "slicingDevice": "usedIn",  # TODO: slicingDevice --> device?
     "slicingPlane": "usedIn",
     "software": "usedIn",
+    "source": "isSourceOf",
     "sourceData": "isSourceDataOf",
+    "spatialEncoding": "usedIn",
     "specialUsageRole": "file",
     "species": "isSpeciesOf",
     "specification": "specifies",
     "specificationFormat": "isSpecificationFormatOf",
+    "specimenOrientation": "usedIn",
+    "spoilingTechnique": "usedIn",
     "stage": "isPartOf",
     "startedBy": "started",
     "status": "isStatusOf",
@@ -199,8 +257,10 @@ reverse_name_map = {
     "studiedSpecimen": "hasStudyResultsIn",  # "isPartOfStudy"
     "studiedState": "isStateOf",
     "studyTarget": "studiedIn",
+    "targetAnatomy": "isTargetOf",
     "targetIdentificationType": "isTypeOf",
     "technique": "usedIn",
+    "template": "isTemplateOf",
     "tissueBathSolution": "usedIn",
     "type": "isTypeOf",
     "typeOfUncertainty": "value",
@@ -209,8 +269,12 @@ reverse_name_map = {
         "QuantitativeValue": "value",
         "QuantitativeValueArray": "value",
     },
+    "usageCondition": "appliesTo",
+    "usedCoils": "usedIn",
     "usedSpecies": "commonCoordinateSpace",
     "usedSpecimen": "usedIn",
+    "usedTaxon": "usedIn",
+    "uses": "isUsedBy",
     "variation": "usedIn",
     "vendor": "stocks",
     "wasInformedBy": "informed",
@@ -267,133 +331,283 @@ def invert_dict(D):
 
 
 DEFAULT_SPACES = {
-    "chemicals": {"default": "in-depth"},
-    "core": invert_dict(
-        {
-            "common": [
-                "Affiliation",
-                "Comment",
-                "Configuration",
-                "Consortium",
-                "Funding",
-                "GRIDID",
-                "HANDLE",
-                "HardwareSystem",
-                "IdentifiersDotOrgID",
-                "ORCID",
-                "Organization",
-                "Person",
-                "Project",
-                "Query",
-                "RORID",
-                "TermSuggestion",
-                "WebResource",
-                "RRID",
-                "AccountInformation",  # or does this go in "restricted"?
-            ],
-            "files": [
-                "ContentTypePattern",
-                "File",
-                "FileBundle",
-                "FilePathPattern",
-                "FileRepositoryStructure",
-                "Hash",
-            ],
-            "dataset": [
-                "Contribution",
-                "Copyright",
-                "DOI",
-                "Dataset",
-                "DatasetVersion",
-                "FileArchive",
-                "FileRepository",
-                "ISBN",
-                "ISSN",
-                "NumericalParameter",
-                "ParameterSet",
-                "PropertyValueList",
-                "Protocol",
-                "ExperimentalActivity",
-                "ProtocolExecution",
-                "QuantitativeValue",
-                "QuantitativeValueRange",
-                "QuantitativeValueArray",
-                "ResearchProductGroup",
-                "ServiceLink",
-                "StringParameter",
-                "Subject",
-                "SubjectGroup",
-                "SubjectGroupState",
-                "SubjectState",
-                "TissueSample",
-                "TissueSampleCollection",
-                "TissueSampleCollectionState",
-                "TissueSampleState",
-                "BehavioralProtocol",
-                "Stimulation",
-                "Strain",
-                "Setup",
-            ],
-            "model": ["Model", "ModelVersion"],
-            "software": ["SWHID", "Software", "SoftwareVersion"],
-            "restricted": ["ContactInformation"],
-            "metadatamodel": ["MetaDataModel", "MetaDataModelVersion"],
-            "controlled": ["License", "ContentType"],
-            "webservice": ["WebService", "WebServiceVersion"],
-        }
-    ),
-    "computation": {"default": "computation"},
-    "controlled_terms": {"default": "controlled"},
-    "sands": invert_dict(
-        {
-            "spatial": [
-                "AnatomicalEntity",
-                "Annotation",
-                "CoordinatePoint",
-                "CustomAnatomicalEntity",
-                "CustomAnnotation",
-                "CustomCoordinateSpace",
-                "Image",
-                "QualitativeRelationAssessment",
-                "QuantitativeRelationAssessment",
-            ],
-            "atlas": [
-                "AnatomicalTargetPosition",
-                "AtlasAnnotation",
-                "BrainAtlas",
-                "BrainAtlasVersion",
-                "Circle",
-                "ColorMap",
-                "CommonCoordinateSpace",
-                "CommonCoordinateSpaceVersion",
-                "CoordinatePoint",
-                "Ellipse",
-                "ParcellationEntity",
-                "ParcellationTerminology",
-                "ParcellationTerminologyVersion",
-                "ParcellationEntityVersion",
-                "Rectangle",
-                "SingleColor",
-            ],
-        }
-    ),
-    "publications": {"default": "livepapers"},
-    "ephys": {"default": "in-depth"},
-    "specimen_prep": {"default": "in-depth"},
-    "stimulation": {"default": "in-depth"},
+    "v4": {
+        "chemicals": {"default": "in-depth"},
+        "core": invert_dict(
+            {
+                "common": [
+                    "Affiliation",
+                    "Comment",
+                    "Configuration",
+                    "Consortium",
+                    "Funding",
+                    "GRIDID",
+                    "HANDLE",
+                    "HardwareSystem",
+                    "IdentifiersDotOrgID",
+                    "ORCID",
+                    "Organization",
+                    "Person",
+                    "Project",
+                    "Query",
+                    "RORID",
+                    "TermSuggestion",
+                    "WebResource",
+                    "RRID",
+                    "AccountInformation",  # or does this go in "restricted"?
+                ],
+                "files": [
+                    "ContentTypePattern",
+                    "File",
+                    "FileBundle",
+                    "FilePathPattern",
+                    "FileRepositoryStructure",
+                    "Hash",
+                ],
+                "dataset": [
+                    "Contribution",
+                    "Copyright",
+                    "DOI",
+                    "Dataset",
+                    "DatasetVersion",
+                    "FileArchive",
+                    "FileRepository",
+                    "ISBN",
+                    "ISSN",
+                    "NumericalParameter",
+                    "ParameterSet",
+                    "PropertyValueList",
+                    "Protocol",
+                    "ExperimentalActivity",
+                    "ProtocolExecution",
+                    "QuantitativeValue",
+                    "QuantitativeValueRange",
+                    "QuantitativeValueArray",
+                    "ResearchProductGroup",
+                    "ServiceLink",
+                    "StringParameter",
+                    "Subject",
+                    "SubjectGroup",
+                    "SubjectGroupState",
+                    "SubjectState",
+                    "TissueSample",
+                    "TissueSampleCollection",
+                    "TissueSampleCollectionState",
+                    "TissueSampleState",
+                    "BehavioralProtocol",
+                    "Stimulation",
+                    "Strain",
+                    "Setup",
+                ],
+                "model": ["Model", "ModelVersion"],
+                "software": ["SWHID", "Software", "SoftwareVersion"],
+                "restricted": ["ContactInformation"],
+                "metadatamodel": ["MetaDataModel", "MetaDataModelVersion"],
+                "controlled": ["License", "ContentType"],
+                "webservice": ["WebService", "WebServiceVersion"],
+            }
+        ),
+        "computation": {"default": "computation"},
+        "controlled_terms": {"default": "controlled"},
+        "sands": invert_dict(
+            {
+                "spatial": [
+                    "AnatomicalEntity",
+                    "Annotation",
+                    "CoordinatePoint",
+                    "CustomAnatomicalEntity",
+                    "CustomAnnotation",
+                    "CustomCoordinateSpace",
+                    "Image",
+                    "QualitativeRelationAssessment",
+                    "QuantitativeRelationAssessment",
+                ],
+                "atlas": [
+                    "AnatomicalTargetPosition",
+                    "AtlasAnnotation",
+                    "BrainAtlas",
+                    "BrainAtlasVersion",
+                    "Circle",
+                    "ColorMap",
+                    "CommonCoordinateSpace",
+                    "CommonCoordinateSpaceVersion",
+                    "CoordinatePoint",
+                    "Ellipse",
+                    "ParcellationEntity",
+                    "ParcellationTerminology",
+                    "ParcellationTerminologyVersion",
+                    "ParcellationEntityVersion",
+                    "Rectangle",
+                    "SingleColor",
+                ],
+            }
+        ),
+        "publications": {"default": "livepapers"},
+        "ephys": {"default": "in-depth"},
+        "specimen_prep": {"default": "in-depth"},
+        "stimulation": {"default": "in-depth"},
+    },
+    "v5": {
+        "chemicals": {"default": "in-depth"},
+        "core": invert_dict(
+            {
+                "common": [
+                    "Affiliation",
+                    "Comment",
+                    "Configuration",
+                    "Consortium",
+                    "Funding",
+                    "HANDLE",
+                    "HardwareProduct",
+                    "IdentifiersDotOrgID",
+                    "ISNI",
+                    "LEI",
+                    "ORCID",
+                    "Organization",
+                    "Person",
+                    "Project",
+                    "RORID",
+                    "WebResource",
+                    "RRID",
+                    "AccountInformation",
+                    "GenericIdentifier",
+                    "Membership",
+                    "GeoCoordinates",
+                    "Location",
+                ],
+                "files": [
+                    "ContentTypePattern",
+                    "File",
+                    "FileBundle",
+                    "FilePathPattern",
+                    "FileRepositoryStructure",
+                    "Hash",
+                    "LocalFile",
+                ],
+                "dataset": [
+                    "Contribution",
+                    "Copyright",
+                    "DOI",
+                    "Dataset",
+                    "DatasetVersion",
+                    "FileArchive",
+                    "FileRepository",
+                    "ISBN",
+                    "ISSN",
+                    "NumericalProperty",
+                    "PropertyValueList",
+                    "Protocol",
+                    "ProtocolExecution",
+                    "QuantitativeValue",
+                    "QuantitativeValueRange",
+                    "QuantitativeValueArray",
+                    "ResearchProductGroup",
+                    "ServiceLink",
+                    "StringProperty",
+                    "Subject",
+                    "SubjectGroup",
+                    "SubjectGroupState",
+                    "SubjectState",
+                    "TissueSample",
+                    "TissueSampleCollection",
+                    "TissueSampleCollectionState",
+                    "TissueSampleState",
+                    "BehavioralProtocol",
+                    "Strain",
+                    "Setup",
+                    "CustomPropertySet",
+                    "Measurement",
+                    "StockNumber",
+                    "SpecimenAge",
+                    "SpecimenWeight",
+                    "Accessibility",
+                    "Dependency",
+                    "UsageAgreement",
+                    "GridImage",
+                    "GridImageStack",
+                    "GridVolume",
+                    "GridVolumeSequence",
+                ],
+                "model": ["Model", "ModelVersion"],
+                "software": ["SWHID", "Software", "SoftwareVersion", "Service"],
+                "restricted": ["ContactInformation"],
+                "metadatamodel": ["MetaDataModel", "MetaDataModelVersion"],
+                "controlled": ["License", "ContentType"],
+                "interface": ["Interface", "InterfaceVersion", "DeployedInterface"],
+            }
+        ),
+        "computation": {"default": "computation"},
+        "controlled_terms": {"default": "controlled"},
+        "sands": invert_dict(
+            {
+                "spatial": [
+                    "CoordinatePoint",
+                    "CustomAnatomicalEntity",
+                    "CustomAnnotation",
+                    "CustomCoordinateFramework",
+                    "QualitativeRelationAssessment",
+                    "QuantitativeRelationAssessment",
+                    "ViewerSpecification",
+                ],
+                "atlas": [
+                    "AnatomicalAtlas",
+                    "AnatomicalAtlasVersion",
+                    "AnatomicalTargetPosition",
+                    "AtlasAnnotation",
+                    "CentroidalPyramid",
+                    "Circle",
+                    "CircularSector",
+                    "CommonCoordinateFramework",
+                    "CommonCoordinateFrameworkVersion",
+                    "CoordinatePoint",
+                    "Cube",
+                    "Ellipse",
+                    "Ellipsoid",
+                    "EquilateralTriangle",
+                    "Frustum",
+                    "IsoscelesTriangle",
+                    "Kite",
+                    "ParcellationEntity",
+                    "ParcellationEntityVersion",
+                    "ParcellationTerminology",
+                    "ParcellationTerminologyVersion",
+                    "Parallelogram",
+                    "Rectangle",
+                    "RegularPolygon",
+                    "Rhombus",
+                    "RightCone",
+                    "RightCylinder",
+                    "RightPrism",
+                    "RightTriangle",
+                    "SingleColor",
+                    "Sphere",
+                    "Spheroid",
+                    "Square",
+                    "Trapezoid",
+                    "Triangle",
+                ],
+            }
+        ),
+        "publications": {"default": "livepapers"},
+        "ephys": {"default": "in-depth"},
+        "specimen_prep": {"default": "in-depth"},
+        "stimulation": {"default": "in-depth"},
+        "neuroimaging": {"default": "in-depth"},
+    },
 }
 
 
-def get_default_space(schema_group, cls_name):
-    if schema_group not in DEFAULT_SPACES:
-        raise Exception(f"Please update DEFAULT_SPACES for the {schema_group} module")
-    if cls_name in DEFAULT_SPACES[schema_group]:
-        return DEFAULT_SPACES[schema_group][cls_name]
+def get_default_space(schema_group, cls_name, version="v4"):
+    spaces = DEFAULT_SPACES[version]
+    if schema_group not in spaces:
+        raise Exception(f"Please update DEFAULT_SPACES['{version}'] for the {schema_group} module")
+    if cls_name in spaces[schema_group]:
+        return spaces[schema_group][cls_name]
     else:
         try:
-            return DEFAULT_SPACES[schema_group]["default"]
+            return spaces[schema_group]["default"]
         except KeyError:
-            raise KeyError(f"An entry for '{cls_name}' is missing from DEFAULT_SPACES['{schema_group}']")
+            raise KeyError(f"An entry for '{cls_name}' is missing from DEFAULT_SPACES['{version}']['{schema_group}']")
 
 
 # in general, we use the required properties when deciding whether a given object already exists
@@ -446,6 +660,19 @@ custom_existence_queries = {
     "AmountOfChemical": ("chemical_product", "amount"),
     "QuantitativeValue": ("value", "unit", "uncertainties"),
     "Hash": ("algorithm", "digest"),
+    # v5 additions
+    "AnatomicalAtlas": ("digital_identifier",),
+    "AnatomicalAtlasVersion": ("short_name", "version_identifier"),
+    "CommonCoordinateFramework": ("short_name", "version_identifier"),
+    "CommonCoordinateFrameworkVersion": ("short_name", "version_identifier"),
+    "CustomCoordinateFramework": ("name",),
+    "GenericIdentifier": ("identifier",),
+    "ISNI": ("identifier",),
+    "LEI": ("identifier",),
+    "Interface": ("short_name",),
+    "InterfaceVersion": ("short_name", "version_identifier"),
+    "LocalFile": ("name", "hashes"),
+    "Service": ("short_name",),
 }
 
 
@@ -476,78 +703,20 @@ def property_name_sort_key(property_name):
     return priorities.get(property_name, property_name)
 
 
-def generate_class_name(iri, module_map=None):
+def generate_class_name(iri, module_map=None, openminds_version="v4"):
     assert isinstance(iri, str)
     class_name = iri.split("/")[-1]
     module_name = generate_python_name(module_map[iri])
-    return f"openminds.{OPENMINDS_VERSION}.{module_name}.{class_name}"
+    return f"openminds.{openminds_version}.{module_name}.{class_name}"
 
 
 def get_controlled_terms_table(type_):
-    # todo: reimplement this using instances repo from Github rather than accessing KG
-    # from kg_core.kg import kg
-    # from kg_core.request import Stage, Pagination
-
-    # host = "core.kg.ebrains.eu"
-    # limit = 20
-    # try:
-    #     token = os.environ["KG_AUTH_TOKEN"]
-    # except KeyError:
-    #     warnings.warn(
-    #         "Cannot get controlled terms."
-    #         "Please obtain an EBRAINS auth token and put it in an environment variable 'KG_AUTH_TOKEN'"
-    #     )
-    #     return ""
-    # kg_client = kg(host).with_token(token).build()
-    # response = kg_client.instances.list(
-    #     stage=Stage.RELEASED,
-    #     target_type=type_,
-    #     space="controlled",
-    #     pagination=Pagination(start=0, size=limit),
-    # )
-    # if response.error:
-    #     warnings.warn(f"Error trying to retrieve values for {type_}: {response.error}")
-    #     return ""
-    # else:
-    #     if response.total == 0:
-    #         return ""
-    #     lines = []
-    #     if response.total > response.size:
-    #         assert response.size == limit
-    #         lines.extend(
-    #             [
-    #                 "",
-    #                 f"    Here we show the first {limit} possible values, an additional {response.total - limit} values are not shown.",
-    #             ]
-    #         )
-    #     lines.extend(
-    #         [
-    #             "",
-    #             "    .. list-table:: **Possible values**",
-    #             "       :widths: 20 80",
-    #             "       :header-rows: 0",
-    #             "",
-    #         ]
-    #     )
-    #     for item in response.data:
-    #         vocab = "https://openminds.ebrains.eu/vocab"
-    #         name = item[f"{vocab}/name"]
-    #         definition = item.get(f"{vocab}/definition", None)
-    #         link = item.get(f"{vocab}/preferredOntologyIdentifier", None)
-    #         if definition is None:
-    #             definition = link or " "
-    #         if link:
-    #             name = f"`{name} <{link}>`_"
-    #         lines.append(f"       * - {name}")
-    #         lines.append(f"         - {definition}")
-    #     lines.append("")
-    #     return "\n".join(lines)
     return ""
 
 
 preamble_for_download = """from urllib.request import urlretrieve
 from pathlib import Path
-from ....utility import accepted_terms_of_use"""
+from fairgraph.utility import accepted_terms_of_use"""
 
 preamble = {
     "File": """import os
@@ -566,6 +735,8 @@ mimetypes.init()""",
     "ModelVersion": preamble_for_download,
     "BrainAtlasVersion": preamble_for_download,
     "CommonCoordinateSpaceVersion": preamble_for_download,
+    "CommonCoordinateFrameworkVersion": preamble_for_download,
+    "AnatomicalAtlasVersion": preamble_for_download,
     "ScholarlyArticle": """from fairgraph.utility import as_list
 from .publication_issue import PublicationIssue
 from .periodical import Periodical""",
@@ -575,7 +746,7 @@ from .periodical import Periodical""",
 class FairgraphClassBuilder:
     """docstring"""
 
-    def __init__(self, schema_file_path: str, root_path: str, target_path_root: str):
+    def __init__(self, schema_file_path: str, root_path: str, target_path_root: str, openminds_version: str = "v4"):
         self.template_name = "fairgraph_module_template.py.txt"
         self.env = Environment(
             loader=FileSystemLoader(os.path.dirname(os.path.realpath(__file__))), autoescape=select_autoescape()
@@ -589,11 +760,14 @@ class FairgraphClassBuilder:
         with open(schema_file_path, "r") as schema_f:
             self._schema_payload = json.load(schema_f)
         self.target_path_root = target_path_root
+        self.openminds_version = openminds_version
 
     def _target_file_without_extension(self) -> str:
         return os.path.join(*self.relative_path_without_extension)
 
     def translate(self, embedded=None, linked=None, module_map=None):
+        openminds_version = self.openminds_version
+
         def get_type(prop):
             type_map = {
                 "string": "str",
@@ -650,7 +824,7 @@ class FairgraphClassBuilder:
             standard_init_properties = ""
         else:
             base_class = "KGObject"
-            default_space = get_default_space(module_name, class_name)
+            default_space = get_default_space(module_name, class_name, version=openminds_version)
             standard_init_properties = "id=id, space=space, release_status=release_status, "
         properties = []
         plurals_special_cases = {
@@ -697,7 +871,10 @@ class FairgraphClassBuilder:
             linked_from = linked[self._schema_payload["_type"]]
             for reverse_link_name in linked_from:
                 unique_forward_iris = set(linked_from[reverse_link_name][0])
-                types_str = [generate_class_name(iri, module_map) for iri in linked_from[reverse_link_name][2]]
+                types_str = [
+                    generate_class_name(iri, module_map, openminds_version=openminds_version)
+                    for iri in linked_from[reverse_link_name][2]
+                ]
                 if len(unique_forward_iris) == 1:
                     (forward_iri,) = unique_forward_iris
                     forward_link_names = set(linked_from[reverse_link_name][1])
@@ -754,7 +931,7 @@ class FairgraphClassBuilder:
             with open(f"additional_methods/{class_name}.py.txt") as fp:
                 additional_methods = fp.read()
         self.context = {
-            "openminds_version": OPENMINDS_VERSION,
+            "openminds_version": openminds_version,
             "docstring": self._schema_payload.get("description", "<description not available>"),
             "base_class": base_class,
             "preamble": preamble.get(class_name, ""),  # default value, may be updated below
@@ -834,10 +1011,11 @@ class FairgraphClassBuilder:
         return self._schema_payload["_type"], self._schema_payload["_module"]
 
 
-def main(openminds_root, ignore=[]):
-    target_path = os.path.join("..", "fairgraph", "openminds")
-    if os.path.exists(target_path):
-        shutil.rmtree(target_path)
+def generate_version(openminds_root, openminds_version, target_path):
+    """Generate fairgraph classes for a single openMINDS version."""
+    version_target_path = os.path.join(target_path, openminds_version)
+    if os.path.exists(version_target_path):
+        shutil.rmtree(version_target_path)
     openminds_root = os.path.realpath(openminds_root)
 
     schema_file_paths = glob(os.path.join(openminds_root, f"**/*.schema.omi.json"), recursive=True)
@@ -846,14 +1024,18 @@ def main(openminds_root, ignore=[]):
     # Zeroth pass - map schemas to modules
     module_map = {}
     for schema_file_path in schema_file_paths:
-        type_, module_name = FairgraphClassBuilder(schema_file_path, openminds_root, target_path).get_module_map()
+        type_, module_name = FairgraphClassBuilder(
+            schema_file_path, openminds_root, version_target_path, openminds_version
+        ).get_module_map()
         module_map[type_] = module_name
 
     # First pass - figure out which schemas are embedded and which are linked
     embedded = set()
     linked = defaultdict(dict)
     for schema_file_path in schema_file_paths:
-        embedded_in, linked_from = FairgraphClassBuilder(schema_file_path, openminds_root, target_path).get_edges()
+        embedded_in, linked_from = FairgraphClassBuilder(
+            schema_file_path, openminds_root, version_target_path, openminds_version
+        ).get_edges()
         embedded.update(embedded_in)
         for openminds_type, (link_type, property_name, forward_name, reverse_name) in linked_from.items():
             if link_type not in embedded:
@@ -875,24 +1057,21 @@ def main(openminds_root, ignore=[]):
 
     # Second pass - create a Python module for each openMINDS schema
     for schema_file_path in schema_file_paths:
-        module_path, class_name = FairgraphClassBuilder(schema_file_path, openminds_root, target_path).build(
-            embedded=embedded, linked=linked, module_map=module_map
-        )
+        module_path, class_name = FairgraphClassBuilder(
+            schema_file_path, openminds_root, version_target_path, openminds_version
+        ).build(embedded=embedded, linked=linked, module_map=module_map)
 
         parts = module_path.split(".")
         parent_path = ".".join(parts[:-1])
         python_modules[parent_path].append((parts[-1], class_name))
 
     # Now create additional files, e.g. __init__.py
-    env = Environment(
-        loader=FileSystemLoader(os.path.dirname(os.path.realpath(__file__))), autoescape=select_autoescape()
-    )
     openminds_modules = set()
     for path, classes in python_modules.items():
         dir_path = path.split(".")
         openminds_modules.add(dir_path[0])
         # first write __init__ for submodule (or top-level module if no submodules)
-        init_file_path = os.path.join(target_path, *(dir_path + ["__init__.py"]))
+        init_file_path = os.path.join(version_target_path, *(dir_path + ["__init__.py"]))
         with open(init_file_path, "w") as fp:
             for class_module, class_name in sorted(classes, key=lambda entry: entry[0]):
                 fp.write(f"from .{class_module} import {class_name}\n")
@@ -901,7 +1080,7 @@ def main(openminds_root, ignore=[]):
         child_dir = dir_path[-1]
         dir_path = dir_path[:-1]
         if len(dir_path) == 1:
-            init_file_path = os.path.join(target_path, *(dir_path + ["__init__.py"]))
+            init_file_path = os.path.join(version_target_path, *(dir_path + ["__init__.py"]))
             with open(init_file_path, "a") as fp:
                 class_names = ", ".join(class_name for _, class_name in classes)
                 fp.write(f"from .{child_dir} import ({class_names})\n")
@@ -909,7 +1088,7 @@ def main(openminds_root, ignore=[]):
     for om_module in openminds_modules:
         with open("init_template.py.txt") as fp:
             om_module_functions = fp.read()
-        init_file_path = os.path.join("..", "fairgraph", "openminds", om_module, "__init__.py")
+        init_file_path = os.path.join(version_target_path, om_module, "__init__.py")
         with open(init_file_path, "r") as fp:
             content = fp.read()
         with open(init_file_path, "w") as fp:
@@ -925,7 +1104,37 @@ def main(openminds_root, ignore=[]):
             fp.write(content)
             fp.write(om_module_functions)
 
-    with open("../fairgraph/openminds/controlledterms.py", "w") as fp:
+    # Write version-level __init__.py
+    version_init_path = os.path.join(version_target_path, "__init__.py")
+    with open(version_init_path, "w") as fp:
+        fp.write(f"from . import ({', '.join(sorted(openminds_modules))})\n")
+
+    return openminds_modules
+
+
+def main(openminds_root, version="v4", ignore=[]):
+    target_path = os.path.join("..", "fairgraph", "openminds")
+    os.makedirs(target_path, exist_ok=True)
+
+    openminds_modules = generate_version(openminds_root, version, target_path)
+
+    # Format with Black
+    version_target_path = os.path.join(target_path, version)
+    subprocess.call([sys.executable, "-m", "black", "--quiet", version_target_path])
+
+    return openminds_modules
+
+
+def generate_all(v4_root, v5_root):
+    """Generate both v4 and v5 in sequence, then write top-level files."""
+    target_path = os.path.join("..", "fairgraph", "openminds")
+    os.makedirs(target_path, exist_ok=True)
+
+    v4_modules = generate_version(v4_root, "v4", target_path)
+    v5_modules = generate_version(v5_root, "v5", target_path)
+
+    # Write backward-compat alias modules at top level
+    with open(os.path.join(target_path, "controlledterms.py"), "w") as fp:
         fp.writelines(
             [
                 "from warnings import warn\n"
@@ -933,7 +1142,7 @@ def main(openminds_root, ignore=[]):
                 "warn('The `controlledterms` module has been renamed to `controlled_terms`, please update your code', DeprecationWarning)"
             ]
         )
-    with open("../fairgraph/openminds/specimenprep.py", "w") as fp:
+    with open(os.path.join(target_path, "specimenprep.py"), "w") as fp:
         fp.writelines(
             [
                 "from warnings import warn\n"
@@ -941,10 +1150,6 @@ def main(openminds_root, ignore=[]):
                 "warn('The `specimenprep` module has been renamed to `specimen_prep`, please update your code', DeprecationWarning)"
             ]
         )
-
-    init_file_path = os.path.join("..", "fairgraph", "openminds", "__init__.py")
-    with open(init_file_path, "w") as fp:
-        fp.write(f"from . import ({', '.join(sorted(openminds_modules))})\n")
 
     # Format with Black
     subprocess.call([sys.executable, "-m", "black", "--quiet", target_path])
@@ -955,7 +1160,23 @@ if __name__ == "__main__":
         prog=sys.argv[0],
         description="Generate fairgraph classes from the EBRAINS openMINDS schema templates",
     )
-    parser.add_argument("openminds_root", help="The path to the openMINDS directory")
+    parser.add_argument("openminds_root", help="The path to the openMINDS schema directory")
+    parser.add_argument("--version", help="openMINDS version (v4 or v5)", default="v4", choices=["v4", "v5"])
     parser.add_argument("--ignore", help="Names of schema groups to ignore", default=[], action="append")
-    args = vars(parser.parse_args())
-    main(**args)
+    parser.add_argument(
+        "--v5-root",
+        help="Path to v5 schemas (when using --generate-all)",
+        default=None,
+    )
+    parser.add_argument(
+        "--generate-all",
+        help="Generate both v4 and v5 (requires --v5-root)",
+        action="store_true",
+    )
+    args = parser.parse_args()
+    if args.generate_all:
+        if args.v5_root is None:
+            parser.error("--generate-all requires --v5-root")
+        generate_all(args.openminds_root, args.v5_root)
+    else:
+        main(args.openminds_root, version=args.version, ignore=args.ignore)

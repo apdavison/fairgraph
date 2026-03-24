@@ -34,4 +34,17 @@ def set_error_handling(value, module=None):
         cls.set_error_handling(value)
 
 
-from . import chemicals, computation, controlled_terms, core, ephys, publications, sands, specimen_prep, stimulation
+from . import v4, v5
+
+# Backwards compatibility: expose v4 modules at top level so that
+# `import fairgraph.openminds.core` continues to work
+from .v4 import chemicals, computation, controlled_terms, core, ephys, publications, sands, specimen_prep, stimulation
+
+_v4_modules = [
+    "chemicals", "computation", "controlled_terms", "core",
+    "ephys", "publications", "sands", "specimen_prep", "stimulation",
+]
+for _mod_name in _v4_modules:
+    _v4_mod = getattr(v4, _mod_name)
+    sys.modules[f"{__name__}.{_mod_name}"] = _v4_mod
+del _mod_name, _v4_mod, _v4_modules

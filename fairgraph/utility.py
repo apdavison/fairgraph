@@ -511,7 +511,11 @@ def adapt_type_4to3(uri):
     if cls.__module__ == "test.test_client":
         return cls.type_
 
-    module_name = cls.__module__.split(".")[2]  # e.g., 'fairgraph.openminds.core.actors.person' -> "core"
+    parts = cls.__module__.split(".")
+    if len(parts) >= 4 and parts[2] in ("v4", "v5"):
+        module_name = parts[3]  # e.g., 'fairgraph.openminds.v4.core.actors.person' -> "core"
+    else:
+        module_name = parts[2]  # e.g., 'fairgraph.openminds.core.actors.person' -> "core"
     module_name = {"controlled_terms": "controlledTerms", "specimen_prep": "specimenPrep"}.get(
         module_name, module_name
     )
