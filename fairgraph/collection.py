@@ -44,7 +44,7 @@ class Collection(OMCollection):
 
     def load(self, *paths):
         import_module("fairgraph.openminds")
-        super().load(*paths)
+        super().load(*paths, version="v4")
 
     def upload(self, client, default_space=None, space_map=None, verbosity=0):
         nodes_to_save = [
