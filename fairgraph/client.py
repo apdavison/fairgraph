@@ -117,19 +117,24 @@ class KGClient(object):
             raise ImportError("Please install the ebrains-kg-core package")
         if client_id and client_secret:
             self._kg_client_builder = kg(host).with_credentials(client_id, client_secret)
+            self._auth_method = "credentials"
         elif token:
             self._kg_client_builder = kg(host).with_token(token)
+            self._auth_method = "token"
         elif clb_oauth:
             self._kg_client_builder = kg(host).with_token(clb_oauth.get_token())  # running in EBRAINS Jupyter Lab
+            self._auth_method = "clb_oauth"
         else:
             try:
                 self._kg_client_builder = kg(host).with_token(os.environ["KG_AUTH_TOKEN"])
+                self._auth_method = "env"
             except KeyError:
                 if allow_interactive:
                     iam_config_url = "https://iam.ebrains.eu/auth/realms/hbp/.well-known/openid-configuration"
                     self._kg_client_builder = kg(host).with_device_flow(
                         client_id="kg-core-python", open_id_configuration_url=iam_config_url
                     )
+                    self._auth_method = "device_flow"
                 else:
                     raise AuthenticationError("Need to provide either token or client id/secret.")
         self._kg_client = self._kg_client_builder.build()
@@ -144,7 +149,20 @@ class KGClient(object):
             self.user_info()
 
     def refresh(self):
-        """Rebuild the client with a fresh authentication token."""
+        """Rebuild the client with a fresh authentication token.
+
+        For credentials and device_flow auth, this obtains a new token automatically.
+        For clb_oauth (Jupyter Lab), this requests a fresh token from the platform.
+        For static tokens (passed directly or via env var), this prompts the user
+        to paste a new token interactively.
+        """
+        if self._auth_method in ("token", "env"):
+            new_token = input("Authentication token has expired. Please paste a new token: ").strip()
+            if not new_token:
+                raise AuthenticationError("No token provided.")
+            self._kg_client_builder = kg(self.host).with_token(new_token)
+        elif self._auth_method == "clb_oauth":
+            self._kg_client_builder = kg(self.host).with_token(clb_oauth.get_token())
         self._kg_client = self._kg_client_builder.build()
         self.__kg_admin_client = None
         self._user_info = None
