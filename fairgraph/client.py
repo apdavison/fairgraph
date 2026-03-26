@@ -143,6 +143,12 @@ class KGClient(object):
         if allow_interactive:
             self.user_info()
 
+    def refresh(self):
+        """Rebuild the client with a fresh authentication token."""
+        self._kg_client = self._kg_client_builder.build()
+        self.__kg_admin_client = None
+        self._user_info = None
+
     @property
     def _kg_admin_client(self):
         if self.__kg_admin_client is None:
