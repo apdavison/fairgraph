@@ -29,4 +29,11 @@ jobs:
           #flake8 . --count --exit-zero --max-complexity=10 --max-line-length=119 --statistics
       - name: Test with pytest
         run: |
-          pytest --cov=fairgraph
+          pytest --cov=fairgraph --cov-report=lcov
+
+      - name: Upload coverage to Coveralls
+        if: matrix.python-version == '3.12'
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: coverage.lcov
