@@ -5,7 +5,8 @@ Tests of fairgraph.base module.
 
 from datetime import date, datetime
 from numbers import Real
-from openminds.base import LinkedMetadata, EmbeddedMetadata as OMEmbeddedMetadata
+from openminds.base import LinkedMetadata, EmbeddedMetadata as OMEmbeddedMetadata, LinkedNodeEmbedding
+
 from openminds.properties import Property
 from fairgraph.embedded import KGEmbedded
 from fairgraph.kgobject import KGObject
@@ -473,7 +474,7 @@ class TestKGObject(object):
             "https://openminds.ebrains.eu/vocab/anOptionalListOfStrings": ["plum, peach, apricot"],
             "https://openminds.ebrains.eu/vocab/anOptionalString": "melon",
         }
-        assert obj.to_jsonld(include_empty_properties=False, embed_linked_nodes=False) == expected
+        assert obj.to_jsonld(include_empty_properties=False, embed_linked_nodes=LinkedNodeEmbedding.NEVER) == expected
 
     def test_modified_data(self):
         obj = self._construct_object_all_properties()
@@ -527,7 +528,7 @@ class TestKGObject(object):
 
         class MockClient:
             def instance_from_full_uri(self, id, use_cache=True, release_status="in progress", require_full_data=True):
-                data = orig_object.to_jsonld(include_empty_properties=False, embed_linked_nodes=False)
+                data = orig_object.to_jsonld(include_empty_properties=False, embed_linked_nodes=LinkedNodeEmbedding.NEVER)
                 data["https://core.kg.ebrains.eu/vocab/meta/space"] = "collab-foobar"
                 data["@id"] = orig_object.id
                 data["@type"] = orig_object.type_

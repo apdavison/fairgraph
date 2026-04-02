@@ -36,6 +36,7 @@ except ImportError:
 
 from openminds.registry import lookup_type
 from openminds import IRI, LinkedMetadata
+from openminds.base import LinkedNodeEmbedding
 
 from .utility import expand_uri, as_list, expand_filter, ActivityLog, normalize_data, handle_scope_keyword
 from .queries import Query, QueryProperty
@@ -96,7 +97,7 @@ class KGObject(KGNode, Releasable):
             if data:
                 try:
                     self.remote_data = normalize_data(
-                        self.to_jsonld(include_empty_properties=False, embed_linked_nodes=False),
+                        self.to_jsonld(include_empty_properties=False, embed_linked_nodes=LinkedNodeEmbedding.NEVER),
                         data.get("@context", self.context)
                     )
                 except ValueError as err:
@@ -647,7 +648,11 @@ class KGObject(KGNode, Releasable):
                 return local == remote
 
         current_data = normalize_data(
-            self.to_jsonld(include_empty_properties=True, embed_linked_nodes=False), self.context
+            self.to_jsonld(
+                include_empty_properties=True,
+                embed_linked_nodes=LinkedNodeEmbedding.IF_NECESSARY
+            ),
+            self.context
         )
         modified_data = {}
         for key, current_value in current_data.items():
@@ -741,7 +746,7 @@ class KGObject(KGNode, Releasable):
             else:
                 # update
                 local_data = normalize_data(
-                    self.to_jsonld(include_empty_properties=False, embed_linked_nodes=False),
+                    self.to_jsonld(include_empty_properties=False, embed_linked_nodes=LinkedNodeEmbedding.NEVER),
                     self.context
                 )
                 if replace:
@@ -749,6 +754,7 @@ class KGObject(KGNode, Releasable):
                     if activity_log:
                         activity_log.update(item=self, delta=local_data, space=space, entry_type="replacement")
                     try:
+                        assert self.uuid is not None
                         client.replace_instance(self.uuid, local_data)
                         # what does this return? Can we use it to update `remote_data`?
                     except AuthorizationError as err:
@@ -778,6 +784,7 @@ class KGObject(KGNode, Releasable):
                                 # Note: if modified_data includes embedded objects
                                 # then _all_ fields of the embedded objects must be provided,
                                 # not only those that have changed.
+                                assert self.uuid is not None
                                 client.update_instance(self.uuid, modified_data)
                             except AuthorizationError as err:
                                 if ignore_auth_errors:
@@ -800,7 +807,7 @@ class KGObject(KGNode, Releasable):
         else:
             # create new
             local_data = normalize_data(
-                self.to_jsonld(include_empty_properties=False, embed_linked_nodes=False),
+                self.to_jsonld(include_empty_properties=False, embed_linked_nodes=LinkedNodeEmbedding.NEVER),
                 self.context
             )
             logger.info("  - creating instance with data {}".format(local_data))
@@ -836,7 +843,7 @@ class KGObject(KGNode, Releasable):
         if self.id:
             logger.debug(
                 "Updating cache for object {}. Current state: {}".format(
-                    self.id, self.to_jsonld(embed_linked_nodes=False)
+                    self.id, self.to_jsonld(embed_linked_nodes=LinkedNodeEmbedding.NEVER)
                 )
             )
             object_cache[self.id] = self

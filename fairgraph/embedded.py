@@ -23,6 +23,8 @@ import logging
 from typing import Optional, TYPE_CHECKING, Union
 from warnings import warn
 
+from openminds.base import LinkedNodeEmbedding
+
 from .utility import as_list, ActivityLog
 from .base import JSONdict
 from .node import KGNode
@@ -66,8 +68,8 @@ class KGEmbedded(KGNode):
         return template.format(self=self)
 
     def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.to_jsonld(embed_linked_nodes=False) == other.to_jsonld(
-            embed_linked_nodes=False
+        return isinstance(other, self.__class__) and self.to_jsonld(embed_linked_nodes=LinkedNodeEmbedding.NEVER) == other.to_jsonld(
+            embed_linked_nodes=LinkedNodeEmbedding.NEVER
         )
 
     @classmethod

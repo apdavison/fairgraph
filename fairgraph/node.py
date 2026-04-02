@@ -5,7 +5,7 @@ from itertools import chain
 import logging
 from warnings import warn
 
-from openminds.base import value_to_jsonld, Link
+from openminds.base import value_to_jsonld, Link, LinkedNodeEmbedding
 from openminds.properties import Property
 
 from .registry import NodeMeta
@@ -480,7 +480,7 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
             elif value is None:
                 raise CannotBuildExistenceQuery(f"Required value for '{query_property_name}' is missing")
             else:
-                query_val = value_to_jsonld(value, include_empty_properties=False, embed_linked_nodes=False)
+                query_val = value_to_jsonld(value, include_empty_properties=False, embed_linked_nodes=LinkedNodeEmbedding.NEVER)
                 if query_val is None:
                     raise CannotBuildExistenceQuery(f"Required value for '{query_property_name}' is missing")
                 query[query_property_name] = query_val

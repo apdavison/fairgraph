@@ -11,6 +11,7 @@ import urllib.request
 import pytest
 
 from openminds import IRI
+from openminds.base import LinkedNodeEmbedding
 
 from fairgraph.utility import as_list
 from fairgraph.kgproxy import KGProxy
@@ -18,7 +19,7 @@ from fairgraph.kgquery import KGQuery
 from fairgraph.kgobject import KGObject
 import fairgraph.openminds.core as omcore
 import fairgraph.openminds.controlled_terms as omterms
-from fairgraph.utility import ActivityLog, sha1sum
+from fairgraph.utility import ActivityLog, sha1sum, normalize_data
 
 from test.utils import mock_client, kg_client, skip_if_no_connection, skip_if_using_production_server
 
@@ -433,6 +434,40 @@ def test_exists_method_without_id(kg_client):
     assert new_model == model
 
 
+def test_modified_data_method_with_local_changes():
+    dsv = omcore.DatasetVersion(
+        id="https://kg.ebrains.eu/api/instances/12345678-90ab-cdef-0123-4567890abcde", full_name="test1234"
+    )
+    dsv.remote_data = normalize_data(
+        dsv.to_jsonld(include_empty_properties=True, embed_linked_nodes=LinkedNodeEmbedding.NEVER), dsv.context
+    )
+    assert dsv.modified_data() == {}
+    dsv.repository = omcore.FileRepository(iri="http://example.org")
+    assert dsv.modified_data() == {
+        "https://openminds.om-i.org/props/repository": {
+            "@type": "https://openminds.om-i.org/types/FileRepository",
+            "https://openminds.om-i.org/props/IRI": "http://example.org",
+            "https://openminds.om-i.org/props/contentTypePattern": None,
+            "https://openminds.om-i.org/props/format": None,
+            "https://openminds.om-i.org/props/hash": None,
+            "https://openminds.om-i.org/props/hostedBy": None,
+            "https://openminds.om-i.org/props/name": None,
+            "https://openminds.om-i.org/props/storageSize": None,
+            "https://openminds.om-i.org/props/structurePattern": None,
+            "https://openminds.om-i.org/props/type": None,
+        }
+    }
+    dsv.repository = omcore.FileRepository(
+        id="https://kg.ebrains.eu/api/instances/23456789-0abc-def0-1234-567890abcdef",
+        iri="http://example.org"
+    )
+    assert dsv.modified_data() == {
+        "https://openminds.om-i.org/props/repository": {
+            "@id": dsv.repository.id
+        }
+    }
+
+
 def test__update():
     example_data = {
         "@id": "https://kg.ebrains.eu/api/instances/e90fc25a-fc35-4066-9ff2-ca3583a2d008",
@@ -518,9 +553,11 @@ def test_to_jsonld():
         "familyName": "Oakenshield",
         "givenName": "Thorin",
     }
-    assert person1.to_jsonld(embed_linked_nodes=True, include_empty_properties=False) == expected1
+    assert (
+        person1.to_jsonld(embed_linked_nodes=LinkedNodeEmbedding.ALWAYS, include_empty_properties=False) == expected1
+    )
     with pytest.raises(ValueError) as err:
-        person1.to_jsonld(embed_linked_nodes=False, include_empty_properties=False)
+        person1.to_jsonld(embed_linked_nodes=LinkedNodeEmbedding.NEVER, include_empty_properties=False)
         assert "Exporting as a stand-alone JSON-LD document requires @id to be defined" in err
 
     person2 = omcore.Person(
@@ -559,8 +596,12 @@ def test_to_jsonld():
         "familyName": "Oakenshield",
         "givenName": "Thorin",
     }
-    assert person2.to_jsonld(embed_linked_nodes=True, include_empty_properties=False) == expected2a
-    assert person2.to_jsonld(embed_linked_nodes=False, include_empty_properties=False) == expected2b
+    assert (
+        person2.to_jsonld(embed_linked_nodes=LinkedNodeEmbedding.ALWAYS, include_empty_properties=False) == expected2a
+    )
+    assert (
+        person2.to_jsonld(embed_linked_nodes=LinkedNodeEmbedding.NEVER, include_empty_properties=False) == expected2b
+    )
 
 
 @skip_if_using_production_server
