@@ -412,7 +412,7 @@ class KGObject(KGNode, Releasable):
         release_status = handle_scope_keyword(scope, release_status)
 
         if api == "auto":
-            if filters:
+            if filters or follow_links:
                 api = "query"
             else:
                 api = "core"

@@ -30,6 +30,39 @@ from .utility import as_list, expand_uri
 logger = logging.getLogger("fairgraph")
 
 
+class PathElement:
+    """
+    A single element in a multi-element query path, carrying optional
+    ``reverse`` and ``type_filter`` settings for that step.
+
+    Args:
+        uri (str): The URI for this path step.
+        reverse (bool): Whether to follow this link in reverse. Defaults to False.
+        type_filter (str or list of str, optional): Type URI(s) to filter on at this step.
+    """
+
+    def __init__(self, uri: str, reverse: bool = False, type_filter: Optional[Union[str, List[str]]] = None):
+        self.uri = uri
+        self.reverse = reverse
+        self.type_filter = type_filter
+
+    def __repr__(self):
+        return f"PathElement('{self.uri}', reverse={self.reverse}, type_filter={self.type_filter!r})"
+
+    def serialize(self) -> Union[str, Dict[str, Any]]:
+        if not self.reverse and not self.type_filter:
+            return self.uri
+        d: Dict[str, Any] = {"@id": self.uri}
+        if self.type_filter:
+            if isinstance(self.type_filter, (list, tuple)):
+                d["typeFilter"] = [{"@id": t} for t in self.type_filter]
+            else:
+                d["typeFilter"] = {"@id": self.type_filter}
+        if self.reverse:
+            d["reverse"] = True
+        return d
+
+
 class Filter:
     """
     A filter for querying Knowledge Graph nodes.
@@ -99,14 +132,14 @@ class QueryProperty:
 
     def __init__(
         self,
-        path: str,
+        path: Union[str, List[Union[str, PathElement]]],
         name: Optional[str] = None,
         filter: Optional[Filter] = None,
         sorted: bool = False,
         required: bool = False,
         ensure_order: bool = False,
         properties: Optional[List[QueryProperty]] = None,
-        type_filter: Optional[str] = None,
+        type_filter: Optional[Union[str, List[str]]] = None,
         reverse: bool = False,
         expect_single: bool = False,
     ):
@@ -120,6 +153,27 @@ class QueryProperty:
         self.type_filter = type_filter
         self.reverse = reverse
         self.expect_single = expect_single
+
+        # Normalize path to a list of PathElement for clean serialization
+        if isinstance(path, str):
+            self._path_elements = [PathElement(path, reverse=reverse, type_filter=type_filter)]
+        else:
+            has_path_elements = any(isinstance(p, PathElement) for p in path)
+            if has_path_elements and (reverse or type_filter is not None):
+                raise ValueError(
+                    "Cannot use top-level 'reverse' or 'type_filter' when path contains PathElement objects; "
+                    "set those on the PathElement directly."
+                )
+            normalized = []
+            for i, p in enumerate(path):
+                if isinstance(p, PathElement):
+                    normalized.append(p)
+                elif i == 0 and not has_path_elements:
+                    # backwards compat: top-level reverse/type_filter apply to first element
+                    normalized.append(PathElement(p, reverse=reverse, type_filter=type_filter))
+                else:
+                    normalized.append(PathElement(p))
+            self._path_elements = normalized
 
         for prop in self.properties:
             if prop.sorted:
@@ -135,9 +189,11 @@ class QueryProperty:
         self.properties.append(prop)
 
     def serialize(self) -> Dict[str, Any]:
-        data: Dict[str, Any] = {
-            "path": self.path,
-        }
+        serialized_elements = [pe.serialize() for pe in self._path_elements]
+        if isinstance(self.path, str):
+            data: Dict[str, Any] = {"path": serialized_elements[0]}
+        else:
+            data: Dict[str, Any] = {"path": serialized_elements}
         if self.name:
             data["propertyName"] = self.name
         if self.filter:
@@ -150,26 +206,6 @@ class QueryProperty:
             data["ensureOrder"] = True
         if self.properties:
             data["structure"] = [prop.serialize() for prop in self.properties]
-        if self.type_filter or self.reverse:
-            if isinstance(self.path, str):
-                first_path_element = {"@id": self.path}
-            else:
-                # for now we only support specifying type filters/reverse
-                # for the first element in a multi-element path
-                assert isinstance(self.path, (list, tuple))
-                first_path_element = {"@id": self.path[0]}
-            if self.type_filter:
-                if isinstance(self.type_filter, (list, tuple)):
-                    first_path_element["typeFilter"] = [{"@id": type_iri} for type_iri in self.type_filter]
-                else:
-                    assert isinstance(self.type_filter, str)
-                    first_path_element["typeFilter"] = {"@id": self.type_filter}
-            if self.reverse:
-                first_path_element["reverse"] = True
-            if isinstance(self.path, str):
-                data["path"] = first_path_element
-            else:
-                data["path"] = [first_path_element, *self.path[1:]]
         if self.expect_single:
             data["singleValue"] = "FIRST"
         return data
