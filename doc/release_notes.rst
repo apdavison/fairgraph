@@ -3,6 +3,55 @@ Release notes
 =============
 
 
+Version 0.13.3
+==============
+
+Main changes in this release:
+
+- Improved robustness of ``Collection.upload()`` (automatic retry on failure,
+  token refresh, and correct resume behaviour).
+- In the query-builder module (``fairgraph.queries``), added a new
+  :class:`~fairgraph.queries.PathElement` class, which allows ``reverse`` and
+  ``type_filter`` to be set independently on each step of a multi-element query path.
+  Previously, ``reverse`` and ``type_filter`` applied only to the first element of the path.
+
+Here is an example of using ``PathElement`` to find all files belonging to a particular dataset
+by traversing a ``fileRepository`` link forward and a ``repository`` link in reverse,
+filtered to ``DatasetVersion`` nodes:
+
+.. code-block:: python
+
+    from fairgraph.queries import Query, QueryProperty, Filter, PathElement
+
+    query = Query(
+        node_type="https://openminds.om-i.org/types/File",
+        properties=[
+            QueryProperty(
+                [
+                    "https://openminds.om-i.org/props/fileRepository",
+                    PathElement(
+                        "https://openminds.om-i.org/props/repository",
+                        reverse=True,
+                        type_filter="https://openminds.om-i.org/types/DatasetVersion",
+                    ),
+                    "@id",
+                ],
+                name="dataset",
+                expect_single=True,
+                filter=Filter("CONTAINS", value="<dataset-uuid>"),
+            ),
+            QueryProperty("https://openminds.om-i.org/props/name", name="name"),
+        ],
+    )
+    response = client._kg_client.queries.test_query(
+        payload=self.serialize(),
+        stage=Stage.RELEASED,
+        pagination=Pagination(start=0, size=5)
+    )
+
+Also fixed a bug where calling ``.exists()`` on a ``ModelVersion`` with a repository that had no ``@id`` raised an error.
+
+
 Version 0.13.2
 ==============
 
