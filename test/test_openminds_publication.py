@@ -1,9 +1,14 @@
 import datetime
+
 import pytest
+from openminds import IRI
 import fairgraph.openminds.core as omcore
 import fairgraph.openminds.publications as ompub
 from fairgraph.kgproxy import KGProxy
 from fairgraph.caching import object_cache
+from fairgraph.utility import as_list
+
+from test.utils import kg_client, skip_if_no_connection
 
 
 def test_get_journal():
@@ -75,3 +80,12 @@ def test_get_journal_no_issue():
 
     expected = "AL Hodgkin & AF Huxley (1952). A quantitative description of membrane current and its application to conduction and excitation in nerve. The Journal of Physiology, 117: 500–44."
     assert article.get_citation_string(client=None) == expected
+
+
+@skip_if_no_connection
+def test_filter_on_iri(kg_client):
+    # test that filtering by IRI accepts string values, even though the value itself is an IRI object
+    tutorial_notebooks = as_list(ompub.LearningResource.list(kg_client, size=20, iri="ipynb"))
+    assert len(tutorial_notebooks) > 10
+    assert all(isinstance(nb.iri, IRI) for nb in tutorial_notebooks)
+    assert all("ipynb" in str(nb.iri) for nb in tutorial_notebooks)

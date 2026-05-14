@@ -489,6 +489,8 @@ def get_filter_value(property, value: Any) -> Union[str, List[str]]:
                 val = UUID(val)
             except ValueError:
                 pass
+        if isinstance(val, str) and IRI in property.types:
+            return True
         return isinstance(val, (IRI, UUID, *property.types)) or (
             isinstance(val, KGProxy) and not set(val.classes).isdisjoint(property.types)
         )
