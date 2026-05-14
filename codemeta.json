@@ -5,7 +5,7 @@
   "codeRepository": "https://github.com/HumanBrainProject/fairgraph",
   "contIntegration": "https://github.com/HumanBrainProject/fairgraph/actions",
   "dateModified": "2026-05-14",
-  "downloadUrl": null,
+  "downloadUrl": "https://files.pythonhosted.org/packages/d7/f6/460a038f133fd922eac20d544a14fe5c7b1a214ce9f02c9f53d2392e9291/fairgraph-0.13.4.tar.gz",
   "issueTracker": "https://github.com/HumanBrainProject/fairgraph/issues",
   "name": "fairgraph",
   "version": "0.13.4",
