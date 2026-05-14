@@ -3,6 +3,19 @@ Release notes
 =============
 
 
+Version 0.13.4
+==============
+
+Bug fixes in this release:
+
+- Fixed a ``TypeError`` when trying to filter by parts of an IRI.
+- Fixed ``get_journal()`` when the journal is a :class:`~fairgraph.kgproxy.KGProxy` (issue + volume case).
+
+Other changes:
+
+- Added GDPR documentation.
+
+
 Version 0.13.3
 ==============
 
