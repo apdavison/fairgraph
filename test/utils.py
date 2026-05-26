@@ -63,6 +63,7 @@ class MockKGClient:
 
     def __init__(self):
         self.instances = {}
+        self.cache = {}
 
     def retrieve_query(self, query_label):
         return {"@id": f"mock-query-{query_label}"}
@@ -174,6 +175,9 @@ class MockKGClient:
     def replace_instance(self, instance_id, data):
         assert instance_id is not None
         assert data is not None
+
+    def uri_from_uuid(self, uuid):
+        return f"https://kg.ebrains.eu/api/instances/{uuid}"
 
 
 @pytest.fixture

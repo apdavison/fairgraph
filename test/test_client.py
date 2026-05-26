@@ -234,3 +234,115 @@ def test_delete_instance(kg_client, mocker):
     fake_id = "00000000-0000-0000-0000-000000000000"
     response = kg_client.delete_instance(fake_id)
     kg_client._kg_client.instances.delete.assert_called_once_with(fake_id)
+
+
+@pytest.fixture
+def offline_kg_client(mocker):
+    """A KGClient that can be constructed without network access, for testing
+    behaviour that doesn't require a real KG. The underlying kg-core SDK methods
+    must be patched per-test."""
+    from fairgraph.client import KGClient
+
+    client = KGClient(token="fake-token", allow_interactive=False)
+    # Skip the feature-detection fetch that the `migrated` property triggers.
+    client._migrated = True
+    # `instance_from_full_uri` uses this to build the cache key after writes
+    mocker.patch.object(
+        client._kg_client.instances._kg_config,
+        "id_namespace",
+        "https://kg.ebrains.eu/api/instances/",
+        create=True,
+    )
+    return client
+
+
+class TestCacheInvalidationOnWrite:
+    """Regression tests for the bug where writes left stale entries in
+    `client.cache`, causing subsequent `from_id(use_cache=True)` calls to
+    return out-of-date data and `save()` to no-op on what looked like a
+    legitimate modification. See issue #110."""
+
+    uuid = "00000000-0000-0000-0000-000000000000"
+    uri = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000000"
+
+    def test_update_instance_invalidates_cache(self, offline_kg_client, mocker):
+        offline_kg_client.cache[self.uri] = {"@id": self.uri, "stale": True}
+        mocker.patch.object(
+            offline_kg_client._kg_client.instances,
+            "contribute_to_partial_replacement",
+            lambda **kw: MockKGResponse({"@id": self.uri}),
+        )
+        offline_kg_client.update_instance(self.uuid, {"some": "patch"})
+        assert self.uri not in offline_kg_client.cache
+
+    def test_replace_instance_invalidates_cache(self, offline_kg_client, mocker):
+        offline_kg_client.cache[self.uri] = {"@id": self.uri, "stale": True}
+        mocker.patch.object(
+            offline_kg_client._kg_client.instances,
+            "contribute_to_full_replacement",
+            lambda **kw: MockKGResponse({"@id": self.uri}),
+        )
+        offline_kg_client.replace_instance(self.uuid, {"some": "data"})
+        assert self.uri not in offline_kg_client.cache
+
+    def test_delete_instance_invalidates_cache(self, offline_kg_client, mocker):
+        offline_kg_client.cache[self.uri] = {"@id": self.uri}
+        mocker.patch.object(offline_kg_client._kg_client.instances, "delete", return_value=None)
+        offline_kg_client.delete_instance(self.uuid)
+        assert self.uri not in offline_kg_client.cache
+
+    def test_unlink_after_refetch_sends_patch(self, offline_kg_client, mocker):
+        """End-to-end: this is the user-visible bug. Load a DatasetVersion,
+        link a subject, save; re-load it via `from_id`, set the link back to
+        `None`, save again — the second save must PATCH studiedSpecimen=None,
+        not be a silent no-op."""
+        from fairgraph.openminds.core import DatasetVersion, Subject
+
+        sub_uri = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000abc"
+        studied_specimen_path = "https://openminds.om-i.org/props/studiedSpecimen"
+        # Server-side state of the DSV, mutated by each PATCH so subsequent
+        # `instance_from_full_uri` calls see fresh data.
+        server_state = {
+            "@id": self.uri,
+            "@type": ["https://openminds.om-i.org/types/DatasetVersion"],
+            "http://schema.org/identifier": [self.uri],
+            "https://core.kg.ebrains.eu/vocab/meta/space": "myspace",
+        }
+
+        def get_by_id(stage, instance_id, extended_response_configuration):
+            return MockKGResponse(dict(server_state))
+
+        def contribute_to_partial_replacement(instance_id, payload, extended_response_configuration):
+            for key, value in payload.items():
+                if value is None:
+                    server_state.pop(key, None)
+                else:
+                    server_state[key] = value
+            return MockKGResponse(dict(server_state))
+
+        mocker.patch.object(offline_kg_client._kg_client.instances, "get_by_id", get_by_id)
+        mocker.patch.object(
+            offline_kg_client._kg_client.instances,
+            "contribute_to_partial_replacement",
+            contribute_to_partial_replacement,
+        )
+
+        # 1. Load fresh, link a subject, save.
+        dsv = DatasetVersion.from_id(self.uuid, offline_kg_client, scope="any")
+        dsv.studied_specimens = [Subject(id=sub_uri)]
+        dsv.save(offline_kg_client, space="myspace", recursive=False)
+        assert studied_specimen_path in server_state, "first save should have linked the subject"
+
+        # 2. Re-fetch via from_id. Before the fix, this would have returned
+        # stale cached data with no studiedSpecimen.
+        dsv2 = DatasetVersion.from_id(self.uuid, offline_kg_client, scope="any")
+        assert dsv2.studied_specimens is not None, (
+            "re-fetched object must see the link added by the prior save"
+        )
+
+        # 3. Unlink and save. The PATCH must clear studiedSpecimen on the server.
+        dsv2.studied_specimens = None
+        dsv2.save(offline_kg_client, space="myspace", recursive=False)
+        assert studied_specimen_path not in server_state, (
+            "second save should have sent a PATCH that cleared studiedSpecimen"
+        )
