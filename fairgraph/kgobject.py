@@ -756,7 +756,6 @@ class KGObject(KGNode, Releasable):
                     try:
                         assert self.uuid is not None
                         client.replace_instance(self.uuid, local_data)
-                        # what does this return? Can we use it to update `remote_data`?
                     except AuthorizationError as err:
                         if ignore_auth_errors:
                             logger.error(str(err))

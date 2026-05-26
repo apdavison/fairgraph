@@ -528,7 +528,14 @@ class KGClient(object):
             extended_response_configuration=default_response_configuration,
         )
         error_context = f"update_instance(data={data}, instance_id={instance_id})"
-        return self._check_response(response, error_context=error_context).data
+        response_data = self._check_response(response, error_context=error_context).data
+        # The cached document for this URI is now stale. Drop it so the next
+        # fetch goes to the KG. We deliberately do not refresh the cache from
+        # the response, because depending on the server's `returnPayload`
+        # default the response may be a minimal document (e.g. just `@id`)
+        # rather than the full updated instance.
+        self.cache.pop(self.uri_from_uuid(instance_id), None)
+        return response_data
 
     def replace_instance(self, instance_id: str, data: JsonLdDocument) -> JsonLdDocument:
         """
@@ -548,7 +555,10 @@ class KGClient(object):
             extended_response_configuration=default_response_configuration,
         )
         error_context = f"replace_instance(data={data}, instance_id={instance_id})"
-        return self._check_response(response, error_context=error_context).data
+        response_data = self._check_response(response, error_context=error_context).data
+        # See update_instance for rationale: invalidate, don't refresh.
+        self.cache.pop(self.uri_from_uuid(instance_id), None)
+        return response_data
 
     def delete_instance(self, instance_id: str, ignore_not_found: bool = True, ignore_errors: bool = True):
         """
@@ -563,6 +573,8 @@ class KGClient(object):
         if response:  # error
             if not ignore_errors:
                 raise Exception(response.message)
+        else:
+            self.cache.pop(self.uri_from_uuid(instance_id), None)
         return response
 
     def uri_from_uuid(self, uuid: str) -> str:
