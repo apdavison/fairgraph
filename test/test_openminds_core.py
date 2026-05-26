@@ -884,12 +884,12 @@ def test_dataset_version_download(mocker):
         lambda url, local_filename: (local_filename, None),
     )
     fake_dsv = omcore.DatasetVersion(
-        repository=omcore.FileRepository(iri=IRI("https://data-proxy.ebrains.eu/api/v1/public/foo/bar"))
+        repository=omcore.FileRepository(iri=IRI("https://data-proxy.ebrains.eu/api/v1/buckets/foo/bar"))
     )
     local_dir = tempfile.mkdtemp()
     local_filename, repository_url = fake_dsv.download(local_dir, client=None, accept_terms_of_use=True)
     os.rmdir(local_dir)
-    assert repository_url == "https://data-proxy.ebrains.eu/api/v1/public/foo/bar"
+    assert repository_url == "https://data-proxy.ebrains.eu/api/v1/buckets/foo/bar"
     assert str(local_filename) == os.path.join(local_dir, "bar.zip")
 
 

@@ -763,6 +763,10 @@ class KGObject(KGNode, Releasable):
                             raise
                     else:
                         self.remote_data = local_data
+                        # Mark the raw server-side document as stale, to match
+                        # the cache invalidation done in client.replace_instance.
+                        # It will be re-fetched on demand by exists() if needed.
+                        self._raw_remote_data = None
                 else:
                     modified_data = self.modified_data()
                     if modified_data:
@@ -792,6 +796,11 @@ class KGObject(KGNode, Releasable):
                                     raise
                             else:
                                 self.remote_data = local_data
+                                # Mark the raw server-side document as stale, to
+                                # match the cache invalidation done in
+                                # client.update_instance. It will be re-fetched
+                                # on demand by exists() if needed.
+                                self._raw_remote_data = None
                             if activity_log:
                                 activity_log.update(
                                     item=self,

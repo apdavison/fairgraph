@@ -346,3 +346,45 @@ class TestCacheInvalidationOnWrite:
         assert studied_specimen_path not in server_state, (
             "second save should have sent a PATCH that cleared studiedSpecimen"
         )
+
+    def test_save_marks_raw_remote_data_stale(self, offline_kg_client, mocker):
+        """After a successful update/replace, `_raw_remote_data` must be set
+        to None so it can't be silently out of sync with the cache and with
+        the actual server state. exists() repopulates it on demand."""
+        from fairgraph.openminds.core import DatasetVersion
+
+        server_state = {
+            "@id": self.uri,
+            "@type": ["https://openminds.om-i.org/types/DatasetVersion"],
+            "http://schema.org/identifier": [self.uri],
+            "https://core.kg.ebrains.eu/vocab/meta/space": "myspace",
+            "https://openminds.om-i.org/props/shortName": "original",
+        }
+
+        def get_by_id(stage, instance_id, extended_response_configuration):
+            return MockKGResponse(dict(server_state))
+
+        def contribute_to_partial_replacement(instance_id, payload, extended_response_configuration):
+            for key, value in payload.items():
+                if value is None:
+                    server_state.pop(key, None)
+                else:
+                    server_state[key] = value
+            return MockKGResponse(dict(server_state))
+
+        mocker.patch.object(offline_kg_client._kg_client.instances, "get_by_id", get_by_id)
+        mocker.patch.object(
+            offline_kg_client._kg_client.instances,
+            "contribute_to_partial_replacement",
+            contribute_to_partial_replacement,
+        )
+
+        dsv = DatasetVersion.from_id(self.uuid, offline_kg_client, scope="any")
+        assert dsv._raw_remote_data is not None  # populated by from_id
+
+        dsv.short_name = "updated"
+        dsv.save(offline_kg_client, space="myspace", recursive=False)
+
+        assert dsv._raw_remote_data is None, (
+            "_raw_remote_data must be invalidated after a successful update"
+        )

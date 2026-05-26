@@ -3,6 +3,19 @@ Release notes
 =============
 
 
+Version 0.13.5
+==============
+
+Bug fixes in this release:
+
+- Fixed a bug where :meth:`~fairgraph.kgobject.KGObject.save` could silently
+  no-op after re-fetching an object via :meth:`~fairgraph.kgobject.KGObject.from_id`,
+  because :attr:`KGClient.cache` was not invalidated by writes
+  (`#110 <https://github.com/HumanBrainProject/fairgraph/issues/110>`_).
+- Fixed the repository IRI used by the dataset version ``download()`` method
+  (`#109 <https://github.com/HumanBrainProject/fairgraph/pull/109>`_).
+
+
 Version 0.13.4
 ==============
 
