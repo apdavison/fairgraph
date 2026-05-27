@@ -81,6 +81,32 @@ def test_backwards_compat_all_modules():
     assert om.stimulation is om.v4.stimulation
 
 
+def test_backwards_compat_submodules_are_aliased():
+    """Importing a nested v4 submodule via the legacy path returns the same
+    module object as the explicit v4 path.
+
+    Without this, ``unittest.mock.patch`` (and any other code that walks a
+    dotted attribute path) would silently see two distinct copies of the
+    module: the v4 one used by the actual classes, and a fresh duplicate
+    loaded via the legacy path. Patches set on the duplicate would have no
+    effect on the code under test.
+    """
+    import importlib
+
+    legacy_to_v4 = [
+        ("fairgraph.openminds.core.products.dataset_version",
+         "fairgraph.openminds.v4.core.products.dataset_version"),
+        ("fairgraph.openminds.sands.atlas.brain_atlas_version",
+         "fairgraph.openminds.v4.sands.atlas.brain_atlas_version"),
+        ("fairgraph.openminds.controlled_terms.species",
+         "fairgraph.openminds.v4.controlled_terms.species"),
+    ]
+    for legacy_name, v4_name in legacy_to_v4:
+        legacy_mod = importlib.import_module(legacy_name)
+        v4_mod = importlib.import_module(v4_name)
+        assert legacy_mod is v4_mod, f"{legacy_name} is not the same object as {v4_name}"
+
+
 def test_v4_and_v5_classes_are_distinct():
     """v4 and v5 classes with the same name are different objects."""
     v4_person = fairgraph.openminds.v4.core.Person
