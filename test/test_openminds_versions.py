@@ -2,10 +2,17 @@
 Tests for v4/v5 openMINDS version support and backwards compatibility.
 """
 
+from unittest.mock import MagicMock, patch
+
+import pytest
+
 import fairgraph
 import fairgraph.openminds
 import fairgraph.openminds.v4
 import fairgraph.openminds.v5
+from fairgraph.kgobject import KGObject
+
+from .utils import MockKGClient
 
 
 def test_v4_imports():
@@ -123,3 +130,54 @@ def test_v5_list_kg_classes():
     class_names = [cls.__name__ for cls in classes]
     assert "Person" in class_names
     assert "Dataset" in class_names
+
+
+def test_client_default_version_is_v4():
+    """MockKGClient constructed with no kwargs defaults to v4."""
+    client = MockKGClient()
+    assert client.openminds_version == "v4"
+
+
+def test_client_v5_version_attribute():
+    """MockKGClient round-trips an explicit v5 version."""
+    client = MockKGClient(openminds_version="v5")
+    assert client.openminds_version == "v5"
+
+
+def test_invalid_openminds_version_rejected():
+    """Constructing a KGClient with an unsupported openminds_version raises ValueError."""
+    from fairgraph.client import KGClient
+
+    with pytest.raises(ValueError, match="openminds_version"):
+        KGClient(
+            host="core.kg-ppd.ebrains.eu",
+            token="dummy",
+            allow_interactive=False,
+            openminds_version="v3",
+        )
+
+
+def test_from_id_uses_client_version():
+    """KGObject.from_id passes the client's openminds_version to lookup_type."""
+    mock_uri = "http://example.org/00000000-0000-0000-0000-000000000000"
+
+    for version, expected_module_prefix in (("v4", "fairgraph.openminds.v4"),
+                                            ("v5", "fairgraph.openminds.v5")):
+        client = MockKGClient(openminds_version=version)
+        sentinel = object()
+        captured = {}
+
+        def fake_lookup(type_iri, requested_version):
+            captured["type_iri"] = type_iri
+            captured["version"] = requested_version
+            cls = MagicMock()
+            cls.from_jsonld.return_value = sentinel
+            cls.__module__ = f"{expected_module_prefix}.core"
+            return cls
+
+        with patch("fairgraph.kgobject.lookup_type", side_effect=fake_lookup):
+            result = KGObject.from_id(mock_uri, client)
+
+        assert captured["version"] == version
+        assert captured["type_iri"] == "https://openminds.om-i.org/types/Model"
+        assert result is sentinel

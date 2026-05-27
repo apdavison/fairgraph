@@ -92,10 +92,14 @@ class KGClient(object):
         client_id (str, optional): For use together with client_secret in place of the token if you have a service account.
         client_secret (str, optional): The client secret to use for authentication. Required if client_id is provided.
         allow_interactive (bool, default True): if true, allow authentication via web browser
+        openminds_version (str, default "v4"): the openMINDS schema version that responses should be
+            deserialized into. Must be one of "v4" or "v5". v4 is the default so existing code is
+            unaffected; pass "v5" when connecting to a KG instance that has been migrated to v5.
 
     Raises:
         ImportError: If the kg_core package is not installed.
         AuthenticationError: If neither a token nor client ID/secret are provided.
+        ValueError: If openminds_version is not "v4" or "v5".
     """
 
     def __init__(
@@ -105,7 +109,13 @@ class KGClient(object):
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
         allow_interactive: bool = True,
+        openminds_version: str = OPENMINDS_VERSION,
     ):
+        if openminds_version not in ("v4", "v5"):
+            raise ValueError(
+                f"openminds_version must be 'v4' or 'v5', got {openminds_version!r}"
+            )
+        self.openminds_version = openminds_version
         if not have_kg_core:
             raise ImportError("Please install the ebrains-kg-core package")
         if client_id and client_secret:
@@ -731,7 +741,7 @@ class KGClient(object):
         for item in result.data:
             type_iri = item.identifier
             try:
-                cls = lookup_type(type_iri, OPENMINDS_VERSION)
+                cls = lookup_type(type_iri, self.openminds_version)
             except (KeyError, ValueError) as err:
                 ignore_list = [
                     "https://core.kg.ebrains.eu/vocab/type/Bookmark",

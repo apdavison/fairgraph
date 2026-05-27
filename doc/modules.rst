@@ -9,6 +9,16 @@ for backwards compatibility::
     import fairgraph.openminds.v4.core as omcore4      # explicit v4
     import fairgraph.openminds.v5.core as omcore5      # explicit v5
 
+When connecting to a KG instance, tell the client which openMINDS version it should deserialize
+responses into via the ``openminds_version`` argument. Omitting it preserves the legacy v4
+behaviour::
+
+    from fairgraph import KGClient
+    import fairgraph.openminds.v5.core as omcore
+
+    client = KGClient(host="core.kg-migrated.ebrains.eu", openminds_version="v5")
+    people = omcore.Person.list(client)
+
 openMINDS v4
 ------------
 
