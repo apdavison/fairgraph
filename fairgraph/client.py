@@ -771,7 +771,6 @@ class KGClient(object):
         space_name: str,
         release_status: str = "released",
         scope: Optional[str] = None,
-        ignore_errors: bool = False,
     ):
         """
         Return information about the types and number of instances in a space.
@@ -794,40 +793,37 @@ class KGClient(object):
                 type_iri = type_["@type"]
             try:
                 cls = lookup_type(type_iri, OPENMINDS_VERSION)
-            except (KeyError, ValueError) as err:
-                ignore_list = [
-                    "https://core.kg.ebrains.eu/vocab/type/Bookmark",
-                    "https://core.kg.ebrains.eu/vocab/meta/type/Query",
-                    "https://openminds.om-i.org/types/Query",
-                    "https://openminds.ebrains.eu/core/URL",
-                    "https://openminds.om-i.org/types/URL"
-                ]
-                if ignore_errors or any(ignore in str(err) for ignore in ignore_list):
-                    pass
-                else:
-                    raise
-            else:
-                response[cls] = item.occurrences
+            except ValueError:
+                cls = type_iri
+            response[cls] = item.occurrences
         return response
 
     def clean_space(self, space_name):
         """Delete all instances from a given space."""
         # todo: check for released instances, they must be unreleased
         #       before deletion.
-        space_info = self.space_info(space_name, release_status="in progress", ignore_errors=True)
+        space_info = self.space_info(space_name, release_status="in progress")
         if sum(space_info.values()) > 0:
             print(f"The space '{space_name}' contains the following instances:\n")
             for cls, count in space_info.items():
                 if count > 0:
-                    print(cls.__name__, count)
+                    label = cls if isinstance(cls, str) else cls.__name__
+                    print(label, count)
             response = input("\nAre you sure you want to delete them? ")
             if response not in ("y", "Y", "yes", "YES"):
                 return
             error_messages = []
             for cls, count in space_info.items():
-                if count > 0 and hasattr(cls, "list"):  # exclude embedded metadata instances
-                    print(f"Deleting {cls.__name__} instances", end=" ")
-                    response = self.list(cls.type_, release_status="in progress", space=space_name, size=count)
+                if isinstance(cls, str):
+                    target_type = cls
+                elif hasattr(cls, "list"):  # exclude embedded metadata instances
+                    target_type = cls.type_
+                else:
+                    continue
+                if count > 0:
+                    label = cls if isinstance(cls, str) else cls.__name__
+                    print(f"Deleting {label} instances", end=" ")
+                    response = self.list(target_type, release_status="in progress", space=space_name, size=count)
                     assert response.total <= count
                     for instance in response.data:
                         assert instance["https://core.kg.ebrains.eu/vocab/meta/space"] == space_name
@@ -853,20 +849,30 @@ class KGClient(object):
             print(f"The space '{source_space}' contains the following instances:\n")
             for cls, count in space_info.items():
                 if count > 0:
-                    print(cls.__name__, count)
+                    label = cls if isinstance(cls, str) else cls.__name__
+                    print(label, count)
             response = input(f"\nAre you sure you want to move them to space '{destination_space}'? ")
             if response not in ("y", "Y", "yes", "YES"):
                 return
             for cls, count in space_info.items():
-                if count > 0 and hasattr(cls, "list"):  # exclude embedded metadata instances
-                    print(f"Moving {cls.__name__} instances", end="")
-                    instances = cls.list(self, release_status="in progress", space=source_space)
-                    assert len(instances) <= count
-                    for instance in instances:
-                        assert instance.space == source_space
-                        print(".", end="")
-                        self.move_to_space(instance.id, destination_space)
-                    print()
+                if count > 0:
+                    if isinstance(cls, str):
+                        label = cls
+                        print(f"Moving {label} instances", end="")
+                        response = self.list(cls, release_status="in progress", space=source_space, size=count)
+                        for instance in response.data:
+                            print(".", end="")
+                            self.move_to_space(self.uuid_from_uri(instance["@id"]), destination_space)
+                        print()
+                    elif hasattr(cls, "list"):  # exclude embedded metadata instances
+                        print(f"Moving {cls.__name__} instances", end="")
+                        instances = cls.list(self, release_status="in progress", space=source_space)
+                        assert len(instances) <= count
+                        for instance in instances:
+                            assert instance.space == source_space
+                            print(".", end="")
+                            self.move_to_space(instance.id, destination_space)
+                        print()
         else:
             print(f"The space '{source_space}' is empty, nothing to move.")
 
