@@ -3,6 +3,17 @@ Release notes
 =============
 
 
+Version 0.13.6
+==============
+
+Bug fixes in this release:
+
+- Fixed a ``KeyError`` when calling :meth:`~fairgraph.client.KGClient.query`
+  with both ``instance_id`` and a custom ``id_key`` on queries using a custom
+  ``responseVocab``
+  (`#107 <https://github.com/HumanBrainProject/fairgraph/issues/107>`_).
+
+
 Version 0.13.5
 ==============
 

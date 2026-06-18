@@ -1,6 +1,6 @@
 [project]
 name = "fairgraph"
-version = "0.13.5"
+version = "0.13.6"
 description = "Python API for the EBRAINS Knowledge Graph"
 readme = "README.md"
 authors = [
