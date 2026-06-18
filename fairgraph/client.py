@@ -183,6 +183,7 @@ class KGClient(object):
         ignore_not_found: bool = False,
         error_context: str = "",
         expected_instance_id: Optional[str] = None,
+        id_key: str = "@id",
     ) -> ResultPage[JsonLdDocument]:
         if expected_instance_id and not response.error:
             if response.total > 1:
@@ -199,7 +200,7 @@ class KGClient(object):
                 response.size = response.total = 0
             else:
                 if response.size == 1:
-                    if str(expected_instance_id) not in response.data[0]["@id"]:
+                    if str(expected_instance_id) not in response.data[0][id_key]:
                         raise Exception("mismatched instance_id")
         if response.error:
             # todo: handle "ignore_not_found"
@@ -285,7 +286,7 @@ class KGClient(object):
                 )
                 error_context = f"_query(release_status={release_status} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
                 return self._check_response(
-                    response, error_context=error_context, expected_instance_id=instance_id, ignore_not_found=True
+                    response, error_context=error_context, expected_instance_id=instance_id, id_key=id_key, ignore_not_found=True
                 )
 
         else:
@@ -303,7 +304,7 @@ class KGClient(object):
                 )
                 error_context = f"_query(release_status={release_status} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
                 return self._check_response(
-                    response, error_context=error_context, expected_instance_id=instance_id, ignore_not_found=True
+                    response, error_context=error_context, expected_instance_id=instance_id, id_key=id_key, ignore_not_found=True
                 )
 
         if release_status == "any":
