@@ -915,7 +915,7 @@ def main(openminds_root, ignore=[]):
         with open(init_file_path, "w") as fp:
             om_module_header = [
                 "import sys\n",
-                "from fairgraph.openminds import (\n",
+                "from fairgraph.introspection import (\n",
                 "    list_kg_classes as _lkgc,\n",
                 "    list_embedded_metadata_classes as _lemc,\n",
                 "    set_error_handling as _seh,\n",

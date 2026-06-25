@@ -1,5 +1,5 @@
 import sys
-from fairgraph.openminds import (
+from fairgraph.introspection import (
     list_kg_classes as _lkgc,
     list_embedded_metadata_classes as _lemc,
     set_error_handling as _seh,
