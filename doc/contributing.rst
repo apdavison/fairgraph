@@ -109,6 +109,35 @@ Within the main fairgraph folder::
     $ python update_openminds.py /path/to/openMINDS/schemas/v4.0
 
 This will over-write the contents of the :file:`fairgraph/openminds` directory.
+Review the diff before committing, to check that the changes introduced look correct.
+
+.. warning::
+
+   Everything under :file:`fairgraph/openminds` is generated, and any edit you make
+   there by hand will be silently lost the next time the builder runs.
+   To change the behaviour of a generated class, edit its *overlay* instead
+   (see below).
+
+Hand-written methods on generated classes
+-----------------------------------------
+
+Some generated classes need methods that cannot be derived from the schema, such as
+:meth:`Person.me` or :meth:`DatasetVersion.download`. These live in
+:file:`builder/additional_methods/`, one file per class, named after the class with a
+:file:`.py.txt` suffix — for example :file:`builder/additional_methods/Person.py.txt`.
+
+When the builder generates a class, it looks for a file matching that class name and, if
+one exists, inserts its contents verbatim into the body of the generated class. The file
+therefore contains method definitions only — no ``class`` statement — indented by four
+spaces as they will appear in the class body::
+
+    @property
+    def full_name(self):
+        return f"{self.given_name} {self.family_name}"
+
+So, to add or change a method on a generated class, edit (or create) the corresponding
+file in :file:`builder/additional_methods/` and re-run :file:`update_openminds.py`.
+Both the overlay and the regenerated file should be committed together.
 
 Running the test suite
 ----------------------
@@ -231,10 +260,10 @@ fairgraph is licenced under the Apache Software Licencse v2.0.
 
 
 .. _`GitHub Repository`: https://github.com/HumanBrainProject/fairgraph/
-.. _`PEP 8`: https://pypi.org/project/pep8/
+.. _`PEP 8`: https://peps.python.org/pep-0008/
 .. _`maintainers team`: https://github.com/orgs/HumanBrainProject/teams/fairgraph-maintainers
 .. _reStructuredText: http://docutils.sourceforge.net/rst.html
 .. _Sphinx: http://www.sphinx-doc.org/
 .. _`PEP 257`: https://www.python.org/dev/peps/pep-0257/
-.. _black: link/to/black
+.. _black: https://black.readthedocs.io
 .. _PyPI: https://pypi.org
