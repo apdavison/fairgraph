@@ -21,6 +21,9 @@ Brain Atlases
 .. autoclass:: CommonCoordinateSpace
 
 
+.. autoclass:: CommonCoordinateSpaceVersion
+
+
 .. autoclass:: ParcellationEntity
 
 
@@ -73,3 +76,9 @@ Miscellaneous
 
 
 .. autoclass:: QuantitativeRelationAssessment
+
+
+.. autoclass:: SingleColor
+
+
+.. autoclass:: ViewerSpecification

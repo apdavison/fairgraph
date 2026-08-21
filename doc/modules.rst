@@ -9,15 +9,26 @@ for backwards compatibility::
     import fairgraph.openminds.v4.core as omcore4      # explicit v4
     import fairgraph.openminds.v5.core as omcore5      # explicit v5
 
-When connecting to a KG instance, tell the client which openMINDS version it should deserialize
-responses into via the ``openminds_version`` argument. Omitting it preserves the legacy v4
-behaviour::
+The two versions are entirely separate sets of classes: a v4 :class:`Person` and a v5
+:class:`Person` are different Python classes, even though they share the same ``@type`` URI in
+the Knowledge Graph. Since the URI alone cannot tell them apart, the client has to be told which
+version to deserialize responses into, via the ``openminds_version`` argument. Omitting it keeps
+the v4 behaviour::
 
     from fairgraph import KGClient
     import fairgraph.openminds.v5.core as omcore
 
-    client = KGClient(host="core.kg-migrated.ebrains.eu", openminds_version="v5")
+    client = KGClient(host=host_serving_v5_metadata, openminds_version="v5")
     people = omcore.Person.list(client)
+
+Take care to import the classes you use from the same version the client was created with:
+passing a v4 class to a v5 client (or vice versa) will query for the wrong properties.
+
+.. note:: The migration of the EBRAINS Knowledge Graph to openMINDS v5 is still in progress.
+          The production and pre-production deployments serve openMINDS v4, which is what you
+          should use against them. v5 metadata is so far only available from a development
+          deployment with restricted access; if you need to work against it, contact EBRAINS
+          Support.
 
 openMINDS v4
 ------------

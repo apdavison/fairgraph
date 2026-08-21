@@ -102,6 +102,9 @@ Identifiers
 .. autoclass:: HANDLE
    :members:
 
+.. autoclass:: IdentifiersDotOrgID
+   :members:
+
 .. autoclass:: ISBN
    :members:
 
