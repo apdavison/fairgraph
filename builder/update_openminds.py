@@ -98,6 +98,7 @@ reverse_name_map = {
         "StaticMRIAcquisition": "usedIn",
         "DynamicMRIAcquisition": "usedIn",
         "MRICoilUsage": "usage",
+        "MRIScannerUsage": "usage",
     },
     "deviceType": "isTypeOf",  # TODO: replace with "type"?
     "diffusionEncodingParameters": "usedIn",
@@ -1094,7 +1095,7 @@ def generate_version(openminds_root, openminds_version, target_path):
         with open(init_file_path, "w") as fp:
             om_module_header = [
                 "import sys\n",
-                "from fairgraph.openminds import (\n",
+                "from fairgraph.introspection import (\n",
                 "    list_kg_classes as _lkgc,\n",
                 "    list_embedded_metadata_classes as _lemc,\n",
                 "    set_error_handling as _seh,\n",
@@ -1106,8 +1107,16 @@ def generate_version(openminds_root, openminds_version, target_path):
 
     # Write version-level __init__.py
     version_init_path = os.path.join(version_target_path, "__init__.py")
+    sorted_modules = sorted(openminds_modules)
     with open(version_init_path, "w") as fp:
-        fp.write(f"from . import ({', '.join(sorted(openminds_modules))})\n")
+        fp.write(f"from . import ({', '.join(sorted_modules)})\n\n\n")
+        fp.write("def set_error_handling(value):\n")
+        fp.write(
+            '    """Set error handling for all openMINDS '
+            f'{openminds_version} classes, across every submodule."""\n'
+        )
+        fp.write(f"    for module in ({', '.join(sorted_modules)}):\n")
+        fp.write("        module.set_error_handling(value)\n")
 
     return openminds_modules
 

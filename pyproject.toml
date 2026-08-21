@@ -1,6 +1,6 @@
 [project]
 name = "fairgraph"
-version = "0.13.5"
+version = "0.14.0"
 description = "Python API for the EBRAINS Knowledge Graph"
 readme = "README.md"
 authors = [
@@ -17,7 +17,7 @@ classifiers = [
 keywords = ["ebrains", "hbp", "metadata", "electrophysiology", "knowledge-graph"]
 dependencies=[
     "ebrains-kg-core>=0.9.20",
-    "openminds>=0.5.1",
+    "openminds>=0.6.0",
     "python-dateutil>=2.0",
     "tabulate>=0.8.0",
     "requests>=2.20.0"
@@ -60,3 +60,4 @@ include = ["fairgraph*"]
 
 [tool.black]
 line-length = 119
+target-version = ["py39"]

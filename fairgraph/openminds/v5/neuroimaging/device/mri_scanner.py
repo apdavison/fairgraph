@@ -26,6 +26,14 @@ class MRIScanner(KGObject, OMMRIScanner):
             multiple=True,
             description="reverse of 'has_parts'",
         ),
+        Property(
+            "usage",
+            "openminds.v5.neuroimaging.MRIScannerUsage",
+            "device",
+            reverse="device",
+            multiple=True,
+            description="reverse of 'device'",
+        ),
     ]
     existence_query_properties = ("contributions", "magnetic_field_strength", "name", "type")
 
@@ -39,6 +47,7 @@ class MRIScanner(KGObject, OMMRIScanner):
         magnetic_field_strength=None,
         serial_number=None,
         type=None,
+        usage=None,
         id=None,
         data=None,
         space=None,
@@ -58,4 +67,5 @@ class MRIScanner(KGObject, OMMRIScanner):
             magnetic_field_strength=magnetic_field_strength,
             serial_number=serial_number,
             type=type,
+            usage=usage,
         )
