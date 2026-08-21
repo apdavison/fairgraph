@@ -1,5 +1,7 @@
 from copy import deepcopy
 import os
+import subprocess
+import sys
 import tempfile
 import pytest
 from fairgraph.utility import (
@@ -145,3 +147,84 @@ def test_adapt_namespaces():
     assert data == data_v3
 
     assert data_v3 != data_v4
+
+
+def test_initialise_instances_resolves_cross_references():
+    # Regression for the fairgraph side of openMINDS issue #94
+    # (https://github.com/openMetadataInitiative/openMINDS_Python/issues/94).
+    #
+    # Importing fairgraph recasts the openMINDS library instances to their fairgraph
+    # subclasses. Cross-references between those instances (e.g. ParcellationEntityVersion
+    # -> ParcellationEntity via `has_parents`) must be resolved to the actual recast
+    # fairgraph objects, not left as raw {"@id": ...} dicts or unresolved KGProxy objects.
+    #
+    # Previously the recast serialised each instance with embed_linked_nodes=ALWAYS, which
+    # recursed without bound over the cyclic ParcellationEntity <-> ParcellationEntityVersion
+    # instance graph (RecursionError, and then out-of-memory once a cycle guard was added).
+    # initialise_instances now does a shallow recast (links become KGProxy) followed by a
+    # resolution pass against an id -> object lookup.
+    import fairgraph
+    from fairgraph.openminds.sands import ParcellationEntity, ParcellationEntityVersion
+    from fairgraph.kgproxy import KGProxy
+
+    # The library instances were recast to typed fairgraph objects.
+    pe_by_id = {
+        obj.id: obj
+        for obj in vars(ParcellationEntity).values()
+        if isinstance(obj, ParcellationEntity)
+    }
+    assert pe_by_id, "no ParcellationEntity library instances were recast"
+    assert all(isinstance(pe, fairgraph.KGObject) for pe in pe_by_id.values())
+
+    # Find a version that references a parent entity and check the reference is resolved.
+    parent = None
+    for version in vars(ParcellationEntityVersion).values():
+        if not isinstance(version, ParcellationEntityVersion) or not version.has_parents:
+            continue
+        parents = version.has_parents
+        parents = parents if isinstance(parents, (list, tuple)) else [parents]
+        parent = next((p for p in parents if isinstance(p, ParcellationEntity)), None)
+        if parent is not None:
+            break
+    assert parent is not None, "no ParcellationEntityVersion with a ParcellationEntity parent found"
+
+    # The cross-reference is a typed fairgraph object, not a raw dict (issue #94) and not
+    # an unresolved proxy; it is the very same recast object held as a class attribute.
+    assert not isinstance(parent, dict)
+    assert not isinstance(parent, KGProxy)
+    assert isinstance(parent, ParcellationEntity)
+    assert parent is pe_by_id[parent.id]
+
+
+def test_import_fairgraph_is_silent_and_does_not_crash():
+    # Regression: importing fairgraph recasts the openMINDS library instances. This used to
+    # recurse without bound over the cyclic ParcellationEntity <-> ...Version instance graph
+    # (RecursionError, then out-of-memory), and once that was fixed it emitted validation
+    # warnings for the intentionally-incomplete library instances. A bare `import fairgraph`
+    # must now complete cleanly and produce no output on stdout or stderr.
+    #
+    # This runs in a subprocess because fairgraph is already imported in the test session
+    # (the recast runs only once, at import time), so the behaviour can only be observed
+    # from a fresh interpreter.
+    result = subprocess.run(
+        [sys.executable, "-c", "import fairgraph"],
+        capture_output=True,
+        text=True,
+        timeout=120,
+    )
+    assert result.returncode == 0, result.stderr
+    assert result.stdout == "", f"unexpected stdout:\n{result.stdout}"
+    assert result.stderr == "", f"unexpected stderr:\n{result.stderr}"
+
+
+def test_error_handling_restored_to_default_after_import():
+    # initialise_instances suppresses validation handling globally while recasting the
+    # library instances, then restores the default ("log") in a finally block. Guard against
+    # that restore being dropped, which would silently leave validation disabled (error
+    # handling set to None) for the whole session, for both linked and embedded classes.
+    import fairgraph  # noqa: F401
+    from fairgraph.base import ErrorHandling
+    from fairgraph.openminds.sands import ParcellationEntity, AtlasAnnotation
+
+    assert ParcellationEntity.error_handling == ErrorHandling.log  # a KGObject class
+    assert AtlasAnnotation.error_handling == ErrorHandling.log  # an embedded (KGEmbedded) class
