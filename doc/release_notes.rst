@@ -3,6 +3,69 @@ Release notes
 =============
 
 
+Version 0.14.0
+==============
+
+This release requires openMINDS 0.6.0 (``openminds>=0.6.0``) and inherits two changes in
+behaviour from it.
+
+**Links between library instances now give you objects, not dictionaries.**
+The openMINDS instance libraries (available as class attributes, e.g. ``Species.mus_musculus``)
+contain many cross-references: an atlas region points to its versions, a parent region to its
+children, and so on. Until now those references came back as plain ``{"@id": ...}``
+dictionaries, so there was nothing useful you could do with them without a separate lookup.
+They are now the actual objects:
+
+.. code-block:: python
+
+    >>> from fairgraph.openminds.sands import ParcellationEntity
+    >>> region = ParcellationEntity.aal1_acin
+
+    # up to 0.13.6, region.has_versions[0] was a plain dict:
+    {'@id': 'https://openminds.om-i.org/instances/parcellationEntityVersion/AAL1_SPM12-v4_ACIN'}
+
+    # from 0.14.0 it is a ParcellationEntityVersion, which you can use directly:
+    >>> region.has_versions[0].version_identifier
+    'SPM12, v4'
+    >>> region.has_versions[0].name
+    'anterior cingulate and paracingulate gyri'
+
+If your code worked around the old behaviour by reading the ``"@id"`` key out of these
+dictionaries, it will need updating. References that point outside the instance libraries are
+still :class:`~fairgraph.kgproxy.KGProxy` objects, resolved with
+:meth:`~fairgraph.kgproxy.KGProxy.resolve` as before.
+
+**Invalid IRIs are now reported at validation time, not on creation.**
+``IRI("not a url")`` used to raise :exc:`ValueError` immediately. It now succeeds, and the
+problem is reported when the containing object is validated, together with any other
+validation failures, and following whatever error handling you have configured
+(see :func:`fairgraph.set_error_handling`):
+
+.. code-block:: python
+
+    >>> repo = FileRepository(name="my repository", iri=IRI("not a url"), hosted_by=organization)
+    defaultdict(<class 'list'>, {'value': ['Invalid IRI']})
+    >>> repo.validate()
+    {'value': ['Invalid IRI']}
+
+Code that relied on catching :exc:`ValueError` around IRI creation should check the
+validation result instead.
+
+**Other changes in this release:**
+
+- ``import fairgraph`` works again with openMINDS 0.6.0. Preparing the instance libraries used
+  to walk the links between instances, which the newly-connected atlas instances turned into an
+  endless loop (a ``RecursionError``, or exhausted memory); it no longer does
+  (`#116 <https://github.com/HumanBrainProject/fairgraph/pull/116>`_).
+- Fixed an out-of-date data-proxy URL that made ``download()`` fail for some datasets, models
+  and atlases (:class:`~fairgraph.openminds.core.DatasetVersion`,
+  :class:`~fairgraph.openminds.core.ModelVersion`,
+  :class:`~fairgraph.openminds.sands.BrainAtlasVersion`,
+  :class:`~fairgraph.openminds.sands.CommonCoordinateSpaceVersion`).
+- :func:`fairgraph.openminds.set_error_handling` now sets error handling for every openMINDS
+  submodule in a single call.
+
+
 Version 0.13.6
 ==============
 
