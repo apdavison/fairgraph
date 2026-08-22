@@ -73,8 +73,8 @@ For example::
    >>> from fairgraph.openminds.core import DatasetVersion
 
 These submodules contain the openMINDS v4 classes, which is what the client uses by default.
-Classes for openMINDS v5 are also available, as ``fairgraph.openminds.v5.core`` and so on;
-see :doc:`modules`.
+Classes for openMINDS v5 are also available, as ``fairgraph.openminds.v5.core`` and so on, but
+v5 support is **experimental** for now; see :doc:`modules`.
 
 Using these classes, it is possible to list all metadata matching a particular criterion, e.g.::
 

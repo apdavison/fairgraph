@@ -6,7 +6,7 @@ Release notes
 Version 0.15.0
 ==============
 
-**fairgraph now supports openMINDS v5 alongside v4.**
+**fairgraph now supports openMINDS v5 alongside v4, on an experimental basis.**
 Both sets of classes are available at the same time, and v4 remains the default, so existing
 code continues to work unchanged::
 
@@ -33,11 +33,18 @@ which version to deserialize into::
 ``openminds_version`` accepts ``"v4"`` (the default) or ``"v5"``; anything else raises
 :exc:`ValueError`. Use classes from the same version as the client you pass them to.
 
-.. note:: The migration of the EBRAINS Knowledge Graph to openMINDS v5 is still under way.
-          The production and pre-production deployments serve v4; v5 metadata is so far only
-          available from a development deployment with restricted access, whose contents are
-          incomplete and liable to change. The v5 support in this release has therefore not yet
-          been exercised against a fully populated KG.
+.. warning:: **v5 support is experimental in this release.**
+
+             The migration of the EBRAINS Knowledge Graph to openMINDS v5 is still under way.
+             The production and pre-production deployments serve v4; v5 metadata is so far only
+             available from a development deployment with restricted access, whose contents are
+             incomplete and liable to change. The v5 support in this release has therefore not
+             yet been exercised against a fully populated KG.
+
+             Until that changes, the v5 classes and the ``openminds_version`` argument may be
+             altered in backwards-incompatible ways in any release, without the deprecation
+             period that applies to the rest of the API. **openMINDS v4 support is unaffected**
+             and continues to follow the normal compatibility rules.
 
 **The openMINDS v3 transitional machinery has been removed.**
 The KG has been serving v4 metadata for some time, and the code that translated between the v3

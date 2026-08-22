@@ -77,6 +77,17 @@ openMINDS v4
 openMINDS v5
 ------------
 
+.. warning:: **openMINDS v5 support is experimental.**
+
+             The v5 classes have not yet been exercised against a fully populated Knowledge
+             Graph (see the note above), so problems may remain that only real data will reveal.
+             Until the KG migration completes, v5 support may be changed in
+             backwards-incompatible ways in any release, without the deprecation period that
+             applies to the rest of the API.
+
+             openMINDS v4 support is unaffected and remains the default. If you use v5 and hit a
+             problem, please `report it <https://github.com/HumanBrainProject/fairgraph/issues>`__.
+
 .. toctree::
    :hidden:
 

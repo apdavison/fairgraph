@@ -49,8 +49,15 @@ which of them to deserialize responses into:
 client = KGClient(host=host_serving_v5_metadata, openminds_version="v5")
 ```
 
-Omitting `openminds_version` keeps the v4 behaviour. Note that the migration of the KG to
-openMINDS v5 is still in progress: the production and pre-production deployments serve v4.
+Omitting `openminds_version` keeps the v4 behaviour.
+
+> [!IMPORTANT]
+> **openMINDS v5 support is experimental.** The migration of the KG to openMINDS v5 is still in
+> progress, and the production and pre-production deployments serve v4, so the v5 classes have
+> not yet been exercised against a fully populated Knowledge Graph. Until that changes, v5
+> support may be altered in backwards-incompatible ways in any release, without the deprecation
+> period that applies to the rest of the API. openMINDS v4 support is unaffected and remains the
+> default. Reports of problems with v5 are very welcome.
 
 ## Basic setup
 
