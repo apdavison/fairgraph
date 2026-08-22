@@ -42,6 +42,56 @@ def test_spaces_names_only(kg_client):
 
 
 @skip_if_no_connection
+def test_space_info_tolerates_unknown_types(kg_client):
+    # Regression test for #113. A KG space may contain types that have no fairgraph
+    # class -- the KG's own internal types, for example
+    # "https://core.kg.ebrains.eu/doi/AdditionalDoiInformation". space_info() used to
+    # raise ValueError for those, so a single unrecognised type made the whole space
+    # listing fail. They are now returned keyed by their type IRI instead.
+    #
+    # "controlled" with release_status="in progress" is the case from the bug report.
+    info = kg_client.space_info("controlled", release_status="in progress")
+
+    assert isinstance(info, dict)
+    for key, count in info.items():
+        assert isinstance(count, int)
+        if isinstance(key, str):
+            # an unmapped type, keyed by its IRI
+            assert key.startswith("http"), f"unmapped type key is not an IRI: {key!r}"
+        else:
+            # a fairgraph/openMINDS class
+            assert isinstance(key, type), f"unexpected key type: {key!r}"
+            assert hasattr(key, "type_"), f"class key has no type_: {key!r}"
+
+
+@skip_if_no_connection
+def test_space_info_reports_unmapped_types_by_iri(kg_client):
+    # Companion to the test above: check that unmapped types really do occur and are
+    # handled, rather than the tolerance never being exercised. Scans the spaces the
+    # user can read until it finds one, since which spaces contain internal types
+    # depends on the deployment.
+    #
+    # Skips rather than fails if none is found: that means the KG served nothing
+    # unmapped, which is not a fairgraph bug.
+    unmapped = {}
+    for space_name in kg_client.spaces(names_only=True):
+        try:
+            info = kg_client.space_info(space_name, release_status="in progress")
+        except Exception as err:  # pragma: no cover - the bug this guards against
+            pytest.fail(f"space_info({space_name!r}) raised {type(err).__name__}: {err}")
+        found = [key for key in info if isinstance(key, str)]
+        if found:
+            unmapped[space_name] = found
+
+    if not unmapped:
+        pytest.skip("no unmapped types found in any accessible space")
+
+    for space_name, keys in unmapped.items():
+        for key in keys:
+            assert key.startswith("http"), f"in {space_name}: {key!r} is not an IRI"
+
+
+@skip_if_no_connection
 def test_query_filter_by_space(kg_client):
 
     query = Query(
