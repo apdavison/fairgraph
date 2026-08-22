@@ -20,6 +20,14 @@ Provenance of computational workflows in neuroscience, including simulations, da
    :members:
    :show-inheritance:
 
+.. autoclass:: fairgraph.openminds.computation.DataCopy
+   :members:
+   :show-inheritance:
+
+.. autoclass:: fairgraph.openminds.computation.GenericComputation
+   :members:
+   :show-inheritance:
+
 .. autoclass:: fairgraph.openminds.computation.Simulation
    :members:
    :show-inheritance:

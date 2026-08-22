@@ -3,6 +3,62 @@ Release notes
 =============
 
 
+Version 0.15.0
+==============
+
+**fairgraph now supports openMINDS v5 alongside v4, on an experimental basis.**
+Both sets of classes are available at the same time, and v4 remains the default, so existing
+code continues to work unchanged::
+
+    import fairgraph.openminds.core as omcore          # v4 (default)
+    import fairgraph.openminds.v4.core as omcore4      # explicit v4
+    import fairgraph.openminds.v5.core as omcore5      # explicit v5
+
+v5 covers the same metadata domains as v4, plus a new **neuroimaging** domain
+(:doc:`modules/openminds_v5_neuroimaging`) for MRI acquisitions and the devices used to make
+them. A number of classes have been renamed — for example ``BrainAtlas`` is now
+``AnatomicalAtlas``, and ``CommonCoordinateSpace`` is now ``CommonCoordinateFramework`` — and
+others have been added. See :doc:`modules` for the full list.
+
+A v4 class and its v5 counterpart share the same node type URI in the Knowledge Graph, so a
+response cannot be assigned to a version by inspecting it. The client therefore has to be told
+which version to deserialize into::
+
+    from fairgraph import KGClient
+    import fairgraph.openminds.v5.core as omcore
+
+    client = KGClient(host=host_serving_v5_metadata, openminds_version="v5")
+    people = omcore.Person.list(client)
+
+``openminds_version`` accepts ``"v4"`` (the default) or ``"v5"``; anything else raises
+:exc:`ValueError`. Use classes from the same version as the client you pass them to.
+
+.. warning:: **v5 support is experimental in this release.**
+
+             The migration of the EBRAINS Knowledge Graph to openMINDS v5 is still under way.
+             The production and pre-production deployments serve v4; v5 metadata is so far only
+             available from a development deployment with restricted access, whose contents are
+             incomplete and liable to change. The v5 support in this release has therefore not
+             yet been exercised against a fully populated KG.
+
+             Until that changes, the v5 classes and the ``openminds_version`` argument may be
+             altered in backwards-incompatible ways in any release, without the deprecation
+             period that applies to the rest of the API. **openMINDS v4 support is unaffected**
+             and continues to follow the normal compatibility rules.
+
+**The openMINDS v3 transitional machinery has been removed.**
+The KG has been serving v4 metadata for some time, and the code that translated between the v3
+and v4 namespaces is no longer needed. The following have been removed:
+
+- ``KGClient.migrated``, the feature-detection probe that decided at run time whether the KG
+  a client was connected to had been migrated to v4;
+- the :mod:`fairgraph.utility` functions ``adapt_namespaces_3to4``, ``adapt_type_4to3``,
+  ``adapt_namespaces_4to3``, ``adapt_namespaces_for_query`` and ``types_match``.
+
+Code that called these directly will need updating; code that simply used the client is
+unaffected.
+
+
 Version 0.14.0
 ==============
 

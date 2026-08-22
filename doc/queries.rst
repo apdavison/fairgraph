@@ -51,7 +51,9 @@ Listing the available metadata types
 
 Each type of metadata node in the Knowledge Graph is represented by a Python class.
 These classes are organized into modules according to the openMINDS_ schemas.
-For a full list of modules, see :doc:`modules`.
+The examples below use the openMINDS v4 classes, which are the ones you get by default;
+equivalent v5 classes are available in ``fairgraph.openminds.v5``.
+For a full list of modules in each version, see :doc:`modules`.
 
 To get a list of classes in a given module, import the module and then run
 :func:`list_kg_classes()`, e.g.::
