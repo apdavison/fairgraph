@@ -34,7 +34,7 @@
     "openminds>=0.6.0",
     "python-dateutil>=2.0",
     "tabulate>=0.8.0",
-    "requests>=2.20.0",
+    "requests>=2.20.0"
   ],
   "relatedLink": [
     "https://fairgraph.readthedocs.io"
