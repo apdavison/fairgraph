@@ -3,7 +3,7 @@ import os
 from uuid import uuid4
 from typing import Optional
 
-from requests.exceptions import SSLError
+from requests.exceptions import RequestException, SSLError
 from fairgraph.client import KGClient
 from fairgraph.errors import AuthenticationError, AuthorizationError
 
@@ -20,6 +20,9 @@ except AuthenticationError:
     pass
 except SSLError:
     no_kg_err_msg = "No KG connection - SSL certificate may have expired"
+except RequestException:
+    # e.g. the KG is down for maintenance. 
+    no_kg_err_msg = f"No KG connection - could not reach {kg_host}"
 else:
     try:
         user_info = client.user_info()

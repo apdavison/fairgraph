@@ -915,7 +915,7 @@ def main(openminds_root, ignore=[]):
         with open(init_file_path, "w") as fp:
             om_module_header = [
                 "import sys\n",
-                "from fairgraph.openminds import (\n",
+                "from fairgraph.introspection import (\n",
                 "    list_kg_classes as _lkgc,\n",
                 "    list_embedded_metadata_classes as _lemc,\n",
                 "    set_error_handling as _seh,\n",
@@ -943,8 +943,13 @@ def main(openminds_root, ignore=[]):
         )
 
     init_file_path = os.path.join("..", "fairgraph", "openminds", "__init__.py")
+    sorted_modules = sorted(openminds_modules)
     with open(init_file_path, "w") as fp:
-        fp.write(f"from . import ({', '.join(sorted(openminds_modules))})\n")
+        fp.write(f"from . import ({', '.join(sorted_modules)})\n\n\n")
+        fp.write("def set_error_handling(value):\n")
+        fp.write('    """Set error handling for all openMINDS classes, across every submodule."""\n')
+        fp.write(f"    for module in ({', '.join(sorted_modules)}):\n")
+        fp.write("        module.set_error_handling(value)\n")
 
     # Format with Black
     subprocess.call([sys.executable, "-m", "black", "--quiet", target_path])
