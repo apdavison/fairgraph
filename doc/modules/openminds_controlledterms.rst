@@ -17,6 +17,7 @@ Consistent definition of neuroscience terms.
 * :class:`~AtlasType`
 * :class:`~AuditoryStimulusType`
 * :class:`~BiologicalOrder`
+* :class:`~BiologicalProcess`
 * :class:`~BiologicalSex`
 * :class:`~BreedingType`
 * :class:`~CellCultureType`
@@ -46,10 +47,13 @@ Consistent definition of neuroscience terms.
 * :class:`~Laterality`
 * :class:`~LearningResourceType`
 * :class:`~MeasuredQuantity`
+* :class:`~MeasuredSignalType`
 * :class:`~MetaDataModelType`
 * :class:`~ModelAbstractionLevel`
 * :class:`~ModelScope`
 * :class:`~MolecularEntity`
+* :class:`~MRIPulseSequence`
+* :class:`~MRIWeighting`
 * :class:`~OlfactoryStimulusType`
 * :class:`~OperatingDevice`
 * :class:`~OperatingSystem`
@@ -136,6 +140,11 @@ Consistent definition of neuroscience terms.
 ----
 
 .. autoclass:: BiologicalOrder
+
+
+----
+
+.. autoclass:: BiologicalProcess
 
 
 ----
@@ -285,6 +294,11 @@ Consistent definition of neuroscience terms.
 
 ----
 
+.. autoclass:: MeasuredSignalType
+
+
+----
+
 .. autoclass:: MetaDataModelType
 
 
@@ -301,6 +315,16 @@ Consistent definition of neuroscience terms.
 ----
 
 .. autoclass:: MolecularEntity
+
+
+----
+
+.. autoclass:: MRIPulseSequence
+
+
+----
+
+.. autoclass:: MRIWeighting
 
 
 ----

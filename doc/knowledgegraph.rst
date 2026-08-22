@@ -47,7 +47,9 @@ object with name "single cell", and which is the :attr:`output` of a
 :class:`~fairgraph.openminds.ephys.RecordingActivity` node.
 
 The types (classes) and properties (attributes) of the Python objects are defined by the
-openMINDS_ schemas.
+openMINDS_ schemas. **fairgraph** provides classes for both version 4 and version 5 of these
+schemas; v4 is used by default. See :doc:`modules` for the full list of metadata domains in
+each version, and for how to choose between them.
 
 
 Alternatives

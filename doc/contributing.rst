@@ -103,19 +103,33 @@ outside the fairgraph directory tree::
 
     $ git clone https://github.com/openMetadataInitiative/openMINDS.git /path/to/openMINDS
 
+fairgraph provides classes for two schema versions, so both are generated together.
 Within the main fairgraph folder::
 
     $ cd builder
-    $ python update_openminds.py /path/to/openMINDS/schemas/v4.0
+    $ python update_openminds.py /path/to/openMINDS/schemas/v4.0 \
+          --generate-all --v5-root /path/to/openMINDS/schemas/v5.0
 
-This will over-write the contents of the :file:`fairgraph/openminds` directory.
-Review the diff before committing, to check that the changes introduced look correct.
+This will delete and re-create the :file:`fairgraph/openminds/v4` and
+:file:`fairgraph/openminds/v5` directories. A single version can be regenerated on its own with
+``--version v4`` (or ``v5``) and no ``--generate-all``, but note that the two versions must stay
+consistent with each other, so regenerating both is usually what you want.
+The hand-written :file:`fairgraph/openminds/__init__.py`, which makes the v4 classes available
+under their legacy :mod:`fairgraph.openminds.<domain>` paths, is not generated and is left alone.
+
+After regenerating, review the diff before committing, to check that the changes introduced
+look correct.
+
+Reverse properties (links pointing *into* a class) get their names from the
+``reverse_name_map`` dictionary at the top of :file:`builder/update_openminds.py`; if a new
+schema introduces a property that has no entry there, generation fails with a :exc:`KeyError`
+naming the class, and an entry needs to be added.
 
 .. warning::
 
-   Everything under :file:`fairgraph/openminds` is generated, and any edit you make
-   there by hand will be silently lost the next time the builder runs.
-   To change the behaviour of a generated class, edit its *overlay* instead
+   Everything under :file:`fairgraph/openminds/v4` and :file:`fairgraph/openminds/v5` is
+   generated, and any edit you make there by hand will be silently lost the next time the
+   builder runs. To change the behaviour of a generated class, edit its *overlay* instead
    (see below).
 
 Hand-written methods on generated classes

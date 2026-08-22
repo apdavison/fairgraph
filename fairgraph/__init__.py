@@ -44,6 +44,20 @@ utility.initialise_instances(
     + openminds.controlled_terms.list_kg_classes()
 )
 
+utility.initialise_instances(
+    [
+        openminds.v5.sands.AnatomicalAtlas,
+        openminds.v5.sands.AnatomicalAtlasVersion,
+        openminds.v5.sands.CommonCoordinateFramework,
+        openminds.v5.sands.CommonCoordinateFrameworkVersion,
+        openminds.v5.core.ContentType,
+        openminds.v5.core.License,
+        openminds.v5.sands.ParcellationEntity,
+        openminds.v5.sands.ParcellationEntityVersion,
+    ]
+    + openminds.v5.controlled_terms.list_kg_classes()
+)
+
 
 def set_error_handling(value):
     """Set error handling globally for all modules"""
