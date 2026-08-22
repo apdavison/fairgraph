@@ -241,6 +241,39 @@ Anyone is welcome to review a pull request, although only project maintainers ar
 - review the code - at least one person
 - give feedback - be sure to thank the contributor, especially if it is a first time contribution!
 
+Versioning
+----------
+
+fairgraph uses `semantic versioning`_: release numbers take the form ``MAJOR.MINOR.PATCH``.
+
+Until version 1.0, the API should not be considered stable. As semantic versioning allows for
+``0.y.z`` releases, incompatible changes may appear in any release; they are described in the
+release notes, and where practical the previous behaviour keeps working for at least one release
+while emitting a :exc:`DeprecationWarning`.
+
+From version 1.0 onwards, the public API is a commitment:
+
+* **major** releases may change the public API in incompatible ways;
+* **minor** releases add functionality while remaining backwards compatible;
+* **patch** releases contain only bug fixes.
+
+Between releases, the ``master`` branch carries a development version: the version being worked
+towards, with ``.dev0`` appended. For example, after 0.14.0 was released, ``master`` moved to ``0.15.0.dev0``.
+
+Two files hold the version, and they must agree:
+
+* :file:`pyproject.toml`, as ``project.version``
+* :file:`fairgraph/__init__.py`, as ``__version__``
+
+The documentation is not a third place to edit: :file:`doc/conf.py` reads the version from
+:file:`pyproject.toml` when the docs are built.
+
+:file:`codemeta.json` is deliberately **not** part of this set. It describes the most recent
+*release* rather than the current state of ``master``, so it keeps the released version number
+between releases. Its ``downloadUrl`` and ``identifier`` point at the release artefact on PyPI,
+so giving it a development version would advertise a download that does not exist. It is
+regenerated at release time, as described below.
+
 Making a release
 ----------------
 
@@ -262,6 +295,15 @@ To upload the package to `PyPI`_ (the members of the `maintainers team`_ have th
 
     $ twine upload dist/fairgraph-x.y.z.tar.gz dist/fairgraph.x.y.z-py3-none-any.whl
 
+Once the release is on PyPI, regenerate :file:`codemeta.json`. The script reads the release
+metadata from PyPI, so it can only be run after the upload has completed::
+
+    $ cd doc
+    $ python build_codemeta.py x.y.z
+
+Finally, open the next development version: set the version strings in :file:`pyproject.toml`
+and :file:`fairgraph/__init__.py` to the next release number with ``.dev0`` appended, and commit.
+
 Governance
 ----------
 
@@ -281,3 +323,4 @@ fairgraph is licenced under the Apache Software Licencse v2.0.
 .. _`PEP 257`: https://www.python.org/dev/peps/pep-0257/
 .. _black: https://black.readthedocs.io
 .. _PyPI: https://pypi.org
+.. _`semantic versioning`: https://semver.org
