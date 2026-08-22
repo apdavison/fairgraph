@@ -40,12 +40,20 @@ class NodeMeta(Registry):
     def __new__(meta, name, bases, class_dict):
         # set class_name so that the fairgraph class replaces the equivalent openminds class
         # in the registry
-        # e.g.   'fairgraph.openminds.sands.miscellaneous.anatomical_target_position'
+        # e.g.   'fairgraph.openminds.v4.sands.miscellaneous.anatomical_target_position'
         #   -->  'openminds.v4.sands.AnatomicalTargetPosition'
-        class_dict["class_name"] = ".".join(
-            class_dict["__module__"].replace("fairgraph.openminds", f"openminds.{OPENMINDS_VERSION}").split(".")[:3]
-            + [name]
-        )
+        module = class_dict["__module__"]
+        parts = module.split(".")
+        if len(parts) >= 4 and parts[0] == "fairgraph" and parts[1] == "openminds" and parts[2] in ("v4", "v5"):
+            version = parts[2]
+            domain = parts[3]
+            class_dict["class_name"] = f"openminds.{version}.{domain}.{name}"
+        else:
+            # Fallback for non-versioned paths or test classes
+            class_dict["class_name"] = ".".join(
+                module.replace("fairgraph.openminds", f"openminds.{OPENMINDS_VERSION}").split(".")[:3]
+                + [name]
+            )
         class_dict["preferred_import_path"] = class_dict["class_name"]
         cls = Registry.__new__(meta, name, bases, class_dict)
         cls._property_lookup = {prop.name: prop for prop in (cls.properties + cls.reverse_properties)}

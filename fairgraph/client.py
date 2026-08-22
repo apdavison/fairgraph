@@ -19,7 +19,6 @@ EBRAINS KG core API.
 # limitations under the License.
 
 from __future__ import annotations
-from copy import deepcopy
 import os
 import logging
 from typing import Any, Dict, Iterable, List, Optional, Union, TYPE_CHECKING
@@ -37,13 +36,7 @@ except ImportError:
 from openminds.registry import lookup_type
 
 from .errors import AuthenticationError, AuthorizationError, ResourceExistsError
-from .utility import (
-    adapt_namespaces_for_query,
-    adapt_namespaces_3to4,
-    adapt_namespaces_4to3,
-    adapt_type_4to3,
-    handle_scope_keyword,
-)
+from .utility import handle_scope_keyword
 from .base import OPENMINDS_VERSION
 
 if TYPE_CHECKING:
@@ -99,10 +92,14 @@ class KGClient(object):
         client_id (str, optional): For use together with client_secret in place of the token if you have a service account.
         client_secret (str, optional): The client secret to use for authentication. Required if client_id is provided.
         allow_interactive (bool, default True): if true, allow authentication via web browser
+        openminds_version (str, default "v4"): the openMINDS schema version that responses should be
+            deserialized into. Must be one of "v4" or "v5". v4 is the default so existing code is
+            unaffected; pass "v5" when connecting to a KG instance that has been migrated to v5.
 
     Raises:
         ImportError: If the kg_core package is not installed.
         AuthenticationError: If neither a token nor client ID/secret are provided.
+        ValueError: If openminds_version is not "v4" or "v5".
     """
 
     def __init__(
@@ -112,7 +109,13 @@ class KGClient(object):
         client_id: Optional[str] = None,
         client_secret: Optional[str] = None,
         allow_interactive: bool = True,
+        openminds_version: str = OPENMINDS_VERSION,
     ):
+        if openminds_version not in ("v4", "v5"):
+            raise ValueError(
+                f"openminds_version must be 'v4' or 'v5', got {openminds_version!r}"
+            )
+        self.openminds_version = openminds_version
         if not have_kg_core:
             raise ImportError("Please install the ebrains-kg-core package")
         if client_id and client_secret:
@@ -144,7 +147,6 @@ class KGClient(object):
         self.cache: Dict[str, JsonLdDocument] = {}
         self._query_cache: Dict[str, str] = {}
         self.accepted_terms_of_use = False
-        self._migrated = None
         if allow_interactive:
             self.user_info()
 
@@ -183,6 +185,7 @@ class KGClient(object):
         ignore_not_found: bool = False,
         error_context: str = "",
         expected_instance_id: Optional[str] = None,
+        id_key: str = "@id",
     ) -> ResultPage[JsonLdDocument]:
         if expected_instance_id and not response.error:
             if response.total > 1:
@@ -199,7 +202,7 @@ class KGClient(object):
                 response.size = response.total = 0
             else:
                 if response.size == 1:
-                    if str(expected_instance_id) not in response.data[0]["@id"]:
+                    if str(expected_instance_id) not in response.data[0][id_key]:
                         raise Exception("mismatched instance_id")
         if response.error:
             # todo: handle "ignore_not_found"
@@ -214,29 +217,7 @@ class KGClient(object):
             else:
                 raise Exception(f"Error: {response.error} {error_context}")
         else:
-            if self.migrated is False:
-                adapt_namespaces_3to4(response.data)
             return response
-
-    @property
-    def migrated(self):
-        # This is a temporary work-around for use during the transitional period
-        # from openMINDS v3 to v4 (change of namespace)
-        if self._migrated is None:
-            self._migrated = True  # to stop the call to _check_response() in instance_from_full_uri from recurring
-
-            # This is the released controlled term for "left handedness", which should be accessible to everyone
-            result = self.instance_from_full_uri(
-                "https://kg.ebrains.eu/api/instances/92631f2e-fc6e-4122-8015-a0731c67f66c", release_status="released"
-            )
-            _type = result["@type"]
-            if isinstance(_type, list):
-                _type = _type[0]
-            if "om-i.org" in _type:
-                self._migrated = True
-            else:
-                self._migrated = False
-        return self._migrated
 
     def query(
         self,
@@ -285,12 +266,10 @@ class KGClient(object):
                 )
                 error_context = f"_query(release_status={release_status} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
                 return self._check_response(
-                    response, error_context=error_context, expected_instance_id=instance_id, ignore_not_found=True
+                    response, error_context=error_context, expected_instance_id=instance_id, id_key=id_key, ignore_not_found=True
                 )
 
         else:
-            if self.migrated is False:
-                query = adapt_namespaces_for_query(query)
 
             def _query(release_status, from_index, size):
                 response = self._kg_client.queries.test_query(
@@ -303,7 +282,7 @@ class KGClient(object):
                 )
                 error_context = f"_query(release_status={release_status} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
                 return self._check_response(
-                    response, error_context=error_context, expected_instance_id=instance_id, ignore_not_found=True
+                    response, error_context=error_context, expected_instance_id=instance_id, id_key=id_key, ignore_not_found=True
                 )
 
         if release_status == "any":
@@ -355,9 +334,6 @@ class KGClient(object):
             along with metadata about the query results such as total number of instances, and pagination information.
         """
         release_status = handle_scope_keyword(scope, release_status)
-
-        if self.migrated is False:
-            target_type = adapt_type_4to3(target_type)
 
         def _list(release_status, from_index, size):
             response = self._kg_client.instances.list(
@@ -419,8 +395,7 @@ class KGClient(object):
                 error_context = f"_get_instance(release_status={release_status} uri={uri})"
                 # Normal KG URIs start with https://kg.ebrains.eu/api/instances/ with a UUID
                 # but for openMINDS controlled terms we may have the openMINDS URI
-                # of the form https://openminds.ebrains.eu/instances/ageCategory/juvenile (v3)
-                # or https://openminds.om-i.org/instances/ageCategory/juvenile (v4)
+                # of the form https://openminds.om-i.org/instances/ageCategory/juvenile
                 # We use different query methods for these different cases.
                 kg_namespace = self._kg_client.instances._kg_config.id_namespace
                 if uri.startswith(kg_namespace):
@@ -435,16 +410,8 @@ class KGClient(object):
                         data = None
                     else:
                         data = response.data
-                elif uri.startswith("https://openminds.om-i.org/instances") or uri.startswith(
-                    "https://openminds.ebrains.eu/instances"
-                ):
+                elif uri.startswith("https://openminds.om-i.org/instances"):
                     payload = [uri]
-                    if self.migrated:
-                        if uri.startswith("https://openminds.ebrains.eu"):
-                            payload = [uri.replace("ebrains.eu", "om-i.org")]
-                    else:
-                        if uri.startswith("https://openminds.om-i.org"):
-                            payload = [uri.replace("om-i.org", "ebrains.eu")]
                     response = self._kg_client.instances.get_by_identifiers(
                         stage=STAGE_MAP[release_status],
                         payload=payload,
@@ -491,9 +458,6 @@ class KGClient(object):
             raise ValueError("payload contains undefined ids")
         if instance_id:
             UUID(instance_id)
-        if self.migrated is False:
-            data = deepcopy(data)
-            adapt_namespaces_4to3(data)
         if instance_id:
             response = self._kg_client.instances.create_new_with_id(
                 space=space,
@@ -519,9 +483,6 @@ class KGClient(object):
             data (dict): a JSON-LD document that modifies some or all of the data of the existing instance.
         """
         UUID(instance_id)
-        if self.migrated is False:
-            data = deepcopy(data)
-            adapt_namespaces_4to3(data)
         response = self._kg_client.instances.contribute_to_partial_replacement(
             instance_id=instance_id,
             payload=data,
@@ -546,9 +507,6 @@ class KGClient(object):
             data (dict): a JSON-LD document that will replace the existing instance.
         """
         UUID(instance_id)
-        if self.migrated is False:
-            data = deepcopy(data)
-            adapt_namespaces_4to3(data)
         response = self._kg_client.instances.contribute_to_full_replacement(
             instance_id=instance_id,
             payload=data,
@@ -746,10 +704,7 @@ class KGClient(object):
                 )
             raise Exception(err_msg)
         for cls in types:
-            if self.migrated:
-                target_type = cls.type_
-            else:
-                target_type = adapt_type_4to3(cls.type_)
+            target_type = cls.type_
             result = self._kg_admin_client.assign_type_to_space(space=space_name, target_type=target_type)
             if result:  # error
                 raise Exception(f"Unable to assign {cls.__name__} to space {space_name}: {result}")
@@ -777,22 +732,20 @@ class KGClient(object):
 
         The return format is a dictionary whose keys are classes and the values are the
         number of instances of each class in the given spaces.
+
+        A space may contain types that have no fairgraph class, such as the KG's own
+        internal types. These are not an error: they appear in the result keyed by their
+        type IRI (a string) rather than by a class.
         """
         release_status = handle_scope_keyword(scope, release_status)
-        # todo: if not self.migrated, adapt type before lookup
         result = self._kg_client.types.list(space=space_name, stage=STAGE_MAP[release_status])
         if result.error:
             raise Exception(result.error)
         response = {}
         for item in result.data:
-            if self.migrated:
-                type_iri = item.identifier
-            else:
-                type_ = {"@type": item.identifier}
-                adapt_namespaces_3to4(type_)
-                type_iri = type_["@type"]
+            type_iri = item.identifier
             try:
-                cls = lookup_type(type_iri, OPENMINDS_VERSION)
+                cls = lookup_type(type_iri, self.openminds_version)
             except ValueError:
                 cls = type_iri
             response[cls] = item.occurrences

@@ -28,7 +28,7 @@ from .kgquery import KGQuery
 from .collection import Collection
 from . import client, errors, openminds, utility
 
-__version__ = "0.13.5"
+__version__ = "0.14.0"
 
 utility.initialise_instances(
     [
@@ -44,18 +44,21 @@ utility.initialise_instances(
     + openminds.controlled_terms.list_kg_classes()
 )
 
+utility.initialise_instances(
+    [
+        openminds.v5.sands.AnatomicalAtlas,
+        openminds.v5.sands.AnatomicalAtlasVersion,
+        openminds.v5.sands.CommonCoordinateFramework,
+        openminds.v5.sands.CommonCoordinateFrameworkVersion,
+        openminds.v5.core.ContentType,
+        openminds.v5.core.License,
+        openminds.v5.sands.ParcellationEntity,
+        openminds.v5.sands.ParcellationEntityVersion,
+    ]
+    + openminds.v5.controlled_terms.list_kg_classes()
+)
+
 
 def set_error_handling(value):
     """Set error handling globally for all modules"""
-    for module in (
-        openminds.chemicals,
-        openminds.computation,
-        openminds.controlled_terms,
-        openminds.core,
-        openminds.ephys,
-        openminds.publications,
-        openminds.sands,
-        openminds.specimen_prep,
-        openminds.stimulation,
-    ):
-        module.set_error_handling(value)
+    openminds.set_error_handling(value)

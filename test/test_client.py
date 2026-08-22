@@ -243,9 +243,11 @@ def offline_kg_client(mocker):
     must be patched per-test."""
     from fairgraph.client import KGClient
 
+    # Building the kg-core client fetches the IAM token endpoint from the KG, which
+    # fails if the KG is unreachable (e.g. during maintenance).
+    mocker.patch("kg_core.__communication.TokenHandler.define_endpoint")
+
     client = KGClient(token="fake-token", allow_interactive=False)
-    # Skip the feature-detection fetch that the `migrated` property triggers.
-    client._migrated = True
     # `instance_from_full_uri` uses this to build the cache key after writes
     mocker.patch.object(
         client._kg_client.instances._kg_config,

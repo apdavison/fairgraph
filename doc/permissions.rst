@@ -121,5 +121,5 @@ EBRAINS support team via the `EBRAINS helpdesk <https://ebrains.eu/support>`_.
 
 .. _`Terms of Use`: https://kg.ebrains.eu/search-terms-of-use.html
 .. _`KG Search UI`: https://search.kg.ebrains.eu
-.. _`EBRAINS Collaboratory`: https://wiki.ebrains.eus
+.. _`EBRAINS Collaboratory`: https://wiki.ebrains.eu
 .. _`EBRAINS Privacy Policy`: https://ebrains.eu/privacy-policy

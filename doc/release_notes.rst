@@ -3,6 +3,136 @@ Release notes
 =============
 
 
+Version 0.15.0
+==============
+
+**fairgraph now supports openMINDS v5 alongside v4, on an experimental basis.**
+Both sets of classes are available at the same time, and v4 remains the default, so existing
+code continues to work unchanged::
+
+    import fairgraph.openminds.core as omcore          # v4 (default)
+    import fairgraph.openminds.v4.core as omcore4      # explicit v4
+    import fairgraph.openminds.v5.core as omcore5      # explicit v5
+
+v5 covers the same metadata domains as v4, plus a new **neuroimaging** domain
+(:doc:`modules/openminds_v5_neuroimaging`) for MRI acquisitions and the devices used to make
+them. A number of classes have been renamed — for example ``BrainAtlas`` is now
+``AnatomicalAtlas``, and ``CommonCoordinateSpace`` is now ``CommonCoordinateFramework`` — and
+others have been added. See :doc:`modules` for the full list.
+
+A v4 class and its v5 counterpart share the same node type URI in the Knowledge Graph, so a
+response cannot be assigned to a version by inspecting it. The client therefore has to be told
+which version to deserialize into::
+
+    from fairgraph import KGClient
+    import fairgraph.openminds.v5.core as omcore
+
+    client = KGClient(host=host_serving_v5_metadata, openminds_version="v5")
+    people = omcore.Person.list(client)
+
+``openminds_version`` accepts ``"v4"`` (the default) or ``"v5"``; anything else raises
+:exc:`ValueError`. Use classes from the same version as the client you pass them to.
+
+.. warning:: **v5 support is experimental in this release.**
+
+             The migration of the EBRAINS Knowledge Graph to openMINDS v5 is still under way.
+             The production and pre-production deployments serve v4; v5 metadata is so far only
+             available from a development deployment with restricted access, whose contents are
+             incomplete and liable to change. The v5 support in this release has therefore not
+             yet been exercised against a fully populated KG.
+
+             Until that changes, the v5 classes and the ``openminds_version`` argument may be
+             altered in backwards-incompatible ways in any release, without the deprecation
+             period that applies to the rest of the API. **openMINDS v4 support is unaffected**
+             and continues to follow the normal compatibility rules.
+
+**The openMINDS v3 transitional machinery has been removed.**
+The KG has been serving v4 metadata for some time, and the code that translated between the v3
+and v4 namespaces is no longer needed. The following have been removed:
+
+- ``KGClient.migrated``, the feature-detection probe that decided at run time whether the KG
+  a client was connected to had been migrated to v4;
+- the :mod:`fairgraph.utility` functions ``adapt_namespaces_3to4``, ``adapt_type_4to3``,
+  ``adapt_namespaces_4to3``, ``adapt_namespaces_for_query`` and ``types_match``.
+
+Code that called these directly will need updating; code that simply used the client is
+unaffected.
+
+
+Version 0.14.0
+==============
+
+This release requires openMINDS 0.6.0 (``openminds>=0.6.0``) and inherits two changes in
+behaviour from it.
+
+**Links between library instances now give you objects, not dictionaries.**
+The openMINDS instance libraries (available as class attributes, e.g. ``Species.mus_musculus``)
+contain many cross-references: an atlas region points to its versions, a parent region to its
+children, and so on. Until now those references came back as plain ``{"@id": ...}``
+dictionaries, so there was nothing useful you could do with them without a separate lookup.
+They are now the actual objects:
+
+.. code-block:: python
+
+    >>> from fairgraph.openminds.sands import ParcellationEntity
+    >>> region = ParcellationEntity.aal1_acin
+
+    # up to 0.13.6, region.has_versions[0] was a plain dict:
+    {'@id': 'https://openminds.om-i.org/instances/parcellationEntityVersion/AAL1_SPM12-v4_ACIN'}
+
+    # from 0.14.0 it is a ParcellationEntityVersion, which you can use directly:
+    >>> region.has_versions[0].version_identifier
+    'SPM12, v4'
+    >>> region.has_versions[0].name
+    'anterior cingulate and paracingulate gyri'
+
+If your code worked around the old behaviour by reading the ``"@id"`` key out of these
+dictionaries, it will need updating. References that point outside the instance libraries are
+still :class:`~fairgraph.kgproxy.KGProxy` objects, resolved with
+:meth:`~fairgraph.kgproxy.KGProxy.resolve` as before.
+
+**Invalid IRIs are now reported at validation time, not on creation.**
+``IRI("not a url")`` used to raise :exc:`ValueError` immediately. It now succeeds, and the
+problem is reported when the containing object is validated, together with any other
+validation failures, and following whatever error handling you have configured
+(see :func:`fairgraph.set_error_handling`):
+
+.. code-block:: python
+
+    >>> repo = FileRepository(name="my repository", iri=IRI("not a url"), hosted_by=organization)
+    defaultdict(<class 'list'>, {'value': ['Invalid IRI']})
+    >>> repo.validate()
+    {'value': ['Invalid IRI']}
+
+Code that relied on catching :exc:`ValueError` around IRI creation should check the
+validation result instead.
+
+**Other changes in this release:**
+
+- ``import fairgraph`` works again with openMINDS 0.6.0. Preparing the instance libraries used
+  to walk the links between instances, which the newly-connected atlas instances turned into an
+  endless loop (a ``RecursionError``, or exhausted memory); it no longer does
+  (`#116 <https://github.com/HumanBrainProject/fairgraph/pull/116>`_).
+- Fixed an out-of-date data-proxy URL that made ``download()`` fail for some datasets, models
+  and atlases (:class:`~fairgraph.openminds.core.DatasetVersion`,
+  :class:`~fairgraph.openminds.core.ModelVersion`,
+  :class:`~fairgraph.openminds.sands.BrainAtlasVersion`,
+  :class:`~fairgraph.openminds.sands.CommonCoordinateSpaceVersion`).
+- :func:`fairgraph.openminds.set_error_handling` now sets error handling for every openMINDS
+  submodule in a single call.
+
+
+Version 0.13.6
+==============
+
+Bug fixes in this release:
+
+- Fixed a ``KeyError`` when calling :meth:`~fairgraph.client.KGClient.query`
+  with both ``instance_id`` and a custom ``id_key`` on queries using a custom
+  ``responseVocab``
+  (`#107 <https://github.com/HumanBrainProject/fairgraph/issues/107>`_).
+
+
 Version 0.13.5
 ==============
 

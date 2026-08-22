@@ -103,12 +103,55 @@ outside the fairgraph directory tree::
 
     $ git clone https://github.com/openMetadataInitiative/openMINDS.git /path/to/openMINDS
 
+fairgraph provides classes for two schema versions, so both are generated together.
 Within the main fairgraph folder::
 
     $ cd builder
-    $ python update_openminds.py /path/to/openMINDS/schemas/v4.0
+    $ python update_openminds.py /path/to/openMINDS/schemas/v4.0 \
+          --generate-all --v5-root /path/to/openMINDS/schemas/v5.0
 
-This will over-write the contents of the :file:`fairgraph/openminds` directory.
+This will delete and re-create the :file:`fairgraph/openminds/v4` and
+:file:`fairgraph/openminds/v5` directories. A single version can be regenerated on its own with
+``--version v4`` (or ``v5``) and no ``--generate-all``, but note that the two versions must stay
+consistent with each other, so regenerating both is usually what you want.
+The hand-written :file:`fairgraph/openminds/__init__.py`, which makes the v4 classes available
+under their legacy :mod:`fairgraph.openminds.<domain>` paths, is not generated and is left alone.
+
+After regenerating, review the diff before committing, to check that the changes introduced
+look correct.
+
+Reverse properties (links pointing *into* a class) get their names from the
+``reverse_name_map`` dictionary at the top of :file:`builder/update_openminds.py`; if a new
+schema introduces a property that has no entry there, generation fails with a :exc:`KeyError`
+naming the class, and an entry needs to be added.
+
+.. warning::
+
+   Everything under :file:`fairgraph/openminds/v4` and :file:`fairgraph/openminds/v5` is
+   generated, and any edit you make there by hand will be silently lost the next time the
+   builder runs. To change the behaviour of a generated class, edit its *overlay* instead
+   (see below).
+
+Hand-written methods on generated classes
+-----------------------------------------
+
+Some generated classes need methods that cannot be derived from the schema, such as
+:meth:`Person.me` or :meth:`DatasetVersion.download`. These live in
+:file:`builder/additional_methods/`, one file per class, named after the class with a
+:file:`.py.txt` suffix — for example :file:`builder/additional_methods/Person.py.txt`.
+
+When the builder generates a class, it looks for a file matching that class name and, if
+one exists, inserts its contents verbatim into the body of the generated class. The file
+therefore contains method definitions only — no ``class`` statement — indented by four
+spaces as they will appear in the class body::
+
+    @property
+    def full_name(self):
+        return f"{self.given_name} {self.family_name}"
+
+So, to add or change a method on a generated class, edit (or create) the corresponding
+file in :file:`builder/additional_methods/` and re-run :file:`update_openminds.py`.
+Both the overlay and the regenerated file should be committed together.
 
 Running the test suite
 ----------------------
@@ -231,10 +274,10 @@ fairgraph is licenced under the Apache Software Licencse v2.0.
 
 
 .. _`GitHub Repository`: https://github.com/HumanBrainProject/fairgraph/
-.. _`PEP 8`: https://pypi.org/project/pep8/
+.. _`PEP 8`: https://peps.python.org/pep-0008/
 .. _`maintainers team`: https://github.com/orgs/HumanBrainProject/teams/fairgraph-maintainers
 .. _reStructuredText: http://docutils.sourceforge.net/rst.html
 .. _Sphinx: http://www.sphinx-doc.org/
 .. _`PEP 257`: https://www.python.org/dev/peps/pep-0257/
-.. _black: link/to/black
+.. _black: https://black.readthedocs.io
 .. _PyPI: https://pypi.org

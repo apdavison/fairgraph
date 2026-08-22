@@ -18,15 +18,14 @@
 # limitations under the License.
 
 from __future__ import annotations
-from copy import deepcopy
 import hashlib
 import logging
 from typing import Any, Dict, Iterable, List, Optional, Tuple, Union, TYPE_CHECKING
 import warnings
 
-from openminds.registry import lookup_type
+from openminds.base import LinkedNodeEmbedding
 
-from .base import OPENMINDS_VERSION
+from .base import ErrorHandling
 
 if TYPE_CHECKING:
     from .client import KGClient
@@ -446,149 +445,46 @@ def accepted_terms_of_use(client: KGClient, accept_terms_of_use: bool = False) -
             return False
 
 
-def types_match(a, b):
-    # temporarily, during the openMINDS transition v3-v4, we allow different namespaces for the types
-    assert isinstance(a, str), a
-    assert isinstance(b, str), b
-    if a == b:
-        return True
-    elif a.split("/")[-1] == b.split("/")[-1]:
-        logger.warning(f"Assuming {a} matches {b} in types_match()")
-        return True
-    else:
-        return False
-
-
-def _adapt_namespaces(data, adapt_keys, adapt_type, adapt_instance_uri):
-    if isinstance(data, list):
-        for item in data:
-            _adapt_namespaces(item, adapt_keys, adapt_type, adapt_instance_uri)
-    elif isinstance(data, dict):
-        # adapt property URIs
-        old_keys = tuple(data.keys())
-        new_keys = adapt_keys(old_keys)
-        for old_key, new_key in zip(old_keys, new_keys):
-            data[new_key] = data.pop(old_key)
-        for key, value in data.items():
-            if key == "@id":
-                data[key] = adapt_instance_uri(value)
-            elif isinstance(value, (list, dict)):
-                _adapt_namespaces(value, adapt_keys, adapt_type, adapt_instance_uri)
-        # adapt @type URIs
-        if "@type" in data:
-            data["@type"] = adapt_type(data["@type"])
-    else:
-        pass
-
-
-def adapt_namespaces_3to4(data):
-
-    def adapt_keys_3to4(uri_list):
-        replacement = ("openminds.ebrains.eu/vocab", "openminds.om-i.org/props")
-        return (uri.replace(*replacement) for uri in uri_list)
-
-    def adapt_type_3to4(uri):
-        if isinstance(uri, list):
-            assert len(uri) == 1
-            uri = uri[0]
-        return f"https://openminds.om-i.org/types/{uri.split('/')[-1]}"
-
-    def adapt_instance_uri_3to4(uri):
-        if uri.startswith("https://openminds"):
-            return uri.replace("ebrains.eu", "om-i.org")
-        else:
-            return uri
-
-    return _adapt_namespaces(data, adapt_keys_3to4, adapt_type_3to4, adapt_instance_uri_3to4)
-
-
-def adapt_type_4to3(uri):
-    if isinstance(uri, list):
-        assert len(uri) == 1
-        uri = uri[0]
-    cls = lookup_type(uri, OPENMINDS_VERSION)
-
-    if cls.__module__ == "test.test_client":
-        return cls.type_
-
-    module_name = cls.__module__.split(".")[2]  # e.g., 'fairgraph.openminds.core.actors.person' -> "core"
-    module_name = {"controlled_terms": "controlledTerms", "specimen_prep": "specimenPrep"}.get(
-        module_name, module_name
-    )
-    return f"https://openminds.ebrains.eu/{module_name}/{cls.__name__}"
-
-
-def adapt_namespaces_4to3(data):
-
-    def adapt_keys_4to3(uri_list):
-        replacement = ("openminds.om-i.org/props", "openminds.ebrains.eu/vocab")
-        return (uri.replace(*replacement) for uri in uri_list)
-
-    def adapt_instance_uri_4to3(uri):
-        if uri.startswith("https://openminds"):
-            return uri.replace("om-i.org", "ebrains.eu")
-        else:
-            return uri
-
-    return _adapt_namespaces(data, adapt_keys_4to3, adapt_type_4to3, adapt_instance_uri_4to3)
-
-
-def adapt_namespaces_for_query(query):
-    """Map from v4+ to v3 openMINDS namespace"""
-
-    def adapt_path(item_path, replacement):
-        if isinstance(item_path, str):
-            return item_path.replace(*replacement)
-        elif isinstance(item_path, list):
-            return [adapt_path(part, replacement) for part in item_path]
-        else:
-            assert isinstance(item_path, dict)
-            new_item_path = item_path.copy()
-            new_item_path["@id"] = item_path["@id"].replace(*replacement)
-            if "typeFilter" in item_path:
-                if isinstance(item_path["typeFilter"], list):
-                    new_item_path["typeFilter"] = [
-                        {"@id": adapt_type_4to3(subitem["@id"])} for subitem in item_path["typeFilter"]
-                    ]
-                else:
-                    new_item_path["typeFilter"]["@id"] = adapt_type_4to3(item_path["typeFilter"]["@id"])
-            return new_item_path
-
-    def adapt_structure(structure, replacement):
-        for item in structure:
-            item["path"] = adapt_path(item["path"], replacement)
-            if "structure" in item:
-                adapt_structure(item["structure"], replacement)
-
-    def adapt_filters(structure, replacement):
-        for item in structure:
-            if "filter" in item and "value" in item["filter"]:
-                item["filter"]["value"] = item["filter"]["value"].replace(*replacement)
-            if "structure" in item:
-                adapt_filters(item["structure"], replacement)
-
-    migrated_query = deepcopy(query)
-    migrated_query["meta"]["type"] = adapt_type_4to3(migrated_query["meta"]["type"])
-    adapt_structure(migrated_query["structure"], ("openminds.om-i.org/props", "openminds.ebrains.eu/vocab"))
-    adapt_filters(migrated_query["structure"], ("openminds.om-i.org/instances", "openminds.ebrains.eu/instances"))
-    return migrated_query
-
-
 def initialise_instances(class_list):
     """Cast openMINDS instances to their fairgraph subclass"""
-    for cls in class_list:
-        cls.set_error_handling(None)
-        # find parent openMINDS class
-        for parent_cls in cls.__mro__[1:]:
-            if parent_cls.__name__ == cls.__name__:
-                # could also do this by looking for issubclass(parent_cls, openminds.Node)
-                break
-        for key, value in parent_cls.__dict__.items():
-            if isinstance(value, parent_cls):
-                fg_instance = cls.from_jsonld(value.to_jsonld())
-                fg_instance._space = cls.default_space
-                setattr(cls, key, fg_instance)
-        cls.set_error_handling("log")
+    from . import openminds as fg_openminds  # local import avoids a circular import at load time
+
+    node_lookup = {}
+    recast_instances = []
+
+    # Many library instances are intentionally incomplete, and validation runs on every
+    # attribute assignment (including the deep, cross-class re-validation triggered while
+    # resolving links). Suppress validation handling globally — covering both linked and
+    # embedded classes — for the whole initialisation, then restore the default, so that
+    # `import fairgraph` produces no output.
+    fg_openminds.set_error_handling(None)
+    try:
+        # Phase 1: shallow recast of each openMINDS instance to its fairgraph subclass.
+        # Serialising with embed_linked_nodes=NEVER emits links as {"@id": ...} rather than
+        # embedding them, so the (potentially cyclic) instance graph is never traversed;
+        # linked attributes are deserialised into KGProxy objects to be resolved in phase 2.
+        for cls in class_list:
+            # find parent openMINDS class
+            for parent_cls in cls.__mro__[1:]:
+                if parent_cls.__name__ == cls.__name__:
+                    # could also do this by looking for issubclass(parent_cls, openminds.Node)
+                    break
+            for key, value in parent_cls.__dict__.items():
+                if isinstance(value, parent_cls):
+                    fg_instance = cls.from_jsonld(value.to_jsonld(embed_linked_nodes=LinkedNodeEmbedding.NEVER))
+                    fg_instance._space = cls.default_space
+                    setattr(cls, key, fg_instance)
+                    if fg_instance.id is not None:
+                        node_lookup[fg_instance.id] = fg_instance
+                    recast_instances.append(fg_instance)
+
+        # Phase 2: replace the temporary KGProxy links with the actual recast objects,
+        # so the library instances reference each other as fairgraph objects. Any link
+        # pointing outside the recast set is left as a KGProxy (resolvable from the KG later).
+        for fg_instance in recast_instances:
+            fg_instance._resolve_links(node_lookup)
+    finally:
+        fg_openminds.set_error_handling(ErrorHandling.log)
 
 
 def handle_scope_keyword(scope, release_status):

@@ -3,7 +3,9 @@ import os
 from uuid import uuid4
 from typing import Optional
 
-from requests.exceptions import SSLError
+from requests.exceptions import RequestException, SSLError
+
+from fairgraph.base import OPENMINDS_VERSION
 from fairgraph.client import KGClient
 from fairgraph.errors import AuthenticationError, AuthorizationError
 
@@ -20,6 +22,9 @@ except AuthenticationError:
     pass
 except SSLError:
     no_kg_err_msg = "No KG connection - SSL certificate may have expired"
+except RequestException:
+    # e.g. the KG is down for maintenance. 
+    no_kg_err_msg = f"No KG connection - could not reach {kg_host}"
 else:
     try:
         user_info = client.user_info()
@@ -61,7 +66,12 @@ class MockKGResponse:
 class MockKGClient:
     _private_space = "myspace_1234"
 
-    def __init__(self):
+    def __init__(self, openminds_version: str = OPENMINDS_VERSION):
+        if openminds_version not in ("v4", "v5"):
+            raise ValueError(
+                f"openminds_version must be 'v4' or 'v5', got {openminds_version!r}"
+            )
+        self.openminds_version = openminds_version
         self.instances = {}
         self.cache = {}
 

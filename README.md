@@ -30,7 +30,34 @@ pip install -U ./fairgraph
 ## Knowledge Graph and openMINDS versions
 
 This version of fairgraph supports version 3 of the EBRAINS Knowledge Graph (KG),
-and version 4 of the openMINDS metadata schemas.
+and both version 4 and version 5 of the openMINDS metadata schemas.
+
+openMINDS v4 is the default: `fairgraph.openminds.core` and the other domain modules
+contain the v4 classes, as before. The v5 classes live alongside them, and each version
+can also be imported explicitly:
+
+```python
+import fairgraph.openminds.core as omcore          # v4 (default)
+import fairgraph.openminds.v4.core as omcore4      # explicit v4
+import fairgraph.openminds.v5.core as omcore5      # explicit v5
+```
+
+Since the two versions share the same node type URIs in the KG, the client needs to be told
+which of them to deserialize responses into:
+
+```python
+client = KGClient(host=host_serving_v5_metadata, openminds_version="v5")
+```
+
+Omitting `openminds_version` keeps the v4 behaviour.
+
+> [!IMPORTANT]
+> **openMINDS v5 support is experimental.** The migration of the KG to openMINDS v5 is still in
+> progress, and the production and pre-production deployments serve v4, so the v5 classes have
+> not yet been exercised against a fully populated Knowledge Graph. Until that changes, v5
+> support may be altered in backwards-incompatible ways in any release, without the deprecation
+> period that applies to the rest of the API. openMINDS v4 support is unaffected and remains the
+> default. Reports of problems with v5 are very welcome.
 
 ## Basic setup
 
