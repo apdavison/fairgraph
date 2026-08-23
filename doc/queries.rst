@@ -202,6 +202,23 @@ You can ask **fairgraph** to resolve the connections for you, using the :attr:`f
         }
     )
 
+Following a link is often much faster than filtering on it, and the difference can be dramatic
+for types with very many instances in the Knowledge Graph. To get the files in a repository,
+prefer traversing the link from the dataset version::
+
+    dataset_version = DatasetVersion.from_id(
+        dataset_version_id, client, follow_links={"repository": {"files": {}}}
+    )
+    files = dataset_version.repository.files
+
+rather than filtering all files by their repository::
+
+    files = File.list(client, file_repository=repository)   # slow
+
+Both give the same answer, but the second builds a query over every File in the Knowledge Graph,
+and there are a great many of them. For a dataset version with a few thousand files, the first
+form returns in seconds where the second can take minutes.
+
 
 Error handling
 ==============
