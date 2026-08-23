@@ -21,6 +21,10 @@ Fix bugs or add new features
 Look through the GitHub issues for bugs. Anything is open to whoever wants to implement it.
 Changes should be proposed through pull requests.
 
+Planned work is organised with `milestones`_ on the issue tracker: each milestone collects the
+issues intended for a given release, so the milestone list serves as the project roadmap.
+Issues labelled ``task`` are maintenance and code-quality work rather than user-facing changes.
+
 Improve documentation
 ---------------------
 
@@ -323,4 +327,5 @@ fairgraph is licenced under the Apache Software Licencse v2.0.
 .. _`PEP 257`: https://www.python.org/dev/peps/pep-0257/
 .. _black: https://black.readthedocs.io
 .. _PyPI: https://pypi.org
+.. _milestones: https://github.com/HumanBrainProject/fairgraph/milestones
 .. _`semantic versioning`: https://semver.org

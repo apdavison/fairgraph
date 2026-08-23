@@ -198,6 +198,11 @@ author = Person(family_name="Laurel", given_name="Stan", affiliations=[affiliati
 author.save(client, space="myspace")
 ```
 
+## Roadmap
+
+Planned work is tracked with [milestones](https://github.com/HumanBrainProject/fairgraph/milestones)
+on the issue tracker: each milestone collects the issues intended for a given release.
+
 ## Getting help
 
 In case of questions about **fairgraph**, please contact us via https://ebrains.eu/support/.
