@@ -6,8 +6,10 @@ from typing import Optional
 from requests.exceptions import RequestException, SSLError
 
 from fairgraph.base import OPENMINDS_VERSION
+from fairgraph.caching import object_cache, save_cache
 from fairgraph.client import KGClient
 from fairgraph.errors import AuthenticationError, AuthorizationError
+from fairgraph.utility import as_list
 
 import pytest
 
@@ -74,6 +76,8 @@ class MockKGClient:
         self.openminds_version = openminds_version
         self.instances = {}
         self.cache = {}
+        self.updates = []  # (instance_id, payload) for each update_instance() call
+        self.replacements = []  # (instance_id, payload) for each replace_instance() call
 
     def retrieve_query(self, query_label):
         return {"@id": f"mock-query-{query_label}"}
@@ -86,7 +90,9 @@ class MockKGClient:
         require_full_data: bool = True,
     ):
         mock_id = "http://example.org/00000000-0000-0000-0000-000000000000"
-        if uri == mock_id:
+        if uri in self.instances:
+            return deepcopy(self.instances[uri])
+        elif uri == mock_id:
             return {"@id": mock_id, "@type": ["https://openminds.om-i.org/types/Model"]}
         else:
             raise NotImplementedError
@@ -167,7 +173,39 @@ class MockKGClient:
                 filter_value = prop["filter"]["value"]
                 if filter_value == "Thorin":
                     return MockKGResponse([])
+        matches = self._match_instances(query)
+        if matches is not None:
+            return MockKGResponse(matches)
         raise NotImplementedError("case not yet handled by mock client")
+
+    def _match_instances(self, query):
+        """
+        Match any instances that have been added to the mock KG (either seeded by a
+        test or created through `create_new_instance`) against a query definition.
+
+        Returns None if the query is not of a shape this mock understands, so that
+        the caller can fall back to raising NotImplementedError.
+        """
+        if not self.instances:
+            return None
+        node_type = query.get("meta", {}).get("type", None)
+        if node_type is None:
+            return None
+        filters = {}
+        for prop in query.get("structure", []):
+            path = prop.get("path", None)
+            value = prop.get("filter", {}).get("value", None)
+            if value is not None:
+                if not isinstance(path, str) or not path.startswith("http"):
+                    return None  # e.g. filtering on "@id", which we don't support here
+                filters[path] = value
+        matches = []
+        for instance in self.instances.values():
+            if node_type not in as_list(instance.get("@type", [])):
+                continue
+            if all(value in as_list(instance.get(path, [])) for path, value in filters.items()):
+                matches.append(deepcopy(instance))
+        return matches
 
     def create_new_instance(self, data, space, instance_id=None):
         assert space is not None
@@ -181,10 +219,12 @@ class MockKGClient:
     def update_instance(self, instance_id, data):
         assert instance_id is not None
         assert data is not None
+        self.updates.append((instance_id, deepcopy(data)))
 
     def replace_instance(self, instance_id, data):
         assert instance_id is not None
         assert data is not None
+        self.replacements.append((instance_id, deepcopy(data)))
 
     def uri_from_uuid(self, uuid):
         return f"https://kg.ebrains.eu/api/instances/{uuid}"
@@ -193,3 +233,18 @@ class MockKGClient:
 @pytest.fixture
 def mock_client():
     return MockKGClient()
+
+
+@pytest.fixture
+def clear_caches():
+    """
+    Ensure a test starts and finishes with empty global caches.
+
+    `save_cache` and `object_cache` are module-level globals, so tests that
+    exercise them would otherwise leak into one another.
+    """
+    save_cache.clear()
+    object_cache.clear()
+    yield
+    save_cache.clear()
+    object_cache.clear()

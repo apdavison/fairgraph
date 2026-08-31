@@ -21,7 +21,13 @@ import fairgraph.openminds.core as omcore
 import fairgraph.openminds.controlled_terms as omterms
 from fairgraph.utility import ActivityLog, sha1sum, normalize_data
 
-from test.utils import mock_client, kg_client, skip_if_no_connection, skip_if_using_production_server
+from test.utils import (
+    clear_caches,
+    mock_client,
+    kg_client,
+    skip_if_no_connection,
+    skip_if_using_production_server,
+)
 
 
 def test_query_generation(mock_client):
@@ -505,6 +511,49 @@ def test__update():
     # this follows the sequence in person.save()
     updated_data = person.modified_data()
     assert len(updated_data) == 0
+
+
+def test_save_same_person_twice_preserves_remote_only_properties(mock_client, clear_caches):
+    """
+    Metadata-harvesting scripts typically build a new Person object for each
+    role a person has (developer, custodian, ...) and for each project, so the
+    same person may be saved several times in a single run, from objects that
+    contain only the name. The second and subsequent saves must not remove the
+    contact information, ORCID, etc. already held in the KG.
+    """
+    person_id = "https://kg.ebrains.eu/api/instances/12345678-90ab-cdef-0123-4567890abcde"
+    contact_id = "https://kg.ebrains.eu/api/instances/23456789-0abc-def0-1234-567890abcdef"
+    orcid_id = "https://kg.ebrains.eu/api/instances/34567890-abcd-ef01-2345-67890abcdef0"
+    mock_client.instances[person_id] = {
+        "@id": person_id,
+        "@type": ["https://openminds.om-i.org/types/Person"],
+        "https://core.kg.ebrains.eu/vocab/meta/space": "common",
+        "https://openminds.om-i.org/props/givenName": "Bilbo",
+        "https://openminds.om-i.org/props/familyName": "Baggins",
+        "https://openminds.om-i.org/props/alternateName": ["Barrel-rider"],
+        "https://openminds.om-i.org/props/contactInformation": {"@id": contact_id},
+        "https://openminds.om-i.org/props/digitalIdentifier": [{"@id": orcid_id}],
+    }
+
+    # first encounter, e.g. as a developer: found by querying the KG
+    developer = omcore.Person(given_name="Bilbo", family_name="Baggins")
+    log = ActivityLog()
+    developer.save(mock_client, space="common", activity_log=log)
+    assert developer.id == person_id
+    assert developer.contact_information == KGProxy(omcore.ContactInformation, contact_id)
+    assert [entry.type for entry in log.entries] == ["no-op"]
+    assert mock_client.updates == []
+
+    # second encounter, e.g. as a custodian: found in the save cache
+    custodian = omcore.Person(given_name="Bilbo", family_name="Baggins")
+    log = ActivityLog()
+    custodian.save(mock_client, space="common", activity_log=log)
+    assert custodian.id == person_id
+    assert custodian.contact_information == KGProxy(omcore.ContactInformation, contact_id)
+    assert custodian.digital_identifiers == [KGProxy(omcore.ORCID, orcid_id)]
+    assert custodian.alternate_names == ["Barrel-rider"]
+    assert [entry.type for entry in log.entries] == ["no-op"]
+    assert mock_client.updates == []
 
 
 @skip_if_no_connection
