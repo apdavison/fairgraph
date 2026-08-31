@@ -161,7 +161,7 @@ Running the test suite
 ----------------------
 
 Before you make any changes, run the test suite to make sure all the tests pass
-on your system. In the top-level fairgrapgh directory, run::
+on your system. In the top-level fairgraph directory, run::
 
     $ pytest
 
@@ -169,9 +169,23 @@ At the end, if you see "OK", then all the tests
 passed (or were skipped because certain dependencies are not installed),
 otherwise it will report on tests that failed or produced errors.
 
+A large number of skipped tests is expected. Many tests run real queries, and are
+skipped unless the environment variable :envvar:`KG_AUTH_TOKEN` contains a valid EBRAINS
+authentication token. The remaining tests run offline against a mock client, so you can develop
+and test most changes without any credentials.
+
+To run the full suite, obtain a token and set it in your environment::
+
+    $ export KG_AUTH_TOKEN=<your token>
+    $ pytest
+
+The tests run against the pre-production Knowledge Graph, never production. If you do not have an
+EBRAINS account, anyone with an academic affiliation (which includes most students) can
+sign up directly at https://ebrains.eu/sign-up.
+
 To run tests from an individual file::
 
-    $ pytest test/test_properties.py
+    $ pytest test/test_queries.py
 
 Coding standards and style
 --------------------------
