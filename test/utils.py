@@ -178,34 +178,59 @@ class MockKGClient:
             return MockKGResponse(matches)
         raise NotImplementedError("case not yet handled by mock client")
 
+    SUPPORTED_FILTER_OPS = ("EQUALS", "CONTAINS")
+
     def _match_instances(self, query):
         """
         Match any instances that have been added to the mock KG (either seeded by a
         test or created through `create_new_instance`) against a query definition.
 
-        Returns None if the query is not of a shape this mock understands, so that
-        the caller can fall back to raising NotImplementedError.
+        Returns None for any query shape this mock cannot honour faithfully, so that
+        the caller falls back to raising NotImplementedError. That matters more than
+        it might seem: silently returning a plausible-but-wrong match set would let a
+        test pass for the wrong reason.
+
+        Note that the hard-coded branches in `query` are consulted first, so a test
+        that seeds an instance matching one of the names they special-case will get
+        the canned response rather than the seeded one.
         """
         if not self.instances:
             return None
         node_type = query.get("meta", {}).get("type", None)
         if node_type is None:
             return None
-        filters = {}
+        filters = []
         for prop in query.get("structure", []):
+            if "structure" in prop:
+                return None  # a filter on a nested node, which we don't traverse
+            spec = prop.get("filter", None)
+            if not spec or "value" not in spec:
+                continue
             path = prop.get("path", None)
-            value = prop.get("filter", {}).get("value", None)
-            if value is not None:
-                if not isinstance(path, str) or not path.startswith("http"):
-                    return None  # e.g. filtering on "@id", which we don't support here
-                filters[path] = value
+            if not isinstance(path, str) or not path.startswith("http"):
+                return None  # e.g. filtering on "@id", which we don't support here
+            if spec.get("op") not in self.SUPPORTED_FILTER_OPS:
+                return None
+            filters.append((path, spec["op"], spec["value"]))
         matches = []
         for instance in self.instances.values():
             if node_type not in as_list(instance.get("@type", [])):
                 continue
-            if all(value in as_list(instance.get(path, [])) for path, value in filters.items()):
+            if all(
+                self._value_matches(instance.get(path, None), op, value)
+                for path, op, value in filters
+            ):
                 matches.append(deepcopy(instance))
         return matches
+
+    @staticmethod
+    def _value_matches(stored, op, value):
+        for item in as_list(stored):
+            if item == value:
+                return True
+            if op == "CONTAINS" and isinstance(item, str) and isinstance(value, str) and value in item:
+                return True
+        return False
 
     def create_new_instance(self, data, space, instance_id=None):
         assert space is not None

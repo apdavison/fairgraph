@@ -210,20 +210,6 @@ class MockKGObject(KGObject, LinkedMetadata):
 ID_NAMESPACE = "https://kg.ebrains.eu/api/instances/"
 
 
-class RecordingMockClient:
-    """A minimal client that serves a fixed set of instances and records what is written."""
-
-    def __init__(self, instances=None):
-        self.instances = instances or {}
-        self.updates = []  # (instance_id, payload) for each update_instance() call
-
-    def instance_from_full_uri(self, uri, use_cache=True, release_status="in progress", require_full_data=True):
-        return deepcopy(self.instances.get(uri, None))
-
-    def update_instance(self, instance_id, data):
-        self.updates.append((instance_id, deepcopy(data)))
-
-
 class TestKGObject(object):
     object_counter = 0
 
@@ -675,8 +661,10 @@ class TestKGObject(object):
         assert new_obj.id == orig_object.id
         assert new_obj.an_optional_string == "lime"  # filled in from the cached object
         assert new_obj.modified_data() == {}  # so nothing would be nulled by a save
-        # both objects hold the same record of what the KG contains, but in
-        # separate dicts: a later write by one must not rewrite the other's record
+        # both objects hold the same record of what the KG contains, in separate
+        # top-level dicts, so neither can rewrite the other's record. Nested values
+        # are shared by reference, which is safe because remote_data is only ever
+        # written a key at a time or replaced wholesale, never mutated in place.
         assert new_obj.remote_data == orig_object.remote_data
         assert new_obj.remote_data is not orig_object.remote_data
 
@@ -699,31 +687,31 @@ class TestKGObject(object):
         assert new_obj.modified_data() == {"https://openminds.ebrains.eu/vocab/anOptionalString": "kiwi"}
         assert orig_object.an_optional_string == "lime"  # and the cached object is untouched
 
-    def test_save__found_via_save_cache_does_not_null_properties(self, clear_caches):
+    def test_save__found_via_save_cache_does_not_null_properties(self, mock_client, clear_caches):
         """
         Saving a freshly-built object that is found through the save cache must
         not set the properties it doesn't know about to null in the KG.
         """
         orig_object = self._construct_object_as_found_in_kg()
         self._register_in_save_cache(orig_object)
-        client = RecordingMockClient({orig_object.id: self._kg_record(orig_object)})
+        mock_client.instances[orig_object.id] = self._kg_record(orig_object)
 
         new_obj = self._construct_object_not_yet_in_kg()
         log = ActivityLog()
-        new_obj.save(client, space="mock", recursive=False, activity_log=log)
+        new_obj.save(mock_client, space="mock", recursive=False, activity_log=log)
 
-        assert client.updates == []
+        assert mock_client.updates == []
         assert [entry.type for entry in log.entries] == ["no-op"]
         assert new_obj.an_optional_string == "lime"
 
         # ...but a genuine local change must still be sent
         new_obj.an_optional_string = "kiwi"
         log = ActivityLog()
-        new_obj.save(client, space="mock", recursive=False, activity_log=log)
+        new_obj.save(mock_client, space="mock", recursive=False, activity_log=log)
 
         assert [entry.type for entry in log.entries] == ["update"]
-        assert len(client.updates) == 1
-        instance_id, payload = client.updates[0]
+        assert len(mock_client.updates) == 1
+        instance_id, payload = mock_client.updates[0]
         assert instance_id == new_obj.uuid
         assert payload == {"https://openminds.ebrains.eu/vocab/anOptionalString": "kiwi"}
 

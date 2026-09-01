@@ -587,16 +587,12 @@ class KGObject(KGNode, Releasable):
                     self.id = save_cache[self.__class__][query_cache_key]
                     cached_obj = object_cache.get(self.id)
                     if cached_obj and cached_obj.remote_data:
-                        if self._raw_remote_data is None:
-                            self._raw_remote_data = cached_obj._raw_remote_data
-                        data = cached_obj.remote_data
-                        if "@type" not in data:  # should not happen, but just in case
-                            data = {"@type": self.type_, **data}
+                        self._raw_remote_data = cached_obj._raw_remote_data
                         # this also updates `self.remote_data`. It must not be replaced by a
                         # direct assignment to `self.remote_data`: a property that is empty
                         # locally but present remotely would then look like a deliberate
                         # deletion, and be set to null by the next call to save().
-                        self._update_empty_properties(data)
+                        self._update_empty_properties(cached_obj.remote_data)
                     return True
 
                 query = self.__class__.generate_minimal_query(
