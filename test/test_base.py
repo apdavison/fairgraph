@@ -506,7 +506,7 @@ class TestKGObject(object):
                     "https://openminds.ebrains.eu/vocab/aString": None,
                 },
             ],
-            "https://openminds.ebrains.eu/vocab/anOptionalListOfLinkedObjects": None
+            "https://openminds.ebrains.eu/vocab/anOptionalListOfLinkedObjects": None,
         }
         assert obj.modified_data() == expected
 
@@ -531,7 +531,9 @@ class TestKGObject(object):
 
         class MockClient:
             def instance_from_full_uri(self, id, use_cache=True, release_status="in progress", require_full_data=True):
-                data = orig_object.to_jsonld(include_empty_properties=False, embed_linked_nodes=LinkedNodeEmbedding.NEVER)
+                data = orig_object.to_jsonld(
+                    include_empty_properties=False, embed_linked_nodes=LinkedNodeEmbedding.NEVER
+                )
                 data["https://core.kg.ebrains.eu/vocab/meta/space"] = "collab-foobar"
                 data["@id"] = orig_object.id
                 data["@type"] = orig_object.type_

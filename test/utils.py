@@ -25,7 +25,7 @@ except AuthenticationError:
 except SSLError:
     no_kg_err_msg = "No KG connection - SSL certificate may have expired"
 except RequestException:
-    # e.g. the KG is down for maintenance. 
+    # e.g. the KG is down for maintenance.
     no_kg_err_msg = f"No KG connection - could not reach {kg_host}"
 else:
     try:
@@ -70,9 +70,7 @@ class MockKGClient:
 
     def __init__(self, openminds_version: str = OPENMINDS_VERSION):
         if openminds_version not in ("v4", "v5"):
-            raise ValueError(
-                f"openminds_version must be 'v4' or 'v5', got {openminds_version!r}"
-            )
+            raise ValueError(f"openminds_version must be 'v4' or 'v5', got {openminds_version!r}")
         self.openminds_version = openminds_version
         self.instances = {}
         self.cache = {}
@@ -216,10 +214,7 @@ class MockKGClient:
         for instance in self.instances.values():
             if node_type not in as_list(instance.get("@type", [])):
                 continue
-            if all(
-                self._value_matches(instance.get(path, None), op, value)
-                for path, op, value in filters
-            ):
+            if all(self._value_matches(instance.get(path, None), op, value) for path, op, value in filters):
                 matches.append(deepcopy(instance))
         return matches
 

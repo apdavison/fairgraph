@@ -82,7 +82,9 @@ def test_retrieve_released_datasets_filter_species_by_openminds_obj(kg_client):
     assert rat.name == rat_om.name == "Rattus norvegicus"
     follow_links = {"study_targets": {}}
     datasets = omcore.DatasetVersion.list(kg_client, space="dataset", study_targets=rat, follow_links=follow_links)
-    datasets_om = omcore.DatasetVersion.list(kg_client, space="dataset", study_targets=rat_om, follow_links=follow_links)
+    datasets_om = omcore.DatasetVersion.list(
+        kg_client, space="dataset", study_targets=rat_om, follow_links=follow_links
+    )
     assert len(datasets) > 0
     assert len(datasets) == len(datasets_om)
     assert [ds.id for ds in datasets] == [ds.id for ds in datasets_om]
@@ -464,14 +466,9 @@ def test_modified_data_method_with_local_changes():
         }
     }
     dsv.repository = omcore.FileRepository(
-        id="https://kg.ebrains.eu/api/instances/23456789-0abc-def0-1234-567890abcdef",
-        iri="http://example.org"
+        id="https://kg.ebrains.eu/api/instances/23456789-0abc-def0-1234-567890abcdef", iri="http://example.org"
     )
-    assert dsv.modified_data() == {
-        "https://openminds.om-i.org/props/repository": {
-            "@id": dsv.repository.id
-        }
-    }
+    assert dsv.modified_data() == {"https://openminds.om-i.org/props/repository": {"@id": dsv.repository.id}}
 
 
 def test__update():
