@@ -21,6 +21,7 @@ from typing import Optional, List, Any, Dict, Union
 from uuid import UUID
 from datetime import date, datetime
 import logging
+import re
 from warnings import warn
 
 from openminds.base import IRI, EmbeddedMetadata, LinkedMetadata, Node
@@ -28,6 +29,40 @@ from .utility import as_list, expand_uri
 
 
 logger = logging.getLogger("fairgraph")
+
+
+class Regex(str):
+    """
+    A regular expression, for use as a filter value in place of a plain string.
+
+    Where a plain string filters with the KG's "CONTAINS" operator, a `Regex` filters with "REGEX". 
+    The KG applies the pattern as a search rather than a full match, 
+    so a pattern with no anchors matches anywhere in the property value; use "^" and "$" to anchor it.
+    Matching is always case-insensitive, whatever the pattern says.
+
+    The pattern is checked when the `Regex` is created, and a malformed one raises ValueError
+    (since the KG silently returns no results for a malformed pattern).
+
+    Args:
+        pattern (str): the regular expression.
+
+    Raises:
+        ValueError: if `pattern` is not a valid regular expression.
+
+    Example:
+        >>> import fairgraph.openminds.core as omcore
+        >>> from fairgraph.queries import Regex
+        >>> omcore.Person.list(client, family_name=Regex("^M[uü]ller$"))
+    """
+
+    def __new__(cls, pattern: str):
+        try:
+            # The KG's regular expression engine is not Python's, so this does not guarantee the KG will accept 
+            # the pattern, but it catches common errors such as an unbalanced bracket or parenthesis.
+            re.compile(pattern)
+        except re.error as err:
+            raise ValueError(f"Invalid regular expression {pattern!r}: {err}") from err
+        return super().__new__(cls, pattern)
 
 
 class PathElement:
@@ -438,7 +473,9 @@ def get_query_filter_property(property, context, filter: Any) -> QueryProperty:
         filter_obj = None
     else:
         # we have a filter value for this property
-        if property.types[0] in (int, float, bool, datetime, date):
+        if isinstance(filter, Regex):
+            op = "REGEX"
+        elif property.types[0] in (int, float, bool, datetime, date):
             op = "EQUALS"
         else:
             op = "CONTAINS"
@@ -511,7 +548,10 @@ def get_filter_value(property, value: Any) -> Union[str, List[str]]:
 
     filter_items = []
     for item in as_list(value):
-        if isinstance(item, IRI):
+        if isinstance(item, Regex):
+            # a pattern must be passed through untouched, in particular past the "+" workaround below
+            filter_item = item
+        elif isinstance(item, IRI):
             filter_item = item.value
         elif isinstance(item, (date, datetime)):
             filter_item = item.isoformat()

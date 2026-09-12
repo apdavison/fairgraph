@@ -39,10 +39,11 @@ from openminds import IRI, LinkedMetadata
 from openminds.base import LinkedNodeEmbedding
 
 from .utility import expand_uri, as_list, expand_filter, ActivityLog, normalize_data, handle_scope_keyword
-from .queries import Query, QueryProperty
+from .queries import Query, QueryProperty, Regex
 from .errors import AuthorizationError, ResourceExistsError, CannotBuildExistenceQuery
 from .caching import object_cache, save_cache, generate_cache_key
 from .base import ErrorHandling, Releasable, JSONdict
+from .name_matching import KG_NAMELIKE_PROPERTIES, MATCH_TYPES, build_name_regex, matches_name
 from .node import KGNode
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
@@ -520,6 +521,10 @@ class KGObject(KGNode, Releasable):
     def __eq__(self, other):
         return not self.__ne__(other)
 
+    # Defining __eq__ would otherwise make instances unhashable, and openMINDS' by_name(),
+    # which we delegate to, de-duplicates its results with dict.fromkeys(), which hashes by identity.
+    __hash__ = object.__hash__
+
     def __ne__(self, other):
         if not isinstance(other, self.__class__):
             return True
@@ -883,80 +888,97 @@ class KGObject(KGNode, Releasable):
         client: Optional[KGClient] = None,
         match: str = "equals",
         all: bool = False,
+        case_sensitive: bool = True,
+        ignore_accents: bool = False,
         space: Optional[str] = None,
         release_status: str = "released",
         scope: Optional[str] = None,
         follow_links: Optional[Dict[str, Any]] = None,
     ) -> Union[KGObject, List[KGObject], None]:
         """
-        Retrieve an instance from the Knowledge Graph based on its name.
+        Retrieve metadata objects based on their name, or name-like properties.
 
-        This includes properties "name", "lookup_label", "family_name", "full_name", "short_name", "abbreviation", and "synonyms".
-
+        "Name-like properties" are "name", "lookup_label", "family_name", "full_name", "short_name", "abbreviation"
+        and "synonyms".  If a class has such a property, it will be searched.
         Note that not all metadata classes have a name.
+
+        If no `client` is given, this searches the built-in openMINDS instance library, and the objects found have
+        semantic IRIs as their ids, e.g. "https://openminds.om-i.org/instances/species/musMusculus".
+        Only classes that have an instance library (controlled terms, licences, content types, ...) can be searched
+        this way; for any other class, None is returned.
+
+        If `client` is provided, the Knowledge Graph is searched, and the objects found have UUID-based ids,
+        e.g. "https://kg.ebrains.eu/api/instances/d9875ebd-260e-4337-a637-b62fed4aa91d".
 
         Args:
             name (str): a string to search for.
-            client: a KGClient
-            match (str, optional): either "equals" (exact match - default) or "contains".
-            all (bool, optional): Whether to return all objects that match the name, or only the first. Defaults to False.
+            client: a KGClient. If not provided, the openMINDS instance library is searched
+                instead of the Knowledge Graph.
+            match (str, optional): either "equals" (exact match - default), "contains" (the name-like property
+                contains the given string), or "within" (the given string contains the name-like property).
+            all (bool, optional): Whether to return all objects that match the name, or only the first.
+                Defaults to False.
+            case_sensitive (bool, optional): Whether the search should be case-sensitive. Defaults to True.
+            ignore_accents (bool, optional): Whether to ignore accents (acute, grave, circumflex) and other
+                diacritical marks (cedilla, tilde, ring, etc.) when matching. Also treat special letters
+                (ß, œ, æ, ø, ł, etc.) as their closest plain-letter equivalents (e.g. "ß" as "ss"). Defaults to False.
             space (str, optional): the KG space to search in. Default is to search in all available spaces.
-            release_status (str, optional): The scope of the search. Valid values are "released", "in progress", or "any".
-                Defaults to "released".
-            follow_links (dict): The links in the graph to follow. Defaults to None.
+                Ignored if no client is provided.
+            release_status (str, optional): The scope of the search. Valid values are "released", "in progress",
+                or "any". Defaults to "released". Ignored if no client is provided.
+            follow_links (dict): The links in the graph to follow. Defaults to None. Ignored if no client is provided.
+
+        Raises:
+            ValueError: if `match` is not one of "equals", "contains" or "within".
+            AttributeError: if a client is provided but the class has no name-like property.
 
         """
+        if match not in MATCH_TYPES:
+            raise ValueError("'match' must be either 'equals', 'contains', or 'within'")
+
+        if client is None:
+            if not hasattr(cls, "instances"):
+                return None  # this class has no instance library to search
+            return super().by_name(
+                name, match=match, all=all, case_sensitive=case_sensitive, ignore_accents=ignore_accents
+            )
+
         release_status = handle_scope_keyword(scope, release_status)
-        # todo: move this to openminds generation, and include only in those subclasses
-        # that have a name-like property
-        namelike_properties = (
-            "name",
-            "lookup_label",
-            "family_name",
-            "full_name",
-            "short_name",
-            "abbreviation",
-            "synonyms",
+        # todo: move this to openminds generation, and include only in those subclasses that have a name-like property
+        name_properties = [prop_name for prop_name in KG_NAMELIKE_PROPERTIES if prop_name in cls.property_names]
+        if not name_properties:
+            raise AttributeError(f"{cls.__name__} doesn't have a name-like property")
+
+        # The KG has no way to apply a single filter across several properties, so we query each of them in turn and 
+        # merge the results. 
+        # The regular expression is only a pre-filter. It returns a superset of the matches, since the KG's regex 
+        # matching is always case-insensitive, which is then narrowed down, using the same matching rules as the 
+        # openMINDS instance-library search.
+        pattern = Regex(
+            build_name_regex(name, match=match, case_sensitive=case_sensitive, ignore_accents=ignore_accents)
         )
-        objects = []
-        if client:
-            kwargs = dict(space=space, release_status=release_status, api="query", follow_links=follow_links)
-            for prop_name in namelike_properties:
-                if prop_name in cls.property_names:
-                    kwargs[prop_name] = name
-                    break
-            objects = cls.list(client, **kwargs)
-            if match == "equals":
-                objects = [
-                    obj
-                    for obj in objects
-                    if any(getattr(obj, prop_name, None) == name for prop_name in namelike_properties)
-                ]
-        elif hasattr(cls, "instances"):  # controlled terms, etc.
-            if cls._instance_lookup is None:
-                cls._instance_lookup = {}
-                for instance in cls.instances():
-                    keys = []
-                    for prop_name in namelike_properties[:-1]:  # handle 'synonyms' separately
-                        if hasattr(instance, prop_name):
-                            keys.append(getattr(instance, prop_name))
-                    if hasattr(instance, "synonyms"):
-                        for synonym in instance.synonyms or []:
-                            keys.append(synonym)
-                    for key in keys:
-                        if key in cls._instance_lookup:
-                            cls._instance_lookup[key].append(instance)
-                        else:
-                            cls._instance_lookup[key] = [instance]
-            if match == "equals":
-                objects = cls._instance_lookup.get(name, None)
-            elif match == "contains":
-                objects = []
-                for key, instances in cls._instance_lookup.items():
-                    if name in key:
-                        objects.extend(instances)
-            else:
-                raise ValueError("'match' must be either 'exact' or 'contains'")
+        candidates: Dict[str, KGObject] = {}
+        for prop_name in name_properties:
+            for obj in cls.list(
+                client,
+                space=space,
+                release_status=release_status,
+                api="query",
+                follow_links=follow_links,
+                **{prop_name: pattern},
+            ):
+                candidates.setdefault(obj.id, obj)
+        objects = [
+            obj
+            for obj in candidates.values()
+            if any(
+                matches_name(value, name, match, case_sensitive, ignore_accents)
+                for prop_name in name_properties
+                for value in as_list(getattr(obj, prop_name, None))
+                if isinstance(value, str)
+            )
+        ]
+
         if len(objects) == 0:
             return None
         elif all:

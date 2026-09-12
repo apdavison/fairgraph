@@ -80,6 +80,9 @@ Queries
    :members:
    :show-inheritance:
 
+.. autoclass:: fairgraph.queries.Regex
+   :show-inheritance:
+
 Utility classes and functions
 =============================
 

@@ -1083,3 +1083,52 @@ def test_with_new_namespace_from_query():
     assert obj.abstraction_level
     assert len(obj.developers) == 5
     omcore.Model.type_, omcore.Person.type_ = orig_types
+
+
+@skip_if_no_connection
+def test_by_name_searches_all_name_like_properties(kg_client):
+    # License has both "full_name" and "short_name"; only the first used to be searched
+    # https://github.com/HumanBrainProject/fairgraph/issues/131
+    licence = omcore.License.by_name("CC-BY-NC-4.0", kg_client)
+    assert licence is not None
+    assert licence.short_name == "CC-BY-NC-4.0"
+    assert omcore.License.by_name(licence.full_name, kg_client) == licence
+
+
+@skip_if_no_connection
+def test_by_name_searches_synonyms(kg_client):
+    mouse = omterms.Species.by_name("Mus musculus", kg_client)
+    assert omterms.Species.by_name("house mouse", kg_client) == mouse
+
+
+@skip_if_no_connection
+def test_by_name_is_case_sensitive_by_default(kg_client):
+    assert omterms.Species.by_name("mus musculus", kg_client) is None
+    assert omterms.Species.by_name("mus musculus", kg_client, case_sensitive=False).name == "Mus musculus"
+
+
+@skip_if_no_connection
+def test_by_name_ignore_accents(kg_client):
+    # the KG does no accent folding of its own, so this exercises the generated character classes
+    plain = omcore.Person.by_name("Muller", kg_client, match="contains", all=True) or []
+    folded = omcore.Person.by_name("Muller", kg_client, match="contains", all=True, ignore_accents=True) or []
+    assert len(folded) > len(plain)
+    assert {person.id for person in plain} < {person.id for person in folded}
+    assert any("ü" in person.family_name for person in folded)
+
+
+@skip_if_no_connection
+def test_by_name_match_within(kg_client):
+    mouse = omterms.Species.by_name("Mus musculus", kg_client)
+    assert omterms.Species.by_name("recordings from Mus musculus", kg_client, match="within") == mouse
+
+
+@skip_if_no_connection
+def test_by_name_returns_none_when_nothing_matches(kg_client):
+    assert omterms.Species.by_name("definitely not a species", kg_client) is None
+
+
+@skip_if_no_connection
+def test_by_name_requires_a_name_like_property(kg_client):
+    with pytest.raises(AttributeError):
+        omcore.DOI.by_name("10.25493/ANYTHING", kg_client)
