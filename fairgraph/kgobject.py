@@ -98,7 +98,7 @@ class KGObject(KGNode, Releasable):
                 try:
                     self.remote_data = normalize_data(
                         self.to_jsonld(include_empty_properties=False, embed_linked_nodes=LinkedNodeEmbedding.NEVER),
-                        data.get("@context", self.context)
+                        data.get("@context", self.context),
                     )
                 except ValueError as err:
                     # ideally, we should handle errors at the level of individual properties
@@ -126,10 +126,7 @@ class KGObject(KGNode, Releasable):
 
     @classmethod
     def from_jsonld(
-        cls,
-        data: JSONdict,
-        ignore_unexpected_keys: Optional[bool] = False,
-        release_status: Optional[str] = None
+        cls, data: JSONdict, ignore_unexpected_keys: Optional[bool] = False, release_status: Optional[str] = None
     ) -> KGObject:
         """Create an instance of the class from a JSON-LD document."""
         # todo: handle ignore_unexpected_keys
@@ -588,7 +585,11 @@ class KGObject(KGNode, Releasable):
                     cached_obj = object_cache.get(self.id)
                     if cached_obj and cached_obj.remote_data:
                         self._raw_remote_data = cached_obj._raw_remote_data
-                        self.remote_data = cached_obj.remote_data  # copy or update needed?
+                        # this also updates `self.remote_data`. It must not be replaced by a
+                        # direct assignment to `self.remote_data`: a property that is empty
+                        # locally but present remotely would then look like a deliberate
+                        # deletion, and be set to null by the next call to save().
+                        self._update_empty_properties(cached_obj.remote_data)
                     return True
 
                 query = self.__class__.generate_minimal_query(
@@ -597,7 +598,9 @@ class KGObject(KGNode, Releasable):
                 )
 
                 try:
-                    instances = client.query(query=query, size=2, release_status="any", restrict_to_spaces=in_spaces).data
+                    instances = client.query(
+                        query=query, size=2, release_status="any", restrict_to_spaces=in_spaces
+                    ).data
                 except ConnectionError as err:
                     if "RemoteDisconnected" in str(err):
                         warn(
@@ -649,11 +652,8 @@ class KGObject(KGNode, Releasable):
                 return local == remote
 
         current_data = normalize_data(
-            self.to_jsonld(
-                include_empty_properties=True,
-                embed_linked_nodes=LinkedNodeEmbedding.IF_NECESSARY
-            ),
-            self.context
+            self.to_jsonld(include_empty_properties=True, embed_linked_nodes=LinkedNodeEmbedding.IF_NECESSARY),
+            self.context,
         )
         modified_data = {}
         for key, current_value in current_data.items():
@@ -748,7 +748,7 @@ class KGObject(KGNode, Releasable):
                 # update
                 local_data = normalize_data(
                     self.to_jsonld(include_empty_properties=False, embed_linked_nodes=LinkedNodeEmbedding.NEVER),
-                    self.context
+                    self.context,
                 )
                 if replace:
                     logger.info(f"  - replacing - {self.__class__.__name__}(id={self.id})")
@@ -817,7 +817,7 @@ class KGObject(KGNode, Releasable):
             # create new
             local_data = normalize_data(
                 self.to_jsonld(include_empty_properties=False, embed_linked_nodes=LinkedNodeEmbedding.NEVER),
-                self.context
+                self.context,
             )
             logger.info("  - creating instance with data {}".format(local_data))
             if self.id and self.id.startswith("http"):
@@ -909,7 +909,15 @@ class KGObject(KGNode, Releasable):
         release_status = handle_scope_keyword(scope, release_status)
         # todo: move this to openminds generation, and include only in those subclasses
         # that have a name-like property
-        namelike_properties = ("name", "lookup_label", "family_name", "full_name", "short_name", "abbreviation", "synonyms")
+        namelike_properties = (
+            "name",
+            "lookup_label",
+            "family_name",
+            "full_name",
+            "short_name",
+            "abbreviation",
+            "synonyms",
+        )
         objects = []
         if client:
             kwargs = dict(space=space, release_status=release_status, api="query", follow_links=follow_links)
@@ -920,11 +928,9 @@ class KGObject(KGNode, Releasable):
             objects = cls.list(client, **kwargs)
             if match == "equals":
                 objects = [
-                    obj for obj in objects
-                    if any(
-                        getattr(obj, prop_name, None) == name
-                        for prop_name in namelike_properties
-                    )
+                    obj
+                    for obj in objects
+                    if any(getattr(obj, prop_name, None) == name for prop_name in namelike_properties)
                 ]
         elif hasattr(cls, "instances"):  # controlled terms, etc.
             if cls._instance_lookup is None:
@@ -1075,9 +1081,7 @@ class KGObject(KGNode, Releasable):
         query.properties.extend(cls.generate_query_filter_properties(normalized_filters))
         return query.serialize()
 
-    def children(
-        self, client: KGClient, follow_links: Optional[Dict[str, Any]] = None
-    ) -> List[Releasable]:
+    def children(self, client: KGClient, follow_links: Optional[Dict[str, Any]] = None) -> List[Releasable]:
         """Return a list of child objects."""
         if follow_links:
             self.resolve(client, follow_links=follow_links)

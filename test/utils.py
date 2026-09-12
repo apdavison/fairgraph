@@ -6,8 +6,10 @@ from typing import Optional
 from requests.exceptions import RequestException, SSLError
 
 from fairgraph.base import OPENMINDS_VERSION
+from fairgraph.caching import object_cache, save_cache
 from fairgraph.client import KGClient
 from fairgraph.errors import AuthenticationError, AuthorizationError
+from fairgraph.utility import as_list
 
 import pytest
 
@@ -23,7 +25,7 @@ except AuthenticationError:
 except SSLError:
     no_kg_err_msg = "No KG connection - SSL certificate may have expired"
 except RequestException:
-    # e.g. the KG is down for maintenance. 
+    # e.g. the KG is down for maintenance.
     no_kg_err_msg = f"No KG connection - could not reach {kg_host}"
 else:
     try:
@@ -68,12 +70,12 @@ class MockKGClient:
 
     def __init__(self, openminds_version: str = OPENMINDS_VERSION):
         if openminds_version not in ("v4", "v5"):
-            raise ValueError(
-                f"openminds_version must be 'v4' or 'v5', got {openminds_version!r}"
-            )
+            raise ValueError(f"openminds_version must be 'v4' or 'v5', got {openminds_version!r}")
         self.openminds_version = openminds_version
         self.instances = {}
         self.cache = {}
+        self.updates = []  # (instance_id, payload) for each update_instance() call
+        self.replacements = []  # (instance_id, payload) for each replace_instance() call
 
     def retrieve_query(self, query_label):
         return {"@id": f"mock-query-{query_label}"}
@@ -86,7 +88,9 @@ class MockKGClient:
         require_full_data: bool = True,
     ):
         mock_id = "http://example.org/00000000-0000-0000-0000-000000000000"
-        if uri == mock_id:
+        if uri in self.instances:
+            return deepcopy(self.instances[uri])
+        elif uri == mock_id:
             return {"@id": mock_id, "@type": ["https://openminds.om-i.org/types/Model"]}
         else:
             raise NotImplementedError
@@ -167,7 +171,61 @@ class MockKGClient:
                 filter_value = prop["filter"]["value"]
                 if filter_value == "Thorin":
                     return MockKGResponse([])
+        matches = self._match_instances(query)
+        if matches is not None:
+            return MockKGResponse(matches)
         raise NotImplementedError("case not yet handled by mock client")
+
+    SUPPORTED_FILTER_OPS = ("EQUALS", "CONTAINS")
+
+    def _match_instances(self, query):
+        """
+        Match any instances that have been added to the mock KG (either seeded by a
+        test or created through `create_new_instance`) against a query definition.
+
+        Returns None for any query shape this mock cannot honour faithfully, so that
+        the caller falls back to raising NotImplementedError. That matters more than
+        it might seem: silently returning a plausible-but-wrong match set would let a
+        test pass for the wrong reason.
+
+        Note that the hard-coded branches in `query` are consulted first, so a test
+        that seeds an instance matching one of the names they special-case will get
+        the canned response rather than the seeded one.
+        """
+        if not self.instances:
+            return None
+        node_type = query.get("meta", {}).get("type", None)
+        if node_type is None:
+            return None
+        filters = []
+        for prop in query.get("structure", []):
+            if "structure" in prop:
+                return None  # a filter on a nested node, which we don't traverse
+            spec = prop.get("filter", None)
+            if not spec or "value" not in spec:
+                continue
+            path = prop.get("path", None)
+            if not isinstance(path, str) or not path.startswith("http"):
+                return None  # e.g. filtering on "@id", which we don't support here
+            if spec.get("op") not in self.SUPPORTED_FILTER_OPS:
+                return None
+            filters.append((path, spec["op"], spec["value"]))
+        matches = []
+        for instance in self.instances.values():
+            if node_type not in as_list(instance.get("@type", [])):
+                continue
+            if all(self._value_matches(instance.get(path, None), op, value) for path, op, value in filters):
+                matches.append(deepcopy(instance))
+        return matches
+
+    @staticmethod
+    def _value_matches(stored, op, value):
+        for item in as_list(stored):
+            if item == value:
+                return True
+            if op == "CONTAINS" and isinstance(item, str) and isinstance(value, str) and value in item:
+                return True
+        return False
 
     def create_new_instance(self, data, space, instance_id=None):
         assert space is not None
@@ -181,10 +239,12 @@ class MockKGClient:
     def update_instance(self, instance_id, data):
         assert instance_id is not None
         assert data is not None
+        self.updates.append((instance_id, deepcopy(data)))
 
     def replace_instance(self, instance_id, data):
         assert instance_id is not None
         assert data is not None
+        self.replacements.append((instance_id, deepcopy(data)))
 
     def uri_from_uuid(self, uuid):
         return f"https://kg.ebrains.eu/api/instances/{uuid}"
@@ -193,3 +253,18 @@ class MockKGClient:
 @pytest.fixture
 def mock_client():
     return MockKGClient()
+
+
+@pytest.fixture
+def clear_caches():
+    """
+    Ensure a test starts and finishes with empty global caches.
+
+    `save_cache` and `object_cache` are module-level globals, so tests that
+    exercise them would otherwise leak into one another.
+    """
+    save_cache.clear()
+    object_cache.clear()
+    yield
+    save_cache.clear()
+    object_cache.clear()

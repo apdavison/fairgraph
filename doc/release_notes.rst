@@ -58,6 +58,18 @@ and v4 namespaces is no longer needed. The following have been removed:
 Code that called these directly will need updating; code that simply used the client is
 unaffected.
 
+Bug fixes in this release:
+
+- Saving the same object twice in one session no longer erases the properties it does not
+  carry. When :meth:`~fairgraph.kgobject.KGObject.exists` recognized an object from the save
+  cache, it took the cached object's view of what the Knowledge Graph holds without filling in
+  the properties left empty locally. Any property that was set in the KG but absent from the
+  object then looked like a deliberate deletion, and was set to null by the following
+  :meth:`~fairgraph.kgobject.KGObject.save`. Metadata-harvesting scripts, which typically build
+  a fresh object for each role a person holds, were losing people's contact information,
+  affiliations and ORCIDs this way
+  (`#134 <https://github.com/HumanBrainProject/fairgraph/issues/134>`_).
+
 
 Version 0.14.0
 ==============

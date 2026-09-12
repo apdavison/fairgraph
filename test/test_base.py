@@ -3,6 +3,7 @@
 Tests of fairgraph.base module.
 """
 
+from copy import deepcopy
 from datetime import date, datetime
 from numbers import Real
 from openminds.base import LinkedMetadata, EmbeddedMetadata as OMEmbeddedMetadata, LinkedNodeEmbedding
@@ -11,10 +12,11 @@ from openminds.properties import Property
 from fairgraph.embedded import KGEmbedded
 from fairgraph.kgobject import KGObject
 from fairgraph.kgproxy import KGProxy
-from fairgraph.caching import generate_cache_key
+from fairgraph.caching import generate_cache_key, object_cache, save_cache
 from fairgraph.errors import CannotBuildExistenceQuery
 from fairgraph.base import ErrorHandling
-from .utils import mock_client
+from fairgraph.utility import ActivityLog
+from .utils import clear_caches, mock_client
 
 import pytest
 
@@ -504,7 +506,7 @@ class TestKGObject(object):
                     "https://openminds.ebrains.eu/vocab/aString": None,
                 },
             ],
-            "https://openminds.ebrains.eu/vocab/anOptionalListOfLinkedObjects": None
+            "https://openminds.ebrains.eu/vocab/anOptionalListOfLinkedObjects": None,
         }
         assert obj.modified_data() == expected
 
@@ -529,7 +531,9 @@ class TestKGObject(object):
 
         class MockClient:
             def instance_from_full_uri(self, id, use_cache=True, release_status="in progress", require_full_data=True):
-                data = orig_object.to_jsonld(include_empty_properties=False, embed_linked_nodes=LinkedNodeEmbedding.NEVER)
+                data = orig_object.to_jsonld(
+                    include_empty_properties=False, embed_linked_nodes=LinkedNodeEmbedding.NEVER
+                )
                 data["https://core.kg.ebrains.eu/vocab/meta/space"] = "collab-foobar"
                 data["@id"] = orig_object.id
                 data["@type"] = orig_object.type_
@@ -606,6 +610,112 @@ class TestKGObject(object):
             },
         }
         assert new_obj.modified_data() == expected
+
+    def _kg_record(self, obj):
+        """
+        The JSON-LD document the KG would return for `obj`, including a property
+        that is set in the KG but that user code never provides.
+        """
+        record = deepcopy(obj.remote_data)
+        record["@id"] = obj.id
+        record["@type"] = [MockKGObject.type_]  # the KG returns a list of types
+        record["https://openminds.ebrains.eu/vocab/anOptionalString"] = "lime"
+        return record
+
+    def _construct_object_as_found_in_kg(self):
+        """An object in the state it would be in after exists() found it in the KG."""
+        obj = self._construct_object_required_properties()
+        obj._update_empty_properties(self._kg_record(obj))
+        assert obj.an_optional_string == "lime"
+        return obj
+
+    def _construct_object_not_yet_in_kg(self):
+        """
+        A freshly built object, as user code would construct it, knowing nothing
+        about what the KG already holds.
+        """
+        obj = self._construct_object_required_properties()
+        obj.id = None
+        obj._raw_remote_data = None
+        obj.remote_data = {}
+        return obj
+
+    def _register_in_save_cache(self, obj):
+        """Mimic the caching that exists() and save() perform for an object in the KG."""
+        save_cache[MockKGObject][generate_cache_key(obj._build_existence_query())] = obj.id
+        object_cache[obj.id] = obj
+
+    def test_exists__found_via_save_cache(self, clear_caches):
+        """
+        An object found through the save cache - i.e. an equivalent object was
+        already looked up or saved earlier in the same run - must have its empty
+        properties filled in from the cached object, just as when it is found by
+        querying the KG. Otherwise a property that exists in the KG but was not
+        provided locally looks like a deliberate deletion to modified_data().
+        """
+        orig_object = self._construct_object_as_found_in_kg()
+        self._register_in_save_cache(orig_object)
+
+        new_obj = self._construct_object_not_yet_in_kg()
+        assert new_obj.an_optional_string is None
+
+        assert new_obj.exists(client=None)
+        assert new_obj.id == orig_object.id
+        assert new_obj.an_optional_string == "lime"  # filled in from the cached object
+        assert new_obj.modified_data() == {}  # so nothing would be nulled by a save
+        # both objects hold the same record of what the KG contains, in separate
+        # top-level dicts, so neither can rewrite the other's record. Nested values
+        # are shared by reference, which is safe because remote_data is only ever
+        # written a key at a time or replaced wholesale, never mutated in place.
+        assert new_obj.remote_data == orig_object.remote_data
+        assert new_obj.remote_data is not orig_object.remote_data
+
+    def test_exists__found_via_save_cache_keeps_local_values(self, clear_caches):
+        """
+        Being recognized through the save cache tells an object which KG instance
+        it is, not what its properties should be. Values provided locally are the
+        changes the caller wants to make, so they must survive, and must still be
+        seen as modified relative to what the KG holds.
+        """
+        orig_object = self._construct_object_as_found_in_kg()
+        self._register_in_save_cache(orig_object)
+
+        new_obj = self._construct_object_not_yet_in_kg()
+        new_obj.an_optional_string = "kiwi"  # differs from the value in the KG
+
+        assert new_obj.exists(client=None)
+        assert new_obj.id == orig_object.id
+        assert new_obj.an_optional_string == "kiwi"  # not overwritten with "lime"
+        assert new_obj.modified_data() == {"https://openminds.ebrains.eu/vocab/anOptionalString": "kiwi"}
+        assert orig_object.an_optional_string == "lime"  # and the cached object is untouched
+
+    def test_save__found_via_save_cache_does_not_null_properties(self, mock_client, clear_caches):
+        """
+        Saving a freshly-built object that is found through the save cache must
+        not set the properties it doesn't know about to null in the KG.
+        """
+        orig_object = self._construct_object_as_found_in_kg()
+        self._register_in_save_cache(orig_object)
+        mock_client.instances[orig_object.id] = self._kg_record(orig_object)
+
+        new_obj = self._construct_object_not_yet_in_kg()
+        log = ActivityLog()
+        new_obj.save(mock_client, space="mock", recursive=False, activity_log=log)
+
+        assert mock_client.updates == []
+        assert [entry.type for entry in log.entries] == ["no-op"]
+        assert new_obj.an_optional_string == "lime"
+
+        # ...but a genuine local change must still be sent
+        new_obj.an_optional_string = "kiwi"
+        log = ActivityLog()
+        new_obj.save(mock_client, space="mock", recursive=False, activity_log=log)
+
+        assert [entry.type for entry in log.entries] == ["update"]
+        assert len(mock_client.updates) == 1
+        instance_id, payload = mock_client.updates[0]
+        assert instance_id == new_obj.uuid
+        assert payload == {"https://openminds.ebrains.eu/vocab/anOptionalString": "kiwi"}
 
     def test_exists_insufficient_query_properties(self):
         """If an object is missing required metadata, exists should return False"""
