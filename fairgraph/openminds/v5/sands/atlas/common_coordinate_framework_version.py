@@ -44,6 +44,7 @@ class CommonCoordinateFrameworkVersion(KGObject, OMCommonCoordinateFrameworkVers
             "is_coordinate_framework_of",
             [
                 "openminds.v5.core.GridImage",
+                "openminds.v5.core.GridImageSequence",
                 "openminds.v5.core.GridImageStack",
                 "openminds.v5.core.GridVolume",
                 "openminds.v5.core.GridVolumeSequence",

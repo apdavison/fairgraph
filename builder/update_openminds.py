@@ -205,6 +205,7 @@ reverse_name_map = {
     "preparationType": "usedIn",
     "previewImage": "isPreviewOf",
     "previousRecording": "nextRecording",
+    "previousRegularTimeSeries": "nextRegularTimeSeries",
     "process": "isProcessOf",
     "productSource": "isSourceOf",
     "programmingLanguage": "usedIn",
@@ -517,17 +518,12 @@ DEFAULT_SPACES = {
                     "Strain",
                     "Setup",
                     "CustomPropertySet",
-                    "Measurement",
                     "StockNumber",
                     "SpecimenAge",
                     "SpecimenWeight",
                     "Accessibility",
                     "Dependency",
                     "UsageAgreement",
-                    "GridImage",
-                    "GridImageStack",
-                    "GridVolume",
-                    "GridVolumeSequence",
                 ],
                 "model": ["Model", "ModelVersion"],
                 "software": ["SWHID", "Software", "SoftwareVersion", "Service"],
@@ -535,6 +531,15 @@ DEFAULT_SPACES = {
                 "metadatamodel": ["MetaDataModel", "MetaDataModelVersion"],
                 "controlled": ["License", "ContentType"],
                 "interface": ["Interface", "InterfaceVersion", "DeployedInterface"],
+                "in-depth": [
+                    "GridImage",
+                    "GridImageSequence",
+                    "GridImageStack",
+                    "GridVolume",
+                    "GridVolumeSequence",
+                    "Measurement",
+                    "RegularTimeSeries",
+                ],
             }
         ),
         "computation": {"default": "computation"},
@@ -1111,8 +1116,7 @@ def generate_version(openminds_root, openminds_version, target_path):
         fp.write(f"from . import ({', '.join(sorted_modules)})\n\n\n")
         fp.write("def set_error_handling(value):\n")
         fp.write(
-            '    """Set error handling for all openMINDS '
-            f'{openminds_version} classes, across every submodule."""\n'
+            '    """Set error handling for all openMINDS ' f'{openminds_version} classes, across every submodule."""\n'
         )
         fp.write(f"    for module in ({', '.join(sorted_modules)}):\n")
         fp.write("        module.set_error_handling(value)\n")

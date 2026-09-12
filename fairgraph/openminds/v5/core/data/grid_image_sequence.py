@@ -5,20 +5,20 @@
 # this file was auto-generated
 
 from openminds.properties import Property
-from openminds.v5.core import GridImageStack as OMGridImageStack
+from openminds.v5.core import GridImageSequence as OMGridImageSequence
 from fairgraph import KGObject
 
 
-class GridImageStack(KGObject, OMGridImageStack):
+class GridImageSequence(KGObject, OMGridImageSequence):
     """
     <description not available>
     """
 
-    type_ = "https://openminds.om-i.org/types/GridImageStack"
+    type_ = "https://openminds.om-i.org/types/GridImageSequence"
     default_space = "in-depth"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
-    existence_query_properties = ("data_location", "dimensions", "pixel_sizes", "z_step_size")
+    existence_query_properties = ("data_location", "dimensions", "pixel_sizes", "temporal_sampling_frequency")
 
     def __init__(
         self,
@@ -30,7 +30,7 @@ class GridImageStack(KGObject, OMGridImageStack):
         number_of_images=None,
         obtained_with=None,
         pixel_sizes=None,
-        z_step_size=None,
+        temporal_sampling_frequency=None,
         id=None,
         data=None,
         space=None,
@@ -50,5 +50,5 @@ class GridImageStack(KGObject, OMGridImageStack):
             number_of_images=number_of_images,
             obtained_with=obtained_with,
             pixel_sizes=pixel_sizes,
-            z_step_size=z_step_size,
+            temporal_sampling_frequency=temporal_sampling_frequency,
         )

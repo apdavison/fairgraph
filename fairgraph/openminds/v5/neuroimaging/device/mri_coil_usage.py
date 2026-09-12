@@ -30,10 +30,12 @@ class MRICoilUsage(KGObject, OMMRICoilUsage):
             "is_used_to_obtain",
             [
                 "openminds.v5.core.GridImage",
+                "openminds.v5.core.GridImageSequence",
                 "openminds.v5.core.GridImageStack",
                 "openminds.v5.core.GridVolume",
                 "openminds.v5.core.GridVolumeSequence",
                 "openminds.v5.core.Measurement",
+                "openminds.v5.core.RegularTimeSeries",
             ],
             "obtainedWith",
             reverse="obtained_with",

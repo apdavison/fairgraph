@@ -33,6 +33,9 @@ Actors
 Data
 ----
 
+.. autoclass:: Channel
+   :members:
+
 .. autoclass:: ContentType
 
 .. autoclass:: ContentTypePattern
@@ -62,6 +65,9 @@ Data
 .. autoclass:: GridImage
    :members:
 
+.. autoclass:: GridImageSequence
+   :members:
+
 .. autoclass:: GridImageStack
    :members:
 
@@ -77,6 +83,9 @@ Data
 .. autoclass:: License
 
 .. autoclass:: LocalFile
+   :members:
+
+.. autoclass:: RegularTimeSeries
    :members:
 
 .. autoclass:: ServiceLink

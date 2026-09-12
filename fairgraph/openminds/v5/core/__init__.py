@@ -77,6 +77,7 @@ from .data import (
     UsageAgreement,
     ContentTypePattern,
     Copyright,
+    RegularTimeSeries,
     GridImage,
     LocalFile,
     FileArchive,
@@ -84,6 +85,7 @@ from .data import (
     GridImageStack,
     ContentType,
     FilePathPattern,
+    Channel,
     FileRepository,
     License,
     File,
@@ -91,6 +93,7 @@ from .data import (
     FileRepositoryStructure,
     GridVolume,
     GridVolumeSequence,
+    GridImageSequence,
     Measurement,
 )
 

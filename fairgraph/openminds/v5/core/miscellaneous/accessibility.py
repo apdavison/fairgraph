@@ -43,6 +43,7 @@ class Accessibility(KGObject, OMAccessibility):
 
     def __init__(
         self,
+        application=None,
         channel=None,
         eligibility=None,
         form=None,
@@ -60,6 +61,7 @@ class Accessibility(KGObject, OMAccessibility):
             space=space,
             release_status=release_status,
             data=data,
+            application=application,
             channel=channel,
             eligibility=eligibility,
             form=form,

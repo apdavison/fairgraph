@@ -1,3 +1,4 @@
+from .channel import Channel
 from .content_type import ContentType
 from .content_type_pattern import ContentTypePattern
 from .copyright import Copyright
@@ -8,6 +9,7 @@ from .file_path_pattern import FilePathPattern
 from .file_repository import FileRepository
 from .file_repository_structure import FileRepositoryStructure
 from .grid_image import GridImage
+from .grid_image_sequence import GridImageSequence
 from .grid_image_stack import GridImageStack
 from .grid_volume import GridVolume
 from .grid_volume_sequence import GridVolumeSequence
@@ -15,5 +17,6 @@ from .hash import Hash
 from .license import License
 from .local_file import LocalFile
 from .measurement import Measurement
+from .regular_time_series import RegularTimeSeries
 from .service_link import ServiceLink
 from .usage_agreement import UsageAgreement
