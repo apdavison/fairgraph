@@ -717,6 +717,22 @@ class TestKGObject(object):
         assert instance_id == new_obj.uuid
         assert payload == {"https://openminds.ebrains.eu/vocab/anOptionalString": "kiwi"}
 
+    def test_save__no_cache_entry_without_existence_query(self, mock_client, clear_caches):
+        """
+        Objects for which no existence query can be built are allowed to be duplicated,
+        so creating one must not add an entry to the save cache.
+        """
+        ids = []
+        for i in range(2):
+            obj = MockKGObject2(a=1)
+            log = ActivityLog()
+            obj.save(mock_client, space="mock", recursive=False, activity_log=log)
+            assert [entry.type for entry in log.entries] == ["create"]
+            ids.append(obj.id)
+
+        assert ids[0] != ids[1]
+        assert len(save_cache[MockKGObject2]) == 0
+
     def test_exists_insufficient_query_properties(self):
         """If an object is missing required metadata, exists should return False"""
         for prop_name in MockKGObject.existence_query_properties:

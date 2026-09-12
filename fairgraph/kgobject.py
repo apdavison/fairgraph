@@ -844,6 +844,15 @@ class KGObject(KGNode, Releasable):
                 self.id = instance_data["@id"]
                 self._raw_remote_data = instance_data
                 self.remote_data = local_data
+                # Because the KnowledgeGraph is only eventually consistent, the new instance
+                # may not appear in existence queries straight away, so cache the query here
+                # (see exists())
+                try:
+                    query_filter = self._build_existence_query()
+                except CannotBuildExistenceQuery:
+                    query_filter = None
+                if query_filter is not None:
+                    save_cache[self.__class__][generate_cache_key(query_filter)] = self.id
                 if activity_log:
                     activity_log.update(item=self, delta=instance_data, space=self.space, entry_type="create")
 
