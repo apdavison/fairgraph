@@ -2,7 +2,7 @@ import os
 import json
 import pytest
 from kg_core.request import Stage, Pagination
-from fairgraph.queries import Query, QueryProperty, Filter, PathElement
+from fairgraph.queries import Query, QueryProperty, Filter, PathElement, Regex
 import fairgraph.openminds.core as omcore
 from .utils import kg_client, mock_client, skip_if_no_connection
 
@@ -709,3 +709,38 @@ def test_execute_query_with_multi_element_path_with_path_elements(kg_client):
     assert len(response.data) == 5
     assert all(item["dataset"] == f"https://kg.ebrains.eu/api/instances/{DATASET_ID}"
                for item in response.data)
+
+
+def test_generate_query_with_regex_filter(mock_client):
+    query = omcore.Person.generate_query(client=mock_client, space=None, filters={"family_name": Regex("^M[uü]ller$")})
+    filters = [prop["filter"] for prop in query["structure"] if prop.get("propertyName", None) == "Qfamily_name"]
+    assert filters == [{"op": "REGEX", "value": "^M[uü]ller$"}]
+
+
+def test_generate_query_with_plain_string_filter_still_uses_contains(mock_client):
+    query = omcore.Person.generate_query(client=mock_client, space=None, filters={"family_name": "Müller"})
+    filters = [prop["filter"] for prop in query["structure"] if prop.get("propertyName", None) == "Qfamily_name"]
+    assert filters == [{"op": "CONTAINS", "value": "Müller"}]
+
+
+def test_regex_filter_is_not_truncated_at_a_plus_sign(mock_client):
+    # plain string filter values containing "+" are truncated to work around a KG bug;
+    # a regular expression must survive intact
+    pattern = Regex("^CLARITY[-+/]TDE$")
+    query = omcore.Person.generate_query(client=mock_client, space=None, filters={"family_name": pattern})
+    filters = [prop["filter"] for prop in query["structure"] if prop.get("propertyName", None) == "Qfamily_name"]
+    assert filters == [{"op": "REGEX", "value": "^CLARITY[-+/]TDE$"}]
+
+
+def test_regex_rejects_a_malformed_pattern():
+    # the KG returns no results for a malformed pattern without reporting an error, so a
+    # typo would otherwise be indistinguishable from a genuine absence of matches
+    for pattern in ("Mus [musculus", "(unbalanced", "a**", "?x"):
+        with pytest.raises(ValueError):
+            Regex(pattern)
+
+
+def test_regex_accepts_a_valid_pattern():
+    pattern = Regex("^M[uü]ller$")
+    assert isinstance(pattern, str)
+    assert pattern == "^M[uü]ller$"

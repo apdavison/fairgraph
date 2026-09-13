@@ -143,6 +143,32 @@ For example, to see only datasets whose name contain the phrase 'patch-clamp'::
              e.g., ``DatasetVersion.property_names``
              or consult the inline help (``help(omcore.DatasetVersion)``).
 
+For a more precise search, pass a :class:`Regex` instead of a plain string::
+
+    from fairgraph import Regex
+
+    datasets = Dataset.list(client, full_name=Regex("^Whole cell patch-clamp"))
+
+The KG applies the pattern as a *search*: a pattern with no anchors matches anywhere in the property value, 
+so ``Regex("patch-clamp")`` finds the same datasets as the plain string ``"patch-clamp"``. 
+The ``^`` in the example above is what restricts the match to names that *begin* with the phrase; 
+``$`` likewise anchors to the end.
+
+.. note:: matching is always case-insensitive, whatever the pattern says: 
+          ``Regex("^whole cell")`` and ``Regex("^Whole cell")`` return the same datasets. 
+          To match case exactly, filter the results in Python.
+
+fairgraph checks that the pattern compiles before sending it, 
+so a typo raises :exc:`ValueError` rather than quietly matching nothing::
+
+    >>> Dataset.list(client, full_name=Regex("^Whole cell (patch-clamp"))
+    ValueError: Invalid regular expression '^Whole cell (patch-clamp': missing ), unterminated subpattern at position 12
+
+.. warning:: the check uses Python's :mod:`re` module, 
+             and the KG's regular expression engine is not the same as in Python,
+             so if you use advanced Python-specific features it is possible for fairgraph to accept the Regex
+             but for the KG to return nothing.
+
 To search across multiple links in the graph, join property names with "__".
 For example, to find all datasets whose authors are affiliated with the Karolinska Institute::
 
@@ -157,6 +183,26 @@ If you know the name or unique id of a node in the KnowledgeGraph, you can retri
 
     dataset_of_interest = DatasetVersion.by_name("Whole cell patch-clamp recordings of cerebellar Golgi cells", client)
     dataset_of_interest = DatasetVersion.from_id("17196b79-04db-4ea4-bb69-d20aab6f1d62", client)
+
+:meth:`by_name` searches the properties "name", "lookup_label", "family_name", "full_name",
+"short_name", "abbreviation" and "synonyms", if the class has them. 
+By default the search is for an exact, case-sensitive match, but this can be relaxed::
+
+    licence = License.by_name("cc-by-nc-4.0", client, case_sensitive=False)
+    region = ParcellationEntity.by_name("raphe nuclei", client, ignore_accents=True)
+    cells = CellType.by_name("interneuron", client, match="contains", all=True)
+
+If you provide the ``client`` argument, fairgraph searches the Knowledge Graph;
+if you don't provide it, the built-in openMINDS instance library is searched instead,
+and the objects found have semantic IRIs rather than UUID-based ids::
+
+    >>> Species.by_name("Mus musculus").id
+    'https://openminds.om-i.org/instances/species/musMusculus'
+    >>> Species.by_name("Mus musculus", client).id
+    'https://kg.ebrains.eu/api/instances/d9875ebd-260e-4337-a637-b62fed4aa91d'
+
+Only classes that have an instance library (controlled terms, licences, content types, ...)
+can be found without a client; for any other class, ``None`` is returned.
 
 
 Viewing metadata and connections

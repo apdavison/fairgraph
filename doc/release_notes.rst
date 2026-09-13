@@ -6,6 +6,9 @@ Release notes
 Version 0.15.0
 ==============
 
+openMINDS v5 support
+--------------------
+
 **fairgraph now supports openMINDS v5 alongside v4, on an experimental basis.**
 Both sets of classes are available at the same time, and v4 remains the default, so existing
 code continues to work unchanged::
@@ -46,6 +49,40 @@ which version to deserialize into::
              period that applies to the rest of the API. **openMINDS v4 support is unaffected**
              and continues to follow the normal compatibility rules.
 
+
+Searching by name
+-----------------
+
+:func:`by_name()` is now at parity with the openMINDS method it overrides.
+If no ``client`` argument is provided, the function calls the underlying openMINDS method,
+searching within the builtin openMINDS instance library and returning objects with semantic IRIs. 
+If a client is provided, the function searches the Knowledge Graph and returns objects with UUID-based ids.
+
+Both paths now accept ``match="within"`` (the search string contains the name), ``case_sensitive``
+(default ``True``, as in openMINDS) and ``ignore_accents`` (which also treats
+special letters as their plain-letter equivalents, e.g., ``ß`` as ``ss``, ``œ`` as ``oe``). 
+
+The Knowledge Graph search also now covers **all** the name-like properties a class has, 
+rather than stopping at the first. It previously searched only one, which is why, for example,
+``License.by_name("CC-BY-NC-4.0", client)`` found nothing: ``full_name`` was searched and
+``short_name`` was not (`#131 <https://github.com/HumanBrainProject/fairgraph/issues/131>`_).
+
+
+Regular-expression filters
+--------------------------
+
+Filters may now be given as a :class:`~fairgraph.queries.Regex` instead of a plain string, 
+which selects the KG's "REGEX" operator in place of "CONTAINS"::
+
+    from fairgraph import Regex
+
+    people = Person.list(client, family_name=Regex("^M[uü]ller$"))
+
+Note that searches are always case-insensitive.
+
+Removals
+--------
+
 **The openMINDS v3 transitional machinery has been removed.**
 The KG has been serving v4 metadata for some time, and the code that translated between the v3
 and v4 namespaces is no longer needed. The following have been removed:
@@ -58,17 +95,30 @@ and v4 namespaces is no longer needed. The following have been removed:
 Code that called these directly will need updating; code that simply used the client is
 unaffected.
 
-Bug fixes in this release:
 
-- Saving the same object twice in one session no longer erases the properties it does not
-  carry. When :meth:`~fairgraph.kgobject.KGObject.exists` recognized an object from the save
-  cache, it took the cached object's view of what the Knowledge Graph holds without filling in
-  the properties left empty locally. Any property that was set in the KG but absent from the
-  object then looked like a deliberate deletion, and was set to null by the following
-  :meth:`~fairgraph.kgobject.KGObject.save`. Metadata-harvesting scripts, which typically build
-  a fresh object for each role a person holds, were losing people's contact information,
-  affiliations and ORCIDs this way
+Changes in behaviour
+--------------------
+
+Three changes come with the rework of :meth:`~fairgraph.kgobject.KGObject.by_name`:
+
+- searching with a client on a class that has no name-like property at all (``DOI``, ``ORCID``, ``WebResource``, ...) 
+  now raises :exc:`AttributeError`;
+- an unrecognized ``match`` argument now raises :exc:`ValueError` instead of being silently treated as ``"contains"``;
+- the no-client path no longer warns when several objects share a name, since openMINDS does not. 
+  The warning remains on the Knowledge Graph path.
+
+
+Bug fixes
+---------
+
+- Saving the same object twice in one session no longer erases the properties it does not carry. 
   (`#134 <https://github.com/HumanBrainProject/fairgraph/issues/134>`_).
+- :meth:`~fairgraph.kgobject.KGObject.by_name()` no longer raises :exc:`TypeError` when called
+  without a client and nothing matches; it returns ``None``.
+  (`#130 <https://github.com/HumanBrainProject/fairgraph/issues/130>`_).
+- :class:`~fairgraph.kgobject.KGObject` instances are now hashable, so they can be used in
+  sets and as dictionary keys. Defining ``__eq__`` had made them unhashable; they now hash by
+  identity, as the openMINDS classes do.
 
 
 Version 0.14.0

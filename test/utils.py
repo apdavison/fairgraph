@@ -1,5 +1,6 @@
 from copy import deepcopy
 import os
+import re
 from uuid import uuid4
 from typing import Optional
 
@@ -9,6 +10,7 @@ from fairgraph.base import OPENMINDS_VERSION
 from fairgraph.caching import object_cache, save_cache
 from fairgraph.client import KGClient
 from fairgraph.errors import AuthenticationError, AuthorizationError
+from fairgraph.name_matching import KG_NAMELIKE_PROPERTIES
 from fairgraph.utility import as_list
 
 import pytest
@@ -95,6 +97,33 @@ class MockKGClient:
         else:
             raise NotImplementedError
 
+    # The names a `by_name()` search generates a filter for.
+    NAMELIKE_QUERY_PROPERTIES = tuple(f"Q{prop_name}" for prop_name in KG_NAMELIKE_PROPERTIES)
+
+    # Controlled terms this mock knows about, as (name, node type).
+    CANNED_TERMS = (
+        ("protein structure", "ModelAbstractionLevel"),
+        ("subcellular", "ModelScope"),
+        ("Mus musculus", "Species"),
+        ("astrocyte", "CellType"),
+        ("amygdala", "UBERONParcellation"),
+    )
+
+    @staticmethod
+    def _filter_selects(spec, candidate):
+        """
+        Whether a query filter would select an instance whose name-like property is `candidate`.
+
+        `by_name()` filters with a regular expression, while existence queries filter with a plain string,
+        so both have to be understood here. The regex is applied case-insensitively, to match the KG.
+        """
+        value = spec.get("value", None)
+        if not isinstance(value, str):
+            return False
+        if spec.get("op", None) == "REGEX":
+            return re.search(value, candidate, re.IGNORECASE) is not None
+        return candidate in value
+
     def query(
         self,
         query,
@@ -105,78 +134,46 @@ class MockKGClient:
         release_status="released",
         restrict_to_spaces=None,
     ):
-        for prop in query["structure"]:
-            if prop.get("propertyName", "") in ("Qname", "Qfull_name"):
-                filter_value = prop["filter"]["value"]
-                if "Dummy new model" in filter_value:
-                    return MockKGResponse(None)
-                elif "protein structure" in filter_value:
+        namelike_filters = [
+            prop["filter"]
+            for prop in query["structure"]
+            if prop.get("propertyName", "") in self.NAMELIKE_QUERY_PROPERTIES and prop.get("filter", None)
+        ]
+        if namelike_filters:
+
+            def selects(candidate):
+                return any(self._filter_selects(spec, candidate) for spec in namelike_filters)
+
+            if selects("Dummy new model"):
+                return MockKGResponse(None)
+            for term_name, node_type in self.CANNED_TERMS:
+                if selects(term_name):
                     return MockKGResponse(
                         [
                             {
-                                "https://openminds.om-i.org/props/name": filter_value,
+                                "https://openminds.om-i.org/props/name": term_name,
                                 "@id": "fake_uuid",
                                 "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
-                                "@type": ["https://openminds.om-i.org/types/ModelAbstractionLevel"],
+                                "@type": [f"https://openminds.om-i.org/types/{node_type}"],
                             }
                         ]
                     )
-                elif "subcellular" in filter_value:
-                    return MockKGResponse(
-                        [
-                            {
-                                "https://openminds.om-i.org/props/name": filter_value,
-                                "@id": "fake_uuid",
-                                "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
-                                "@type": ["https://openminds.om-i.org/types/ModelScope"],
-                            }
-                        ]
-                    )
-                elif "Mus musculus" in filter_value:
-                    return MockKGResponse(
-                        [
-                            {
-                                "https://openminds.om-i.org/props/name": filter_value,
-                                "@id": "fake_uuid",
-                                "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
-                                "@type": ["https://openminds.om-i.org/types/Species"],
-                            }
-                        ]
-                    )
-                elif "astrocyte" in filter_value:
-                    return MockKGResponse(
-                        [
-                            {
-                                "https://openminds.om-i.org/props/name": filter_value,
-                                "@id": "fake_uuid",
-                                "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
-                                "@type": ["https://openminds.om-i.org/types/CellType"],
-                            }
-                        ]
-                    )
-                elif "amygdala" in filter_value:
-                    return MockKGResponse(
-                        [
-                            {
-                                "https://openminds.om-i.org/props/name": filter_value,
-                                "@id": "fake_uuid",
-                                "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
-                                "@type": ["https://openminds.om-i.org/types/UBERONParcellation"],
-                            }
-                        ]
-                    )
-                elif "The Lonely Mountain" in filter_value:
-                    return MockKGResponse([])
-            elif prop.get("propertyName", "") == "Qgiven_name":
-                filter_value = prop["filter"]["value"]
-                if filter_value == "Thorin":
-                    return MockKGResponse([])
+        else:
+            for prop in query["structure"]:
+                if prop.get("propertyName", "") == "Qgiven_name":
+                    filter_value = prop["filter"]["value"]
+                    if filter_value == "Thorin":
+                        return MockKGResponse([])
         matches = self._match_instances(query)
+        if matches is None and namelike_filters and not self.instances:
+            # nothing has been seeded, so a name-like search legitimately finds nothing.
+            # Any other query shape `_match_instances` could not honour still raises below.
+            matches = []
         if matches is not None:
             return MockKGResponse(matches)
         raise NotImplementedError("case not yet handled by mock client")
 
-    SUPPORTED_FILTER_OPS = ("EQUALS", "CONTAINS")
+    SUPPORTED_FILTER_OPS = ("EQUALS", "CONTAINS", "REGEX")
 
     def _match_instances(self, query):
         """
@@ -221,6 +218,11 @@ class MockKGClient:
     @staticmethod
     def _value_matches(stored, op, value):
         for item in as_list(stored):
+            if op == "REGEX":
+                # the KG matches regular expressions case-insensitively
+                if isinstance(item, str) and isinstance(value, str) and re.search(value, item, re.IGNORECASE):
+                    return True
+                continue
             if item == value:
                 return True
             if op == "CONTAINS" and isinstance(item, str) and isinstance(value, str) and value in item:

@@ -25,6 +25,7 @@ from .kgobject import KGObject
 from .embedded import KGEmbedded, EmbeddedMetadata  # EmbeddedMetadata is a deprecated alias
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
+from .queries import Regex
 from .collection import Collection
 from . import client, errors, openminds, utility
 
