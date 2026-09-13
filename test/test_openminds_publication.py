@@ -8,7 +8,9 @@ from fairgraph.kgproxy import KGProxy
 from fairgraph.caching import object_cache
 from fairgraph.utility import as_list
 
-from test.utils import kg_client, skip_if_no_connection
+from test.utils import kg_client, skip_if_no_connection, mock_client, clear_caches, MockKGResponse
+from fairgraph.queries import get_filter_value
+from openminds.properties import Property
 
 
 def test_get_journal():
@@ -80,6 +82,45 @@ def test_get_journal_no_issue():
 
     expected = "AL Hodgkin & AF Huxley (1952). A quantitative description of membrane current and its application to conduction and excitation in nerve. The Journal of Physiology, 117: 500–44."
     assert article.get_citation_string(client=None) == expected
+
+
+@pytest.mark.parametrize("value,expected", [
+    ("1937-09-21", "1937-09-21"),
+    ("not-a-date", None),
+    ("1937-02-31", None),
+    ("1937-09-21T12:00:00", None),
+])
+def test_date_filter_accepts_only_iso_dates(value, expected):
+    prop = next(prop for prop in ompub.Book.properties if prop.name == "publication_date")
+    if expected is None:
+        with pytest.raises(TypeError):
+            get_filter_value(prop, value)
+    else:
+        assert get_filter_value(prop, value) == expected
+
+
+@pytest.mark.parametrize("value,expected", [
+    ("1937-09-21T12:00:00", "1937-09-21T12:00:00"),
+    ("1937-09-21", "1937-09-21"),
+    ("1937-02-31T12:00:00", None),
+    ("not-a-datetime", None),
+])
+def test_datetime_filter_accepts_only_iso_datetimes(value, expected):
+    prop = Property("timestamp", datetime.datetime, "https://openminds.om-i.org/props/timestamp")
+    if expected is None:
+        with pytest.raises(TypeError):
+            get_filter_value(prop, value)
+    else:
+        assert get_filter_value(prop, value) == expected
+
+
+def test_new_book_with_date_is_saved(mock_client, clear_caches, mocker):
+    book = ompub.Book(name="The Hobbit", publication_date=datetime.date(1937, 9, 21))
+    query = mocker.patch.object(mock_client, "query", return_value=MockKGResponse([]))
+    book.save(mock_client, space="myspace_1234", recursive=False)
+    assert query.call_count == 1
+    assert len(mock_client.instances) == 1
+    assert next(iter(mock_client.instances.values()))["https://openminds.om-i.org/props/publicationDate"] == "1937-09-21"
 
 
 @skip_if_no_connection

@@ -489,8 +489,17 @@ def get_filter_value(property, value: Any) -> Union[str, List[str]]:
                 val = UUID(val)
             except ValueError:
                 pass
-        if isinstance(val, str) and IRI in property.types:
-            return True
+        if isinstance(val, str):
+            if IRI in property.types:
+                return True
+            for temporal_type in (datetime, date):
+                if temporal_type in property.types:
+                    try:
+                        temporal_type.fromisoformat(val)
+                    except ValueError:
+                        continue
+                    else:
+                        return True
         return isinstance(val, (IRI, UUID, *property.types)) or (
             isinstance(val, KGProxy) and not set(val.classes).isdisjoint(property.types)
         )
