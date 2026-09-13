@@ -22,6 +22,7 @@ import fairgraph.openminds.controlled_terms as omterms
 from fairgraph.utility import ActivityLog, sha1sum, normalize_data
 
 from test.utils import (
+    MockKGResponse,
     clear_caches,
     mock_client,
     kg_client,
@@ -553,6 +554,42 @@ def test_save_same_person_twice_preserves_remote_only_properties(mock_client, cl
     assert mock_client.updates == []
 
 
+def test_save_same_new_person_twice_does_not_duplicate(mock_client, clear_caches, monkeypatch):
+    """
+    Because the KG is only eventually consistent, an instance that has just been
+    created may not yet appear in query results. When a harvesting script builds
+    a new Person object for each role a person has, saving the second object
+    must find the instance created from the first through the save cache,
+    rather than creating a duplicate.
+    """
+    queries = []
+
+    def query_not_yet_consistent(query, **kwargs):
+        queries.append(query)
+        return MockKGResponse([])
+
+    monkeypatch.setattr(mock_client, "query", query_not_yet_consistent)
+
+    # first encounter, e.g. as a developer: not in the KG, so created
+    developer = omcore.Person(given_name="Bilbo", family_name="Baggins")
+    log = ActivityLog()
+    developer.save(mock_client, space="common", activity_log=log)
+    assert [entry.type for entry in log.entries] == ["create"]
+    assert len(mock_client.instances) == 1
+    assert len(queries) == 1
+
+    # second encounter, e.g. as a custodian: the new instance is not yet visible
+    # to queries, so it must be found in the save cache
+    custodian = omcore.Person(given_name="Bilbo", family_name="Baggins")
+    log = ActivityLog()
+    custodian.save(mock_client, space="common", activity_log=log)
+    assert [entry.type for entry in log.entries] == ["no-op"]
+    assert custodian.id == developer.id
+    assert len(mock_client.instances) == 1
+    assert mock_client.updates == []
+    assert len(queries) == 1  # the KG was not queried again
+
+
 @skip_if_no_connection
 def test_KGQuery_resolve(kg_client):
     ca1 = omterms.UBERONParcellation.by_name("CA1 field of hippocampus", kg_client)
@@ -774,7 +811,7 @@ def test_save_replace_existing_mock(mock_client):
 
 
 @skip_if_using_production_server
-def test_save_new_recursive_mock(mock_client):
+def test_save_new_recursive_mock(mock_client, clear_caches):
     new_person = omcore.Person(
         given_name="Thorin",
         family_name="Oakenshield",
