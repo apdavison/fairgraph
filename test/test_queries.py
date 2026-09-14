@@ -1,8 +1,11 @@
 import os
 import json
+from datetime import datetime
+
 import pytest
 from kg_core.request import Stage, Pagination
-from fairgraph.queries import Query, QueryProperty, Filter, PathElement, Regex
+from openminds.properties import Property
+from fairgraph.queries import Query, QueryProperty, Filter, PathElement, Regex, get_filter_value
 import fairgraph.openminds.core as omcore
 from .utils import kg_client, mock_client, skip_if_no_connection
 
@@ -629,6 +632,13 @@ def test_path_element_conflicts_with_top_level_reverse():
             ],
             reverse=True,
         )
+
+
+def test_get_filter_value_preserves_timezone_aware_datetime():
+    prop = Property("timestamp", datetime, "https://openminds.om-i.org/props/timestamp")
+    timestamp = "2026-09-13T12:00:00+00:00"
+
+    assert get_filter_value(prop, timestamp) == timestamp
 
 
 @skip_if_no_connection

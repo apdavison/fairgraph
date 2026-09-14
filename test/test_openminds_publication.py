@@ -8,7 +8,7 @@ from fairgraph.kgproxy import KGProxy
 from fairgraph.caching import object_cache
 from fairgraph.utility import as_list
 
-from test.utils import kg_client, skip_if_no_connection
+from test.utils import MockKGResponse, clear_caches, kg_client, mock_client, skip_if_no_connection
 
 
 def test_get_journal():
@@ -80,6 +80,30 @@ def test_get_journal_no_issue():
 
     expected = "AL Hodgkin & AF Huxley (1952). A quantitative description of membrane current and its application to conduction and excitation in nerve. The Journal of Physiology, 117: 500–44."
     assert article.get_citation_string(client=None) == expected
+
+
+def test_new_book_with_date_is_saved(mock_client, clear_caches, mocker):
+    book = ompub.Book(name="The Hobbit", publication_date=datetime.date(1937, 9, 21))
+    query = mocker.patch.object(mock_client, "query", return_value=MockKGResponse([]))
+    book.save(mock_client, space="myspace_1234", recursive=False)
+    assert query.call_count == 1
+    assert len(mock_client.instances) == 1
+    assert (
+        next(iter(mock_client.instances.values()))["https://openminds.om-i.org/props/publicationDate"] == "1937-09-21"
+    )
+
+
+def test_book_with_date_exists(mock_client, clear_caches, mocker):
+    book = ompub.Book(name="The Hobbit", publication_date=datetime.date(1937, 9, 21))
+    query = mocker.patch.object(mock_client, "query", return_value=MockKGResponse([]))
+
+    assert not book.exists(mock_client)
+
+    existence_query = query.call_args.kwargs["query"]
+    date_filter = next(
+        prop for prop in existence_query["structure"] if prop.get("propertyName") == "Qpublication_date"
+    )
+    assert date_filter["filter"]["value"] == "1937-09-21"
 
 
 @skip_if_no_connection

@@ -520,14 +520,25 @@ def get_filter_value(property, value: Any) -> Union[str, List[str]]:
     """
     from .kgproxy import KGProxy
 
+    has_temporal_type = any(temporal_type in property.types for temporal_type in (datetime, date))
+
     def is_valid(val):
         if isinstance(val, str):
             try:
                 val = UUID(val)
             except ValueError:
                 pass
-        if isinstance(val, str) and IRI in property.types:
-            return True
+        if isinstance(val, str):
+            if IRI in property.types:
+                return True
+            for temporal_type in (datetime, date):
+                if temporal_type in property.types:
+                    try:
+                        temporal_type.fromisoformat(val)
+                    except ValueError:
+                        continue
+                    else:
+                        return True
         return isinstance(val, (IRI, UUID, *property.types)) or (
             isinstance(val, KGProxy) and not set(val.classes).isdisjoint(property.types)
         )
@@ -561,7 +572,7 @@ def get_filter_value(property, value: Any) -> Union[str, List[str]]:
             # todo: consider using client.uri_from_uuid()
             # would require passing client as arg
             filter_item = f"https://kg.ebrains.eu/api/instances/{item}"
-        elif isinstance(item, str) and "+" in item:  # workaround for KG bug
+        elif isinstance(item, str) and "+" in item and not has_temporal_type:  # workaround for KG bug
             invalid_char_index = item.index("+")
             if invalid_char_index < 3:
                 raise ValueError(f"Cannot use {item} as filter, contains invalid characters")

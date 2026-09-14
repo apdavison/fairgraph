@@ -35,5 +35,11 @@
       "givenName": "Peyman",
       "familyName": "Najafi",
       "affiliation": [{"@id": "https://ror.org/002v40q27"}]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://github.com/mikemikimike",
+      "givenName": "mikemikimike",
+      "affiliation": [{"name": "Independent contributor"}]
     }
   ]
