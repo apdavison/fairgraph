@@ -212,7 +212,11 @@ class MockKGClient:
             if node_type not in as_list(instance.get("@type", [])):
                 continue
             if all(self._value_matches(instance.get(path, None), op, value) for path, op, value in filters):
-                matches.append(deepcopy(instance))
+                match = deepcopy(instance)
+                if "https://core.kg.ebrains.eu/vocab/meta/space" in match:
+                    # the query API returns the space under the name given in the query definition
+                    match["https://schema.hbp.eu/myQuery/space"] = match["https://core.kg.ebrains.eu/vocab/meta/space"]
+                matches.append(match)
         return matches
 
     @staticmethod
