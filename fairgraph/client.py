@@ -249,8 +249,28 @@ class KGClient(object):
         Returns:
             A ResultPage object containing a list of JSON-LD instances that satisfy the query,
             along with metadata about the query results such as total number of instances, and pagination information.
+
+        Raises:
+            ValueError: if a value in `filter` contains "+" or "%" (see below).
         """
         release_status = handle_scope_keyword(scope, release_status)
+        if filter:
+            # `filter` values are sent to the KG as request parameters, which the KG decodes twice:
+            # once by Spring, and again in DataQueryBuilder.createAqlForFilter() in marmotgraph-core.
+            # As a result, a "+" is received as a space, so the query silently returns the wrong results,
+            # and a "%" either causes a "400 Bad Request" error or is decoded together with the following
+            # characters. Filter values given within the query definition itself are not affected.
+            # The second decoding is absent from the v4 branch of marmotgraph-core, which replaces DataQueryBuilder.
+            # If test_kg_misreads_plus_and_percent_in_query_parameters in test/test_client.py starts failing,
+            # the KG has been fixed and this check can be removed.
+            for name, value in filter.items():
+                values = value if isinstance(value, (list, tuple)) else [value]
+                if any(isinstance(item, str) and ("+" in item or "%" in item) for item in values):
+                    raise ValueError(
+                        f"Cannot filter on {name}={value!r} using a query parameter, since the KG does not handle "
+                        "'+' or '%' in parameter values correctly. Include the filter value in the query definition "
+                        "instead."
+                    )
         query_id = query.get("@id", None)
 
         if use_stored_query:

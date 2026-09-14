@@ -520,8 +520,6 @@ def get_filter_value(property, value: Any) -> Union[str, List[str]]:
     """
     from .kgproxy import KGProxy
 
-    has_temporal_type = any(temporal_type in property.types for temporal_type in (datetime, date))
-
     def is_valid(val):
         if isinstance(val, str):
             try:
@@ -559,10 +557,7 @@ def get_filter_value(property, value: Any) -> Union[str, List[str]]:
 
     filter_items = []
     for item in as_list(value):
-        if isinstance(item, Regex):
-            # a pattern must be passed through untouched, in particular past the "+" workaround below
-            filter_item = item
-        elif isinstance(item, IRI):
+        if isinstance(item, IRI):
             filter_item = item.value
         elif isinstance(item, (date, datetime)):
             filter_item = item.isoformat()
@@ -572,12 +567,6 @@ def get_filter_value(property, value: Any) -> Union[str, List[str]]:
             # todo: consider using client.uri_from_uuid()
             # would require passing client as arg
             filter_item = f"https://kg.ebrains.eu/api/instances/{item}"
-        elif isinstance(item, str) and "+" in item and not has_temporal_type:  # workaround for KG bug
-            invalid_char_index = item.index("+")
-            if invalid_char_index < 3:
-                raise ValueError(f"Cannot use {item} as filter, contains invalid characters")
-            filter_item = item[:invalid_char_index]
-            warn(f"Truncating filter value {item} --> {filter_item}")
         else:
             filter_item = item
         filter_items.append(filter_item)

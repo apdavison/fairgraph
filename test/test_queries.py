@@ -1,12 +1,10 @@
 import os
 import json
-from datetime import datetime
-
 import pytest
 from kg_core.request import Stage, Pagination
-from openminds.properties import Property
-from fairgraph.queries import Query, QueryProperty, Filter, PathElement, Regex, get_filter_value
+from fairgraph.queries import Query, QueryProperty, Filter, PathElement, Regex
 import fairgraph.openminds.core as omcore
+import fairgraph.openminds.controlled_terms as omterms
 from .utils import kg_client, mock_client, skip_if_no_connection
 
 
@@ -634,13 +632,6 @@ def test_path_element_conflicts_with_top_level_reverse():
         )
 
 
-def test_get_filter_value_preserves_timezone_aware_datetime():
-    prop = Property("timestamp", datetime, "https://openminds.om-i.org/props/timestamp")
-    timestamp = "2026-09-13T12:00:00+00:00"
-
-    assert get_filter_value(prop, timestamp) == timestamp
-
-
 @skip_if_no_connection
 def test_execute_query_with_multi_element_path_with_path_elements(kg_client):
     # This query should return only Files belonging to the specified dataset.
@@ -733,13 +724,35 @@ def test_generate_query_with_plain_string_filter_still_uses_contains(mock_client
     assert filters == [{"op": "CONTAINS", "value": "Müller"}]
 
 
-def test_regex_filter_is_not_truncated_at_a_plus_sign(mock_client):
-    # plain string filter values containing "+" are truncated to work around a KG bug;
-    # a regular expression must survive intact
-    pattern = Regex("^CLARITY[-+/]TDE$")
-    query = omcore.Person.generate_query(client=mock_client, space=None, filters={"family_name": pattern})
-    filters = [prop["filter"] for prop in query["structure"] if prop.get("propertyName", None) == "Qfamily_name"]
-    assert filters == [{"op": "REGEX", "value": "^CLARITY[-+/]TDE$"}]
+def test_filter_values_containing_a_plus_sign_are_not_modified(mock_client):
+    # filter values containing "+" used to be truncated, to work around a KG bug that no longer occurs
+    for cls, property_name, value, expected in (
+        (omterms.ProgrammingLanguage, "name", "C++", {"op": "CONTAINS", "value": "C++"}),
+        (
+            omcore.ContactInformation,
+            "email",
+            "jane.doe+kg@example.org",
+            {"op": "CONTAINS", "value": "jane.doe+kg@example.org"},
+        ),
+        (omterms.Technique, "name", Regex("^CLARITY[-+/]TDE$"), {"op": "REGEX", "value": "^CLARITY[-+/]TDE$"}),
+        (
+            omcore.Comment,
+            "timestamp",
+            "2025-01-17T16:22:53.824903+00:00",
+            {"op": "EQUALS", "value": "2025-01-17T16:22:53.824903+00:00"},
+        ),
+        (
+            omcore.Comment,
+            "timestamp",
+            "2026-09-13T14:00:00+02:00",
+            {"op": "EQUALS", "value": "2026-09-13T14:00:00+02:00"},
+        ),
+    ):
+        query = cls.generate_query(client=mock_client, space=None, filters={property_name: value})
+        filters = [
+            prop["filter"] for prop in query["structure"] if prop.get("propertyName", None) == f"Q{property_name}"
+        ]
+        assert filters == [expected]
 
 
 def test_regex_rejects_a_malformed_pattern():
