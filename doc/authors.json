@@ -39,7 +39,7 @@
     {
       "@type": "Person",
       "@id": "https://github.com/mikemikimike",
-      "givenName": "mikemikimike",
+      "alternateName": "@mikemikimike",
       "affiliation": [{"name": "Independent contributor"}]
     }
   ]

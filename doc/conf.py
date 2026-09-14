@@ -9,9 +9,15 @@
 import json
 import tomllib
 
+
+def full_name(au):
+    # contributors may give a pseudonym (alternateName) rather than their given and family names
+    return " ".join(filter(None, (au.get("givenName"), au.get("familyName")))) or au["alternateName"]
+
+
 with open("authors.json") as fp:
     author_data = json.load(fp)
-author_list = ", ".join(f"{au['givenName']} {au['familyName']}" for au in author_data)
+author_list = ", ".join(full_name(au) for au in author_data)
 
 # -- Path setup --------------------------------------------------------------
 

@@ -9,13 +9,21 @@ from dateutil import parser as date_parser
 import requests
 
 
+def codemeta_author(author):
+    # "alternateName" is not a CodeMeta term, so a pseudonym is given as the person's name
+    author = dict(author)
+    if "alternateName" in author and "name" not in author:
+        author["name"] = author.pop("alternateName")
+    return author
+
+
 def generate_for_version(version):  # e.g. version="0.9.0"
 
     response = requests.get("https://pypi.org/pypi/fairgraph/json")
     pypi_metadata = response.json()
 
     with open("./authors.json") as fp:
-        authors = json.load(fp)
+        authors = [codemeta_author(author) for author in json.load(fp)]
     with open("./organizations.json") as fp:
         organizations = json.load(fp)
 

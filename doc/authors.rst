@@ -10,9 +10,11 @@ The following people have contributed to fairgraph. Their affiliations at the ti
 - Nico Feld [2]
 - Glynis Mattheisen [1]
 - Peyman Najafi [1]
+- @mikemikimike [3]
 
 1. Paris-Saclay Institute of Neuroscience, Université Paris-Saclay, Centre National de la Recherche Scientifique, Saclay, France
 2. Trier University, Trier, Germany
+3. Independent contributor
 
 Acknowledgements
 ================
