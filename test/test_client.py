@@ -1,3 +1,4 @@
+import copy
 import os
 import pytest
 
@@ -321,7 +322,7 @@ def test_create_new_instance(kg_client, mocker):
     )
     fake_id = "00000000-0000-0000-0000-000000000000"
     response = kg_client.create_new_instance({"a": 1, "b": 2}, instance_id=fake_id, space="not-a-real-space")
-    assert response == {"@id": fake_id, "a": 1, "b": 2}
+    assert response == {"@id": kg_client.uri_from_uuid(fake_id), "a": 1, "b": 2}
 
 
 @skip_if_no_connection
@@ -333,7 +334,7 @@ def test_replace_instance(kg_client, mocker):
     )
     fake_id = "00000000-0000-0000-0000-000000000000"
     response = kg_client.replace_instance(fake_id, {"a": 1, "b": 2})
-    assert response == {"@id": fake_id, "a": 1, "b": 2}
+    assert response == {"@id": kg_client.uri_from_uuid(fake_id), "a": 1, "b": 2}
 
 
 @skip_if_no_connection
@@ -553,3 +554,145 @@ class TestSpaceInfoOffline:
         out = capsys.readouterr().out
         assert "Person 3" in out
         assert f"{self.unknown_type} 7" in out
+
+
+class TestBareUuidLinks:
+    """Marmotgraph v4 gives links to other KG instances as bare UUIDs rather than full URIs.
+    The client expands them, so that links can be resolved and compared with instance ids."""
+
+    namespace = "https://kg.ebrains.eu/api/instances/"
+    dsv_uuid = "00000000-0000-0000-0000-000000000001"
+    target_uuid = "00000000-0000-0000-0000-00000000000a"
+
+    def dataset_version(self, id_):
+        return {
+            "@id": id_,
+            "@type": ["https://openminds.om-i.org/types/DatasetVersion"],
+            "http://schema.org/identifier": [self.dsv_uuid, self.namespace + self.dsv_uuid],
+            "https://core.kg.ebrains.eu/vocab/meta/space": "dataset",
+            "https://openminds.om-i.org/props/accessibility": {"@id": self.target_uuid},
+            "https://openminds.om-i.org/props/digitalIdentifier": {"@id": "https://doi.org/10.25493/6640-3XH"},
+            "https://openminds.om-i.org/props/technique": [
+                {"@id": "https://openminds.om-i.org/instances/technique/spatialRegistration"},
+                {"@id": self.target_uuid.upper()},
+            ],
+        }
+
+    def test_expand_bare_uuids(self):
+        from fairgraph.client import expand_bare_uuids
+
+        data = [
+            {
+                "@id": self.dsv_uuid,
+                "http://schema.org/identifier": [self.dsv_uuid],
+                "https://openminds.om-i.org/props/link": {"@id": self.target_uuid},
+                "https://openminds.om-i.org/props/links": [
+                    {"@id": self.target_uuid},
+                    {"@id": "https://example.com/x"},
+                ],
+                "https://openminds.om-i.org/props/embedded": {
+                    "@id": f"{self.dsv_uuid}_emb_1",
+                    "https://openminds.om-i.org/props/nested": {"@id": self.target_uuid},
+                },
+                "https://openminds.om-i.org/props/name": self.target_uuid,
+            }
+        ]
+        result = expand_bare_uuids(data, self.namespace)
+        assert result is data
+        assert data == [
+            {
+                "@id": self.namespace + self.dsv_uuid,
+                "http://schema.org/identifier": [self.dsv_uuid],  # not an "@id", so unchanged
+                "https://openminds.om-i.org/props/link": {"@id": self.namespace + self.target_uuid},
+                "https://openminds.om-i.org/props/links": [
+                    {"@id": self.namespace + self.target_uuid},
+                    {"@id": "https://example.com/x"},
+                ],
+                "https://openminds.om-i.org/props/embedded": {
+                    "@id": f"{self.dsv_uuid}_emb_1",
+                    "https://openminds.om-i.org/props/nested": {"@id": self.namespace + self.target_uuid},
+                },
+                "https://openminds.om-i.org/props/name": self.target_uuid,
+            }
+        ]
+
+    def test_full_uris_unchanged(self):
+        from fairgraph.client import expand_bare_uuids
+
+        data = self.dataset_version(self.namespace + self.dsv_uuid)
+        for item in data["https://openminds.om-i.org/props/technique"]:
+            item["@id"] = "https://openminds.om-i.org/instances/technique/spatialRegistration"
+        data["https://openminds.om-i.org/props/accessibility"]["@id"] = self.namespace + self.target_uuid
+        expected = copy.deepcopy(data)
+        assert expand_bare_uuids(data, self.namespace) == expected
+
+    def test_list(self, offline_kg_client, mocker):
+        mocker.patch.object(
+            offline_kg_client._kg_client.instances,
+            "list",
+            lambda **kw: MockKGResponse([self.dataset_version(self.namespace + self.dsv_uuid)]),
+        )
+        data = offline_kg_client.list("https://openminds.om-i.org/types/DatasetVersion").data[0]
+        assert data["https://openminds.om-i.org/props/accessibility"] == {"@id": self.namespace + self.target_uuid}
+        assert data["https://openminds.om-i.org/props/technique"] == [
+            {"@id": "https://openminds.om-i.org/instances/technique/spatialRegistration"},
+            {"@id": self.namespace + self.target_uuid.upper()},
+        ]
+        assert data["https://openminds.om-i.org/props/digitalIdentifier"] == {
+            "@id": "https://doi.org/10.25493/6640-3XH"
+        }
+
+    def test_query(self, offline_kg_client, mocker):
+        mocker.patch.object(
+            offline_kg_client._kg_client.queries,
+            "test_query",
+            lambda *args, **kw: MockKGResponse([{"@id": self.dsv_uuid, "accessibility": {"@id": self.target_uuid}}]),
+        )
+        data = offline_kg_client.query({"@context": {}, "structure": []}).data
+        assert data == [
+            {"@id": self.namespace + self.dsv_uuid, "accessibility": {"@id": self.namespace + self.target_uuid}}
+        ]
+
+    def test_resolve_link(self, offline_kg_client, mocker):
+        from fairgraph.openminds.core import DatasetVersion
+        from fairgraph.openminds.controlled_terms import ProductAccessibility
+
+        server = {
+            self.dsv_uuid: self.dataset_version(self.namespace + self.dsv_uuid),
+            self.target_uuid: {
+                "@id": self.namespace + self.target_uuid,
+                "@type": ["https://openminds.om-i.org/types/ProductAccessibility"],
+                "http://schema.org/identifier": [self.namespace + self.target_uuid],
+                "https://core.kg.ebrains.eu/vocab/meta/space": "controlled",
+                "https://openminds.om-i.org/props/name": "controlled access",
+            },
+        }
+        mocker.patch.object(
+            offline_kg_client._kg_client.instances,
+            "get_by_id",
+            lambda stage, instance_id, extended_response_configuration: MockKGResponse(
+                copy.deepcopy(server[str(instance_id)])
+            ),
+        )
+        dsv = DatasetVersion.from_id(self.dsv_uuid, offline_kg_client)
+        assert dsv.accessibility.id == self.namespace + self.target_uuid
+        accessibility = dsv.accessibility.resolve(offline_kg_client)
+        assert isinstance(accessibility, ProductAccessibility)
+        assert accessibility.name == "controlled access"
+        assert accessibility.id == dsv.accessibility.id
+
+    def test_openminds_instance(self, offline_kg_client, mocker):
+        uri = "https://openminds.om-i.org/instances/technique/spatialRegistration"
+        result = mocker.Mock(
+            data={"@id": self.target_uuid, "https://openminds.om-i.org/props/link": {"@id": self.dsv_uuid}}
+        )
+        mocker.patch.object(
+            offline_kg_client._kg_client.instances,
+            "get_by_identifiers",
+            lambda **kw: mocker.Mock(data={uri: result}),
+        )
+        data = offline_kg_client.instance_from_full_uri(uri, use_cache=False, require_full_data=False)
+        assert data == {
+            "@id": self.namespace + self.target_uuid,
+            "https://openminds.om-i.org/props/link": {"@id": self.namespace + self.dsv_uuid},
+        }

@@ -21,6 +21,7 @@ EBRAINS KG core API.
 from __future__ import annotations
 import os
 import logging
+import re
 from typing import Any, Dict, Iterable, List, Optional, Union, TYPE_CHECKING
 from uuid import uuid4, UUID
 
@@ -58,6 +59,35 @@ if have_kg_core:
         "in progress": Stage.IN_PROGRESS,
     }
     default_response_configuration = ExtendedResponseConfiguration(return_embedded=True)
+
+
+BARE_UUID = re.compile(r"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}")
+
+
+def expand_bare_uuids(data: Any, namespace: str) -> Any:
+    """
+    Replace every "@id" whose value is a bare UUID with the full URI of the instance, in place.
+
+    Marmotgraph v3 gives links to other KG instances as full URIs
+    (e.g. "https://kg.ebrains.eu/api/instances/<uuid>"), but Marmotgraph v4 gives them as bare UUIDs,
+    while still giving the "@id" of the instance itself as a full URI. Expanding the bare UUIDs keeps
+    ids consistent, so that links can be resolved and compared with the ids of the instances they
+    point to. Responses containing only full URIs are unchanged.
+
+    Returns the (modified) data.
+    """
+    if isinstance(data, dict):
+        for key, value in data.items():
+            if key == "@id":
+                # checking the length first quickly rules out full URIs and other IRIs
+                if isinstance(value, str) and len(value) == 36 and BARE_UUID.fullmatch(value):
+                    data[key] = f"{namespace}{value}"
+            else:
+                expand_bare_uuids(value, namespace)
+    elif isinstance(data, list):
+        for item in data:
+            expand_bare_uuids(item, namespace)
+    return data
 
 
 AVAILABLE_PERMISSIONS = [
@@ -217,6 +247,7 @@ class KGClient(object):
             else:
                 raise Exception(f"Error: {response.error} {error_context}")
         else:
+            expand_bare_uuids(response.data, self._kg_client.instances._kg_config.id_namespace)
             return response
 
     def query(
@@ -438,7 +469,7 @@ class KGClient(object):
                         extended_response_configuration=default_response_configuration,
                     )
                     # todo: handle errors
-                    data = response.data[payload[0]].data
+                    data = expand_bare_uuids(response.data[payload[0]].data, kg_namespace)
                 else:
                     raise Exception(f"This client cannot retrieve instances from {uri}")
 
