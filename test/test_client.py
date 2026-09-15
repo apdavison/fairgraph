@@ -1,6 +1,7 @@
 import os
 import pytest
 
+from kg_core.request import Stage, Pagination
 from kg_core.response import Error as KGError
 from fairgraph.kgobject import KGObject
 from fairgraph.queries import Query, QueryProperty, Filter
@@ -144,6 +145,56 @@ def test_query_filter_by_space(kg_client):
     if len(spaces) > 0:
         assert len(spaces) == 1
         assert "model" == list(spaces)[0]
+
+
+@pytest.mark.parametrize("use_stored_query", [False, True])
+@pytest.mark.parametrize("value", ["application/ld+json", "100%"])
+def test_query_rejects_plus_and_percent_in_filter_parameters(offline_kg_client, mocker, use_stored_query, value):
+    # the KG misreads "+" and "%" in request parameters (see test_kg_misreads_plus_and_percent_in_query_parameters),
+    # so the query must not be sent
+    for method in ("test_query", "execute_query_by_id"):
+        mocker.patch.object(offline_kg_client._kg_client.queries, method, side_effect=AssertionError("query was sent"))
+    query = {"@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000000"}
+    with pytest.raises(ValueError, match="Cannot filter on name="):
+        offline_kg_client.query(query, filter={"name": value}, use_stored_query=use_stored_query)
+
+
+@skip_if_no_connection
+def test_kg_misreads_plus_and_percent_in_query_parameters(kg_client):
+    """
+    The KG decodes request parameter values twice (once by Spring, and again in
+    DataQueryBuilder.createAqlForFilter() in marmotgraph-core), so a "+" in a filter parameter
+    is received as a space, and a "%" that isn't part of a valid escape sequence causes an error.
+    KGClient.query() therefore refuses filter parameters containing "+" or "%".
+
+    The second decoding is absent from the v4 branch of marmotgraph-core. If this test starts failing,
+    the KG has been fixed, and that check can be removed.
+    """
+    query = Query(
+        node_type="https://openminds.om-i.org/types/ContentType",
+        properties=[
+            QueryProperty("@type"),
+            QueryProperty(
+                "https://openminds.om-i.org/props/name",
+                name="name",
+                filter=Filter("CONTAINS", parameter="name"),
+                required=True,
+            ),
+        ],
+    ).serialize()
+
+    def run_query(value):
+        # calls kg-core directly, since KGClient.query() rejects these filters
+        return kg_client._kg_client.queries.test_query(
+            query, additional_request_params={"name": value}, stage=Stage.RELEASED, pagination=Pagination(size=20)
+        )
+
+    def names_found(value):
+        return [item["name"] for item in run_query(value).data]
+
+    assert "application/ld+json" in names_found("application/ld")
+    assert "application/ld+json" not in names_found("application/ld+json")
+    assert run_query("100%").error is not None
 
 
 @skip_if_no_connection
