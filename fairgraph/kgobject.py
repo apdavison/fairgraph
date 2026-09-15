@@ -55,6 +55,10 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger("fairgraph")
 
+# Number of results requested by existence queries, which must be more than one, to detect duplicates.
+# If more instances match, they are all retrieved in a second query.
+EXISTENCE_QUERY_SIZE = 2
+
 
 class KGObject(KGNode, Releasable):
     """
@@ -555,8 +559,31 @@ class KGObject(KGNode, Releasable):
         return differences
 
     def exists(self, client: KGClient, ignore_duplicates: bool = False, in_spaces: Optional[List[str]] = None) -> bool:
-        """Check if this object already exists in the KnowledgeGraph"""
+        """
+        Check if this object already exists in the KnowledgeGraph.
 
+        Args:
+            client: KGClient object that handles the communication with the KG.
+            ignore_duplicates (bool, optional): Whether to ignore the existence of multiple objects with the same properties
+                (and consider only the first in the list), or to raise an Exception. Defaults to False.
+            in_spaces (list of str, optional): If provided, only look for the object in these spaces.
+        """
+        obj_exists = self._exists_without_query(client)
+        if obj_exists is not None:
+            return obj_exists
+        instances = self._query_matching_instances(client, in_spaces=in_spaces)
+        if not instances:
+            return False
+        self._check_for_duplicates(instances, ignore_duplicates)
+        return self._use_matching_instance(client, instances[0])
+
+    def _exists_without_query(self, client: KGClient) -> Optional[bool]:
+        """
+        Check if this object exists in the KG, where this can be determined without an existence query,
+        i.e. if the object has an ID, if there is no existence query, or if the object is found in the save cache.
+
+        Returns True or False if this could be determined, None if an existence query is needed.
+        """
         if self.id and self.id.startswith("http"):
             # Since the KG now allows user-specified IDs we can't assume that the presence of
             # an id means the object exists
@@ -569,70 +596,92 @@ class KGObject(KGNode, Releasable):
             if obj_exists:
                 self._update_empty_properties(data)  # also updates `remote_data`
             return obj_exists
-        else:
-            try:
-                query_filter = self._build_existence_query()
-            except CannotBuildExistenceQuery:
-                return False
 
-            if query_filter is None:
-                # if there's no existence query and no ID, we allow
-                # duplicate entries
-                return False
-            else:
-                query_cache_key = generate_cache_key(query_filter)
-                if query_cache_key in save_cache[self.__class__]:
-                    # Because the KnowledgeGraph is only eventually consistent, an instance
-                    # that has just been written to the KG may not appear in the query.
-                    # Therefore we cache the query when creating an instance and
-                    # where exists() returns True
-                    self.id = save_cache[self.__class__][query_cache_key]
-                    cached_obj = object_cache.get(self.id)
-                    if cached_obj and cached_obj.remote_data:
-                        self._raw_remote_data = cached_obj._raw_remote_data
-                        # this also updates `self.remote_data`. It must not be replaced by a
-                        # direct assignment to `self.remote_data`: a property that is empty
-                        # locally but present remotely would then look like a deliberate
-                        # deletion, and be set to null by the next call to save().
-                        self._update_empty_properties(cached_obj.remote_data)
-                    return True
+        try:
+            query_filter = self._build_existence_query()
+        except CannotBuildExistenceQuery:
+            return False
+        if query_filter is None:
+            # if there's no existence query and no ID, we allow
+            # duplicate entries
+            return False
 
-                query = self.__class__.generate_minimal_query(
-                    client=client,
-                    filters=query_filter,
+        query_cache_key = generate_cache_key(query_filter)
+        if query_cache_key in save_cache[self.__class__]:
+            # Because the KnowledgeGraph is only eventually consistent, an instance
+            # that has just been written to the KG may not appear in the query.
+            # Therefore we cache the query when creating an instance and
+            # where exists() returns True
+            self.id = save_cache[self.__class__][query_cache_key]
+            cached_obj = object_cache.get(self.id)
+            if cached_obj and cached_obj.remote_data:
+                self._raw_remote_data = cached_obj._raw_remote_data
+                # this also updates `self.remote_data`. It must not be replaced by a
+                # direct assignment to `self.remote_data`: a property that is empty
+                # locally but present remotely would then look like a deliberate
+                # deletion, and be set to null by the next call to save().
+                self._update_empty_properties(cached_obj.remote_data)
+            return True
+        return None
+
+    def _query_matching_instances(self, client: KGClient, in_spaces: Optional[List[str]] = None) -> List[JSONdict]:
+        """
+        Run the existence query for this object, and return all matching instances
+        (their "@id" and space only).
+
+        If the connection is lost while querying, an empty list is returned, with a warning.
+        """
+        query_filter = self._build_existence_query()
+        query = self.__class__.generate_minimal_query(client=client, filters=query_filter)
+        try:
+            response = client.query(
+                query=query, size=EXISTENCE_QUERY_SIZE, release_status="any", restrict_to_spaces=in_spaces
+            )
+            instances = response.data or []
+            if response.total > len(instances):
+                response = client.query(
+                    query=query, size=response.total, release_status="any", restrict_to_spaces=in_spaces
                 )
+                instances = response.data or []
+        except ConnectionError as err:
+            if "RemoteDisconnected" in str(err):
+                warn(
+                    f"Timeout when checking for existence of object {self}."
+                    "Returning False, check for possible creation of duplicate instances."
+                )
+                return []
+            raise
+        return instances
 
-                try:
-                    instances = client.query(
-                        query=query, size=2, release_status="any", restrict_to_spaces=in_spaces
-                    ).data
-                except ConnectionError as err:
-                    if "RemoteDisconnected" in str(err):
-                        warn(
-                            f"Timeout when checking for existence of object {self}."
-                            "Returning False, check for possible creation of duplicate instances."
-                        )
-                        return False
+    def _check_for_duplicates(self, instances: List[JSONdict], ignore_duplicates: bool):
+        if len(instances) > 1 and not ignore_duplicates:
+            # we might want to consider running a second query with "equals" rather than "contains"
+            raise Exception(
+                f"Existence query is not specific enough. Type: {self.__class__.__name__}; "
+                f"filters: {self._build_existence_query()}"
+            )
 
-                if instances:
-                    if len(instances) > 1 and not ignore_duplicates:
-                        # we might want to consider running a second query with "equals" rather than "contains"
-                        raise Exception(
-                            f"Existence query is not specific enough. Type: {self.__class__.__name__}; filters: {query_filter}"
-                        )
+    def _use_matching_instance(self, client: KGClient, match: JSONdict) -> bool:
+        """
+        Identify this object with an instance found by the existence query.
 
-                    # it seems that sometimes the "query" endpoint returns instances
-                    # which the "instances" endpoint doesn't know about, so here we double check that
-                    # the instance can be found
-                    instance = client.instance_from_full_uri(instances[0]["@id"], release_status="any")
-                    if instance is None:
-                        return False
+        Returns False if the instance could not be retrieved.
+        """
+        # it seems that sometimes the "query" endpoint returns instances
+        # which the "instances" endpoint doesn't know about, so here we double check that
+        # the instance can be found
+        instance = client.instance_from_full_uri(match["@id"], release_status="any")
+        if instance is None:
+            return False
 
-                    self.id = instance["@id"]
-                    assert isinstance(self.id, str)
-                    save_cache[self.__class__][query_cache_key] = self.id
-                    self._update_empty_properties(instance)  # also updates `remote_data`
-                return bool(instances)
+        self.id = instance["@id"]
+        assert isinstance(self.id, str)
+        # the instance's actual location takes precedence over any space set locally
+        if "https://schema.hbp.eu/myQuery/space" in match:
+            self._space = match["https://schema.hbp.eu/myQuery/space"]
+        save_cache[self.__class__][generate_cache_key(self._build_existence_query())] = self.id
+        self._update_empty_properties(instance)  # also updates `remote_data`
+        return True
 
     def modified_data(self) -> JSONdict:
         """
@@ -744,7 +793,28 @@ class KGObject(KGNode, Releasable):
             else:
                 space = self.space
         logger.info(f"Saving a {self.__class__.__name__} in space {space}")
-        if self.exists(client, ignore_duplicates=ignore_duplicates, in_spaces=[space]):
+        found = self._exists_without_query(client)
+        if found is None:
+            # We look for the object in all spaces, not only the one we are saving to, to avoid creating duplicates,
+            # but if it exists both in the target space and elsewhere, we use the instance in the target space.
+            instances = self._query_matching_instances(client)
+            candidates = [
+                instance for instance in instances if instance.get("https://schema.hbp.eu/myQuery/space") == space
+            ] or instances
+            if candidates:
+                self._check_for_duplicates(candidates, ignore_duplicates)
+                found = self._use_matching_instance(client, candidates[0])
+            else:
+                found = False
+        if found and self.space is not None and self.space != space:
+            # An existing instance can only be updated in the space where it lives,
+            # so we link to it there rather than creating a duplicate in the requested space.
+            warn(
+                f"{self.__class__.__name__}(id={self.id}) already exists in space '{self.space}', "
+                f"so it will be updated there rather than created in space '{space}'"
+            )
+            space = self.space
+        if found:
             if not self.allow_update:
                 logger.info(f"  - not updating {self.__class__.__name__}(id={self.id}), update not allowed by user")
                 if activity_log:
@@ -861,8 +931,8 @@ class KGObject(KGNode, Releasable):
                 if activity_log:
                     activity_log.update(item=self, delta=instance_data, space=self.space, entry_type="create")
 
-        # not handled yet: if an existing object is in a different space to the one specified here,
-        #                  should we move it to the new space, or raise an Exception?
+        # note: if an existing object is in a different space to the one specified here,
+        #       it is updated in its own space (with a warning), not moved to the new space.
         if self.id:
             logger.debug(
                 "Updating cache for object {}. Current state: {}".format(
@@ -1086,7 +1156,7 @@ class KGObject(KGNode, Releasable):
     ) -> Union[Dict[str, Any], None]:
         """
         Generate a minimal KG query definition as a JSON-LD document.
-        Such a query returns only the @id of any instances that are found.
+        Such a query returns only the @id, @type and space of any instances that are found.
 
         Args:
             client: KGClient object that handles the communication with the KG.
@@ -1106,7 +1176,10 @@ class KGObject(KGNode, Releasable):
             node_type=cls.type_,
             label=label,
             space=None,
-            properties=[QueryProperty("@type")],
+            properties=[
+                QueryProperty("https://core.kg.ebrains.eu/vocab/meta/space", name="query:space"),
+                QueryProperty("@type"),
+            ],
         )
         # second pass, we add filters
         query.properties.extend(cls.generate_query_filter_properties(normalized_filters))

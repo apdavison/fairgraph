@@ -8,7 +8,10 @@ import shutil
 import tempfile
 import urllib.request
 
+from http.client import RemoteDisconnected
+
 import pytest
+from requests.exceptions import ConnectionError
 
 from openminds import IRI
 from openminds.base import LinkedNodeEmbedding
@@ -16,7 +19,7 @@ from openminds.base import LinkedNodeEmbedding
 from fairgraph.utility import as_list
 from fairgraph.kgproxy import KGProxy
 from fairgraph.kgquery import KGQuery
-from fairgraph.kgobject import KGObject
+from fairgraph.kgobject import KGObject, EXISTENCE_QUERY_SIZE
 import fairgraph.openminds.core as omcore
 import fairgraph.openminds.controlled_terms as omterms
 from fairgraph.utility import ActivityLog, sha1sum, normalize_data
@@ -828,6 +831,190 @@ def test_save_new_recursive_mock(mock_client, clear_caches):
     assert log.entries[1].type == "create"
     assert UUID(new_person.uuid)
     assert UUID(new_person.affiliations.member_of.uuid)
+
+
+def _seed_person(mock_client, space, uuid="12345678-90ab-cdef-0123-4567890abcde"):
+    person_id = f"https://kg.ebrains.eu/api/instances/{uuid}"
+    mock_client.instances[person_id] = {
+        "@id": person_id,
+        "@type": ["https://openminds.om-i.org/types/Person"],
+        "https://core.kg.ebrains.eu/vocab/meta/space": space,
+        "https://openminds.om-i.org/props/givenName": "Bilbo",
+        "https://openminds.om-i.org/props/familyName": "Baggins",
+    }
+    return person_id
+
+
+def _spy_on_query(mock_client, monkeypatch):
+    """Record the `restrict_to_spaces` argument of each query sent to the mock client"""
+    restrictions = []
+    original_query = mock_client.query
+
+    def query(*args, **kwargs):
+        restrictions.append(kwargs.get("restrict_to_spaces", None))
+        return original_query(*args, **kwargs)
+
+    monkeypatch.setattr(mock_client, "query", query)
+    return restrictions
+
+
+def test_save_recursive_finds_child_in_other_space(mock_client, clear_caches):
+    """
+    A locally-constructed child that already exists in a different space from its parent
+    should be linked to the existing instance, not duplicated in the parent's space (#136).
+    """
+    person_id = _seed_person(mock_client, "common")
+    model = omcore.Model(
+        name="Dummy new model with an existing developer",
+        developers=omcore.Person(given_name="Bilbo", family_name="Baggins"),
+    )
+    log = ActivityLog()
+    with pytest.warns(UserWarning, match="already exists in space 'common'.*rather than created in space 'myspace'"):
+        model.save(mock_client, space="myspace", recursive=True, activity_log=log)
+
+    person_instances = [
+        instance
+        for instance in mock_client.instances.values()
+        if "https://openminds.om-i.org/types/Person" in instance["@type"]
+    ]
+    assert len(person_instances) == 1
+    assert model.developers.id == person_id
+    assert model.developers.space == "common"
+    person_entries = [entry for entry in log.entries if entry.cls == "Person"]
+    assert len(person_entries) == 1
+    assert person_entries[0].space == "common"
+    assert person_entries[0].type != "create"
+    assert model.space == "myspace"
+
+
+def test_save_finds_object_in_other_space(mock_client, clear_caches):
+    person_id = _seed_person(mock_client, "common")
+    person = omcore.Person(given_name="Bilbo", family_name="Baggins")
+    log = ActivityLog()
+    with pytest.warns(UserWarning, match="already exists in space 'common'"):
+        person.save(mock_client, space="myspace", recursive=False, activity_log=log)
+    assert person.id == person_id
+    assert person.space == "common"
+    assert len(mock_client.instances) == 1
+    assert [(entry.type, entry.space) for entry in log.entries] == [("no-op", "common")]
+
+
+def test_save_prefers_instance_in_target_space(mock_client, clear_caches, monkeypatch, recwarn):
+    """
+    If the object exists both in the target space and elsewhere, the instance in the target space
+    is used, and the other one is not treated as a duplicate.
+    """
+    _seed_person(mock_client, "common")
+    target_id = _seed_person(mock_client, "myspace", uuid="23456789-0abc-def0-1234-567890abcdef")
+    restrictions = _spy_on_query(mock_client, monkeypatch)
+    person = omcore.Person(given_name="Bilbo", family_name="Baggins")
+    log = ActivityLog()
+    person.save(mock_client, space="myspace", recursive=False, activity_log=log)
+    assert person.id == target_id
+    assert person.space == "myspace"
+    assert restrictions == [None]
+    assert [(entry.type, entry.space) for entry in log.entries] == [("no-op", "myspace")]
+    assert not [w for w in recwarn if "already exists in space" in str(w.message)]
+
+
+def test_save_new_object_queries_all_spaces_once(mock_client, clear_caches, monkeypatch):
+    _seed_person(mock_client, "common")
+    restrictions = _spy_on_query(mock_client, monkeypatch)
+    person = omcore.Person(given_name="Frodo", family_name="Baggins")
+    log = ActivityLog()
+    person.save(mock_client, space="myspace", recursive=False, activity_log=log)
+    assert restrictions == [None]
+    assert [(entry.type, entry.space) for entry in log.entries] == [("create", "myspace")]
+    assert len(mock_client.instances) == 2
+
+
+def test_save_object_with_local_space_found_in_other_space(mock_client, clear_caches):
+    person_id = _seed_person(mock_client, "common")
+    person = omcore.Person(given_name="Bilbo", family_name="Baggins", space="myspace")
+    log = ActivityLog()
+    with pytest.warns(UserWarning, match="already exists in space 'common'.*rather than created in space 'myspace'"):
+        person.save(mock_client, recursive=False, activity_log=log)
+    assert person.id == person_id
+    assert person.space == "common"
+    assert [(entry.type, entry.space) for entry in log.entries] == [("no-op", "common")]
+    assert len(mock_client.instances) == 1
+
+
+def test_save_duplicates_in_target_space(mock_client, clear_caches):
+    _seed_person(mock_client, "common")
+    _seed_person(mock_client, "myspace", uuid="23456789-0abc-def0-1234-567890abcdef")
+    _seed_person(mock_client, "myspace", uuid="34567890-abcd-ef01-2345-67890abcdef0")
+    person = omcore.Person(given_name="Bilbo", family_name="Baggins")
+    with pytest.raises(Exception, match="Existence query is not specific enough"):
+        person.save(mock_client, space="myspace", recursive=False)
+    assert len(mock_client.instances) == 3
+
+
+def test_save_retrieves_all_matches_if_more_than_query_size(mock_client, clear_caches, monkeypatch):
+    """
+    The existence query asks for only a few results. If more instances match, they are all retrieved,
+    so that an instance in the target space is not missed.
+    """
+    for i in range(EXISTENCE_QUERY_SIZE + 1):
+        _seed_person(mock_client, f"collab-{i}", uuid=f"00000000-0000-0000-0000-00000000000{i}")
+    target_id = _seed_person(mock_client, "myspace", uuid="23456789-0abc-def0-1234-567890abcdef")
+
+    sizes = []
+    original_query = mock_client.query
+
+    def paginated_query(*args, size=100, **kwargs):
+        sizes.append(size)
+        response = original_query(*args, size=size, **kwargs)
+        total = response.total
+        response.data = response.data[:size]
+        response.total = total
+        return response
+
+    monkeypatch.setattr(mock_client, "query", paginated_query)
+    person = omcore.Person(given_name="Bilbo", family_name="Baggins")
+    person.save(mock_client, space="myspace", recursive=False, ignore_duplicates=True)
+    assert sizes == [EXISTENCE_QUERY_SIZE, EXISTENCE_QUERY_SIZE + 2]
+    assert person.id == target_id
+
+
+def test_exists_connection_lost(mock_client, clear_caches, monkeypatch):
+    def disconnected_query(*args, **kwargs):
+        raise ConnectionError(
+            ("Connection aborted.", RemoteDisconnected("Remote end closed connection without response"))
+        )
+
+    monkeypatch.setattr(mock_client, "query", disconnected_query)
+    person = omcore.Person(given_name="Bilbo", family_name="Baggins")
+    with pytest.warns(UserWarning, match="Timeout when checking for existence"):
+        assert not person.exists(mock_client)
+
+
+def test_exists_other_connection_error(mock_client, clear_caches, monkeypatch):
+    def refused_query(*args, **kwargs):
+        raise ConnectionError("Failed to establish a new connection: [Errno 61] Connection refused")
+
+    monkeypatch.setattr(mock_client, "query", refused_query)
+    person = omcore.Person(given_name="Bilbo", family_name="Baggins")
+    with pytest.raises(ConnectionError, match="Connection refused"):
+        person.exists(mock_client)
+    with pytest.raises(ConnectionError, match="Connection refused"):
+        person.save(mock_client, space="myspace", recursive=False)
+
+
+def test_save_duplicates_in_other_spaces(mock_client, clear_caches):
+    first_id = _seed_person(mock_client, "common")
+    _seed_person(mock_client, "collab-foo", uuid="23456789-0abc-def0-1234-567890abcdef")
+
+    person = omcore.Person(given_name="Bilbo", family_name="Baggins")
+    with pytest.raises(Exception, match="Existence query is not specific enough"):
+        person.save(mock_client, space="myspace", recursive=False)
+    assert len(mock_client.instances) == 2
+
+    person = omcore.Person(given_name="Bilbo", family_name="Baggins")
+    with pytest.warns(UserWarning, match="already exists in space 'common'"):
+        person.save(mock_client, space="myspace", recursive=False, ignore_duplicates=True)
+    assert person.id == first_id
+    assert len(mock_client.instances) == 2
 
 
 # def test_save_existing_with_id_mock(mock_client):
