@@ -29,7 +29,7 @@ from .queries import Regex
 from .collection import Collection
 from . import client, errors, openminds, utility
 
-__version__ = "0.15.0.dev0"
+__version__ = "0.15.0"
 
 utility.initialise_instances(
     [

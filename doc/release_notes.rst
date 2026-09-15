@@ -6,6 +6,8 @@ Release notes
 Version 0.15.0
 ==============
 
+This release requires openMINDS 0.6.1 (``openminds>=0.6.1``).
+
 openMINDS v5 support
 --------------------
 
@@ -80,6 +82,21 @@ which selects the KG's "REGEX" operator in place of "CONTAINS"::
 
 Note that searches are always case-insensitive.
 
+
+Saving objects that already exist in another space
+---------------------------------------------------
+
+:meth:`~fairgraph.kgobject.KGObject.save` now looks for an existing matching instance in all
+spaces, not just the one it is about to write to. Previously, a locally-constructed object whose
+counterpart lived in a different space was not recognized, and a duplicate was created. This
+happened most often with ``recursive=True``, where new child objects take on the parent's target
+space (`#136 <https://github.com/HumanBrainProject/fairgraph/issues/136>`_).
+
+If a match is found in the target space, it is used. If the only match is in another space, it
+is updated in the space where it lives, with a warning, rather than being duplicated. Multiple
+matches, none of them in the target space, raise an exception unless ``ignore_duplicates=True``.
+
+
 Removals
 --------
 
@@ -104,8 +121,21 @@ Three changes come with the rework of :meth:`~fairgraph.kgobject.KGObject.by_nam
 - searching with a client on a class that has no name-like property at all (``DOI``, ``ORCID``, ``WebResource``, ...) 
   now raises :exc:`AttributeError`;
 - an unrecognized ``match`` argument now raises :exc:`ValueError` instead of being silently treated as ``"contains"``;
-- the no-client path no longer warns when several objects share a name, since openMINDS does not. 
+- the no-client path no longer warns when several objects share a name, since openMINDS does not.
   The warning remains on the Knowledge Graph path.
+
+Other changes:
+
+- :meth:`~fairgraph.client.KGClient.space_info` no longer raises an error when a space contains
+  types that have no fairgraph class, such as the KG's own internal types. These now appear in the
+  result keyed by their type IRI (a string) rather than by a class. The ``ignore_errors``
+  argument, which is no longer needed, has been removed
+  (`#113 <https://github.com/HumanBrainProject/fairgraph/issues/113>`_).
+- :meth:`~fairgraph.client.KGClient.query` now raises :exc:`ValueError` if a value in its
+  ``filter`` argument contains "+" or "%". These values are sent to the KG as request parameters,
+  which the KG does not decode correctly, so the query would otherwise silently return the wrong
+  results. Filters given to :meth:`~fairgraph.kgobject.KGObject.list` and similar methods are not
+  affected.
 
 
 Bug fixes
@@ -119,6 +149,41 @@ Bug fixes
 - :class:`~fairgraph.kgobject.KGObject` instances are now hashable, so they can be used in
   sets and as dictionary keys. Defining ``__eq__`` had made them unhashable; they now hash by
   identity, as the openMINDS classes do.
+- :meth:`~fairgraph.kgobject.KGObject.from_id` now returns ``None`` for a non-existent id when
+  called on the base :class:`~fairgraph.kgobject.KGObject` class (i.e., when the type is not known
+  in advance), instead of raising :exc:`TypeError`
+  (`#115 <https://github.com/HumanBrainProject/fairgraph/issues/115>`_).
+- An instance created by :meth:`~fairgraph.kgobject.KGObject.save` is now recorded in the save
+  cache. Since the KG is only eventually consistent, a newly-created instance may not yet appear in
+  existence queries, so saving a second, equivalent object in the same session could previously
+  create a duplicate (`#137 <https://github.com/HumanBrainProject/fairgraph/issues/137>`_).
+- :meth:`~fairgraph.kgobject.KGObject.exists`, and therefore
+  :meth:`~fairgraph.kgobject.KGObject.save`, no longer raises :exc:`TypeError` for new objects of
+  classes whose existence query includes a date or datetime property, such as ``Book``
+  (`#139 <https://github.com/HumanBrainProject/fairgraph/issues/139>`_).
+- Filter values containing "+" can now be matched. fairgraph previously cut string filter values
+  off at the first "+" (or raised :exc:`ValueError` if it came within the first three
+  characters), to work around a KG bug. That bug only affects filter values sent as request
+  parameters, which fairgraph no longer does, so values such as ``"C++"``, email addresses with a
+  "+" suffix, or timestamps with a UTC offset are now searched for in full.
+- Where ``exists()`` hit a connection error other than a dropped connection, it raised a
+  :exc:`NameError`; the original error is now re-raised.
+- Links to other KG instances can now be resolved when they are given as bare UUIDs rather than
+  full URIs. Version 4 of Marmotgraph, the software behind the Knowledge Graph, gives links in this
+  form; it is already used by the development deployment serving openMINDS v5 metadata.
+  :class:`~fairgraph.client.KGClient` now expands them to full URIs, so that links can be resolved
+  and compared with the ids of the instances they point to
+  (`#144 <https://github.com/HumanBrainProject/fairgraph/pull/144>`_).
+
+
+Documentation
+-------------
+
+The developer documentation in :doc:`contributing` has been expanded
+(`#73 <https://github.com/HumanBrainProject/fairgraph/issues/73>`_). It now covers regenerating
+the v4 and v5 classes together, the hand-written methods that are merged into generated classes,
+running the tests with and without a KG token, and the versioning scheme. It also points to the
+issue-tracker milestones as the project roadmap.
 
 
 Version 0.14.0
