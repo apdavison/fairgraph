@@ -290,7 +290,8 @@ The documentation is not a third place to edit: :file:`doc/conf.py` reads the ve
 *release* rather than the current state of ``master``, so it keeps the released version number
 between releases. Its ``downloadUrl`` and ``identifier`` point at the release artefact on PyPI,
 so giving it a development version would advertise a download that does not exist. It is
-regenerated at release time, as described below.
+regenerated as part of the release commit, and its ``downloadUrl`` is filled in once the
+release is on PyPI, as described below.
 
 Making a release
 ----------------
@@ -298,6 +299,15 @@ Making a release
 Add a section in :file:`/doc/release_notes.rst` for the release.
 
 First check that the version string (in :file:`pyproject.toml` and :file:`fairgraph/__init__.py`) is correct.
+
+Regenerate :file:`codemeta.json` from the local project metadata (:file:`pyproject.toml` and
+:file:`doc/authors.json`), and include it in the release commit::
+
+    $ cd doc
+    $ python build_codemeta.py
+
+This updates all fields for the new version except ``downloadUrl``, which is set to ``null``
+since the release is not yet on PyPI.
 
 To build source and wheel packages::
 
@@ -313,11 +323,13 @@ To upload the package to `PyPI`_ (the members of the `maintainers team`_ have th
 
     $ twine upload dist/fairgraph-x.y.z.tar.gz dist/fairgraph.x.y.z-py3-none-any.whl
 
-Once the release is on PyPI, regenerate :file:`codemeta.json`. The script reads the release
-metadata from PyPI, so it can only be run after the upload has completed::
+Once the release is on PyPI, fill in the ``downloadUrl`` in :file:`codemeta.json`, and commit.
+This reads the URL of the source distribution from PyPI, so it can only be done after the upload
+has completed. If the upload was made on a later day than the release commit, ``dateModified``
+is also updated to the date of the upload::
 
     $ cd doc
-    $ python build_codemeta.py x.y.z
+    $ python build_codemeta.py --download-url
 
 Finally, open the next development version: set the version strings in :file:`pyproject.toml`
 and :file:`fairgraph/__init__.py` to the next release number with ``.dev0`` appended, and commit.
