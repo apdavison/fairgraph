@@ -3,6 +3,20 @@ Release notes
 =============
 
 
+Version 0.16.0
+==============
+
+Bug fixes
+---------
+
+- :meth:`~fairgraph.kgobject.KGObject.exists`, and therefore :meth:`~fairgraph.kgobject.KGObject.save` and
+  :meth:`~fairgraph.collection.Collection.upload`, no longer raises :exc:`TypeError` when a  property used 
+  in the existence query holds an unresolved link (a :class:`~fairgraph.kgproxy.KGProxy`), 
+  as happens when a link is taken from a fetched object or read from a JSON-LD file. 
+  Such a link now gives the same existence query as the object it points to 
+  (`#145 <https://github.com/HumanBrainProject/fairgraph/issues/145>`_).
+
+
 Version 0.15.0
 ==============
 
