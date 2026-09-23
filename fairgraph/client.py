@@ -23,6 +23,7 @@ import os
 import logging
 import re
 from functools import wraps
+from time import sleep
 from typing import Any, Dict, Iterable, List, Optional, Union, TYPE_CHECKING
 from uuid import uuid4, UUID
 
@@ -68,6 +69,37 @@ def translate_network_errors(method):
             if have_kg_core and isinstance(err, requests.exceptions.RequestException):
                 raise KGConnectionError(f"Request to the KG failed: {err}") from err
             raise
+
+    return wrapper
+
+
+def retry_on_connection_error(method):
+    """Retry a KGClient method a few times if it raises KGConnectionError.
+
+    Only apply this to methods that are read-only or execute a query without persisting
+    anything. Retrying a request that modifies the KG risks duplicating or corrupting
+    data if the original request actually succeeded but the response was lost. Reads
+    `self._max_retries` / `self._retry_backoff`, set in KGClient.__init__.
+    """
+
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        for attempt in range(self._max_retries + 1):
+            try:
+                return method(self, *args, **kwargs)
+            except KGConnectionError as err:
+                if attempt < self._max_retries:
+                    wait = (2**attempt) * self._retry_backoff
+                    logger.warning(
+                        "Retrying KG request after connection error (attempt %d/%d), waiting %.1fs: %s",
+                        attempt + 1,
+                        self._max_retries,
+                        wait,
+                        err,
+                    )
+                    sleep(wait)
+                else:
+                    raise
 
     return wrapper
 
@@ -202,6 +234,15 @@ class KGClient(object):
             This is a temporary workaround applied process-wide, not per client: passing it here
             changes the timeout for every KGClient in the process, not just this instance.
             Leave unset to keep whatever timeout is currently in effect.
+        max_retries (int, default 2): how many times to retry a request that fails with
+            KGConnectionError (a lost connection, or no response within request_timeout),
+            using exponential backoff. Only applied to read-only or query-only methods
+            (e.g. query, list, instance_from_full_uri, user_info), never to methods that
+            modify the KG (e.g. create_new_instance, update_instance, delete_instance,
+            release), since retrying a write risks duplicating or corrupting data if the
+            original request actually succeeded but its response was lost.
+        retry_backoff (float, default 5.0): base number of seconds to wait before the first
+            retry; each subsequent retry doubles the wait (5s, 10s, 20s, ...).
 
     Raises:
         ImportError: If the kg_core package is not installed.
@@ -218,6 +259,8 @@ class KGClient(object):
         allow_interactive: bool = True,
         openminds_version: str = OPENMINDS_VERSION,
         request_timeout: Optional[int] = None,
+        max_retries: int = 2,
+        retry_backoff: float = 5.0,
     ):
         if openminds_version not in ("v4", "v5"):
             raise ValueError(
@@ -229,6 +272,8 @@ class KGClient(object):
         if request_timeout is not None:
             global KG_REQUEST_TIMEOUT
             KG_REQUEST_TIMEOUT = request_timeout
+        self._max_retries = max_retries
+        self._retry_backoff = retry_backoff
         if client_id and client_secret:
             self._kg_client_builder = kg(host).with_credentials(client_id, client_secret)
             self._auth_method = "credentials"
@@ -287,6 +332,7 @@ class KGClient(object):
         return self.__kg_admin_client
 
     @property
+    @retry_on_connection_error
     @translate_network_errors
     def token(self) -> Optional[str]:
         return self._kg_client.instances._kg_config.token_handler._fetch_token()
@@ -332,6 +378,7 @@ class KGClient(object):
             expand_bare_uuids(response.data, self._kg_client.instances._kg_config.id_namespace)
             return response
 
+    @retry_on_connection_error
     @translate_network_errors
     def query(
         self,
@@ -442,6 +489,7 @@ class KGClient(object):
             response = _query(release_status, from_index, size)
         return response
 
+    @retry_on_connection_error
     @translate_network_errors
     def list(
         self,
@@ -500,6 +548,7 @@ class KGClient(object):
         else:
             return _list(release_status, from_index, size)
 
+    @retry_on_connection_error
     @translate_network_errors
     def instance_from_full_uri(
         self,
@@ -715,6 +764,7 @@ class KGClient(object):
 
         query_definition["@id"] = self.uri_from_uuid(query_id)
 
+    @retry_on_connection_error
     @translate_network_errors
     def retrieve_query(self, query_label: str) -> Dict[str, Any]:
         """
@@ -743,6 +793,7 @@ class KGClient(object):
             self._query_cache[query_label] = query_definition
         return self._query_cache[query_label]
 
+    @retry_on_connection_error
     @translate_network_errors
     def user_info(self) -> Dict[str, Any]:
         """
@@ -762,6 +813,7 @@ class KGClient(object):
                 raise Exception(response.error)
         return self._user_info
 
+    @retry_on_connection_error
     @translate_network_errors
     def spaces(
         self, permissions: Optional[Iterable[str] | bool] = None, names_only: bool = False
@@ -867,6 +919,7 @@ class KGClient(object):
         if response.error:
             raise Exception(response.error)
 
+    @retry_on_connection_error
     @translate_network_errors
     def space_info(
         self,
@@ -976,6 +1029,7 @@ class KGClient(object):
         else:
             print(f"The space '{source_space}' is empty, nothing to move.")
 
+    @retry_on_connection_error
     @translate_network_errors
     def is_released(self, uri: str, with_children: bool = False) -> bool:
         """
