@@ -22,6 +22,7 @@ from __future__ import annotations
 import os
 import logging
 import re
+from functools import wraps
 from typing import Any, Dict, Iterable, List, Optional, Union, TYPE_CHECKING
 from uuid import uuid4, UUID
 
@@ -36,7 +37,7 @@ except ImportError:
 
 from openminds.registry import lookup_type
 
-from .errors import AuthenticationError, AuthorizationError, ResourceExistsError
+from .errors import AuthenticationError, AuthorizationError, KGConnectionError, ResourceExistsError
 from .utility import handle_scope_keyword
 from .base import OPENMINDS_VERSION
 
@@ -52,13 +53,84 @@ except ImportError:
 logger = logging.getLogger("fairgraph")
 
 
+def translate_network_errors(method):
+    """Turn a network-level `requests` exception escaping a KGClient method into a
+    clear KGConnectionError.
+    """
+
+    @wraps(method)
+    def wrapper(self, *args, **kwargs):
+        try:
+            return method(self, *args, **kwargs)
+        except KGConnectionError:
+            raise
+        except Exception as err:
+            if have_kg_core and isinstance(err, requests.exceptions.RequestException):
+                raise KGConnectionError(f"Request to the KG failed: {err}") from err
+            raise
+
+    return wrapper
+
+
 if have_kg_core:
+    import requests
+
     STAGE_MAP = {
         "released": Stage.RELEASED,
         "latest": Stage.IN_PROGRESS,
         "in progress": Stage.IN_PROGRESS,
     }
     default_response_configuration = ExtendedResponseConfiguration(return_embedded=True)
+
+    # kg_core sets no timeout on its outbound HTTP requests, and exposes no supported way to
+    # configure one (KGConfig carries no timeout field, and neither ClientBuilder.build() nor
+    # .build_admin() offer a hook for one). A request that loses its connection mid-flight -
+    # e.g. after the machine sleeps and resumes on a different network - then hangs forever
+    # instead of failing. This is a temporary workaround, patching a private (and therefore
+    # unstable) kg_core module, pending a fix in kg_core itself; remove it once that exists.
+    #
+    # While we're in there, we also give the two most common network failures a more specific
+    # KGConnectionError message than the generic one from translate_network_errors above:
+    #  - requests.Timeout: no response within KG_REQUEST_TIMEOUT (our own client-side limit).
+    #  - requests.ConnectionError: the connection was lost before a response arrived, e.g. a
+    #    "Connection aborted ... RemoteDisconnected" when the KG's own gateway drops a
+    #    request that has been running too long (observed around 50s against core.kg-ppd,
+    #    though slow-but-successful `File` queries on core.kg have taken much longer than
+    #    that, so this is not a fixed value we can rely on). If this patch can't be applied,
+    #    translate_network_errors above still turns both into a (less specific) KGConnectionError.
+    KG_REQUEST_TIMEOUT = 300  # seconds
+    try:
+        from kg_core.__communication import RequestsWithTokenHandler
+
+        _kg_core_do_request = RequestsWithTokenHandler._do_request
+
+        def _do_request_with_timeout(self, args, payload):
+            args.setdefault("timeout", KG_REQUEST_TIMEOUT)
+            request_description = f"{args.get('method')} {args.get('url')}"
+            try:
+                return _kg_core_do_request(self, args, payload)
+            except requests.exceptions.Timeout as err:
+                raise KGConnectionError(
+                    f"No response from the KG within {KG_REQUEST_TIMEOUT}s ({request_description}). "
+                    "The KG may still be processing the request (this is more likely for queries "
+                    "against types with very many instances, such as File); consider passing a "
+                    "larger request_timeout to KGClient, or retrying."
+                ) from err
+            except requests.exceptions.ConnectionError as err:
+                raise KGConnectionError(
+                    f"Lost connection to the KG before a response arrived ({request_description}): "
+                    f"{err}. This can happen when the network connection changes (e.g. switching "
+                    "wifi networks) or when the KG's own infrastructure drops a long-running "
+                    "request; retrying the request may succeed."
+                ) from err
+
+        RequestsWithTokenHandler._do_request = _do_request_with_timeout
+    except (ImportError, AttributeError) as err:
+        logger.warning(
+            "Could not patch kg_core to apply a request timeout (%s). "
+            "Requests to the KG may hang indefinitely instead of timing out.",
+            err,
+        )
 
 
 BARE_UUID = re.compile(r"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}")
@@ -125,6 +197,11 @@ class KGClient(object):
         openminds_version (str, default "v4"): the openMINDS schema version that responses should be
             deserialized into. Must be one of "v4" or "v5". v4 is the default so existing code is
             unaffected; pass "v5" when connecting to a KG instance that has been migrated to v5.
+        request_timeout (int, optional): how many seconds to wait for a response from the KG
+            before giving up, since kg_core sets no timeout of its own (see KG_REQUEST_TIMEOUT).
+            This is a temporary workaround applied process-wide, not per client: passing it here
+            changes the timeout for every KGClient in the process, not just this instance.
+            Leave unset to keep whatever timeout is currently in effect.
 
     Raises:
         ImportError: If the kg_core package is not installed.
@@ -140,6 +217,7 @@ class KGClient(object):
         client_secret: Optional[str] = None,
         allow_interactive: bool = True,
         openminds_version: str = OPENMINDS_VERSION,
+        request_timeout: Optional[int] = None,
     ):
         if openminds_version not in ("v4", "v5"):
             raise ValueError(
@@ -148,6 +226,9 @@ class KGClient(object):
         self.openminds_version = openminds_version
         if not have_kg_core:
             raise ImportError("Please install the ebrains-kg-core package")
+        if request_timeout is not None:
+            global KG_REQUEST_TIMEOUT
+            KG_REQUEST_TIMEOUT = request_timeout
         if client_id and client_secret:
             self._kg_client_builder = kg(host).with_credentials(client_id, client_secret)
             self._auth_method = "credentials"
@@ -206,6 +287,7 @@ class KGClient(object):
         return self.__kg_admin_client
 
     @property
+    @translate_network_errors
     def token(self) -> Optional[str]:
         return self._kg_client.instances._kg_config.token_handler._fetch_token()
 
@@ -250,6 +332,7 @@ class KGClient(object):
             expand_bare_uuids(response.data, self._kg_client.instances._kg_config.id_namespace)
             return response
 
+    @translate_network_errors
     def query(
         self,
         query: Dict[str, Any],
@@ -359,6 +442,7 @@ class KGClient(object):
             response = _query(release_status, from_index, size)
         return response
 
+    @translate_network_errors
     def list(
         self,
         target_type: str,
@@ -416,6 +500,7 @@ class KGClient(object):
         else:
             return _list(release_status, from_index, size)
 
+    @translate_network_errors
     def instance_from_full_uri(
         self,
         uri: str,
@@ -493,6 +578,7 @@ class KGClient(object):
                 self.cache[uri] = data
         return data
 
+    @translate_network_errors
     def create_new_instance(
         self, data: JsonLdDocument, space: str, instance_id: Optional[str] = None
     ) -> JsonLdDocument:
@@ -525,6 +611,7 @@ class KGClient(object):
         error_context = f"create_new_instance(data={data}, space={space}, instance_id={instance_id})"
         return self._check_response(response, error_context=error_context).data
 
+    @translate_network_errors
     def update_instance(self, instance_id: str, data: JsonLdDocument) -> JsonLdDocument:
         """
         Update an existing KG instance using the data provided.
@@ -549,6 +636,7 @@ class KGClient(object):
         self.cache.pop(self.uri_from_uuid(instance_id), None)
         return response_data
 
+    @translate_network_errors
     def replace_instance(self, instance_id: str, data: JsonLdDocument) -> JsonLdDocument:
         """
         Replace an existing KG instance using the data provided.
@@ -569,6 +657,7 @@ class KGClient(object):
         self.cache.pop(self.uri_from_uuid(instance_id), None)
         return response_data
 
+    @translate_network_errors
     def delete_instance(self, instance_id: str, ignore_not_found: bool = True, ignore_errors: bool = True):
         """
         Delete a KG instance.
@@ -597,6 +686,7 @@ class KGClient(object):
         assert uri.startswith(namespace)
         return UUID(uri[len(namespace) :])
 
+    @translate_network_errors
     def store_query(self, query_label: str, query_definition: Dict[str, Any], space: str):
         """
         Store a query definition in the KG.
@@ -625,6 +715,7 @@ class KGClient(object):
 
         query_definition["@id"] = self.uri_from_uuid(query_id)
 
+    @translate_network_errors
     def retrieve_query(self, query_label: str) -> Dict[str, Any]:
         """
         Retrieve a stored query definition from the KG.
@@ -652,6 +743,7 @@ class KGClient(object):
             self._query_cache[query_label] = query_definition
         return self._query_cache[query_label]
 
+    @translate_network_errors
     def user_info(self) -> Dict[str, Any]:
         """
         Returns information about the current user.
@@ -670,6 +762,7 @@ class KGClient(object):
                 raise Exception(response.error)
         return self._user_info
 
+    @translate_network_errors
     def spaces(
         self, permissions: Optional[Iterable[str] | bool] = None, names_only: bool = False
     ) -> Union[List[str], List[SpaceInformation]]:
@@ -717,6 +810,7 @@ class KGClient(object):
         # temporary workaround
         return f"private-{self.user_info().identifiers[0]}"
 
+    @translate_network_errors
     def configure_space(self, space_name: Optional[str] = None, types: Optional[List[KGObject]] = None) -> str:
         """
         Creates and configures a Knowledge Graph (KG) space with the specified name and types.
@@ -761,6 +855,7 @@ class KGClient(object):
                 raise Exception(f"Unable to assign {cls.__name__} to space {space_name}: {result}")
         return space_name
 
+    @translate_network_errors
     def move_to_space(self, uri: str, destination_space: str):
         """
         Move a KG instance from one space to another.
@@ -772,6 +867,7 @@ class KGClient(object):
         if response.error:
             raise Exception(response.error)
 
+    @translate_network_errors
     def space_info(
         self,
         space_name: str,
@@ -880,6 +976,7 @@ class KGClient(object):
         else:
             print(f"The space '{source_space}' is empty, nothing to move.")
 
+    @translate_network_errors
     def is_released(self, uri: str, with_children: bool = False) -> bool:
         """
         Release status of a KG instance identified by its URI.
@@ -907,12 +1004,14 @@ class KGClient(object):
         else:
             raise AuthorizationError("You are not able to access the release status")
 
+    @translate_network_errors
     def release(self, uri: str):
         """Release the instance with the given uri"""
         response = self._kg_client.instances.release(self.uuid_from_uri(uri))
         if response:
             raise Exception(f"Can't release instance with id {uri}. Error message: {response}")
 
+    @translate_network_errors
     def unrelease(self, uri: str):
         """Unrelease the instance with the given uri"""
         response = self._kg_client.instances.unrelease(self.uuid_from_uri(uri))
