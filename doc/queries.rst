@@ -143,7 +143,19 @@ For example, to see only datasets whose name contain the phrase 'patch-clamp'::
              e.g., ``DatasetVersion.property_names``
              or consult the inline help (``help(omcore.DatasetVersion)``).
 
-For a more precise search, pass a :class:`Regex` instead of a plain string::
+A plain string matches any property value that *contains* it.
+To require the whole value to match, pass an :class:`Equals` instead::
+
+    from fairgraph import Equals
+
+    datasets = Dataset.list(client, short_name=Equals("FOO"))
+
+This finds datasets whose short name is "FOO", but not those named "FOO-BAR".
+Case is ignored, but whitespace is not, so "FOO " would not match.
+For a case-sensitive search on a property such as ``name``, see :meth:`by_name` below.
+Only a single value is supported.
+
+For a more flexible search, pass a :class:`Regex` instead of a plain string::
 
     from fairgraph import Regex
 

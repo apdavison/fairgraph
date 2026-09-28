@@ -6,12 +6,40 @@ Release notes
 Version 0.16.0
 ==============
 
+New features
+------------
+
+- Filters may now be given as an :class:`~fairgraph.queries.Equals` instead of a plain string,
+  which selects the KG's "EQUALS" operator in place of "CONTAINS", so that the whole property value
+  must match. For example, ``Dataset.list(client, short_name=Equals("FOO"))`` does not return
+  a dataset called "FOO-BAR". As with :class:`~fairgraph.queries.Regex`, matching ignores case.
+
 Changes in behaviour
 --------------------
 
 - Leading and trailing whitespace is now removed from text properties before they are saved
   Text loaded from the Knowledge Graph is left as it is until saved, so saving a fetched object corrects
   any untrimmed text that is stored.
+
+- The existence query that :meth:`~fairgraph.kgobject.KGObject.exists` and
+  :meth:`~fairgraph.kgobject.KGObject.save` use to decide whether an object is already in the KG
+  now matches string properties exactly, ignoring case, where it previously matched any value that
+  merely *contained* the local one. Saving a :class:`Dataset` with the short name "FOO" therefore
+  no longer finds, and overwrites, an existing one called "FOO-BAR"; likewise, a
+  :class:`DatasetVersion` with the version identifier "1.0" no longer matches "1.0.1"
+  (`#149 <https://github.com/HumanBrainProject/fairgraph/issues/149>`_).
+
+  Whitespace is significant in the match, so an existing object whose name has a leading or trailing space
+  will not be found by a local object whose name lacks it, and a new object will be created.
+  Since :meth:`~fairgraph.kgobject.KGObject.save` now removes leading and trailing whitespace from text properties
+  (see above), this applies to any existing object whose text has stray whitespace.
+  Pipelines that re-save objects and previously relied on such near-matches to update
+  existing nodes may therefore now create new ones.
+
+  To restore the previous behaviour for a call, pass ``existence_match="contains"`` to
+  :meth:`~fairgraph.kgobject.KGObject.exists` or :meth:`~fairgraph.kgobject.KGObject.save`
+  (the default is ``existence_match="equals"``). With ``recursive=True`` the setting applies to
+  child objects as well.
 
 Bug fixes
 ---------

@@ -44,7 +44,7 @@ from .errors import AuthorizationError, ResourceExistsError, CannotBuildExistenc
 from .caching import object_cache, save_cache, generate_cache_key
 from .base import ErrorHandling, Releasable, JSONdict
 from .utility.name_matching import KG_NAMELIKE_PROPERTIES, MATCH_TYPES, build_name_regex, matches_name
-from .node import KGNode
+from .node import KGNode, check_existence_match
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
 
@@ -558,7 +558,13 @@ class KGObject(KGNode, Releasable):
                     differences["properties"][prop.name] = (val_self, val_other)
         return differences
 
-    def exists(self, client: KGClient, ignore_duplicates: bool = False, in_spaces: Optional[List[str]] = None) -> bool:
+    def exists(
+        self,
+        client: KGClient,
+        ignore_duplicates: bool = False,
+        in_spaces: Optional[List[str]] = None,
+        existence_match: str = "equals",
+    ) -> bool:
         """
         Check if this object already exists in the KnowledgeGraph.
 
@@ -567,17 +573,34 @@ class KGObject(KGNode, Releasable):
             ignore_duplicates (bool, optional): Whether to ignore the existence of multiple objects with the same properties
                 (and consider only the first in the list), or to raise an Exception. Defaults to False.
             in_spaces (list of str, optional): If provided, only look for the object in these spaces.
+            existence_match (str, optional): How string properties are compared when looking for the object.
+                Either "equals" (the value in the KG must be the same as the local value, ignoring case - the default),
+                or "contains" (it is enough for the value in the KG to contain the local value,
+                so an object with the name "FOO" will match an existing object with the name "FOO-BAR").
         """
-        obj_exists = self._exists_without_query(client)
+        check_existence_match(existence_match)
+        obj_exists = self._exists_without_query(client, existence_match)
         if obj_exists is not None:
             return obj_exists
-        instances = self._query_matching_instances(client, in_spaces=in_spaces)
+        instances = self._query_matching_instances(client, in_spaces=in_spaces, existence_match=existence_match)
         if not instances:
             return False
-        self._check_for_duplicates(instances, ignore_duplicates)
-        return self._use_matching_instance(client, instances[0])
+        self._check_for_duplicates(instances, ignore_duplicates, existence_match)
+        return self._use_matching_instance(client, instances[0], existence_match)
 
-    def _exists_without_query(self, client: KGClient) -> Optional[bool]:
+    def _existence_cache_keys(self, existence_match: str) -> List[Tuple]:
+        """
+        The keys under which the save cache may hold the ID of an object matching this one.
+
+        An object that matches exactly also matches "contains", but not the other way round,
+        so a "contains" lookup may use either key while an "equals" lookup may use only the first.
+        """
+        equals_key = generate_cache_key(self._build_existence_query("equals"))
+        if existence_match == "equals":
+            return [equals_key]
+        return [equals_key, equals_key + (existence_match,)]
+
+    def _exists_without_query(self, client: KGClient, existence_match: str = "equals") -> Optional[bool]:
         """
         Check if this object exists in the KG, where this can be determined without an existence query,
         i.e. if the object has an ID, if there is no existence query, or if the object is found in the save cache.
@@ -598,7 +621,7 @@ class KGObject(KGNode, Releasable):
             return obj_exists
 
         try:
-            query_filter = self._build_existence_query()
+            query_filter = self._build_existence_query(existence_match)
         except CannotBuildExistenceQuery:
             return False
         if query_filter is None:
@@ -606,8 +629,10 @@ class KGObject(KGNode, Releasable):
             # duplicate entries
             return False
 
-        query_cache_key = generate_cache_key(query_filter)
-        if query_cache_key in save_cache[self.__class__]:
+        query_cache_key = next(
+            (key for key in self._existence_cache_keys(existence_match) if key in save_cache[self.__class__]), None
+        )
+        if query_cache_key is not None:
             # Because the KnowledgeGraph is only eventually consistent, an instance
             # that has just been written to the KG may not appear in the query.
             # Therefore we cache the query when creating an instance and
@@ -624,14 +649,16 @@ class KGObject(KGNode, Releasable):
             return True
         return None
 
-    def _query_matching_instances(self, client: KGClient, in_spaces: Optional[List[str]] = None) -> List[JSONdict]:
+    def _query_matching_instances(
+        self, client: KGClient, in_spaces: Optional[List[str]] = None, existence_match: str = "equals"
+    ) -> List[JSONdict]:
         """
         Run the existence query for this object, and return all matching instances
         (their "@id" and space only).
 
         If the connection is lost while querying, an empty list is returned, with a warning.
         """
-        query_filter = self._build_existence_query()
+        query_filter = self._build_existence_query(existence_match)
         query = self.__class__.generate_minimal_query(client=client, filters=query_filter)
         try:
             response = client.query(
@@ -653,15 +680,16 @@ class KGObject(KGNode, Releasable):
             raise
         return instances
 
-    def _check_for_duplicates(self, instances: List[JSONdict], ignore_duplicates: bool):
+    def _check_for_duplicates(
+        self, instances: List[JSONdict], ignore_duplicates: bool, existence_match: str = "equals"
+    ):
         if len(instances) > 1 and not ignore_duplicates:
-            # we might want to consider running a second query with "equals" rather than "contains"
             raise Exception(
                 f"Existence query is not specific enough. Type: {self.__class__.__name__}; "
-                f"filters: {self._build_existence_query()}"
+                f"filters: {self._build_existence_query(existence_match)}"
             )
 
-    def _use_matching_instance(self, client: KGClient, match: JSONdict) -> bool:
+    def _use_matching_instance(self, client: KGClient, match: JSONdict, existence_match: str = "equals") -> bool:
         """
         Identify this object with an instance found by the existence query.
 
@@ -679,7 +707,7 @@ class KGObject(KGNode, Releasable):
         # the instance's actual location takes precedence over any space set locally
         if "https://schema.hbp.eu/myQuery/space" in match:
             self._space = match["https://schema.hbp.eu/myQuery/space"]
-        save_cache[self.__class__][generate_cache_key(self._build_existence_query())] = self.id
+        save_cache[self.__class__][self._existence_cache_keys(existence_match)[-1]] = self.id
         self._update_empty_properties(instance)  # also updates `remote_data`
         return True
 
@@ -728,6 +756,7 @@ class KGObject(KGNode, Releasable):
         replace: bool = False,
         ignore_auth_errors: bool = False,
         ignore_duplicates: bool = False,
+        existence_match: str = "equals",
     ):
         """
         Store the current object in the Knowledge Graph, either updating an existing instance
@@ -744,11 +773,16 @@ class KGObject(KGNode, Releasable):
             ignore_auth_errors (bool, optional): Whether to continue silently when encountering authentication errors. Defaults to False.
             ignore_duplicates (bool, optional): Whether to ignore the existence of multiple objects with the same properties
                 (and consider only the first in the list), or to raise an Exception. Defaults to False.
+            existence_match (str, optional): How string properties are compared when looking for an existing object
+                to update. Either "equals" (the value in the KG must be the same as the local value, ignoring case - the default),
+                or "contains" (it is enough for the value in the KG to contain the local value,
+                so an object with the name "FOO" will overwrite an existing object with the name "FOO-BAR").
 
         Raises:
             - An `AuthorizationError` if the current user is not authorized to perform the requested operation.
 
         """
+        check_existence_match(existence_match)
         # Done first, so that the existence query, the data that is sent and the comparison with
         # the remote data all use the same values. The object is changed in place on purpose:
         # afterwards it is identical to what is stored in the KG.
@@ -765,7 +799,9 @@ class KGObject(KGNode, Releasable):
                         if (
                             isinstance(value, KGObject)
                             and value.__class__.default_space == "controlled"
-                            and value.exists(client, ignore_duplicates=ignore_duplicates)
+                            and value.exists(
+                                client, ignore_duplicates=ignore_duplicates, existence_match=existence_match
+                            )
                             and value.space == "controlled"
                         ):
                             continue
@@ -778,7 +814,9 @@ class KGObject(KGNode, Releasable):
                         if target_space == "controlled":
                             assert isinstance(value, KGObject)  # for type checking
                             if (
-                                value.exists(client, ignore_duplicates=ignore_duplicates)
+                                value.exists(
+                                    client, ignore_duplicates=ignore_duplicates, existence_match=existence_match
+                                )
                                 and value.space == "controlled"
                             ):
                                 continue
@@ -790,6 +828,7 @@ class KGObject(KGNode, Releasable):
                             recursive=True,
                             activity_log=activity_log,
                             ignore_duplicates=ignore_duplicates,
+                            existence_match=existence_match,
                         )
         if space is None:
             if self.space is None:
@@ -797,17 +836,17 @@ class KGObject(KGNode, Releasable):
             else:
                 space = self.space
         logger.info(f"Saving a {self.__class__.__name__} in space {space}")
-        found = self._exists_without_query(client)
+        found = self._exists_without_query(client, existence_match)
         if found is None:
             # We look for the object in all spaces, not only the one we are saving to, to avoid creating duplicates,
             # but if it exists both in the target space and elsewhere, we use the instance in the target space.
-            instances = self._query_matching_instances(client)
+            instances = self._query_matching_instances(client, existence_match=existence_match)
             candidates = [
                 instance for instance in instances if instance.get("https://schema.hbp.eu/myQuery/space") == space
             ] or instances
             if candidates:
-                self._check_for_duplicates(candidates, ignore_duplicates)
-                found = self._use_matching_instance(client, candidates[0])
+                self._check_for_duplicates(candidates, ignore_duplicates, existence_match)
+                found = self._use_matching_instance(client, candidates[0], existence_match)
             else:
                 found = False
         if found and self.space is not None and self.space != space:

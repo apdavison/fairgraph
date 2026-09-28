@@ -65,6 +65,28 @@ class Regex(str):
         return super().__new__(cls, pattern)
 
 
+class Equals(str):
+    """
+    A string, for use as a filter value in place of a plain string, that must match the
+    property value exactly rather than as a substring.
+
+    Where a plain string filters with the KG's "CONTAINS" operator, an `Equals` filters with "EQUALS".
+    The whole property value must match, so `Equals("FOO")` does not match "FOO-BAR".
+    The KG ignores case when matching, but not whitespace, so `Equals("FOO")` does match "foo",
+    but not "FOO ".
+
+    Only a single value is supported: a list of `Equals` values is filtered with "CONTAINS".
+
+    Args:
+        value (str): the value the property must be equal to.
+
+    Example:
+        >>> import fairgraph.openminds.core as omcore
+        >>> from fairgraph import Equals
+        >>> omcore.Dataset.list(client, short_name=Equals("FOO"))
+    """
+
+
 class PathElement:
     """
     A single element in a multi-element query path, carrying optional
@@ -475,6 +497,8 @@ def get_query_filter_property(property, context, filter: Any) -> QueryProperty:
         # we have a filter value for this property
         if isinstance(filter, Regex):
             op = "REGEX"
+        elif isinstance(filter, Equals):
+            op = "EQUALS"
         elif property.types[0] in (int, float, bool, datetime, date):
             op = "EQUALS"
         else:

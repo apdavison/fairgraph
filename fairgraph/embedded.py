@@ -89,6 +89,7 @@ class KGEmbedded(KGNode):
         activity_log: Optional[ActivityLog] = None,
         replace: bool = False,
         ignore_duplicates: bool = False,
+        existence_match: str = "equals",
     ):
         """
         Save to the KG any sub-components of the metadata object that are KGObjects.
@@ -101,7 +102,7 @@ class KGEmbedded(KGNode):
                         target_space = value.space
                     elif (
                         value.__class__.default_space == "controlled"
-                        and value.exists(client, ignore_duplicates=ignore_duplicates)
+                        and value.exists(client, ignore_duplicates=ignore_duplicates, existence_match=existence_match)
                         and value.space == "controlled"
                     ):
                         continue
@@ -111,7 +112,10 @@ class KGEmbedded(KGNode):
                         assert space is not None  # for type checking
                         target_space = space
                     if target_space == "controlled":
-                        if value.exists(client, ignore_duplicates=ignore_duplicates) and value.space == "controlled":
+                        if (
+                            value.exists(client, ignore_duplicates=ignore_duplicates, existence_match=existence_match)
+                            and value.space == "controlled"
+                        ):
                             continue
                         else:
                             raise Exception("Cannot write to controlled space")
@@ -121,6 +125,7 @@ class KGEmbedded(KGNode):
                         recursive=recursive,
                         activity_log=activity_log,
                         ignore_duplicates=ignore_duplicates,
+                        existence_match=existence_match,
                     )
 
 
