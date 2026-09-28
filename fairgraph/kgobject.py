@@ -749,6 +749,10 @@ class KGObject(KGNode, Releasable):
             - An `AuthorizationError` if the current user is not authorized to perform the requested operation.
 
         """
+        # Done first, so that the existence query, the data that is sent and the comparison with
+        # the remote data all use the same values. The object is changed in place on purpose:
+        # afterwards it is identical to what is stored in the KG.
+        self._normalize_text()
         if recursive:
             for prop in self.properties:
                 # We do not save reverse properties, those objects must be saved separately.

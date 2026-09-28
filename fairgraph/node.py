@@ -33,6 +33,7 @@ from .utility import (
     expand_uri,
     normalize_data,
 )
+from .utility.whitespace import normalize_property_value
 
 if TYPE_CHECKING:
     from .client import KGClient
@@ -461,6 +462,25 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
                             else:
                                 setattr(self, prop.name, resolved_values)
         return self
+
+    def _normalize_text(self) -> None:
+        """
+        Normalize, in place, the whitespace in the text values of this node's properties.
+
+        This includes the values of embedded nodes, which are saved along with this node,
+        but not those of linked objects, which are normalised when they are themselves saved.
+        """
+        from .embedded import KGEmbedded  # local import avoids a circular import at load time
+
+        for prop in self.properties:
+            value = getattr(self, prop.name)
+            normalized = normalize_property_value(prop, value)
+            if normalized is not value and normalized != value:
+                setattr(self, prop.name, normalized)
+                value = normalized
+            for item in as_list(value):
+                if isinstance(item, KGEmbedded):
+                    item._normalize_text()
 
     def _build_existence_query(self) -> Union[None, Dict[str, Any]]:
         """

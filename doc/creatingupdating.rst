@@ -23,6 +23,9 @@ To update a node, edit the attributes of the corresponding Python object, then :
 
 (Note that for updating existing objects you don't need to specify the space.)
 
+.. note:: Before saving, **fairgraph** removes leading and trailing whitespace
+          from properties that contain text (including those of embedded nodes).
+
 How does fairgraph distinguish between creating a new node and modifying an existing one?
 =========================================================================================
 
