@@ -43,7 +43,7 @@ from .queries import Query, QueryProperty, Regex
 from .errors import AuthorizationError, ResourceExistsError, CannotBuildExistenceQuery
 from .caching import object_cache, save_cache, generate_cache_key
 from .base import ErrorHandling, Releasable, JSONdict
-from .name_matching import KG_NAMELIKE_PROPERTIES, MATCH_TYPES, build_name_regex, matches_name
+from .utility.name_matching import KG_NAMELIKE_PROPERTIES, MATCH_TYPES, build_name_regex, matches_name
 from .node import KGNode
 from .kgproxy import KGProxy
 from .kgquery import KGQuery

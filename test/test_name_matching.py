@@ -1,5 +1,5 @@
 """
-Tests for `fairgraph.name_matching`.
+Tests for `fairgraph.utility.name_matching`.
 
 Most of this covers fairgraph's own code and is unaffected by where the name-matching helpers come from.
 
@@ -36,7 +36,7 @@ import openminds.v4.sands
 import fairgraph.openminds.v4.controlled_terms as omterms
 import fairgraph.openminds.v4.sands as omsands
 from fairgraph.queries import Regex
-from fairgraph.name_matching import (
+from fairgraph.utility.name_matching import (
     MAX_WITHIN_LENGTH,
     build_name_regex,
     matches_name,

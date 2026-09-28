@@ -10,7 +10,7 @@ from fairgraph.base import OPENMINDS_VERSION
 from fairgraph.caching import object_cache, save_cache
 from fairgraph.client import KGClient
 from fairgraph.errors import AuthenticationError, AuthorizationError
-from fairgraph.name_matching import KG_NAMELIKE_PROPERTIES
+from fairgraph.utility.name_matching import KG_NAMELIKE_PROPERTIES
 from fairgraph.utility import as_list
 
 import pytest
