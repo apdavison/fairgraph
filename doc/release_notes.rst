@@ -6,6 +6,13 @@ Release notes
 Version 0.16.0
 ==============
 
+Changes in behaviour
+--------------------
+
+- Leading and trailing whitespace is now removed from text properties before they are saved
+  Text loaded from the Knowledge Graph is left as it is until saved, so saving a fetched object corrects
+  any untrimmed text that is stored.
+
 Bug fixes
 ---------
 
