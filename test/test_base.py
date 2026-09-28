@@ -16,7 +16,7 @@ from fairgraph.caching import generate_cache_key, object_cache, save_cache
 from fairgraph.errors import CannotBuildExistenceQuery
 from fairgraph.base import ErrorHandling
 from fairgraph.utility import ActivityLog
-from .utils import clear_caches, mock_client
+from .utils import MockKGResponse, clear_caches, mock_client
 
 import pytest
 
@@ -411,6 +411,52 @@ class TestKGObject(object):
             obj._build_existence_query()
         assert exc_info.value.args[0] == f"Required value for '{prop_name}' is missing"
         obj.__class__.error_handling = orig_error_handling
+
+    def _construct_new_object_with_proxy_link(self):
+        """
+        Return a new object (no id) whose linked object in the existence query is an
+        unresolved KGProxy, together with the equivalent object holding the resolved node.
+        """
+        resolved_obj = self._construct_object_all_properties()
+        resolved_obj.id = None
+        proxy_obj = self._construct_object_all_properties()
+        proxy_obj.id = None
+        proxy_obj.a_required_linked_object = KGProxy(MockKGObject, resolved_obj.a_required_linked_object.id)
+        return proxy_obj, resolved_obj
+
+    def test_build_existence_query__with_proxy(self):
+        """A link given as a KGProxy should give the same existence query as the resolved node."""
+        proxy_obj, resolved_obj = self._construct_new_object_with_proxy_link()
+        query = proxy_obj._build_existence_query()
+        assert query["a_required_linked_object"] == (
+            "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002"
+        )
+        assert query == resolved_obj._build_existence_query()
+
+    def test_exists__with_proxy_in_existence_query(self, mock_client, clear_caches, mocker):
+        proxy_obj, resolved_obj = self._construct_new_object_with_proxy_link()
+        query = mocker.patch.object(mock_client, "query", return_value=MockKGResponse([]))
+
+        assert not proxy_obj.exists(mock_client)
+
+        query.assert_called_once()
+        expected_query = MockKGObject.generate_minimal_query(
+            client=mock_client, filters=resolved_obj._build_existence_query()
+        )
+        assert query.call_args.kwargs["query"] == expected_query
+
+    def test_save__with_proxy_in_existence_query(self, mock_client, clear_caches, mocker):
+        proxy_obj, resolved_obj = self._construct_new_object_with_proxy_link()
+        mocker.patch.object(mock_client, "query", return_value=MockKGResponse([]))
+        log = ActivityLog()
+
+        proxy_obj.save(mock_client, space="mock", recursive=False, activity_log=log)
+
+        assert [entry.type for entry in log.entries] == ["create"]
+        assert len(mock_client.instances) == 1
+        # the save cache is keyed on the id of the linked object, as it is for a resolved node
+        cache_key = generate_cache_key(resolved_obj._build_existence_query())
+        assert save_cache[MockKGObject] == {cache_key: proxy_obj.id}
 
     def test_build_data_all_properties(self):
         obj = self._construct_object_all_properties()

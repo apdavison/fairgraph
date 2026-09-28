@@ -482,7 +482,9 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
         for property in query_properties:
             query_property_name = property.name
             value = getattr(self, property.name)
-            if isinstance(value, KGNode):
+            if isinstance(value, KGProxy):
+                query[query_property_name] = value.id
+            elif isinstance(value, KGNode):
                 if hasattr(value, "id") and value.id:
                     query[query_property_name] = value.id
                 else:

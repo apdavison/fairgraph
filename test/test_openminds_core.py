@@ -17,6 +17,7 @@ from openminds import IRI
 from openminds.base import LinkedNodeEmbedding
 
 from fairgraph.utility import as_list
+from fairgraph.collection import Collection
 from fairgraph.kgproxy import KGProxy
 from fairgraph.kgquery import KGQuery
 from fairgraph.kgobject import KGObject, EXISTENCE_QUERY_SIZE
@@ -591,6 +592,43 @@ def test_save_same_new_person_twice_does_not_duplicate(mock_client, clear_caches
     assert len(mock_client.instances) == 1
     assert mock_client.updates == []
     assert len(queries) == 1  # the KG was not queried again
+
+
+def test_collection_upload_with_link_to_existing_instance(mock_client, clear_caches, mocker, tmp_path):
+    """
+    A node loaded from JSON-LD that links to an instance already in the KG (not in the collection)
+    holds a KGProxy for that link. Uploading it must not fail when the link is part of the
+    existence query (regression test for https://github.com/HumanBrainProject/fairgraph/issues/145).
+    """
+    funder_id = "https://kg.ebrains.eu/api/instances/2cd6bfcd-6e3b-4b53-8b18-5a1eb6dc6f64"
+    path = tmp_path / "funding.jsonld"
+    path.write_text(
+        json.dumps(
+            {
+                "@context": {"@vocab": "https://openminds.om-i.org/props/"},
+                # a blank-node id, so that the node's existence is checked by querying,
+                # rather than by looking up its id
+                "@id": "_:funding1",
+                "@type": "https://openminds.om-i.org/types/Funding",
+                "funder": {"@id": funder_id},
+            }
+        )
+    )
+    collection = Collection()
+    collection.load(str(path))
+    (funding,) = collection.nodes.values()
+    # the link leaves the collection, so it cannot be resolved to a node
+    assert isinstance(funding.funder, KGProxy)
+    # the mock client cannot run a query that filters on a linked node,
+    # so stub it out: an empty response means "no such instance in the KG"
+    query = mocker.patch.object(mock_client, "query", return_value=MockKGResponse([]))
+
+    collection.upload(mock_client, default_space="myspace", upload_log_path=str(tmp_path / "upload_log.txt"))
+
+    query.assert_called_once()  # i.e. the existence query was built and run
+    assert len(mock_client.instances) == 1
+    (instance,) = mock_client.instances.values()
+    assert instance["https://openminds.om-i.org/props/funder"] == {"@id": funder_id}
 
 
 @skip_if_no_connection
