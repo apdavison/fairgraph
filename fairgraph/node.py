@@ -26,7 +26,7 @@ from .registry import NodeMeta
 from .base import Resolvable, ErrorHandling, Releasable
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
-from .queries import QueryProperty, get_query_properties, get_query_filter_property, get_filter_value
+from .queries import Equals, QueryProperty, get_query_properties, get_query_filter_property, get_filter_value
 from .errors import ResolutionFailure, CannotBuildExistenceQuery
 from .utility import (
     as_list,  # temporary for backwards compatibility (a lot of code imports it from here)
@@ -42,6 +42,16 @@ if TYPE_CHECKING:
 logger = logging.getLogger("fairgraph")
 
 JSONdict = Dict[str, Any]  # see https://github.com/python/typing/issues/182 for some possible improvements
+
+
+EXISTENCE_MATCH_MODES = ("equals", "contains")
+
+
+def check_existence_match(existence_match: str):
+    if existence_match not in EXISTENCE_MATCH_MODES:
+        raise ValueError(
+            f"Invalid value for existence_match: {existence_match!r}. Must be one of {', '.join(EXISTENCE_MATCH_MODES)}"
+        )
 
 
 class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
@@ -134,6 +144,7 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
         replace: bool = False,
         ignore_auth_errors: bool = False,
         ignore_duplicates: bool = False,
+        existence_match: str = "equals",
     ):
         raise NotImplementedError("This should be implemented by subclasses")
 
@@ -482,11 +493,15 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
                 if isinstance(item, KGEmbedded):
                     item._normalize_text()
 
-    def _build_existence_query(self) -> Union[None, Dict[str, Any]]:
+    def _build_existence_query(self, existence_match: str = "equals") -> Union[None, Dict[str, Any]]:
         """
         Generate a KG query definition (as a JSON-LD document) that can be used to
         check whether a locally-defined object (with no ID) already exists in the KG.
+
+        With `existence_match="equals"`, string values must match exactly (ignoring case);
+        with `"contains"`, it is enough for the value in the KG to contain the local value.
         """
+        check_existence_match(existence_match)
         if self.existence_query_properties is None:
             return None
 
@@ -508,7 +523,7 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
                 if hasattr(value, "id") and value.id:
                     query[query_property_name] = value.id
                 else:
-                    sub_query = value._build_existence_query()
+                    sub_query = value._build_existence_query(existence_match)
                     query.update({f"{query_property_name}__{key}": val for key, val in sub_query.items()})
             elif isinstance(value, (list, tuple)):
                 raise CannotBuildExistenceQuery("not implemented yet")
@@ -518,6 +533,9 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
                 query_val = value_to_jsonld(value, include_empty_properties=False, embed_linked_nodes=LinkedNodeEmbedding.NEVER)
                 if query_val is None:
                     raise CannotBuildExistenceQuery(f"Required value for '{query_property_name}' is missing")
+                if isinstance(query_val, str) and existence_match == "equals":
+                    # match exactly, so that we don't identify this object with one whose value merely contains ours
+                    query_val = Equals(query_val)
                 query[query_property_name] = query_val
         return query
 

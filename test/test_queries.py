@@ -2,7 +2,7 @@ import os
 import json
 import pytest
 from kg_core.request import Stage, Pagination
-from fairgraph.queries import Query, QueryProperty, Filter, PathElement, Regex
+from fairgraph.queries import Query, QueryProperty, Filter, PathElement, Regex, Equals
 import fairgraph.openminds.core as omcore
 import fairgraph.openminds.controlled_terms as omterms
 from .utils import kg_client, mock_client, skip_if_no_connection
@@ -767,3 +767,81 @@ def test_regex_accepts_a_valid_pattern():
     pattern = Regex("^M[uü]ller$")
     assert isinstance(pattern, str)
     assert pattern == "^M[uü]ller$"
+
+
+def test_equals_marker_filters_with_equals_operator(mock_client):
+    query = omcore.Dataset.generate_query(client=mock_client, space=None, filters={"short_name": Equals("FOO")})
+    filters = [prop["filter"] for prop in query["structure"] if prop.get("propertyName", None) == "Qshort_name"]
+    assert filters == [{"op": "EQUALS", "value": "FOO"}]
+
+
+def test_equals_is_exported_from_the_package():
+    import fairgraph
+
+    assert fairgraph.Equals is Equals
+
+
+@pytest.mark.parametrize(
+    "cls, filters, path_expected",
+    [
+        (omcore.Dataset, {"short_name": Equals("FOO")}, "Qshort_name"),
+        (omcore.Dataset, {"digital_identifier__identifier": Equals("https://doi.org/10.1/x")}, "Qidentifier"),
+        (omcore.WebResource, {"iri": Equals("https://example.org/a")}, "Qiri"),
+    ],
+)
+def _find_filters(structure, property_name=None):
+    """All the filters in a query structure, at any depth, optionally only on the named property"""
+    for prop in structure:
+        if "filter" in prop and property_name in (None, prop.get("propertyName")):
+            yield prop["filter"]
+        yield from _find_filters(prop.get("structure", []), property_name)
+
+
+@pytest.mark.parametrize(
+    "cls, filters, property_name",
+    [
+        (omcore.Dataset, {"short_name": Equals("FOO")}, "Qshort_name"),
+        (omcore.Dataset, {"digital_identifier__identifier": Equals("https://doi.org/10.1/x")}, "Qidentifier"),
+        (omcore.WebResource, {"iri": Equals("https://example.org/a")}, "Qiri"),
+    ],
+)
+def test_equals_filters_string_and_iri_properties_with_equals(mock_client, cls, filters, property_name):
+    query = cls.generate_query(client=mock_client, space=None, filters=filters)
+    assert [f["op"] for f in _find_filters(query["structure"], property_name)] == ["EQUALS"]
+
+
+def test_equals_filters_a_link_by_id_with_equals(mock_client):
+    instance_id = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000001"
+    query = omcore.DatasetVersion.generate_query(
+        client=mock_client, space=None, filters={"is_new_version_of": Equals(instance_id)}
+    )
+    filters = [f for f in _find_filters(query["structure"]) if f.get("value") == instance_id]
+    assert filters == [{"op": "EQUALS", "value": instance_id}]
+
+
+def test_equals_rejects_a_non_id_string_for_a_link(mock_client):
+    # as for a plain string or a Regex
+    with pytest.raises(TypeError):
+        omcore.DatasetVersion.generate_query(client=mock_client, space=None, filters={"is_new_version_of": Equals("FOO")})
+
+
+def test_existence_query_filters_strings_with_equals(mock_client):
+    dataset = omcore.Dataset(short_name="FOO")
+    query = omcore.Dataset.generate_minimal_query(client=mock_client, filters=dataset._build_existence_query())
+    filters = [prop["filter"] for prop in query["structure"] if prop.get("propertyName", None) == "Qshort_name"]
+    assert filters == [{"op": "EQUALS", "value": "FOO"}]
+
+
+def test_existence_query_filters_strings_with_contains_if_requested(mock_client):
+    dataset = omcore.Dataset(short_name="FOO")
+    filters = dataset._build_existence_query("contains")
+    assert filters == {"short_name": "FOO"}
+    assert not isinstance(filters["short_name"], Equals)
+    query = omcore.Dataset.generate_minimal_query(client=mock_client, filters=filters)
+    query_filters = [prop["filter"] for prop in query["structure"] if prop.get("propertyName", None) == "Qshort_name"]
+    assert query_filters == [{"op": "CONTAINS", "value": "FOO"}]
+
+
+def test_existence_query_rejects_an_invalid_match():
+    with pytest.raises(ValueError, match="existence_match"):
+        omcore.Dataset(short_name="FOO")._build_existence_query("fuzzy")

@@ -883,6 +883,100 @@ def _seed_person(mock_client, space, uuid="12345678-90ab-cdef-0123-4567890abcde"
     return person_id
 
 
+def _seed_dataset(mock_client, short_name, space="myspace", uuid="12345678-90ab-cdef-0123-4567890abcdf"):
+    dataset_id = f"https://kg.ebrains.eu/api/instances/{uuid}"
+    mock_client.instances[dataset_id] = {
+        "@id": dataset_id,
+        "@type": ["https://openminds.om-i.org/types/Dataset"],
+        "https://core.kg.ebrains.eu/vocab/meta/space": space,
+        "https://openminds.om-i.org/props/shortName": short_name,
+    }
+    return dataset_id
+
+
+def test_exists_does_not_match_a_longer_name(mock_client, clear_caches):
+    """An object must not be identified with an existing one whose name merely contains its own"""
+    _seed_dataset(mock_client, "FOO-BAR")
+    dataset = omcore.Dataset(short_name="FOO")
+    assert not dataset.exists(mock_client)
+    assert dataset.id is None
+    assert not dataset.exists(mock_client, existence_match="equals")
+
+
+def test_exists_matches_the_same_name(mock_client, clear_caches):
+    dataset_id = _seed_dataset(mock_client, "FOO-BAR")
+    dataset = omcore.Dataset(short_name="FOO-BAR")
+    assert dataset.exists(mock_client)
+    assert dataset.id == dataset_id
+
+
+def test_exists_ignores_case_when_matching(mock_client, clear_caches):
+    dataset_id = _seed_dataset(mock_client, "FOO-BAR")
+    dataset = omcore.Dataset(short_name="foo-bar")
+    assert dataset.exists(mock_client)
+    assert dataset.id == dataset_id
+
+
+def test_exists_does_not_ignore_whitespace_when_matching(mock_client, clear_caches):
+    _seed_dataset(mock_client, "FOO-BAR ")
+    dataset = omcore.Dataset(short_name="FOO-BAR")
+    assert not dataset.exists(mock_client)
+
+
+def test_exists_with_contains_matches_a_longer_name(mock_client, clear_caches):
+    dataset_id = _seed_dataset(mock_client, "FOO-BAR")
+    dataset = omcore.Dataset(short_name="FOO")
+    assert dataset.exists(mock_client, existence_match="contains")
+    assert dataset.id == dataset_id
+
+
+def test_exists_with_contains_does_not_affect_later_exact_lookups(mock_client, clear_caches):
+    """Adopting a partial match must not make a later exact lookup find it, via the save cache"""
+    _seed_dataset(mock_client, "FOO-BAR")
+    assert omcore.Dataset(short_name="FOO").exists(mock_client, existence_match="contains")
+    assert not omcore.Dataset(short_name="FOO").exists(mock_client)
+    assert omcore.Dataset(short_name="FOO").exists(mock_client, existence_match="contains")
+
+
+def test_exists_with_contains_uses_exact_matches_cached_by_earlier_saves(mock_client, clear_caches):
+    dataset = omcore.Dataset(short_name="FOO")
+    dataset.save(mock_client, space="myspace", recursive=False)
+    other = omcore.Dataset(short_name="FOO")
+    assert other.exists(mock_client, existence_match="contains")
+    assert other.id == dataset.id
+
+
+def test_exists_rejects_an_invalid_existence_match(mock_client, clear_caches):
+    dataset = omcore.Dataset(short_name="FOO")
+    with pytest.raises(ValueError, match="existence_match"):
+        dataset.exists(mock_client, existence_match="fuzzy")
+    with pytest.raises(ValueError, match="existence_match"):
+        dataset.save(mock_client, space="myspace", recursive=False, existence_match="fuzzy")
+
+
+def test_save_with_contains_updates_a_longer_name(mock_client, clear_caches):
+    dataset_id = _seed_dataset(mock_client, "FOO-BAR")
+    dataset = omcore.Dataset(short_name="FOO")
+    dataset.save(mock_client, space="myspace", recursive=False, existence_match="contains")
+    assert dataset.id == dataset_id
+    assert len(mock_client.instances) == 1
+
+
+def test_save_creates_a_new_object_when_only_a_longer_name_exists(mock_client, clear_caches):
+    dataset_id = _seed_dataset(mock_client, "FOO-BAR")
+    dataset = omcore.Dataset(short_name="FOO")
+    dataset.save(mock_client, space="myspace", recursive=False)
+    assert dataset.id != dataset_id
+    assert len(mock_client.instances) == 2
+
+
+def test_save_passes_existence_match_to_children(mock_client, clear_caches):
+    child_id = _seed_person(mock_client, "myspace")
+    parent = omcore.Dataset(short_name="FOO", custodians=[omcore.Person(given_name="Bil", family_name="Bag")])
+    parent.save(mock_client, space="myspace", recursive=True, existence_match="contains")
+    assert parent.custodians[0].id == child_id
+
+
 def _spy_on_query(mock_client, monkeypatch):
     """Record the `restrict_to_spaces` argument of each query sent to the mock client"""
     restrictions = []

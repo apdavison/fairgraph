@@ -83,6 +83,9 @@ Queries
 .. autoclass:: fairgraph.queries.Regex
    :show-inheritance:
 
+.. autoclass:: fairgraph.queries.Equals
+   :show-inheritance:
+
 Utility classes and functions
 =============================
 

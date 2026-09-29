@@ -114,7 +114,7 @@ class MockKGClient:
         """
         Whether a query filter would select an instance whose name-like property is `candidate`.
 
-        `by_name()` filters with a regular expression, while existence queries filter with a plain string,
+        `by_name()` filters with a regular expression, while existence queries filter with an exact match (which the KG applies case-insensitively),
         so both have to be understood here. The regex is applied case-insensitively, to match the KG.
         """
         value = spec.get("value", None)
@@ -122,6 +122,8 @@ class MockKGClient:
             return False
         if spec.get("op", None) == "REGEX":
             return re.search(value, candidate, re.IGNORECASE) is not None
+        if spec.get("op", None) == "EQUALS":
+            return candidate.lower() == value.lower()
         return candidate in value
 
     def query(
@@ -228,6 +230,9 @@ class MockKGClient:
                     return True
                 continue
             if item == value:
+                return True
+            if op == "EQUALS" and isinstance(item, str) and isinstance(value, str) and item.lower() == value.lower():
+                # the KG ignores case, but not whitespace, when matching
                 return True
             if op == "CONTAINS" and isinstance(item, str) and isinstance(value, str) and value in item:
                 return True

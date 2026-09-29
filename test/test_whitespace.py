@@ -151,6 +151,21 @@ class TestSave:
         assert [entry.type for entry in log.entries] == ["no-op"]
         assert mock_client.updates == []
 
+    def test_stored_untrimmed_value_is_not_matched_exactly(self, mock_client, clear_caches):
+        _seed_bilbo(mock_client, given_name="Bilbo ")
+        # the value is stripped before saving, and an exact match does not ignore whitespace in the KG
+        person = omcore.Person(given_name="Bilbo", family_name="Baggins")
+        person.save(mock_client, space="common")
+        assert person.id != BILBO_ID
+        assert len(mock_client.instances) == 2
+
+    def test_stored_untrimmed_value_is_matched_with_existence_match_contains(self, mock_client, clear_caches):
+        _seed_bilbo(mock_client, given_name="Bilbo ")
+        person = omcore.Person(given_name=" Bilbo", family_name="Baggins")
+        person.save(mock_client, space="common", existence_match="contains")
+        assert person.id == BILBO_ID
+        assert len(mock_client.instances) == 1
+
     def test_loaded_object_with_untrimmed_stored_value_is_repaired(self, mock_client, clear_caches):
         _seed_bilbo(mock_client, given_name="Bilbo ")
         person = omcore.Person.from_id(BILBO_ID, mock_client)

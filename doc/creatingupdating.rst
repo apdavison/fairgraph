@@ -40,6 +40,13 @@ attribute, e.g.::
     >>> SoftwareVersion.existence_query_properties
     ('short_name', 'version_identifier')
 
+String properties must match exactly (ignoring case).
+If you want a value in the Knowledge Graph to match when it merely *contains* the local value,
+pass ``existence_match="contains"`` to :meth:`save()` or :meth:`exists()`. 
+Use this with care: the object you save will overwrite any that is found::
+
+    >>> dataset.save(client, space="myspace", existence_match="contains")
+
 
 Saving child nodes
 ==================
