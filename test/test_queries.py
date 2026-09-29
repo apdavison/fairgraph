@@ -521,6 +521,74 @@ def test_generate_query_with_follow_named_links(mock_client):
     assert generated == expected
 
 
+def test_generate_query_single_root_level_sort_key(mock_client):
+    """Generated queries carry at most one 'sort': true, on a root-level property only.
+
+    The KG query API allows sorting on exactly one property, at the root level. This pins
+    that constraint and the deliberate priority order in which the sort property is chosen
+    (see SORT_PRIORITY in fairgraph/queries.py).
+    """
+    import fairgraph.openminds.v4.core as v4core
+    import fairgraph.openminds.v4.sands as v4sands
+    import fairgraph.openminds.v4.ephys as v4ephys
+    import fairgraph.openminds.v4.specimen_prep as v4sp
+    import fairgraph.openminds.v5.sands as v5sands
+
+    # (class, expected sort propertyName, or None for "no sort")
+    cases = [
+        # has both name and lookup_label -> name wins over lookup_label
+        (v4sands.ParcellationEntity, "name"),
+        (v4sands.ParcellationEntityVersion, "name"),
+        (v4ephys.Electrode, "name"),
+        (v4ephys.ElectrodeArray, "name"),
+        (v4ephys.Pipette, "name"),
+        (v4sp.SlicingDevice, "name"),
+        # v5 variants behave the same
+        (v5sands.ParcellationEntity, "name"),
+        (v5sands.ParcellationEntityVersion, "name"),
+        # no 'name', but family_name -> familyName (newly sortable)
+        (v4core.Person, "familyName"),
+        # no 'name', full_name present -> fullName
+        (v4core.Organization, "fullName"),
+        (v4core.Dataset, "fullName"),
+    ]
+    for cls, expected_sort in cases:
+        query = cls.generate_query(space="collab-foobar", client=mock_client, with_reverse_properties=True)
+        sorts = [prop.get("propertyName") for prop in query["structure"] if prop.get("sort")]
+        assert len(sorts) <= 1, f"{cls.__name__}: expected at most one sort key, got {sorts}"
+        assert sorts == [expected_sort], f"{cls.__name__}: expected sort key {expected_sort!r}, got {sorts}"
+        # sort must not appear on any nested (non-root) property
+        for prop in query["structure"]:
+            if "structure" in prop:
+                assert "sort" not in prop, f"{cls.__name__}: nested sort present"
+
+
+def test_generate_query_no_sort_when_no_name_like_property(mock_client):
+    """Classes with no name-like property should not emit a sort key."""
+    # DOI has no name-like top-level property to sort by
+    query = omcore.DOI.generate_query(space="collab-foobar", client=mock_client, with_reverse_properties=True)
+    for prop in query["structure"]:
+        assert "sort" not in prop, f"unexpected sort on {prop.get('propertyName')}"
+
+
+@skip_if_no_connection
+def test_list_results_sorted_by_name(kg_client):
+    """Live: results come back sorted case-insensitively by the chosen sort property.
+
+    The KG sorts case-insensitively (e.g. 'AAL1_brain' sits between 'AAL1_AMYG' and
+    'AAL1_CAU'), so the assertion compares lower-cased names rather than using plain
+    ``sorted()``, which would disagree. Sorting only applies to the query API, so the
+    query API is forced explicitly.
+    """
+    import fairgraph.openminds.v4.sands as v4sands
+
+    instances = v4sands.ParcellationEntity.list(kg_client, size=30, api="query")
+    names = [inst.name for inst in instances if getattr(inst, "name", None)]
+    assert len(names) > 1
+    lowered = [name.lower() for name in names]
+    assert lowered == sorted(lowered), "results not ordered case-insensitively by name"
+
+
 def test_generate_query_type_filter_flattened():
     query = Query(
         node_type="https://openminds.om-i.org/types/LivePaperVersion",
