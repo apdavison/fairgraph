@@ -47,18 +47,24 @@ Changes in behaviour
   properties, so classes with both ``name`` and ``lookup_label`` (e.g. ``ParcellationEntity``,
   ``Electrode``, ``SlicingDevice``) produced an invalid query with two sort keys. The sortable
   set is now aligned with the name-like set used by :meth:`~fairgraph.kgobject.KGObject.by_name`,
-  and the single sort property is chosen from it in a fixed priority order: ``name``, then
-  ``full_name``, ``short_name``, ``family_name``, ``abbreviation``, then ``lookup_label``
+  and the single sort property is chosen from it in a fixed default priority order: ``name``,
+  then ``full_name``, ``short_name``, ``family_name``, ``abbreviation``, then ``lookup_label``
   (``synonyms`` is never used). In practice:
 
   - a class with both ``name`` and ``lookup_label`` is now sorted by ``name`` (previously
-    ``lookup_label`` won only because it happened to precede it), e.g. ``ParcellationEntity``;
+    ``lookup_label`` won only because it happened to precede it), e.g. ``Electrode``;
   - :class:`~fairgraph.openminds.core.Dataset` and
     :class:`~fairgraph.openminds.core.DatasetVersion` are sorted by ``full_name``;
   - :class:`~fairgraph.openminds.core.Person` gains a ``family_name`` sort key
     where it previously had none;
   - classes with none of the sortable properties (e.g. ``DOI``) are returned in whatever order
     the Knowledge Graph supplies.
+
+  A few classes override the default order via a per-class ``SORT_PRIORITY`` attribute so that a
+  different property keeps related results together: ``ParcellationEntity`` and
+  ``ParcellationEntityVersion`` are sorted by ``lookup_label`` so that terms from the same atlas
+  stay grouped (instead of by ``name``). The override is defined in the builder's
+  ``SORT_PRIORITY_EXCEPTIONS`` and regenerated into each generated class.
 
   Results are sorted in ascending, case-insensitive order. This is unrelated to the internal
   ``ensure_order`` option on a query property, which only preserves the order of instances within

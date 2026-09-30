@@ -139,9 +139,13 @@ The Knowledge Graph API allows sorting on exactly one property, at the root leve
 chooses that property from the class's name-like properties in a fixed priority order:
 ``name``, then ``full_name``, ``short_name``, ``family_name``, ``abbreviation``, then
 ``lookup_label``. It picks the first of these that the class actually has, so, for example,
-``ParcellationEntity`` is sorted by ``name``, ``Dataset`` by ``full_name``, and ``Person`` by
-``family_name``. ``synonyms`` is never used as a sort key (it is list-valued), and classes with
-none of these properties are returned in whatever order the Knowledge Graph supplies.
+``Dataset`` is sorted by ``full_name`` and ``Person`` by ``family_name``. ``synonyms`` is never
+used as a sort key (it is list-valued), and classes with none of these properties are returned in
+whatever order the Knowledge Graph supplies.
+
+A few classes override this default because a different property keeps related results together.
+In particular, ``ParcellationEntity`` and ``ParcellationEntityVersion`` are sorted by
+``lookup_label`` so that terms from the same atlas stay grouped.
 
 Results retrieved through the core API (the default for a plain, unfiltered ``list()``) are
 returned in an unspecified order.

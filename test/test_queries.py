@@ -525,8 +525,11 @@ def test_generate_query_single_root_level_sort_key(mock_client):
     """Generated queries carry at most one 'sort': true, on a root-level property only.
 
     The KG query API allows sorting on exactly one property, at the root level. This pins
-    that constraint and the deliberate priority order in which the sort property is chosen
-    (see SORT_PRIORITY in fairgraph/queries.py).
+    that constraint and the deliberate priority order in which the sort property is chosen.
+    Most classes use the default priority (SORT_PRIORITY in fairgraph/queries.py), but a few
+    classes override it via a per-class SORT_PRIORITY attribute (see the builder's
+    SORT_PRIORITY_EXCEPTIONS); ParcellationEntity sorts by lookup_label so that terms from the
+    same atlas stay together.
     """
     import fairgraph.openminds.v4.core as v4core
     import fairgraph.openminds.v4.sands as v4sands
@@ -536,16 +539,16 @@ def test_generate_query_single_root_level_sort_key(mock_client):
 
     # (class, expected sort propertyName, or None for "no sort")
     cases = [
-        # has both name and lookup_label -> name wins over lookup_label
-        (v4sands.ParcellationEntity, "name"),
-        (v4sands.ParcellationEntityVersion, "name"),
+        # per-class override: lookup_label preferred so atlas terms stay together
+        (v4sands.ParcellationEntity, "lookupLabel"),
+        (v4sands.ParcellationEntityVersion, "lookupLabel"),
+        (v5sands.ParcellationEntity, "lookupLabel"),
+        (v5sands.ParcellationEntityVersion, "lookupLabel"),
+        # default priority: name wins over lookup_label
         (v4ephys.Electrode, "name"),
         (v4ephys.ElectrodeArray, "name"),
         (v4ephys.Pipette, "name"),
         (v4sp.SlicingDevice, "name"),
-        # v5 variants behave the same
-        (v5sands.ParcellationEntity, "name"),
-        (v5sands.ParcellationEntityVersion, "name"),
         # no 'name', but family_name -> familyName (newly sortable)
         (v4core.Person, "familyName"),
         # no 'name', full_name present -> fullName
@@ -571,22 +574,50 @@ def test_generate_query_no_sort_when_no_name_like_property(mock_client):
         assert "sort" not in prop, f"unexpected sort on {prop.get('propertyName')}"
 
 
+def test_per_class_sort_priority_override():
+    """The generated SORT_PRIORITY class attribute pins the deliberate per-class overrides.
+
+    ParcellationEntity(-Version) prefer lookup_label so that terms from the same atlas stay
+    together, unlike every other class which uses the default priority. This guards against
+    the builder regeneration silently reverting the override (see SORT_PRIORITY_EXCEPTIONS in
+    builder/update_openminds.py).
+    """
+    import fairgraph.openminds.v4.sands as v4sands
+    import fairgraph.openminds.v5.sands as v5sands
+    import fairgraph.openminds.v4.ephys as v4ephys
+    from fairgraph.queries import SORT_PRIORITY
+
+    default = ("name", "fullName", "shortName", "familyName", "abbreviation", "lookupLabel")
+    override = ("lookupLabel", "name", "fullName", "shortName", "familyName", "abbreviation")
+
+    assert v4sands.ParcellationEntity.SORT_PRIORITY == override
+    assert v4sands.ParcellationEntityVersion.SORT_PRIORITY == override
+    assert v5sands.ParcellationEntity.SORT_PRIORITY == override
+    assert v5sands.ParcellationEntityVersion.SORT_PRIORITY == override
+    # a class without an override still uses the default
+    assert v4ephys.Electrode.SORT_PRIORITY == default
+    # and the module default matches
+    assert SORT_PRIORITY == default
+    assert SORT_PRIORITY
+
+
 @skip_if_no_connection
-def test_list_results_sorted_by_name(kg_client):
+def test_list_results_sorted_by_chosen_property(kg_client):
     """Live: results come back sorted case-insensitively by the chosen sort property.
 
     The KG sorts case-insensitively (e.g. 'AAL1_brain' sits between 'AAL1_AMYG' and
-    'AAL1_CAU'), so the assertion compares lower-cased names rather than using plain
+    'AAL1_CAU'), so the assertion compares lower-cased values rather than using plain
     ``sorted()``, which would disagree. Sorting only applies to the query API, so the
-    query API is forced explicitly.
+    query API is forced explicitly. ParcellationEntity sorts by lookup_label (its per-class
+    override).
     """
     import fairgraph.openminds.v4.sands as v4sands
 
     instances = v4sands.ParcellationEntity.list(kg_client, size=30, api="query")
-    names = [inst.name for inst in instances if getattr(inst, "name", None)]
-    assert len(names) > 1
-    lowered = [name.lower() for name in names]
-    assert lowered == sorted(lowered), "results not ordered case-insensitively by name"
+    values = [inst.lookup_label for inst in instances if getattr(inst, "lookup_label", None)]
+    assert len(values) > 1
+    lowered = [value.lower() for value in values]
+    assert lowered == sorted(lowered), "results not ordered case-insensitively by lookup_label"
 
 
 def test_generate_query_type_filter_flattened():
