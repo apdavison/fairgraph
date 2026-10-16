@@ -845,3 +845,98 @@ def test_existence_query_filters_strings_with_contains_if_requested(mock_client)
 def test_existence_query_rejects_an_invalid_match():
     with pytest.raises(ValueError, match="existence_match"):
         omcore.Dataset(short_name="FOO")._build_existence_query("fuzzy")
+
+
+def _filter_properties(query, path):
+    return [prop for prop in query["structure"] if prop.get("path") == path and prop.get("required")]
+
+
+def test_list_filter_repeats_the_property_once_per_value(mock_client):
+    # each value must be matched by some developer, as in a hand-written KG query
+    query = omcore.SoftwareVersion.generate_query(
+        client=mock_client,
+        space=None,
+        filters={"developers__family_name": [Equals("Baggins"), Equals("Oakenshield")]},
+    )
+    props = _filter_properties(query, "https://openminds.om-i.org/props/developer")
+    assert [prop["propertyName"] for prop in props] == ["Qdevelopers1", "Qdevelopers2"]
+    assert [prop["structure"] for prop in props] == [
+        [
+            {
+                "path": "https://openminds.om-i.org/props/familyName",
+                "propertyName": "Qfamily_name",
+                "filter": {"op": "EQUALS", "value": family_name},
+                "required": True,
+            }
+        ]
+        for family_name in ("Baggins", "Oakenshield")
+    ]
+
+
+def test_list_filter_keeps_sibling_filters_in_each_copy(mock_client):
+    query = omcore.SoftwareVersion.generate_query(
+        client=mock_client,
+        space=None,
+        filters={"developers__given_name": "Bilbo", "developers__family_name": ["Baggins", "Oakenshield"]},
+    )
+    props = _filter_properties(query, "https://openminds.om-i.org/props/developer")
+    assert len(props) == 2
+    for prop, family_name in zip(props, ("Baggins", "Oakenshield")):
+        filters = {sub_prop["propertyName"]: sub_prop["filter"]["value"] for sub_prop in prop["structure"]}
+        assert filters == {"Qgiven_name": "Bilbo", "Qfamily_name": family_name}
+
+
+@pytest.mark.parametrize("as_objects", [True, False])
+def test_list_filter_on_links(mock_client, as_objects):
+    import fairgraph.openminds.publications as ompub
+
+    ids = [f"https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-00000000000{i}" for i in (1, 2)]
+    if as_objects:
+        values = [omcore.Person(id=id, given_name="A", family_name="B") for id in ids]
+    else:
+        values = ids
+    query = ompub.Chapter.generate_query(client=mock_client, space=None, filters={"authors": values})
+    props = _filter_properties(query, "https://openminds.om-i.org/props/author")
+    assert [prop["propertyName"] for prop in props] == ["Qauthors1", "Qauthors2"]
+    assert [prop["structure"][0]["path"] for prop in props] == ["@id", "@id"]
+    assert [prop["structure"][0]["filter"]["value"] for prop in props] == ids
+
+
+def test_list_filter_with_one_value_is_the_same_as_a_single_value(mock_client):
+    single = omcore.SoftwareVersion.generate_query(
+        client=mock_client, space=None, filters={"developers__family_name": "Baggins"}
+    )
+    as_list = omcore.SoftwareVersion.generate_query(
+        client=mock_client, space=None, filters={"developers__family_name": ["Baggins"]}
+    )
+    assert as_list == single
+
+
+def test_list_filter_rejects_an_empty_list(mock_client):
+    with pytest.raises(ValueError, match="empty list"):
+        omcore.SoftwareVersion.generate_query(client=mock_client, space=None, filters={"developers__family_name": []})
+
+
+def test_list_filter_rejects_two_lists_within_one_property(mock_client):
+    with pytest.raises(ValueError, match="Only one list"):
+        omcore.SoftwareVersion.generate_query(
+            client=mock_client,
+            space=None,
+            filters={"developers__family_name": ["Baggins", "Oakenshield"], "developers__given_name": ["A", "B"]},
+        )
+
+
+@skip_if_no_connection
+def test_execute_query_with_list_filter(kg_client):
+    # software versions developed by both people should be those found by filtering on each separately
+    family_names = ["Davison", "Appukuttan"]
+
+    def software_version_ids(family_name):
+        software_versions = omcore.SoftwareVersion.list(
+            kg_client, release_status="released", size=1000, developers__family_name=family_name
+        )
+        return {software_version.id for software_version in software_versions}
+
+    expected_ids = set.intersection(*(software_version_ids(Equals(family_name)) for family_name in family_names))
+    assert len(expected_ids) > 0
+    assert software_version_ids([Equals(family_name) for family_name in family_names]) == expected_ids

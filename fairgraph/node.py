@@ -26,7 +26,14 @@ from .registry import NodeMeta
 from .base import Resolvable, ErrorHandling, Releasable
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
-from .queries import Equals, QueryProperty, get_query_properties, get_query_filter_property, get_filter_value
+from .queries import (
+    Equals,
+    QueryProperty,
+    get_query_properties,
+    get_query_filter_property,
+    get_filter_value,
+    to_single_value_filters,
+)
 from .errors import ResolutionFailure, CannotBuildExistenceQuery
 from .utility import (
     as_list,  # temporary for backwards compatibility (a lot of code imports it from here)
@@ -303,7 +310,16 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
         properties = []
         for prop in cls.all_properties:
             if prop.name in filters:
-                properties.append(get_query_filter_property(prop, cls.context, filters[prop.name]))
+                # the KG accepts one value per filter, so a filter containing a list of values
+                # becomes one copy of the property per value, each of which must match
+                single_value_filters = to_single_value_filters(filters[prop.name])
+                if len(single_value_filters) == 1:
+                    properties.append(get_query_filter_property(prop, cls.context, single_value_filters[0]))
+                else:
+                    for i, single_value_filter in enumerate(single_value_filters, start=1):
+                        properties.append(
+                            get_query_filter_property(prop, cls.context, single_value_filter, name=f"Q{prop.name}{i}")
+                        )
         return properties
 
     @classmethod
