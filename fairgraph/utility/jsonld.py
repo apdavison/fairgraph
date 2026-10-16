@@ -219,7 +219,6 @@ def expand_filter(filter_dict: Dict[str, Any]):
         local_path = expanded
         parts = key.split("__")
         for part in parts[:-1]:
-            local_path[part] = {}
-            local_path = local_path[part]
+            local_path = local_path.setdefault(part, {})
         local_path[parts[-1]] = value
     return expanded
