@@ -216,6 +216,9 @@ def expand_filter(filter_dict: Dict[str, Any]):
     for key, value in filter_dict.items():
         if hasattr(value, "items"):
             raise TypeError("Filter specifications should be a single-level dict, without nesting")
+        if isinstance(value, list):
+            # each dict in a list is a separate filter specification, e.g. for one of several embedded nodes
+            value = [expand_filter(item) if isinstance(item, dict) else item for item in value]
         local_path = expanded
         parts = key.split("__")
         for part in parts[:-1]:

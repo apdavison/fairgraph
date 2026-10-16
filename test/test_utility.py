@@ -35,6 +35,13 @@ def test_expand_filter_keeps_siblings():
     assert expand_filter(filter) == {"developers": {"given_name": "Bilbo", "family_name": "Baggins"}}
 
 
+def test_expand_filter_expands_dicts_in_lists():
+    filter = {"coordinates": [{"value": 1.0, "unit__name": "mm"}, {"value": 2.0, "unit__name": "mm"}]}
+    assert expand_filter(filter) == {
+        "coordinates": [{"value": 1.0, "unit": {"name": "mm"}}, {"value": 2.0, "unit": {"name": "mm"}}]
+    }
+
+
 def test_compact_uri():
     context = {"foaf": "http://xmlns.com/foaf/0.1/"}
     uri_list = "http://xmlns.com/foaf/0.1/Person"

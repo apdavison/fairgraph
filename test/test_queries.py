@@ -1,5 +1,7 @@
 import os
 import json
+from datetime import date
+from openminds import IRI
 import pytest
 from kg_core.request import Stage, Pagination
 from fairgraph.queries import Query, QueryProperty, Filter, PathElement, Regex, Equals
@@ -845,6 +847,65 @@ def test_existence_query_filters_strings_with_contains_if_requested(mock_client)
 def test_existence_query_rejects_an_invalid_match():
     with pytest.raises(ValueError, match="existence_match"):
         omcore.Dataset(short_name="FOO")._build_existence_query("fuzzy")
+
+
+def _new_chapter(authors):
+    import fairgraph.openminds.publications as ompub
+
+    return ompub.Chapter(
+        name="There and Back Again",
+        is_part_of=ompub.Book(id="https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000001"),
+        publication_date=date(1937, 9, 21),
+        authors=authors,
+    )
+
+
+def _existence_filter_properties(cls, obj, mock_client, property_name):
+    query = cls.generate_minimal_query(client=mock_client, filters=obj._build_existence_query())
+    return [prop for prop in query["structure"] if prop.get("propertyName", "").startswith(f"Q{property_name}")]
+
+
+def test_existence_query_with_list_of_links(mock_client):
+    ids = [f"https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-00000000000{i}" for i in (2, 3)]
+    chapter = _new_chapter([omcore.Person(id=id, given_name="A", family_name="B") for id in ids])
+    props = _existence_filter_properties(type(chapter), chapter, mock_client, "authors")
+    assert [prop["propertyName"] for prop in props] == ["Qauthors1", "Qauthors2"]
+    assert [prop["structure"] for prop in props] == [
+        [{"path": "@id", "filter": {"op": "CONTAINS", "value": id}}] for id in ids
+    ]
+
+
+def test_existence_query_with_list_of_embedded_nodes(mock_client):
+    file = omcore.File(
+        iri=IRI("https://example.org/data.nwb"),
+        hashes=[omcore.Hash(algorithm="MD5", digest="abc"), omcore.Hash(algorithm="SHA1", digest="def")],
+    )
+    props = _existence_filter_properties(omcore.File, file, mock_client, "hashes")
+    assert [prop["propertyName"] for prop in props] == ["Qhashes1", "Qhashes2"]
+    # the filters for each hash are kept together, so that they must match the same hash in the KG
+    assert [
+        {sub_prop["propertyName"]: sub_prop["filter"] for sub_prop in prop["structure"]} for prop in props
+    ] == [
+        {"Qalgorithm": {"op": "EQUALS", "value": algorithm}, "Qdigest": {"op": "EQUALS", "value": digest}}
+        for algorithm, digest in (("MD5", "abc"), ("SHA1", "def"))
+    ]
+
+
+def test_existence_query_with_list_of_saved_and_unsaved_links(mock_client):
+    saved_id = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002"
+    chapter = _new_chapter(
+        [
+            omcore.Person(id=saved_id, given_name="A", family_name="B"),
+            omcore.Person(given_name="Bilbo", family_name="Baggins"),
+        ]
+    )
+    props = _existence_filter_properties(type(chapter), chapter, mock_client, "authors")
+    assert [prop["propertyName"] for prop in props] == ["Qauthors1", "Qauthors2"]
+    assert props[0]["structure"] == [{"path": "@id", "filter": {"op": "CONTAINS", "value": saved_id}}]
+    assert {sub_prop["propertyName"]: sub_prop["filter"] for sub_prop in props[1]["structure"]} == {
+        "Qgiven_name": {"op": "EQUALS", "value": "Bilbo"},
+        "Qfamily_name": {"op": "EQUALS", "value": "Baggins"},
+    }
 
 
 def _filter_properties(query, path):
