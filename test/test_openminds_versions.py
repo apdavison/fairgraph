@@ -94,12 +94,12 @@ def test_backwards_compat_submodules_are_aliased():
     import importlib
 
     legacy_to_v4 = [
-        ("fairgraph.openminds.core.products.dataset_version",
-         "fairgraph.openminds.v4.core.products.dataset_version"),
-        ("fairgraph.openminds.sands.atlas.brain_atlas_version",
-         "fairgraph.openminds.v4.sands.atlas.brain_atlas_version"),
-        ("fairgraph.openminds.controlled_terms.species",
-         "fairgraph.openminds.v4.controlled_terms.species"),
+        ("fairgraph.openminds.core.products.dataset_version", "fairgraph.openminds.v4.core.products.dataset_version"),
+        (
+            "fairgraph.openminds.sands.atlas.brain_atlas_version",
+            "fairgraph.openminds.v4.sands.atlas.brain_atlas_version",
+        ),
+        ("fairgraph.openminds.controlled_terms.species", "fairgraph.openminds.v4.controlled_terms.species"),
     ]
     for legacy_name, v4_name in legacy_to_v4:
         legacy_mod = importlib.import_module(legacy_name)
@@ -187,8 +187,7 @@ def test_from_id_uses_client_version():
     """KGObject.from_id passes the client's openminds_version to lookup_type."""
     mock_uri = "http://example.org/00000000-0000-0000-0000-000000000000"
 
-    for version, expected_module_prefix in (("v4", "fairgraph.openminds.v4"),
-                                            ("v5", "fairgraph.openminds.v5")):
+    for version, expected_module_prefix in (("v4", "fairgraph.openminds.v4"), ("v5", "fairgraph.openminds.v5")):
         client = MockKGClient(openminds_version=version)
         sentinel = object()
         captured = {}

@@ -132,7 +132,9 @@ class Collection(OMCollection):
                     break
                 except AuthenticationError as err:
                     if attempt < max_retries:
-                        logger.warning("Authentication error, refreshing client (attempt %d/%d)", attempt + 1, max_retries)
+                        logger.warning(
+                            "Authentication error, refreshing client (attempt %d/%d)", attempt + 1, max_retries
+                        )
                         client.refresh()
                     else:
                         raise

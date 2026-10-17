@@ -8,9 +8,9 @@ every one of its ``by_name()`` methods. They are closures there, repeated in eac
 uncomment the import line, and bump ``openminds>=`` in pyproject.toml.
 
 Everything after the block is fairgraph-specific: it *calls* the helpers above rather than
-restating anything they know, so the swap changes no behaviour. 
+restating anything they know, so the swap changes no behaviour.
 
-While the copy is in place, ``TestParityWithOpenMINDS`` in ``test_name_matching.py`` 
+While the copy is in place, ``TestParityWithOpenMINDS`` in ``test_name_matching.py``
 guards against it drifting from the original.
 """
 
@@ -126,7 +126,7 @@ _fold_maps_cache = None
 
 def _fold_maps() -> Tuple[Dict[str, Set[str]], Dict[str, Set[str]]]:
     """
-    Return (single, multi): mappings from a plain-letter form to the characters that fold onto it, 
+    Return (single, multi): mappings from a plain-letter form to the characters that fold onto it,
     split by whether that form is one character ("u" <- "ù", "ü", ...) or several ("ss" <- "ß", "ae" <- "æ", ...).
 
     Built by calling `remove_accents()`, so it cannot drift from it.
@@ -156,8 +156,8 @@ def _expand(text: str, case_sensitive: bool, ignore_accents: bool) -> str:
     Turn a search string into a regular expression matching every spelling of it that
     `matches_name()` would consider equal, under the given options.
 
-    The KG's REGEX filter is always case-insensitive, so case is not expressed here; 
-    it is enforced by the local `matches_name()` pass instead. 
+    The KG's REGEX filter is always case-insensitive, so case is not expressed here;
+    it is enforced by the local `matches_name()` pass instead.
     What must be expressed is the folding of accented and special letters, which the KG does not do.
     """
     single, multi = _fold_maps()

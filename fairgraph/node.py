@@ -500,9 +500,7 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
                             resolved_values: List[Any] = []
                             for value in as_list(values):
                                 if isinstance(value, Resolvable):
-                                    if isinstance(value, KGNode) and isinstance(
-                                        value, Releasable
-                                    ):
+                                    if isinstance(value, KGNode) and isinstance(value, Releasable):
                                         # i.e. isinstance(value, KGObject) - already resolved
                                         resolved_values.append(value)
                                     else:

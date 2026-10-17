@@ -1078,10 +1078,10 @@ class KGObject(KGNode, Releasable):
         if not name_properties:
             raise AttributeError(f"{cls.__name__} doesn't have a name-like property")
 
-        # The KG has no way to apply a single filter across several properties, so we query each of them in turn and 
-        # merge the results. 
-        # The regular expression is only a pre-filter. It returns a superset of the matches, since the KG's regex 
-        # matching is always case-insensitive, which is then narrowed down, using the same matching rules as the 
+        # The KG has no way to apply a single filter across several properties, so we query each of them in turn and
+        # merge the results.
+        # The regular expression is only a pre-filter. It returns a superset of the matches, since the KG's regex
+        # matching is always case-insensitive, which is then narrowed down, using the same matching rules as the
         # openMINDS instance-library search.
         pattern = Regex(
             build_name_regex(name, match=match, case_sensitive=case_sensitive, ignore_accents=ignore_accents)

@@ -38,7 +38,7 @@ author = author_list
 
 # The full version, including alpha/beta/rc tags
 with open("../pyproject.toml", "rb") as fp:
-    release = tomllib.load(fp)['project']["version"]
+    release = tomllib.load(fp)["project"]["version"]
 
 # The short X.Y version
 version = ".".join(release.split(".")[:2])
@@ -64,7 +64,7 @@ extensions = [
 templates_path = ["_templates"]
 
 # The suffix(es) of source filenames.
-source_suffix = {'.rst': 'restructuredtext'}
+source_suffix = {".rst": "restructuredtext"}
 
 # The master toctree document.
 master_doc = "index"

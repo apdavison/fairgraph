@@ -55,6 +55,15 @@ Changes in behaviour
   is now sorted by ``family_name``. The ordering of results is now described in :doc:`queries`
   (`#129 <https://github.com/HumanBrainProject/fairgraph/issues/129>`_).
 
+- The remaining deprecated names from the renaming of "fields" to "properties" in version 0.12.0 have been removed:
+
+  - the class attributes ``fields``, ``field_names``, ``required_field_names`` and ``existence_query_fields``;
+    use ``properties`` (with ``reverse_properties``, or ``all_properties`` for both), ``property_names``,
+    ``required_property_names`` and ``existence_query_properties`` instead.
+    Note that ``required_field_names`` returned the names of all properties, not only the required ones.
+  - the ``fairgraph.fields`` module, which has not worked since version 0.13.0, as importing it raised
+    :exc:`ModuleNotFoundError`. Use ``openminds.properties.Property`` in place of ``Field``.
+
 Bug fixes
 ---------
 

@@ -56,13 +56,7 @@ class LogEntry:
         return f"{self.type}: {self.cls}({self.id}) in '{self.space}'"
 
     def as_dict(self):
-        return {
-            "cls": self.cls,
-            "id": self.id,
-            "delta": self.delta,
-            "space": self.space,
-            "type_": self.type
-        }
+        return {"cls": self.cls, "id": self.id, "delta": self.delta, "space": self.space, "type_": self.type}
 
 
 class ActivityLog:
