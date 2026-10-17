@@ -197,6 +197,9 @@ Coding standards and style
 All code should conform as much as possible to `PEP 8`_.
 We use black_ to auto-format the code, with a line length of 119 characters.
 Please run ``black`` before making a commit.
+Continuous integration checks the formatting with::
+
+    $ black --check .
 
 As a basic check of code quality, run::
 
@@ -230,6 +233,12 @@ To build the documentation::
     $ make html
 
 Then open `_build/html/index.html` in your browser.
+
+Continuous integration builds the documentation with warnings treated as errors,
+so before submitting changes, check that the following runs without warnings::
+
+    $ cd doc
+    $ sphinx-build -W --keep-going -b html . _build/html
 
 Committing your changes
 -----------------------
