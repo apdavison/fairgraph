@@ -28,12 +28,13 @@ global_aliases = {
 # its values are human-readable and sort meaningfully; ``lookupLabel`` is put first only for the
 # classes listed in SORT_PRIORITY_EXCEPTIONS, where it keeps terms from the same atlas/scheme
 # together. ``synonyms`` is excluded: it is list-valued and not a sensible sort key.
-# The Knowledge Graph API allows ``"sort": true`` on only one property, at the root level, so
-# exactly one property is chosen and it is always a top-level property.
+#
+# These priorities are evaluated once, at build time, to decide for each class which single
+# top-level property to sort by (see get_sort_property). The Knowledge Graph API allows
+# ``"sort": true`` on only one property, at the root level, so at most one property is chosen.
 DEFAULT_SORT_PRIORITY = ("name", "fullName", "shortName", "familyName", "abbreviation", "lookupLabel")
 
-# Per-class overrides, most preferred sort property first. The rest of the priority order is
-# left unchanged (the full list is emitted into the generated class).
+# Per-class overrides of the sort priority, most preferred sort property first.
 SORT_PRIORITY_EXCEPTIONS = {
     "ParcellationEntity": ("lookupLabel", "name", "fullName", "shortName", "familyName", "abbreviation"),
     "ParcellationEntityVersion": ("lookupLabel", "name", "fullName", "shortName", "familyName", "abbreviation"),
@@ -700,6 +701,24 @@ custom_existence_queries = {
 }
 
 
+def get_sort_property(cls_name, schema_properties):
+    """Return the single sort property for a class, or ``None``.
+
+    Decided once, at build time, using the priority in DEFAULT_SORT_PRIORITY (or its per-class
+    override in SORT_PRIORITY_EXCEPTIONS): the first name-like property the class actually has,
+    in priority order, is chosen and emitted into the generated class as ``SORT_PROPERTY``.
+    ``schema_properties`` is the raw openMINDS schema ``properties`` dict (keyed by full property
+    IRI; each value's ``name`` is the camelCase schema name, which is what ``QueryProperty.name``
+    uses at runtime). Returns ``None`` when the class has none of the sortable properties.
+    """
+    priority = SORT_PRIORITY_EXCEPTIONS.get(cls_name, DEFAULT_SORT_PRIORITY)
+    present = {prop["name"] for prop in schema_properties.values()}
+    for name in priority:
+        if name in present:
+            return name
+    return None
+
+
 def get_existence_query(cls_name, properties):
     if cls_name in custom_existence_queries:
         return custom_existence_queries[cls_name]
@@ -969,7 +988,7 @@ class FairgraphClassBuilder:
             "standard_init_properties": standard_init_properties,
             "additional_methods": additional_methods,
             "aliases": aliases,
-            "sort_priority": SORT_PRIORITY_EXCEPTIONS.get(class_name, DEFAULT_SORT_PRIORITY),
+            "sort_property": get_sort_property(class_name, self._schema_payload["properties"]),
             "constructor_arguments": sorted(
                 [p["name"] for p in chain(properties, reverse_properties)] + list(aliases.keys()),
                 key=property_name_sort_key,

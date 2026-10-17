@@ -19,7 +19,7 @@ class Software(KGObject, OMSoftware):
 
     type_ = "https://openminds.om-i.org/types/Software"
     default_space = "software"
-    SORT_PRIORITY = ("name", "fullName", "shortName", "familyName", "abbreviation", "lookupLabel")
+    SORT_PROPERTY = "fullName"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(

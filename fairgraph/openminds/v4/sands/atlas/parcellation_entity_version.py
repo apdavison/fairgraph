@@ -16,7 +16,7 @@ class ParcellationEntityVersion(KGObject, OMParcellationEntityVersion):
 
     type_ = "https://openminds.om-i.org/types/ParcellationEntityVersion"
     default_space = "atlas"
-    SORT_PRIORITY = ("lookupLabel", "name", "fullName", "shortName", "familyName", "abbreviation")
+    SORT_PROPERTY = "lookupLabel"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(

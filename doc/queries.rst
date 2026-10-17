@@ -141,7 +141,9 @@ chooses that property from the class's name-like properties in a fixed priority 
 ``lookup_label``. It picks the first of these that the class actually has, so, for example,
 ``Dataset`` is sorted by ``full_name`` and ``Person`` by ``family_name``. ``synonyms`` is never
 used as a sort key (it is list-valued), and classes with none of these properties are returned in
-whatever order the Knowledge Graph supplies.
+whatever order the Knowledge Graph supplies. This decision is made once, at build time, and the
+chosen property is baked into each generated class as its ``SORT_PROPERTY`` attribute (see the
+builder's ``DEFAULT_SORT_PRIORITY`` / ``SORT_PRIORITY_EXCEPTIONS`` in ``builder/update_openminds.py``).
 
 A few classes override this default because a different property keeps related results together.
 In particular, ``ParcellationEntity`` and ``ParcellationEntityVersion`` are sorted by

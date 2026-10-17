@@ -19,7 +19,7 @@ class ServiceLink(KGObject, OMServiceLink):
 
     type_ = "https://openminds.om-i.org/types/ServiceLink"
     default_space = "dataset"
-    SORT_PRIORITY = ("name", "fullName", "shortName", "familyName", "abbreviation", "lookupLabel")
+    SORT_PROPERTY = None
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
     existence_query_properties = ("data_location", "open_data_in", "service")

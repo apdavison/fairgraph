@@ -19,7 +19,7 @@ class Interface(KGObject, OMInterface):
 
     type_ = "https://openminds.om-i.org/types/Interface"
     default_space = "interface"
-    SORT_PRIORITY = ("name", "fullName", "shortName", "familyName", "abbreviation", "lookupLabel")
+    SORT_PROPERTY = "fullName"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(

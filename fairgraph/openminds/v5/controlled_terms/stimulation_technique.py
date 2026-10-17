@@ -19,7 +19,7 @@ class StimulationTechnique(KGObject, OMStimulationTechnique):
 
     type_ = "https://openminds.om-i.org/types/StimulationTechnique"
     default_space = "controlled"
-    SORT_PRIORITY = ("name", "fullName", "shortName", "familyName", "abbreviation", "lookupLabel")
+    SORT_PROPERTY = "name"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = [
         Property(

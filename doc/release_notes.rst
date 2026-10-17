@@ -60,11 +60,14 @@ Changes in behaviour
   - classes with none of the sortable properties (e.g. ``DOI``) are returned in whatever order
     the Knowledge Graph supplies.
 
-  A few classes override the default order via a per-class ``SORT_PRIORITY`` attribute so that a
+  A few classes override the default via a per-class override so that a
   different property keeps related results together: ``ParcellationEntity`` and
   ``ParcellationEntityVersion`` are sorted by ``lookup_label`` so that terms from the same atlas
-  stay grouped (instead of by ``name``). The override is defined in the builder's
-  ``SORT_PRIORITY_EXCEPTIONS`` and regenerated into each generated class.
+  stay grouped (instead of by ``name``). Which property to sort by is decided **once, at build
+  time** (in ``builder/update_openminds.py``, see ``DEFAULT_SORT_PRIORITY`` and
+  ``SORT_PRIORITY_EXCEPTIONS``) and baked into each generated class as its ``SORT_PROPERTY``
+  attribute — the runtime simply applies that single value instead of evaluating a priority
+  order for every query.
 
   Results are sorted in ascending, case-insensitive order. This is unrelated to the internal
   ``ensure_order`` option on a query property, which only preserves the order of instances within

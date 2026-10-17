@@ -19,7 +19,7 @@ class TissueCulturePreparation(KGObject, OMTissueCulturePreparation):
 
     type_ = "https://openminds.om-i.org/types/TissueCulturePreparation"
     default_space = "in-depth"
-    SORT_PRIORITY = ("name", "fullName", "shortName", "familyName", "abbreviation", "lookupLabel")
+    SORT_PROPERTY = "lookupLabel"
     # forward properties are defined in the parent class (in openMINDS-Python)
     reverse_properties = []
     existence_query_properties = ("lookup_label",)

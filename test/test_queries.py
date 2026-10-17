@@ -525,11 +525,10 @@ def test_generate_query_single_root_level_sort_key(mock_client):
     """Generated queries carry at most one 'sort': true, on a root-level property only.
 
     The KG query API allows sorting on exactly one property, at the root level. This pins
-    that constraint and the deliberate priority order in which the sort property is chosen.
-    Most classes use the default priority (SORT_PRIORITY in fairgraph/queries.py), but a few
-    classes override it via a per-class SORT_PRIORITY attribute (see the builder's
-    SORT_PRIORITY_EXCEPTIONS); ParcellationEntity sorts by lookup_label so that terms from the
-    same atlas stay together.
+    that constraint. Which property is used is decided at build time and baked into each
+    generated class's SORT_PROPERTY attribute (see the builder's DEFAULT_SORT_PRIORITY /
+    SORT_PRIORITY_EXCEPTIONS); ParcellationEntity sorts by lookup_label so that terms from
+    the same atlas stay together.
     """
     import fairgraph.openminds.v4.core as v4core
     import fairgraph.openminds.v4.sands as v4sands
@@ -575,30 +574,28 @@ def test_generate_query_no_sort_when_no_name_like_property(mock_client):
 
 
 def test_per_class_sort_priority_override():
-    """The generated SORT_PRIORITY class attribute pins the deliberate per-class overrides.
+    """The generated SORT_PROPERTY class attribute pins the build-time per-class decision.
 
-    ParcellationEntity(-Version) prefer lookup_label so that terms from the same atlas stay
-    together, unlike every other class which uses the default priority. This guards against
-    the builder regeneration silently reverting the override (see SORT_PRIORITY_EXCEPTIONS in
-    builder/update_openminds.py).
+    ParcellationEntity(-Version) sort by lookup_label so that terms from the same atlas stay
+    together, unlike every other class which sorts by name. This guards against the builder
+    regeneration silently reverting the override (see SORT_PRIORITY_EXCEPTIONS in
+    builder/update_openminds.py). SORT_PROPERTY is a single camelCase property name (or None),
+    decided once at build time, not a priority list.
     """
     import fairgraph.openminds.v4.sands as v4sands
     import fairgraph.openminds.v5.sands as v5sands
     import fairgraph.openminds.v4.ephys as v4ephys
-    from fairgraph.queries import SORT_PRIORITY
+    import fairgraph.openminds.v4.core as v4core
 
-    default = ("name", "fullName", "shortName", "familyName", "abbreviation", "lookupLabel")
-    override = ("lookupLabel", "name", "fullName", "shortName", "familyName", "abbreviation")
-
-    assert v4sands.ParcellationEntity.SORT_PRIORITY == override
-    assert v4sands.ParcellationEntityVersion.SORT_PRIORITY == override
-    assert v5sands.ParcellationEntity.SORT_PRIORITY == override
-    assert v5sands.ParcellationEntityVersion.SORT_PRIORITY == override
-    # a class without an override still uses the default
-    assert v4ephys.Electrode.SORT_PRIORITY == default
-    # and the module default matches
-    assert SORT_PRIORITY == default
-    assert SORT_PRIORITY
+    assert v4sands.ParcellationEntity.SORT_PROPERTY == "lookupLabel"
+    assert v4sands.ParcellationEntityVersion.SORT_PROPERTY == "lookupLabel"
+    assert v5sands.ParcellationEntity.SORT_PROPERTY == "lookupLabel"
+    assert v5sands.ParcellationEntityVersion.SORT_PROPERTY == "lookupLabel"
+    # a class without an override uses the default: name first if present
+    assert v4ephys.Electrode.SORT_PROPERTY == "name"
+    # classes without a name-like property sort on their next-best property or None
+    assert v4core.Organization.SORT_PROPERTY == "fullName"
+    assert v4core.Person.SORT_PROPERTY == "familyName"
 
 
 @skip_if_no_connection
