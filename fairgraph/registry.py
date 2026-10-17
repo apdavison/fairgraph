@@ -21,7 +21,6 @@ based on names and type identifiers.
 from __future__ import annotations
 from itertools import chain
 from typing import TYPE_CHECKING, Union, List, Dict
-from warnings import warn
 
 from openminds.properties import Property
 from openminds.registry import Registry
@@ -108,42 +107,6 @@ class NodeMeta(Registry):
     @property
     def reverse_property_names(cls):
         return [p.name for p in cls.reverse_properties]
-
-    @property
-    def fields(cls):
-        warn(
-            "Use of the 'fields' attribute is deprecated, it will be removed in a future release. "
-            "Use 'properties' instead",
-            DeprecationWarning,
-        )
-        return cls.properties + cls.reverse_properties
-
-    @property
-    def field_names(cls):
-        warn(
-            "Use of the 'field_names' attribute is deprecated, it will be removed in a future release. "
-            "Use 'property_names' instead",
-            DeprecationWarning,
-        )
-        return cls.property_names
-
-    @property
-    def required_field_names(cls):
-        warn(
-            "Use of the 'required_field_names' attribute is deprecated, it will be removed in a future release. "
-            "Use 'required_property_names' instead",
-            DeprecationWarning,
-        )
-        return cls.property_names
-
-    @property
-    def existence_query_fields(cls):
-        warn(
-            "Use of the 'existence_query_fields' attribute is deprecated, it will be removed in a future release. "
-            "Use 'existence_query_properties' instead",
-            DeprecationWarning,
-        )
-        return cls.existence_query_properties
 
 
 # Deprecated alias
