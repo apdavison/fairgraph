@@ -125,6 +125,26 @@ This returns 10 nodes starting with the 15th. To see how many nodes there are in
 .. note:: if you consistently retrieve an empty list, it is probably because you do not
           yet have the necessary permissions. See :doc:`permissions` for more information.
 
+Ordering of results
+-------------------
+
+When results are retrieved using the KG query API (``api="query"``), they are sorted in ascending order,
+ignoring case, by a single property of the class, given by its ``sort_property`` attribute::
+
+    >>> Person.sort_property
+    'family_name'
+
+Nodes that lack a value for this property (or the value is ``None``) appear at the top of the list.
+The KG allows sorting by only one property, so fairgraph chooses the first of
+``name``, ``full_name``, ``lookup_label``, ``family_name``, ``short_name`` or ``abbreviation`` that a class has.
+The exceptions are :class:`ParcellationEntity` and :class:`ParcellationEntityVersion`, which are sorted by
+``lookup_label``: this is prefixed by the parcellation (and version), so entities from the same atlas stay together.
+Classes without any of these properties (``sort_property`` is ``None``) are returned in the order the KG supplies.
+
+When :meth:`list()` is called without filters and without ``follow_links``, it uses the KG core API by default,
+and this does not support sorting. For sorted results in this case, pass ``api="query"``::
+
+    licenses = License.list(client, api="query")
 
 Filtering/searching
 ===================
