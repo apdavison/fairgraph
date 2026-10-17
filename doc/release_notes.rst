@@ -14,6 +14,12 @@ New features
   must match. For example, ``Dataset.list(client, short_name=Equals("FOO"))`` does not return
   a dataset called "FOO-BAR". As with :class:`~fairgraph.queries.Regex`, matching ignores case.
 
+- A filter may now be given a list of values, and a result must match every value in the list, e.g.
+  ``SoftwareVersion.list(client, developers__family_name=["Baggins", "Oakenshield"])``.
+  The items may be plain strings, :class:`~fairgraph.queries.Equals` or :class:`~fairgraph.queries.Regex` objects,
+  or, for linked properties, objects or ids (`#150 <https://github.com/HumanBrainProject/fairgraph/issues/150>`_). 
+  See :doc:`queries`.
+
 Changes in behaviour
 --------------------
 

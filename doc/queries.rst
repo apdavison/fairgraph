@@ -173,7 +173,6 @@ To require the whole value to match, pass an :class:`Equals` instead::
 This finds datasets whose short name is "FOO", but not those named "FOO-BAR".
 Case is ignored, but whitespace is not, so "FOO " would not match.
 For a case-sensitive search on a property such as ``name``, see :meth:`by_name` below.
-Only a single value is supported.
 
 For a more flexible search, pass a :class:`Regex` instead of a plain string::
 
@@ -205,7 +204,32 @@ To search across multiple links in the graph, join property names with "__".
 For example, to find all datasets whose authors are affiliated with the Karolinska Institute::
 
     karolinska = Organization.by_name("Karolinska", client)
-    datasets = Dataset.list(client, authors__affiliations__member_of=Karolinska)
+    datasets = Dataset.list(client, authors__affiliations__member_of=karolinska)
+
+To require several values, pass a list: a result must match *every* value in the list, in any order.
+For example, to find software versions developed by both a Baggins and an Oakenshield
+(possibly among other developers)::
+
+    from fairgraph.openminds.core import SoftwareVersion
+
+    versions = SoftwareVersion.list(client, developers__family_name=["Baggins", "Oakenshield"])
+
+Each item in the list may be a plain string ("contains"), an :class:`Equals` or a :class:`Regex`,
+or, for a linked property, an object or its id::
+
+    from fairgraph.openminds.publications import Chapter
+
+    chapters = Chapter.list(client, authors=[author1, author2])
+
+Other filters on the same link apply to each value, so adding ``developers__given_name="Bilbo"`` to the example above
+finds versions with both a developer called Bilbo Baggins and one called Bilbo Oakenshield.
+A list with a single item behaves like the item on its own, and an empty list raises :exc:`ValueError`,
+as does giving lists for two properties under the same link
+(e.g., both ``developers__family_name`` and ``developers__given_name``).
+
+To match *any* of several values instead, combine them in a single :class:`Regex`::
+
+    datasets = Dataset.list(client, short_name=Regex("^(FOO|BAR)$"))
 
 
 Retrieving a specific node based on its name or id
