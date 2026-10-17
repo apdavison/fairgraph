@@ -183,23 +183,43 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
         Normalize a dict containing filter key:value pairs so that it can be used
         in a call to the KG query API.
 
-        Example:
+        The dict must already be nested (see `expand_filter()`): a filter on a property of a linked
+        or embedded node is given as a dict under the name of the linking property.
+        Values are converted into the form used in queries, e.g. a node is replaced by its ID.
+        A list of values is kept as a list, each item being normalized in the same way.
+
+        Examples:
             >>> import fairgraph.openminds.core as omcore
-            >>> person = omcore.Person.from_uuid("045f846f-f010-4db8-97b9-b95b20970bf2", kg_client)
-            >>> filter_dict = {"custodians": person, "name": "Virtual"}
-            >>> omcore.Dataset.normalize_filter(filter_dict)
-            {'name': 'Virtual',
-             'custodians': 'https://kg.ebrains.eu/api/instances/045f846f-f010-4db8-97b9-b95b20970bf2'}
+            >>> person = omcore.Person(id="https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000001")
+            >>> omcore.Dataset.normalize_filter({"custodians": person, "name": "Virtual"})
+            {'custodians': 'https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000001',
+             'full_name': 'Virtual'}
+
+            Here the linked node is replaced by its ID, and the alias "name" by the property it stands for.
+
+            >>> from datetime import date
+            >>> from fairgraph.utility import expand_filter
+            >>> filters = expand_filter({"developers__family_name": ["Baggins", "Oakenshield"],
+            ...                          "release_date": date(2024, 1, 1)})
+            >>> omcore.SoftwareVersion.normalize_filter(filters)
+            {'developers': {'family_name': ['Baggins', 'Oakenshield']}, 'release_date': '2024-01-01'}
+
+            Here the filter on the developers' family names is normalized by the Person class
+            (one of the possible types of `developers`), and the date is converted to a string.
         """
         normalized = {}
         filter_dict_copy = filter_dict.copy()
 
-        # handle aliases
+        # replace aliases (alternative names for properties, e.g. "name" for "full_name")
+        # by the names of the properties they stand for
         for name_, alias_ in cls.aliases.items():
             if name_ in filter_dict_copy:
                 filter_dict_copy[alias_] = filter_dict_copy.pop(name_)
 
         def _check_validity(filters, property_names):
+            """
+            Raise a ValueError if any of the keys of `filters` is not in `property_names`.
+            """
             invalid_filters = set(filters).difference(property_names)
             if invalid_filters:
                 if len(invalid_filters) == 1:
@@ -208,28 +228,46 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
                     msg = f"Invalid filters: "
                 raise ValueError(msg + ", ".join(sorted(invalid_filters)))
 
+        # the check is skipped when this method is called by `_normalize_dict()` for one of several
+        # possible child classes, since a filter key need only be valid for one of them
         if check_validity:
             _check_validity(filter_dict_copy, cls.all_property_names + list(cls.aliases.keys()))
+
+        def _normalize_dict(prop, value):
+            """
+            Normalize `value`, a dict of filters on the properties of the node(s) linked or embedded via `prop`.
+
+            A property may have several possible types (e.g. Person or Organization),
+            so each filter key must be a property of at least one of them.
+            Each type normalizes the filters on its own properties, and the results are merged.
+            """
+            _check_validity(
+                value,
+                set(
+                    chain(*(child_cls.all_property_names + list(child_cls.aliases.keys()) for child_cls in prop.types))
+                ),
+            )
+            normalized_value = {}
+            for child_cls in prop.types:
+                normalized_value.update(child_cls.normalize_filter(value, check_validity=False))
+            return normalized_value
 
         for prop in cls.all_properties:
             if prop.name in filter_dict_copy:
                 value = filter_dict_copy[prop.name]
                 if isinstance(value, dict):
-                    _check_validity(
-                        value,
-                        set(
-                            chain(
-                                *(
-                                    child_cls.all_property_names + list(child_cls.aliases.keys())
-                                    for child_cls in prop.types
-                                )
-                            )
-                        ),
-                    )
-                    normalized[prop.name] = {}
-                    for child_cls in prop.types:
-                        normalized[prop.name].update(child_cls.normalize_filter(value, check_validity=False))
+                    # filters on the properties of a linked or embedded node
+                    normalized[prop.name] = _normalize_dict(prop, value)
+                elif isinstance(value, list) and any(isinstance(item, dict) for item in value):
+                    # a list in which some items are filters on the properties of a linked or embedded node
+                    # (as in existence queries for nodes with no ID), and others may be plain values,
+                    # so each item is normalized separately
+                    normalized[prop.name] = [
+                        _normalize_dict(prop, item) if isinstance(item, dict) else get_filter_value(prop, item)
+                        for item in value
+                    ]
                 else:
+                    # a plain value, or a list of plain values
                     normalized[prop.name] = get_filter_value(prop, value)
 
         return normalized
@@ -516,6 +554,9 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
 
         With `existence_match="equals"`, string values must match exactly (ignoring case);
         with `"contains"`, it is enough for the value in the KG to contain the local value.
+
+        For a property holding a list, every local item must be present in the KG,
+        but the order of the items is ignored, as are any additional items in the KG.
         """
         check_existence_match(existence_match)
         if self.existence_query_properties is None:
@@ -533,27 +574,51 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
         for property in query_properties:
             query_property_name = property.name
             value = getattr(self, property.name)
-            if isinstance(value, KGProxy):
-                query[query_property_name] = value.id
-            elif isinstance(value, KGNode):
-                if hasattr(value, "id") and value.id:
-                    query[query_property_name] = value.id
-                else:
-                    sub_query = value._build_existence_query(existence_match)
-                    query.update({f"{query_property_name}__{key}": val for key, val in sub_query.items()})
-            elif isinstance(value, (list, tuple)):
-                raise CannotBuildExistenceQuery("not implemented yet")
-            elif value is None:
-                raise CannotBuildExistenceQuery(f"Required value for '{query_property_name}' is missing")
-            else:
-                query_val = value_to_jsonld(value, include_empty_properties=False, embed_linked_nodes=LinkedNodeEmbedding.NEVER)
-                if query_val is None:
+            if isinstance(value, (list, tuple)):
+                if len(value) == 0:
                     raise CannotBuildExistenceQuery(f"Required value for '{query_property_name}' is missing")
-                if isinstance(query_val, str) and existence_match == "equals":
-                    # match exactly, so that we don't identify this object with one whose value merely contains ours
-                    query_val = Equals(query_val)
-                query[query_property_name] = query_val
+                # sub-queries for nodes in the list are kept as separate dicts, so that each is matched as a whole
+                query[query_property_name] = [
+                    self._existence_query_value(query_property_name, item, existence_match) for item in value
+                ]
+            else:
+                query_val = self._existence_query_value(query_property_name, value, existence_match)
+                if isinstance(query_val, dict):
+                    query.update({f"{query_property_name}__{key}": val for key, val in query_val.items()})
+                else:
+                    query[query_property_name] = query_val
         return query
+
+    @staticmethod
+    def _existence_query_value(property_name: str, value: Any, existence_match: str) -> Any:
+        """
+        Return the value to use in an existence query for a single property value (not a list):
+        an ID for a linked node that has one, a sub-query dict for any other node, or else a JSON-LD value.
+        """
+        if isinstance(value, KGProxy):
+            return value.id
+        elif isinstance(value, KGNode):
+            if hasattr(value, "id") and value.id:
+                return value.id
+            sub_query = value._build_existence_query(existence_match)
+            if sub_query is None:
+                raise CannotBuildExistenceQuery(
+                    f"Cannot build an existence query for '{property_name}', "
+                    f"since {value.__class__.__name__} has no existence query"
+                )
+            return sub_query
+        elif value is None:
+            raise CannotBuildExistenceQuery(f"Required value for '{property_name}' is missing")
+        else:
+            query_val = value_to_jsonld(
+                value, include_empty_properties=False, embed_linked_nodes=LinkedNodeEmbedding.NEVER
+            )
+            if query_val is None:
+                raise CannotBuildExistenceQuery(f"Required value for '{property_name}' is missing")
+            if isinstance(query_val, str) and existence_match == "equals":
+                # match exactly, so that we don't identify this object with one whose value merely contains ours
+                query_val = Equals(query_val)
+            return query_val
 
 
 # Deprecated alias

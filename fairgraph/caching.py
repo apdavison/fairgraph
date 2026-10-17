@@ -34,8 +34,9 @@ def generate_cache_key(qd: Dict[str, str]) -> Tuple:
                 if isinstance(sub_value, dict):
                     sub_key.append(generate_cache_key(sub_value))
                 else:
-                    sub_key.append(str(value))
-            cache_key.append(tuple(sub_key))
+                    sub_key.append(str(sub_value))
+            # the order of the items does not matter in a query
+            cache_key.append((key, tuple(sorted(sub_key, key=str))))
         elif isinstance(value, dict):
             cache_key.append((key, str(value)))
         elif value.__class__.__name__ == "IRI":  # a bit hacky

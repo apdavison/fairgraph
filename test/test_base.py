@@ -16,6 +16,7 @@ from fairgraph.caching import generate_cache_key, object_cache, save_cache
 from fairgraph.errors import CannotBuildExistenceQuery
 from fairgraph.base import ErrorHandling
 from fairgraph.utility import ActivityLog
+from fairgraph.queries import Equals
 from .utils import MockKGResponse, clear_caches, mock_client
 
 import pytest
@@ -458,6 +459,81 @@ class TestKGObject(object):
         cache_key = generate_cache_key(resolved_obj._build_existence_query())
         assert save_cache[MockKGObject] == {cache_key: proxy_obj.id}
 
+    @pytest.fixture()
+    def list_existence_query(self, monkeypatch):
+        monkeypatch.setattr(
+            MockKGObject,
+            "existence_query_properties",
+            (
+                "a_required_list_of_strings",
+                "a_required_list_of_datetimes",
+                "a_required_list_of_linked_objects",
+                "a_required_list_of_embedded_objects",
+            ),
+        )
+
+    def test_build_existence_query__with_lists(self, list_existence_query):
+        obj = self._construct_object_all_properties()
+        linked_id = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002"
+        query = obj._build_existence_query()
+        assert query == {
+            "a_required_list_of_strings": ["banana", "pear"],
+            "a_required_list_of_datetimes": ["1900-01-01T00:00:00", "2000-01-01T00:00:00"],
+            "a_required_list_of_linked_objects": [linked_id, linked_id],
+            # each embedded object is kept as a separate dict, so that it is matched as a whole
+            "a_required_list_of_embedded_objects": [{"a_number": 100.0}, {"a_number": 200.0}],
+        }
+        assert all(isinstance(item, Equals) for item in query["a_required_list_of_strings"])
+
+    def test_build_existence_query__with_lists__contains(self, list_existence_query):
+        obj = self._construct_object_all_properties()
+        query = obj._build_existence_query("contains")
+        assert query["a_required_list_of_strings"] == ["banana", "pear"]
+        assert not any(isinstance(item, Equals) for item in query["a_required_list_of_strings"])
+
+    def test_build_existence_query__with_empty_list(self, list_existence_query):
+        obj = self._construct_object_all_properties()
+        orig_error_handling = obj.__class__.error_handling
+        obj.__class__.error_handling = ErrorHandling.none
+        obj.a_required_list_of_strings = []
+        try:
+            with pytest.raises(CannotBuildExistenceQuery) as exc_info:
+                obj._build_existence_query()
+        finally:
+            obj.__class__.error_handling = orig_error_handling
+        assert exc_info.value.args[0] == "Required value for 'a_required_list_of_strings' is missing"
+
+    def test_build_existence_query__with_linked_object_without_existence_query(
+        self, list_existence_query, monkeypatch
+    ):
+        monkeypatch.setattr(MockKGObject2, "existence_query_properties", None)
+        obj = self._construct_object_all_properties()
+        obj.a_required_list_of_linked_objects = [MockKGObject2(a=1)]
+        with pytest.raises(CannotBuildExistenceQuery, match="MockKGObject2 has no existence query"):
+            obj._build_existence_query()
+
+    def test_exists_and_save__with_lists_in_existence_query(
+        self, list_existence_query, mock_client, clear_caches, mocker
+    ):
+        obj = self._construct_object_all_properties()
+        obj.id = None
+        query = mocker.patch.object(mock_client, "query", return_value=MockKGResponse([]))
+
+        assert not obj.exists(mock_client)
+
+        # previously, no query was made, since the existence query could not be built
+        query.assert_called_once()
+        expected_query = MockKGObject.generate_minimal_query(client=mock_client, filters=obj._build_existence_query())
+        assert query.call_args.kwargs["query"] == expected_query
+
+        obj.save(mock_client, space="mock", recursive=False)  # also checks existence
+        n_queries = query.call_count
+        new_obj = self._construct_object_all_properties()
+        new_obj.id = None
+        assert new_obj.exists(mock_client)  # found in the save cache, without a further query
+        assert new_obj.id == obj.id
+        assert query.call_count == n_queries
+
     def test_build_data_all_properties(self):
         obj = self._construct_object_all_properties()
         expected = {
@@ -816,6 +892,14 @@ class TestKGObject(object):
 def test_generate_cache_key():
     with pytest.raises(TypeError):
         generate_cache_key(None)
+
+
+def test_generate_cache_key__with_lists():
+    # the key depends on which property holds a list, but not on the order of its items
+    assert generate_cache_key({"a": ["x", "y"], "b": "z"}) != generate_cache_key({"a": "z", "b": ["x", "y"]})
+    assert generate_cache_key({"a": ["x", "y"]}) == generate_cache_key({"a": ["y", "x"]})
+    assert generate_cache_key({"a": [{"b": "x"}, {"b": "y"}]}) == generate_cache_key({"a": [{"b": "y"}, {"b": "x"}]})
+    assert generate_cache_key({"a": [{"b": "x"}]}) != generate_cache_key({"a": [{"b": "y"}]})
 
 
 class TestKGProxy:
