@@ -697,6 +697,34 @@ def get_existence_query(cls_name, properties):
     return tuple(required_property_names)
 
 
+# The KG query API allows results to be sorted by only one property, at the root level.
+# By default we sort by the first of these properties that a class has.
+# In the current openMINDS version, "short_name" and "abbreviation" are never selected as
+# they never appear without "full_name" or "name", but we include them here in case needed
+# in future versions. They could also be used in `custom_sort_properties`.
+SORT_PROPERTY_PRIORITY = ("name", "full_name", "lookup_label", "family_name", "short_name", "abbreviation")
+
+# For some classes the default sort property is not the most useful one.
+custom_sort_properties = {
+    # the lookup label is prefixed by the parcellation (and version), so sorting by it keeps
+    # entities from the same atlas together, whereas sorting by name would interleave them
+    "ParcellationEntity": "lookup_label",
+    "ParcellationEntityVersion": "lookup_label",
+}
+
+
+def get_sort_property(cls_name, properties):
+    property_names = [prop["name"] for prop in properties]
+    if cls_name in custom_sort_properties:
+        sort_property = custom_sort_properties[cls_name]
+        assert sort_property in property_names, f"{cls_name} has no property '{sort_property}'"
+        return sort_property
+    for property_name in SORT_PROPERTY_PRIORITY:
+        if property_name in property_names:
+            return property_name
+    return None
+
+
 def property_name_sort_key(property_name):
     """Sort the name prop to be first"""
     priorities = {
@@ -948,6 +976,7 @@ class FairgraphClassBuilder:
             "properties": sorted(properties, key=lambda p: p["name"]),
             "reverse_properties": sorted(reverse_properties, key=lambda p: p["name"]),
             "existence_query_properties": get_existence_query(class_name, properties),
+            "sort_property": get_sort_property(class_name, properties) if base_class == "KGObject" else None,
             "standard_init_properties": standard_init_properties,
             "additional_methods": additional_methods,
             "aliases": aliases,
