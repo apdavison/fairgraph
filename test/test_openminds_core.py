@@ -654,6 +654,77 @@ def test_KGQuery_count(kg_client):
     assert n_models_q > 1
 
 
+REVERSE_TEST_ID = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000001"
+
+
+def _all_reverse_properties():
+    import fairgraph.openminds.v4 as v4
+    import fairgraph.openminds.v5 as v5
+
+    for version in (v4, v5):
+        for module_name in dir(version):
+            module = getattr(version, module_name)
+            if hasattr(module, "list_kg_classes"):
+                for cls in module.list_kg_classes():
+                    for prop in cls.reverse_properties:
+                        yield cls, prop
+
+
+def test_reverse_property_queries_are_valid_for_every_target_class(mock_client):
+    # the forward property does not have the same Python name in all target classes (#92)
+    reverse_properties = list(_all_reverse_properties())
+    assert len(reverse_properties) > 1000
+    for cls, prop in reverse_properties:
+        class_filters = KGQuery.from_reverse_property(prop, REVERSE_TEST_ID)._class_filters()
+        assert {target for target, _ in class_filters} == set(prop.types), (cls, prop.name)
+        for target, filter in class_filters:
+            if not hasattr(target, "generate_query") or target.__name__ == "MRIScannerUsage":
+                continue  # embedded classes cannot be queried; MRIScannerUsage query generation fails separately
+            target.generate_query(client=mock_client, space=None, filters=filter)
+
+
+def test_reverse_property_query_uses_the_forward_property_name_of_each_class():
+    query = KGQuery.from_reverse_property(omcore.License.get_property("is_applied_to"), REVERSE_TEST_ID)
+    class_filters = dict((target.__name__, filter) for target, filter in query._class_filters())
+    assert class_filters["DatasetVersion"] == {"license": REVERSE_TEST_ID}
+    assert class_filters["ModelVersion"] == {"licenses": REVERSE_TEST_ID}
+
+
+def test_reverse_property_query_covers_every_forward_property_with_the_path():
+    import fairgraph.openminds.v5.core as v5core
+
+    query = KGQuery.from_reverse_property(v5core.BehavioralProtocol.get_property("used_in"), REVERSE_TEST_ID)
+    assert [filter for target, filter in query._class_filters() if target is v5core.ProtocolExecution] == [
+        {"behavioral_protocols": REVERSE_TEST_ID},
+        {"protocols": REVERSE_TEST_ID},
+    ]
+
+
+def test_resolving_reverse_property_query_returns_each_node_once():
+    import fairgraph.openminds.v5.core as v5core
+
+    execution_id = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002"
+
+    class ClientLinkingThroughBothProperties:
+        # the protocol execution links to the protocol through both "behavioralProtocol" and "protocol"
+        def query(self, query, size, from_index, release_status):
+            if query["meta"]["type"] == v5core.ProtocolExecution.type_:
+                return MockKGResponse([{"@id": execution_id, "@type": [v5core.ProtocolExecution.type_]}])
+            return MockKGResponse([])
+
+    query = KGQuery.from_reverse_property(v5core.BehavioralProtocol.get_property("used_in"), REVERSE_TEST_ID)
+    result = query.resolve(ClientLinkingThroughBothProperties())
+    assert isinstance(result, v5core.ProtocolExecution)
+    assert result.id == execution_id
+
+
+@skip_if_no_connection
+def test_count_reverse_link_with_different_forward_property_names(kg_client):
+    # DatasetVersion has "license", ModelVersion and SoftwareVersion have "licenses" (#92)
+    license = omcore.License.by_name("CC-BY-4.0", kg_client)
+    assert license.is_applied_to.count(kg_client) > 0
+
+
 def test_to_jsonld():
     person1 = omcore.Person(
         id="0000",

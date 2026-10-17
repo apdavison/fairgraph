@@ -65,6 +65,13 @@ Bug fixes
   Such a link now gives the same existence query as the object it points to
   (`#145 <https://github.com/HumanBrainProject/fairgraph/issues/145>`_).
 
+- Resolving or counting a reverse property, e.g. ``license.is_applied_to.resolve(client)``, no longer raises
+  :exc:`ValueError` ("Invalid filter") when the linking property has different names in different classes
+  (here ``license`` in :class:`DatasetVersion` but ``licenses`` in :class:`ModelVersion`),
+  and now finds the nodes linking through any of the forward properties a reverse property stands for,
+  where previously only the first was used
+  (`#92 <https://github.com/HumanBrainProject/fairgraph/issues/92>`_).
+
 Connection robustness
 ----------------------
 

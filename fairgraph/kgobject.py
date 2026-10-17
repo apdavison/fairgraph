@@ -89,12 +89,6 @@ class KGObject(KGNode, Releasable):
         self.release_status = release_status
         self.allow_update = True
         super().__init__(data=data, **properties)
-        for prop in self.reverse_properties:
-            if not hasattr(self, prop.name):
-                query = KGQuery(
-                    prop.types, {prop.reverse: self.id}, callback=lambda value: setattr(self, prop.name, value)
-                )
-                setattr(self, prop.name, query)
 
         self._raw_remote_data = None
         self.remote_data = {}

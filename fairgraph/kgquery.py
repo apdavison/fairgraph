@@ -22,6 +22,7 @@ from __future__ import annotations
 import logging
 from typing import Dict, List, Optional, Union, Any, TYPE_CHECKING
 
+from openminds.properties import Property
 from openminds.registry import lookup
 
 from .utility import as_list, expand_filter
@@ -75,6 +76,38 @@ class KGQuery(Resolvable):
                 self.classes.append(cls)
         self.filter = filter
         self.preferred_release_status = preferred_release_status
+        # set by from_reverse_property(), where the filter differs between classes
+        self._reverse_paths: Optional[List[str]] = None
+        self._node_id: Optional[str] = None
+
+    @classmethod
+    def from_reverse_property(
+        cls, prop: Property, node_id: str, preferred_release_status: str = "released"
+    ) -> "KGQuery":
+        """
+        Create a query for the nodes that link to the node with the given id,
+        as represented by the reverse property `prop` of that node.
+
+        The forward properties that make these links are identified by their path,
+        since the same path does not always have the same Python name in all classes
+        (e.g. "license" in DatasetVersion, "licenses" in ModelVersion),
+        and a class may link through more than one forward property.
+        """
+        query = cls(prop.types, {as_list(prop.reverse)[0]: node_id}, preferred_release_status)
+        query._reverse_paths = as_list(prop.path)
+        query._node_id = node_id
+        return query
+
+    def _class_filters(self):
+        """Return (class, filter) pairs, one per query to send."""
+        if self._reverse_paths is None:
+            return [(cls, self.filter) for cls in self.classes]
+        return [
+            (cls, {forward_prop.name: self._node_id})
+            for cls in self.classes
+            for forward_prop in cls.properties
+            if forward_prop.path in self._reverse_paths
+        ]
 
     def __repr__(self):
         return f"""{self.__class__.__name__}([{", ".join(cls.__name__ for cls in self.classes)}], filter="{self.filter!r}")""".replace(
@@ -111,12 +144,12 @@ class KGQuery(Resolvable):
         """
         release_status = release_status or self.preferred_release_status
         objects: List[KGObject] = []
-        for cls in self.classes:
+        for cls, filter in self._class_filters():
             if hasattr(cls, "generate_query"):
                 # if cls is EmbeddedMetadata we cannot query it
                 query = cls.generate_query(
                     client=client,
-                    filters=self.filter,
+                    filters=filter,
                     space=space,
                     follow_links=follow_links,
                     with_reverse_properties=with_reverse_properties,
@@ -128,6 +161,9 @@ class KGQuery(Resolvable):
                     release_status=release_status,
                 ).data
                 objects.extend(cls.from_jsonld(instance_data, client) for instance_data in instances)
+        if self._reverse_paths is not None:
+            # a node that links through more than one forward property is found more than once
+            objects = list({obj.id: obj for obj in objects}.values())
         for obj in objects:
             object_cache[obj.id] = obj
 
@@ -143,9 +179,12 @@ class KGQuery(Resolvable):
     def count(self, client: KGClient, space: Optional[str] = None, release_status: Optional[str] = None):
         """
         Return the number of objects that would be returned by resolving this query.
+
+        For a query created with `from_reverse_property()`, a node that links through
+        more than one forward property is counted once for each.
         """
         release_status = release_status or self.preferred_release_status
         n = 0
-        for cls in self.classes:
-            n += cls.count(client, api="query", release_status=release_status, space=space, **self.filter)
+        for cls, filter in self._class_filters():
+            n += cls.count(client, api="query", release_status=release_status, space=space, **filter)
         return n
