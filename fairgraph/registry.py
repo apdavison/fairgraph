@@ -65,8 +65,7 @@ class NodeMeta(Registry):
         else:
             # Fallback for non-versioned paths or test classes
             class_dict["class_name"] = ".".join(
-                module.replace("fairgraph.openminds", f"openminds.{OPENMINDS_VERSION}").split(".")[:3]
-                + [name]
+                module.replace("fairgraph.openminds", f"openminds.{OPENMINDS_VERSION}").split(".")[:3] + [name]
             )
         class_dict["preferred_import_path"] = class_dict["class_name"]
         cls = Registry.__new__(meta, name, bases, class_dict)

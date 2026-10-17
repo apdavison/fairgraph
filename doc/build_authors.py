@@ -6,6 +6,7 @@ import json
 import requests
 from pathlib import Path
 
+
 def full_name(au):
     # contributors may give a pseudonym (alternateName) rather than their given and family names
     return " ".join(filter(None, (au.get("givenName"), au.get("familyName")))) or au["alternateName"]
@@ -65,7 +66,9 @@ def get_affiliation_text(affil):
 
 
 def affiliation_number(au, affiliations):
-    index = list(affiliations.keys()).index(affiliation_key(au["affiliation"][0]))  # to do: handle people with multiple affiliations
+    index = list(affiliations.keys()).index(
+        affiliation_key(au["affiliation"][0])
+    )  # to do: handle people with multiple affiliations
     return index + 1
 
 
@@ -73,9 +76,7 @@ affiliations_text = "\n".join(
     f"{i}. {get_affiliation_text(affil)}" for i, affil in enumerate(affiliations.values(), start=1)
 )
 
-authors_text = "\n".join(
-    [f"- {full_name(au)} [{affiliation_number(au, affiliations)}]" for au in author_data]
-)
+authors_text = "\n".join([f"- {full_name(au)} [{affiliation_number(au, affiliations)}]" for au in author_data])
 
 with open("authors.rst", "w") as fp:
     fp.write(template.format(authors=authors_text, affiliations=affiliations_text))

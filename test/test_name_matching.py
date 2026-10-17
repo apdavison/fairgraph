@@ -3,12 +3,12 @@ Tests for `fairgraph.utility.name_matching`.
 
 Most of this covers fairgraph's own code and is unaffected by where the name-matching helpers come from.
 
-Four classes are tied to the temporary copy of the openMINDS helpers that `name_matching` carries, and 
+Four classes are tied to the temporary copy of the openMINDS helpers that `name_matching` carries, and
 should be deleted/renamed as follows when that copy is replaced by an import:
 
 - `TestRemoveAccents`, `TestMatchesName` and `TestNormalizeName` test the copied helpers
   themselves, and become openMINDS' business rather than ours; delete them.
-- `TestParityWithOpenMINDS` is the guard against the copy drifting from the original. 
+- `TestParityWithOpenMINDS` is the guard against the copy drifting from the original.
   Once there is nothing to drift, it is still valuable as a check that the delegation is
   wired up and every argument forwarded, but should be renamed accordingly.
 """

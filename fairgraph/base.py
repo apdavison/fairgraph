@@ -76,9 +76,7 @@ class Releasable(Resolvable):  # KGObject, KGProxy
         else:
             return None
 
-    def children(
-        self, client: KGClient, follow_links: Optional[Dict[str, Any]] = None
-    ) -> List[Releasable]:
+    def children(self, client: KGClient, follow_links: Optional[Dict[str, Any]] = None) -> List[Releasable]:
         pass
 
     def is_released(self, client: KGClient, with_children: bool = False) -> bool:

@@ -263,9 +263,7 @@ class KGClient(object):
         retry_backoff: float = 5.0,
     ):
         if openminds_version not in ("v4", "v5"):
-            raise ValueError(
-                f"openminds_version must be 'v4' or 'v5', got {openminds_version!r}"
-            )
+            raise ValueError(f"openminds_version must be 'v4' or 'v5', got {openminds_version!r}")
         self.openminds_version = openminds_version
         if not have_kg_core:
             raise ImportError("Please install the ebrains-kg-core package")
@@ -447,7 +445,11 @@ class KGClient(object):
                 )
                 error_context = f"_query(release_status={release_status} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
                 return self._check_response(
-                    response, error_context=error_context, expected_instance_id=instance_id, id_key=id_key, ignore_not_found=True
+                    response,
+                    error_context=error_context,
+                    expected_instance_id=instance_id,
+                    id_key=id_key,
+                    ignore_not_found=True,
                 )
 
         else:
@@ -463,7 +465,11 @@ class KGClient(object):
                 )
                 error_context = f"_query(release_status={release_status} query_id={query_id} filter={filter} instance_id={instance_id} size={size} from_index={from_index})"
                 return self._check_response(
-                    response, error_context=error_context, expected_instance_id=instance_id, id_key=id_key, ignore_not_found=True
+                    response,
+                    error_context=error_context,
+                    expected_instance_id=instance_id,
+                    id_key=id_key,
+                    ignore_not_found=True,
                 )
 
         if release_status == "any":

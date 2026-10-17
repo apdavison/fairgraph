@@ -655,10 +655,10 @@ def test_execute_query_with_multi_element_path_with_path_elements(kg_client):
                 ],
                 name="dataset",
                 expect_single=True,
-                filter=Filter("CONTAINS", value=DATASET_ID)
+                filter=Filter("CONTAINS", value=DATASET_ID),
             ),
             QueryProperty("https://openminds.om-i.org/props/name", name="name"),
-        ]
+        ],
     )
     expected = {
         "@context": {
@@ -697,10 +697,7 @@ def test_execute_query_with_multi_element_path_with_path_elements(kg_client):
                     "@id",
                 ],
             },
-            {
-                "propertyName": "name",
-                "path": "https://openminds.om-i.org/props/name"
-            },
+            {"propertyName": "name", "path": "https://openminds.om-i.org/props/name"},
         ],
     }
     assert query.serialize() == expected
@@ -710,8 +707,7 @@ def test_execute_query_with_multi_element_path_with_path_elements(kg_client):
         pagination=Pagination(start=0, size=5),
     )
     assert len(response.data) == 5
-    assert all(item["dataset"] == f"https://kg.ebrains.eu/api/instances/{DATASET_ID}"
-               for item in response.data)
+    assert all(item["dataset"] == f"https://kg.ebrains.eu/api/instances/{DATASET_ID}" for item in response.data)
 
 
 def test_generate_query_with_regex_filter(mock_client):
@@ -824,7 +820,9 @@ def test_equals_filters_a_link_by_id_with_equals(mock_client):
 def test_equals_rejects_a_non_id_string_for_a_link(mock_client):
     # as for a plain string or a Regex
     with pytest.raises(TypeError):
-        omcore.DatasetVersion.generate_query(client=mock_client, space=None, filters={"is_new_version_of": Equals("FOO")})
+        omcore.DatasetVersion.generate_query(
+            client=mock_client, space=None, filters={"is_new_version_of": Equals("FOO")}
+        )
 
 
 def test_existence_query_filters_strings_with_equals(mock_client):
@@ -883,9 +881,7 @@ def test_existence_query_with_list_of_embedded_nodes(mock_client):
     props = _existence_filter_properties(omcore.File, file, mock_client, "hashes")
     assert [prop["propertyName"] for prop in props] == ["Qhashes1", "Qhashes2"]
     # the filters for each hash are kept together, so that they must match the same hash in the KG
-    assert [
-        {sub_prop["propertyName"]: sub_prop["filter"] for sub_prop in prop["structure"]} for prop in props
-    ] == [
+    assert [{sub_prop["propertyName"]: sub_prop["filter"] for sub_prop in prop["structure"]} for prop in props] == [
         {"Qalgorithm": {"op": "EQUALS", "value": algorithm}, "Qdigest": {"op": "EQUALS", "value": digest}}
         for algorithm, digest in (("MD5", "abc"), ("SHA1", "def"))
     ]

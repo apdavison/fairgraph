@@ -488,16 +488,14 @@ class TestCacheInvalidationOnWrite:
         # 2. Re-fetch via from_id. Before the fix, this would have returned
         # stale cached data with no studiedSpecimen.
         dsv2 = DatasetVersion.from_id(self.uuid, offline_kg_client, scope="any")
-        assert dsv2.studied_specimens is not None, (
-            "re-fetched object must see the link added by the prior save"
-        )
+        assert dsv2.studied_specimens is not None, "re-fetched object must see the link added by the prior save"
 
         # 3. Unlink and save. The PATCH must clear studiedSpecimen on the server.
         dsv2.studied_specimens = None
         dsv2.save(offline_kg_client, space="myspace", recursive=False)
-        assert studied_specimen_path not in server_state, (
-            "second save should have sent a PATCH that cleared studiedSpecimen"
-        )
+        assert (
+            studied_specimen_path not in server_state
+        ), "second save should have sent a PATCH that cleared studiedSpecimen"
 
     def test_save_marks_raw_remote_data_stale(self, offline_kg_client, mocker):
         """After a successful update/replace, `_raw_remote_data` must be set
@@ -537,9 +535,7 @@ class TestCacheInvalidationOnWrite:
         dsv.short_name = "updated"
         dsv.save(offline_kg_client, space="myspace", recursive=False)
 
-        assert dsv._raw_remote_data is None, (
-            "_raw_remote_data must be invalidated after a successful update"
-        )
+        assert dsv._raw_remote_data is None, "_raw_remote_data must be invalidated after a successful update"
 
 
 class TestSpaceInfoOffline:
@@ -559,9 +555,7 @@ class TestSpaceInfoOffline:
         return mock_client
 
     def test_maps_known_types_to_classes_and_unknown_types_to_iris(self, mock_client, mocker):
-        client = self._client_listing(
-            mocker, mock_client, [(self.known_type, 3), (self.unknown_type, 7)]
-        )
+        client = self._client_listing(mocker, mock_client, [(self.known_type, 3), (self.unknown_type, 7)])
 
         info = KGClient.space_info(client, "myspace", release_status="in progress")
 
@@ -577,9 +571,7 @@ class TestSpaceInfoOffline:
         # listing raise ValueError.
         client = self._client_listing(mocker, mock_client, [(self.unknown_type, 1)])
 
-        assert KGClient.space_info(client, "myspace", release_status="in progress") == {
-            self.unknown_type: 1
-        }
+        assert KGClient.space_info(client, "myspace", release_status="in progress") == {self.unknown_type: 1}
 
     def test_clean_space_lists_both_kinds_then_aborts(self, mock_client, mocker, capsys):
         # clean_space() renders a label for every entry, so it has to cope with string

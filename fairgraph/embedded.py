@@ -68,9 +68,9 @@ class KGEmbedded(KGNode):
         return template.format(self=self)
 
     def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.to_jsonld(embed_linked_nodes=LinkedNodeEmbedding.NEVER) == other.to_jsonld(
+        return isinstance(other, self.__class__) and self.to_jsonld(
             embed_linked_nodes=LinkedNodeEmbedding.NEVER
-        )
+        ) == other.to_jsonld(embed_linked_nodes=LinkedNodeEmbedding.NEVER)
 
     @classmethod
     def from_jsonld(cls, data: JSONdict) -> Union[None, KGEmbedded]:

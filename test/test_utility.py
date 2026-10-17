@@ -96,7 +96,7 @@ def test_normalize_data():
         },
         "familyName": "Oakenshield",
         "givenName": "Thorin",
-        "alternateName": None
+        "alternateName": None,
     }
     context = {"@vocab": "https://openminds.ebrains.eu/vocab/"}
     expected = {
@@ -111,7 +111,7 @@ def test_normalize_data():
         },
         "https://openminds.ebrains.eu/vocab/familyName": "Oakenshield",
         "https://openminds.ebrains.eu/vocab/givenName": "Thorin",
-        "https://openminds.ebrains.eu/vocab/alternateName": None
+        "https://openminds.ebrains.eu/vocab/alternateName": None,
     }
     assert normalize_data(data, context) == expected
 
@@ -135,11 +135,7 @@ def test_initialise_instances_resolves_cross_references():
     from fairgraph.kgproxy import KGProxy
 
     # The library instances were recast to typed fairgraph objects.
-    pe_by_id = {
-        obj.id: obj
-        for obj in vars(ParcellationEntity).values()
-        if isinstance(obj, ParcellationEntity)
-    }
+    pe_by_id = {obj.id: obj for obj in vars(ParcellationEntity).values() if isinstance(obj, ParcellationEntity)}
     assert pe_by_id, "no ParcellationEntity library instances were recast"
     assert all(isinstance(pe, fairgraph.KGObject) for pe in pe_by_id.values())
 
