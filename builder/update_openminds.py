@@ -699,9 +699,10 @@ def get_existence_query(cls_name, properties):
 
 # The KG query API allows results to be sorted by only one property, at the root level.
 # By default we sort by the first of these properties that a class has.
-# "short_name" and "abbreviation" are not included since, in openMINDS, they never appear
-# without "full_name" or "name"; "synonyms" is not included since it is list-valued.
-SORT_PROPERTY_PRIORITY = ("name", "full_name", "lookup_label", "family_name")
+# In the current openMINDS version, "short_name" and "abbreviation" are never selected as
+# they never appear without "full_name" or "name", but we include them here in case needed
+# in future versions. They could also be used in `custom_sort_properties`.
+SORT_PROPERTY_PRIORITY = ("name", "full_name", "lookup_label", "family_name", "short_name", "abbreviation")
 
 # For some classes the default sort property is not the most useful one.
 custom_sort_properties = {
