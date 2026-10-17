@@ -27,6 +27,14 @@ def test_expand_filter():
     assert result == expected
 
 
+def test_expand_filter_keeps_siblings():
+    filter = {
+        "developers__given_name": "Bilbo",
+        "developers__family_name": "Baggins",
+    }
+    assert expand_filter(filter) == {"developers": {"given_name": "Bilbo", "family_name": "Baggins"}}
+
+
 def test_compact_uri():
     context = {"foaf": "http://xmlns.com/foaf/0.1/"}
     uri_list = "http://xmlns.com/foaf/0.1/Person"

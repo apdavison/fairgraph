@@ -75,7 +75,8 @@ class Equals(str):
     The KG ignores case when matching, but not whitespace, so `Equals("FOO")` does match "foo",
     but not "FOO ".
 
-    Only a single value is supported: a list of `Equals` values is filtered with "CONTAINS".
+    As with any filter value, a list of `Equals` values matches only if every item is matched,
+    each with "EQUALS".
 
     Args:
         value (str): the value the property must be equal to.
@@ -483,12 +484,50 @@ def get_query_properties(
     return properties
 
 
-def get_query_filter_property(property, context, filter: Any) -> QueryProperty:
+def to_single_value_filters(filter: Any) -> List[Any]:
+    """
+    Return one or more filters equivalent to `filter`, each with a single value at every leaf.
+
+    A filter that contains no lists is returned unchanged, as the only element of the result.
+    The KG query API accepts only a single value per filter, so a filter containing a list of values
+    is expressed by repeating the property once per item, each copy being required: in that case
+    one filter is returned per item. The list may be nested within a dict of filters for a linked
+    or embedded node, in which case each copy of the dict contains one of the items.
+
+    Example:
+        >>> to_single_value_filters({"family_name": ["Baggins", "Oakenshield"], "given_name": "A"})
+        [{"family_name": "Baggins", "given_name": "A"}, {"family_name": "Oakenshield", "given_name": "A"}]
+    """
+    if isinstance(filter, (list, tuple)):
+        if len(filter) == 0:
+            raise ValueError("Cannot filter on an empty list of values")
+        return list(filter)
+    if isinstance(filter, dict):
+        split = {key: to_single_value_filters(value) for key, value in filter.items()}
+        keys_with_lists = [key for key, values in split.items() if len(values) > 1]
+        if len(keys_with_lists) > 1:
+            raise ValueError(
+                f"Only one list of filter values is supported within a single property, not {len(keys_with_lists)}"
+            )
+        base = {key: values[0] for key, values in split.items()}
+        if keys_with_lists:
+            key = keys_with_lists[0]
+            return [{**base, key: item} for item in split[key]]
+        return [base]
+    return [filter]
+
+
+def get_query_filter_property(property, context, filter: Any, name: Optional[str] = None) -> QueryProperty:
     """
     Generate a QueryProperty instance containing a filter,
     for use in constructing a KG query definition.
+
+    The filter must contain a single value: use `to_single_value_filters()` for filters containing lists.
+    The name of the QueryProperty defaults to "Q" followed by the property name.
     """
     assert filter is not None
+    if name is None:
+        name = f"Q{property.name}"
     if isinstance(filter, dict):
         # we pass the filter through to the next level
         filter_obj = None
@@ -508,7 +547,7 @@ def get_query_filter_property(property, context, filter: Any) -> QueryProperty:
 
     if any(issubclass(_type, Node) for _type in property.types):
         assert all(issubclass(_type, Node) for _type in property.types)
-        prop = QueryProperty(expanded_path, name=f"Q{property.name}", required=True, reverse=property.reverse)
+        prop = QueryProperty(expanded_path, name=name, required=True, reverse=property.reverse)
         if filter_obj:
             if filter_obj.value.startswith("https://kg.ebrains.eu/api/instances"):
                 filter_path = "@id"
@@ -525,7 +564,7 @@ def get_query_filter_property(property, context, filter: Any) -> QueryProperty:
                     prop.properties.extend(child_properties)
                     break
     else:
-        prop = QueryProperty(expanded_path, name=f"Q{property.name}", filter=filter_obj, required=True)
+        prop = QueryProperty(expanded_path, name=name, filter=filter_obj, required=True)
     return prop
 
 
@@ -564,7 +603,9 @@ def get_filter_value(property, value: Any) -> Union[str, List[str]]:
             isinstance(val, KGProxy) and not set(val.classes).isdisjoint(property.types)
         )
 
-    if isinstance(value, list) and len(value) > 0:
+    if isinstance(value, (list, tuple)) and len(value) == 0:
+        raise ValueError(f"Cannot filter {property.name} on an empty list of values")
+    if isinstance(value, list):
         valid_type = all(is_valid(item) for item in value)
         have_multiple = True
     else:
@@ -573,7 +614,7 @@ def get_filter_value(property, value: Any) -> Union[str, List[str]]:
     if not valid_type:
         if property.name == "hash":  # bit of a hack
             filter_value = value
-        elif isinstance(value, str) and value.startswith("http"):  # for @id
+        elif all(isinstance(item, str) and item.startswith("http") for item in as_list(value)):  # for @id
             filter_value = value
         else:
             raise TypeError("{} must be of type {}, not {}".format(property.name, property.types, type(value)))
