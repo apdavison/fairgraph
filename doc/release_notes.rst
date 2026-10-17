@@ -23,6 +23,9 @@ New features
 Changes in behaviour
 --------------------
 
+- fairgraph now requires Python 3.10 or later, as Python 3.9 has reached end of life.
+  It is tested with Python 3.10 to 3.15.
+
 - Leading and trailing whitespace is now removed from text properties before they are saved
   Text loaded from the Knowledge Graph is left as it is until saved, so saving a fetched object corrects
   any untrimmed text that is stored.
