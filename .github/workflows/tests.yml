@@ -27,11 +27,15 @@ jobs:
           # exit-zero treats all errors as warnings.
           #flake8 . --count --exit-zero --max-complexity=10 --max-line-length=119 --statistics
       - name: Test with pytest
+        env:
+          # measure coverage with sys.monitoring, which is much faster than coverage's default tracer
+          COVERAGE_CORE: sysmon
         run: |
-          pytest --cov=fairgraph --cov-report=lcov
+          # coverage is measured only with the Python version whose results are uploaded to Coveralls
+          pytest ${{ matrix.python-version == '3.14' && '--cov=fairgraph --cov-report=lcov' || '' }}
 
       - name: Upload coverage to Coveralls
-        if: matrix.python-version == '3.12'
+        if: matrix.python-version == '3.14'
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
