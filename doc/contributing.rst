@@ -205,6 +205,15 @@ As a basic check of code quality, run::
 
     $ flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
 
+Deprecating a name
+------------------
+
+When renaming a public class, module or argument, keep the old name working (see :doc:`deprecations`).
+For a class, use :func:`fairgraph.utility.deprecated_aliases`; otherwise, emit a :exc:`DeprecationWarning`
+naming the replacement and the release in which the old name will be removed.
+In both cases, add a test to :file:`test/test_deprecations.py`, a row to the table in
+:file:`doc/deprecations.rst`, and an entry in the release notes; on removal, delete the row.
+
 Writing tests
 -------------
 

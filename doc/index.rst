@@ -24,6 +24,7 @@ although it is also useful in metadata registration/curation.
    contributing
    gettinghelp
    authors
+   deprecations
    release_notes
 
 Quickstart

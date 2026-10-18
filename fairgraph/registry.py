@@ -26,7 +26,7 @@ from openminds.properties import Property
 from openminds.registry import Registry
 
 from .base import OPENMINDS_VERSION
-from .utility import invert_dict
+from .utility import invert_dict, deprecated_aliases
 
 if TYPE_CHECKING:
     from .node import KGNode
@@ -110,4 +110,4 @@ class NodeMeta(Registry):
 
 
 # Deprecated alias
-Node = NodeMeta
+__getattr__ = deprecated_aliases(__name__, {"Node": NodeMeta})

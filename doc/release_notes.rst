@@ -67,6 +67,10 @@ Changes in behaviour
   - the ``fairgraph.fields`` module, which has not worked since version 0.13.0, as importing it raised
     :exc:`ModuleNotFoundError`. Use ``openminds.properties.Property`` in place of ``Field``.
 
+- The deprecated aliases ``EmbeddedMetadata``, ``ContainsMetadata``, ``RepresentsSingleObject`` and ``Node``
+  now emit a :exc:`DeprecationWarning`. All deprecated names will be removed in version 1.0;
+  see :doc:`deprecations` (`#122 <https://github.com/HumanBrainProject/fairgraph/issues/122>`_).
+
 Bug fixes
 ---------
 

@@ -22,7 +22,7 @@ limitations under the License.
 from openminds import IRI
 from .client import KGClient
 from .kgobject import KGObject
-from .embedded import KGEmbedded, EmbeddedMetadata  # EmbeddedMetadata is a deprecated alias
+from .embedded import KGEmbedded
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
 from .queries import Regex, Equals
@@ -63,3 +63,7 @@ utility.initialise_instances(
 def set_error_handling(value):
     """Set error handling globally for all modules"""
     openminds.set_error_handling(value)
+
+
+# Deprecated alias
+__getattr__ = utility.deprecated_aliases(__name__, {"EmbeddedMetadata": KGEmbedded})
