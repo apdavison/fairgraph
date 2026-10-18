@@ -441,12 +441,7 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
 
             if data_item is None:
                 if prop.reverse and "@id" in data:
-                    if isinstance(prop.reverse, list):
-                        # todo: handle all possible reverses
-                        #       for now, we just take the first
-                        deserialized_data[prop.name] = KGQuery(prop.types, {prop.reverse[0]: data["@id"]})
-                    else:
-                        deserialized_data[prop.name] = KGQuery(prop.types, {prop.reverse: data["@id"]})
+                    deserialized_data[prop.name] = KGQuery.from_reverse_property(prop, data["@id"])
                 else:
                     deserialized_data[prop.name] = None
             else:
