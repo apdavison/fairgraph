@@ -1180,7 +1180,7 @@ def generate_all(v4_root, v5_root):
             [
                 "from warnings import warn\n"
                 "from .controlled_terms import *\n"
-                "warn('The `controlledterms` module has been renamed to `controlled_terms`, please update your code', DeprecationWarning)"
+                "warn('The `controlledterms` module has been renamed to `controlled_terms`, this alias will be removed in version 1.0', DeprecationWarning)"
             ]
         )
     with open(os.path.join(target_path, "specimenprep.py"), "w") as fp:
@@ -1188,7 +1188,7 @@ def generate_all(v4_root, v5_root):
             [
                 "from warnings import warn\n"
                 "from .specimen_prep import *\n"
-                "warn('The `specimenprep` module has been renamed to `specimen_prep`, please update your code', DeprecationWarning)"
+                "warn('The `specimenprep` module has been renamed to `specimen_prep`, this alias will be removed in version 1.0', DeprecationWarning)"
             ]
         )
 

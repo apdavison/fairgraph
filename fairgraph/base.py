@@ -26,6 +26,7 @@ from uuid import UUID
 from warnings import warn
 
 from .errors import AuthorizationError
+from .utility.deprecation import deprecated_aliases
 
 if TYPE_CHECKING:
     from .client import KGClient
@@ -107,5 +108,5 @@ class Releasable(Resolvable):  # KGObject, KGProxy
         return response
 
 
-# Deprecated aliases
-RepresentsSingleObject = Releasable
+# Deprecated alias
+__getattr__ = deprecated_aliases(__name__, {"RepresentsSingleObject": Releasable})

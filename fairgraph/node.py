@@ -39,6 +39,7 @@ from .utility import (
     as_list,  # temporary for backwards compatibility (a lot of code imports it from here)
     expand_uri,
     normalize_data,
+    deprecated_aliases,
 )
 from .utility.whitespace import normalize_property_value
 
@@ -615,4 +616,4 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
 
 
 # Deprecated alias
-ContainsMetadata = KGNode
+__getattr__ = deprecated_aliases(__name__, {"ContainsMetadata": KGNode})

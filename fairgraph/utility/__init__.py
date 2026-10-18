@@ -23,4 +23,4 @@ from .jsonld import JSONdict, expand_uri, compact_uri, normalize_data, expand_fi
 from .activity_log import LogEntry, ActivityLog
 from .terms_of_use import TERMS_OF_USE, accepted_terms_of_use, in_notebook
 from .initialisation import initialise_instances
-from .deprecation import handle_scope_keyword
+from .deprecation import handle_scope_keyword, deprecated_aliases

@@ -30,3 +30,12 @@
     transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
     transition-timing-function: cubic-bezier(.4, 0, .2, 1)
 }
+/* headings of the tables of contents in the body of the index page (the sidebar is styled by the theme) */
+#content .toctree-wrapper .caption {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+#content .toctree-wrapper .caption + ul {
+    margin-left: 2.5rem;
+}

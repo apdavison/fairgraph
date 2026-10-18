@@ -25,7 +25,7 @@ from warnings import warn
 
 from openminds.base import LinkedNodeEmbedding
 
-from .utility import as_list, ActivityLog
+from .utility import as_list, ActivityLog, deprecated_aliases
 from .base import JSONdict
 from .node import KGNode
 
@@ -130,4 +130,4 @@ class KGEmbedded(KGNode):
 
 
 # Deprecated alias
-EmbeddedMetadata = KGEmbedded
+__getattr__ = deprecated_aliases(__name__, {"EmbeddedMetadata": KGEmbedded})
