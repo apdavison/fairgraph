@@ -165,6 +165,8 @@ So, to add or change a method on a generated class, edit (or create) the corresp
 file in :file:`builder/additional_methods/` and re-run :file:`update_openminds.py`.
 Both the overlay and the regenerated file should be committed together.
 
+.. _running-tests:
+
 Running the test suite
 ----------------------
 
@@ -292,8 +294,8 @@ fairgraph uses `semantic versioning`_: release numbers take the form ``MAJOR.MIN
 
 Until version 1.0, the API should not be considered stable. As semantic versioning allows for
 ``0.y.z`` releases, incompatible changes may appear in any release; they are described in the
-release notes, and where practical the previous behaviour keeps working for at least one release
-while emitting a :exc:`DeprecationWarning`.
+release notes, and where practical the previous behaviour keeps working, with a :exc:`DeprecationWarning`,
+until the next major release (see :doc:`deprecations`).
 
 From version 1.0 onwards, the public API is a commitment:
 
@@ -318,6 +320,8 @@ between releases. Its ``downloadUrl`` and ``identifier`` point at the release ar
 so giving it a development version would advertise a download that does not exist. It is
 regenerated as part of the release commit, and its ``downloadUrl`` is filled in once the
 release is on PyPI, as described below.
+
+.. _making-a-release:
 
 Making a release
 ----------------
@@ -357,8 +361,10 @@ is also updated to the date of the upload::
     $ cd doc
     $ python build_codemeta.py --download-url
 
-Finally, open the next development version: set the version strings in :file:`pyproject.toml`
+Open the next development version: set the version strings in :file:`pyproject.toml`
 and :file:`fairgraph/__init__.py` to the next release number with ``.dev0`` appended, and commit.
+
+Finally, add the new version to the EBRAINS Software Distribution, as described in :doc:`maintenance`.
 
 Governance
 ----------

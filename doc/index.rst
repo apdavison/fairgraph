@@ -12,7 +12,7 @@ although it is also useful in metadata registration/curation.
 
 .. toctree::
    :maxdepth: 1
-   :caption: User guide
+   :caption: Users' guide
 
    installation
    knowledgegraph
@@ -32,6 +32,7 @@ although it is also useful in metadata registration/curation.
 
    contributing
    architecture
+   maintenance
 
 Quickstart
 ==========
