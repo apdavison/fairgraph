@@ -3,7 +3,8 @@
 To update the `fairgraph.openminds` module, run:
 
 ```
-python update_openminds.py /path/to/openMINDS/schemas/v4.0
+python update_openminds.py /path/to/openMINDS/schemas/v4.0 \
+    --generate-all --v5-root /path/to/openMINDS/schemas/v5.0
 ```
 
 Where /path/to/openMINDS is a clone of the main branch of https://github.com/openMetadataInitiative/openMINDS.git
@@ -12,7 +13,7 @@ Before committing the resulting generated files, check that any changes introduc
 
 ## Hand-written methods
 
-Everything under `fairgraph/openminds` is generated, and hand edits made there will be lost
+Everything under `fairgraph/openminds/v4` and `fairgraph/openminds/v5` is generated, and hand edits made there will be lost
 the next time this script runs.
 
 Methods that cannot be derived from the schema (e.g. `Person.me()`, `DatasetVersion.download()`)

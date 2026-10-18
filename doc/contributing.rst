@@ -98,6 +98,8 @@ or name it after a Github issue, e.g. "issue-42".
 If the branch is for adding a new feature, make the branch name a short but informative
 description of the feature, e.g. "improve-tests".
 
+.. _building-openminds:
+
 Building the openMINDS module
 -----------------------------
 
@@ -139,6 +141,8 @@ Each class's ``sort_property``, the property by which query results are sorted, 
    generated, and any edit you make there by hand will be silently lost the next time the
    builder runs. To change the behaviour of a generated class, edit its *overlay* instead
    (see below).
+
+.. _additional-methods:
 
 Hand-written methods on generated classes
 -----------------------------------------
