@@ -6,6 +6,7 @@ import requests
 from kg_core.request import Stage, Pagination
 from kg_core.response import Error as KGError
 from fairgraph.kgobject import KGObject
+from fairgraph.kgproxy import KGProxy
 from fairgraph.queries import Query, QueryProperty, Filter
 from fairgraph.errors import AuthenticationError, AuthorizationError, KGConnectionError, ResourceExistsError
 from fairgraph.base import OPENMINDS_VERSION
@@ -251,10 +252,10 @@ def test_get_instance_from_cache(kg_client):
     instance_id = "https://kg.ebrains.eu/api/instances/5ed1e9f9-482d-41c7-affd-f1aa887bd618"
     kg_client.cache.pop(instance_id, None)
     instance1 = kg_client.instance_from_full_uri(instance_id)
-    assert instance_id in kg_client.cache
-    assert kg_client.cache[instance_id] == instance1
+    assert kg_client.cache[instance_id][Stage.RELEASED] == instance1
     instance2 = kg_client.instance_from_full_uri(instance_id, use_cache=True)
-    assert instance2 is instance1
+    assert instance2 == instance1
+    assert instance2 is not instance1  # the cache returns copies
 
 
 @skip_if_no_connection
@@ -418,7 +419,7 @@ class TestCacheInvalidationOnWrite:
     uri = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000000"
 
     def test_update_instance_invalidates_cache(self, offline_kg_client, mocker):
-        offline_kg_client.cache[self.uri] = {"@id": self.uri, "stale": True}
+        offline_kg_client.cache[self.uri] = {Stage.IN_PROGRESS: {"@id": self.uri, "stale": True}}
         mocker.patch.object(
             offline_kg_client._kg_client.instances,
             "contribute_to_partial_replacement",
@@ -428,7 +429,7 @@ class TestCacheInvalidationOnWrite:
         assert self.uri not in offline_kg_client.cache
 
     def test_replace_instance_invalidates_cache(self, offline_kg_client, mocker):
-        offline_kg_client.cache[self.uri] = {"@id": self.uri, "stale": True}
+        offline_kg_client.cache[self.uri] = {Stage.IN_PROGRESS: {"@id": self.uri, "stale": True}}
         mocker.patch.object(
             offline_kg_client._kg_client.instances,
             "contribute_to_full_replacement",
@@ -438,7 +439,7 @@ class TestCacheInvalidationOnWrite:
         assert self.uri not in offline_kg_client.cache
 
     def test_delete_instance_invalidates_cache(self, offline_kg_client, mocker):
-        offline_kg_client.cache[self.uri] = {"@id": self.uri}
+        offline_kg_client.cache[self.uri] = {Stage.IN_PROGRESS: {"@id": self.uri}}
         mocker.patch.object(offline_kg_client._kg_client.instances, "delete", return_value=None)
         offline_kg_client.delete_instance(self.uuid)
         assert self.uri not in offline_kg_client.cache
@@ -729,3 +730,207 @@ class TestBareUuidLinks:
             "@id": self.namespace + self.target_uuid,
             "https://openminds.om-i.org/props/link": {"@id": self.namespace + self.dsv_uuid},
         }
+
+
+class TestDocumentCache:
+    """
+    The document cache keeps the "in progress" and "released" documents of an instance separately,
+    and returns copies. See issue #80.
+    """
+
+    uuid = "00000000-0000-0000-0000-000000000000"
+    uri = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000000"
+
+    def _document(self, family_name, full=True, **extra):
+        from fairgraph.openminds.core import Person
+
+        document = {
+            "@id": self.uri,
+            "@type": [Person.type_],
+            "https://openminds.om-i.org/props/givenName": "Ada",
+            "https://openminds.om-i.org/props/familyName": family_name,
+            **extra,
+        }
+        if full:
+            document["http://schema.org/identifier"] = [self.uri]
+        return document
+
+    @pytest.fixture
+    def kg(self, offline_kg_client, mocker):
+        """
+        A client whose KG holds the documents put in `kg.documents`, keyed by stage,
+        and which records the stage of each request in `kg.requests`.
+        """
+        from types import SimpleNamespace
+
+        documents = {}
+        requests_made = []
+
+        def get_by_id(stage, instance_id, extended_response_configuration):
+            stage_name = "released" if stage == Stage.RELEASED else "in progress"
+            requests_made.append(stage_name)
+            if stage_name in documents:
+                return MockKGResponse(copy.deepcopy(documents[stage_name]))
+            return MockKGResponse(None, error=KGError(code=404, message="Not found"))
+
+        def get_by_identifiers(stage, payload, extended_response_configuration):
+            stage_name = "released" if stage == Stage.RELEASED else "in progress"
+            requests_made.append(f"{stage_name} by identifier")
+            return SimpleNamespace(data={payload[0]: SimpleNamespace(data=copy.deepcopy(documents[stage_name]))})
+
+        mocker.patch.object(offline_kg_client._kg_client.instances, "get_by_id", get_by_id)
+        mocker.patch.object(offline_kg_client._kg_client.instances, "get_by_identifiers", get_by_identifiers)
+        return SimpleNamespace(client=offline_kg_client, documents=documents, requests=requests_made)
+
+    def _family_name(self, document):
+        return document["https://openminds.om-i.org/props/familyName"]
+
+    def test_stages_are_cached_separately(self, kg):
+        kg.documents["in progress"] = self._document("Draft")
+        kg.documents["released"] = self._document("Published")
+        assert self._family_name(kg.client.instance_from_full_uri(self.uri, release_status="released")) == "Published"
+        assert self._family_name(kg.client.instance_from_full_uri(self.uri, release_status="in progress")) == "Draft"
+        # and both are now answered from the cache
+        assert self._family_name(kg.client.instance_from_full_uri(self.uri, release_status="released")) == "Published"
+        assert self._family_name(kg.client.instance_from_full_uri(self.uri, release_status="in progress")) == "Draft"
+        assert kg.requests == ["released", "in progress"]
+
+    def test_minimal_document_is_cached_but_only_returned_when_allowed(self, kg):
+        kg.documents["released"] = self._document("Lovelace", full=False)
+        assert kg.client.instance_from_full_uri(self.uri, require_full_data=False) is not None
+        assert kg.client.instance_from_full_uri(self.uri, require_full_data=False) is not None
+        assert kg.client.instance_from_full_uri(self.uri, require_full_data=True) is None
+        assert kg.requests == ["released"]
+
+    def test_returned_document_is_a_copy(self, kg):
+        kg.documents["released"] = self._document("Lovelace")
+        document = kg.client.instance_from_full_uri(self.uri)
+        document["https://openminds.om-i.org/props/familyName"] = "changed by the caller"
+        assert self._family_name(kg.client.instance_from_full_uri(self.uri)) == "Lovelace"
+
+    def test_any_does_not_change_cached_released_document(self, kg):
+        kg.documents["in progress"] = self._document("Draft", **{"https://openminds.om-i.org/props/orcid": "x"})
+        kg.documents["released"] = self._document("Published")
+        merged = kg.client.instance_from_full_uri(self.uri, release_status="any")
+        assert self._family_name(merged) == "Draft"
+        released = kg.client.instance_from_full_uri(self.uri, release_status="released")
+        assert self._family_name(released) == "Published"
+        assert "https://openminds.om-i.org/props/orcid" not in released
+
+    def test_any_for_unreleased_instance_is_answered_from_cache(self, kg):
+        kg.documents["in progress"] = self._document("Draft")
+        for _ in range(3):
+            assert self._family_name(kg.client.instance_from_full_uri(self.uri, release_status="any")) == "Draft"
+        assert kg.requests == ["in progress", "released"]
+
+    def test_released_lookup_asks_kg_for_unreleased_instance(self, kg):
+        kg.documents["in progress"] = self._document("Draft")
+        kg.client.instance_from_full_uri(self.uri, release_status="any")
+        assert kg.client.instance_from_full_uri(self.uri, release_status="released") is None
+        assert kg.requests == ["in progress", "released", "released"]
+        # a release made by someone else is seen
+        kg.documents["released"] = self._document("Published")
+        assert self._family_name(kg.client.instance_from_full_uri(self.uri, release_status="released")) == "Published"
+
+    def test_instance_absent_at_both_stages_is_not_recorded(self, kg):
+        assert kg.client.instance_from_full_uri(self.uri, release_status="any") is None
+        assert self.uri not in kg.client.cache
+
+    @pytest.mark.parametrize("operation", ["release", "unrelease", "move_to_space"])
+    def test_release_status_and_space_changes_clear_cache(self, kg, mocker, operation):
+        kg.documents["in progress"] = self._document("Draft")
+        kg.documents["released"] = self._document("Published")
+        kg.client.instance_from_full_uri(self.uri, release_status="any")
+        assert self.uri in kg.client.cache
+        mocker.patch.object(kg.client._kg_client.instances, "release", return_value=None)
+        mocker.patch.object(kg.client._kg_client.instances, "unrelease", return_value=None)
+        mocker.patch.object(kg.client._kg_client.instances, "move", return_value=MockKGResponse({}))
+        if operation == "move_to_space":
+            kg.client.move_to_space(self.uri, "another-space")
+        else:
+            getattr(kg.client, operation)(self.uri)
+        assert self.uri not in kg.client.cache
+
+    openminds_uri = "https://openminds.om-i.org/instances/species/musMusculus"
+
+    def _controlled_term_document(self):
+        """A document as the KG returns it for an instance that also has an openMINDS URI."""
+        document = self._document("Mouse")
+        document["http://schema.org/identifier"] = [self.openminds_uri, self.uri]
+        return document
+
+    def test_instance_retrieved_by_openminds_uri_is_cached_under_kg_uri(self, kg):
+        kg.documents["released"] = self._controlled_term_document()
+        assert kg.client.instance_from_full_uri(self.openminds_uri)["@id"] == self.uri
+        assert kg.client.instance_from_full_uri(self.uri)["@id"] == self.uri
+        assert kg.client.instance_from_full_uri(self.openminds_uri)["@id"] == self.uri
+        assert kg.requests == ["released by identifier"]
+        assert list(kg.client.cache) == [self.uri]
+
+    def test_openminds_uri_lookup_finds_document_cached_under_kg_uri(self, kg):
+        kg.documents["released"] = self._controlled_term_document()
+        kg.client.instance_from_full_uri(self.uri)
+        assert kg.client.instance_from_full_uri(self.openminds_uri)["@id"] == self.uri
+        assert kg.requests == ["released"]
+
+    def test_cache_cleared_after_write_whichever_uri_was_used(self, kg, mocker):
+        kg.documents["released"] = self._controlled_term_document()
+        kg.client.instance_from_full_uri(self.openminds_uri)
+        mocker.patch.object(
+            kg.client._kg_client.instances,
+            "contribute_to_partial_replacement",
+            lambda **kw: MockKGResponse({"@id": self.uri}),
+        )
+        kg.client.update_instance(self.uuid, {"some": "patch"})
+        kg.client.instance_from_full_uri(self.openminds_uri)
+        assert kg.requests == ["released by identifier", "released by identifier"]
+
+    def test_proxy_resolution_honours_release_status(self, kg):
+        from fairgraph.openminds.core import Person
+
+        kg.documents["in progress"] = self._document("Draft")
+        kg.documents["released"] = self._document("Published")
+        proxy = KGProxy(Person, self.uri)
+        assert proxy.resolve(kg.client, release_status="released").family_name == "Published"
+        assert proxy.resolve(kg.client, release_status="in progress").family_name == "Draft"
+
+    def test_proxy_to_unreleased_instance_needs_in_progress_release_status(self, kg):
+        """
+        A link to an instance that has not been released is only resolved when asked for
+        "in progress" or "any" content, even if the instance was created with the same client.
+        """
+        from fairgraph.errors import ResolutionFailure
+        from fairgraph.openminds.core import Person
+
+        kg.documents["in progress"] = self._document("Draft")
+        proxy = KGProxy(Person, self.uri)
+        with pytest.raises(ResolutionFailure):
+            proxy.resolve(kg.client)
+        assert proxy.resolve(kg.client, release_status="in progress").family_name == "Draft"
+
+
+def test_delete_instance_removes_ids_from_existence_cache(offline_kg_client, mocker):
+    from fairgraph.openminds.core import Person, Organization
+
+    deleted = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000000"
+    other = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000001"
+    offline_kg_client._existence_cache[Person][("a",)] = deleted
+    offline_kg_client._existence_cache[Person][("b",)] = other
+    offline_kg_client._existence_cache[Organization][("c",)] = deleted
+    mocker.patch.object(offline_kg_client._kg_client.instances, "delete", return_value=None)
+    offline_kg_client.delete_instance("00000000-0000-0000-0000-000000000000")
+    assert offline_kg_client._existence_cache[Person] == {("b",): other}
+    assert offline_kg_client._existence_cache[Organization] == {}
+
+
+def test_store_query_invalidates_query_cache(offline_kg_client, mocker):
+    query_uri = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002"
+    stored = MockKGResponse([{"@id": query_uri, "version": 1}])
+    list_queries = mocker.patch.object(offline_kg_client._kg_client.queries, "list_per_root_type", return_value=stored)
+    mocker.patch.object(offline_kg_client._kg_client.queries, "save_query", return_value=MockKGResponse({}))
+
+    assert offline_kg_client.retrieve_query("my-query")["version"] == 1
+    offline_kg_client.store_query("my-query", {"version": 2}, space="myspace")
+    stored.data = [{"@id": query_uri, "version": 2}]
+    assert offline_kg_client.retrieve_query("my-query")["version"] == 2
+    assert list_queries.call_count == 2  # store_query() found the existing query in the cache

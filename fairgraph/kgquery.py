@@ -26,7 +26,6 @@ from openminds.properties import Property
 from openminds.registry import lookup
 
 from .utility import as_list, expand_filter
-from .caching import object_cache
 from .base import Resolvable
 
 if TYPE_CHECKING:
@@ -160,12 +159,12 @@ class KGQuery(Resolvable):
                     from_index=from_index,
                     release_status=release_status,
                 ).data
-                objects.extend(cls.from_jsonld(instance_data, client) for instance_data in instances)
+                objects.extend(
+                    cls.from_jsonld(instance_data, release_status=release_status) for instance_data in instances
+                )
         if self._reverse_paths is not None:
             # a node that links through more than one forward property is found more than once
             objects = list({obj.id: obj for obj in objects}.values())
-        for obj in objects:
-            object_cache[obj.id] = obj
 
         if follow_links:
             for obj in objects:

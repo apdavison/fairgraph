@@ -22,9 +22,11 @@ from __future__ import annotations
 import os
 import logging
 import re
+from collections import defaultdict
+from copy import deepcopy
 from functools import wraps
 from time import sleep
-from typing import Any, Dict, Iterable, List, Optional, Union, TYPE_CHECKING
+from typing import Any, Dict, Iterable, List, Optional, Tuple, Union, TYPE_CHECKING
 from uuid import uuid4, UUID
 
 try:
@@ -39,7 +41,7 @@ except ImportError:
 from openminds.registry import lookup_type
 
 from .errors import AuthenticationError, AuthorizationError, KGConnectionError, ResourceExistsError
-from .utility import handle_scope_keyword
+from .utility import as_list, handle_scope_keyword
 from .base import OPENMINDS_VERSION
 
 if TYPE_CHECKING:
@@ -52,6 +54,14 @@ except ImportError:
 
 
 logger = logging.getLogger("fairgraph")
+
+OPENMINDS_INSTANCE_NAMESPACE = "https://openminds.om-i.org/instances"
+
+# Recorded in the document cache, in place of a released document, when an instance exists
+# in progress but has not been released. It is used only to answer lookups with
+# release_status="any", so that a direct lookup of the released document always asks the KG,
+# and a release made by someone else is seen.
+_NOT_RELEASED = object()
 
 
 def translate_network_errors(method):
@@ -216,7 +226,8 @@ class KGClient(object):
     It can be used to retrieve, add, update, and delete KG nodes.
 
     Attributes:
-        cache (dict): A dictionary used for caching JSON-LD documents.
+        cache (dict): A dictionary used for caching JSON-LD documents, keyed by the instance URI and then
+            by the stage ("IN_PROGRESS" or "RELEASED") at which the document was retrieved.
         accepted_terms_of_use (bool): A boolean indicating whether the user has accepted the terms of use.
 
     Args:
@@ -298,7 +309,14 @@ class KGClient(object):
         self.__kg_admin_client = None
         self.host = host
         self._user_info = None
-        self.cache: Dict[str, JsonLdDocument] = {}
+        self.cache: Dict[str, Dict[str, JsonLdDocument]] = {}
+        # The ids of instances found by, or created after, an existence query, keyed by class and query,
+        # since the KG is only eventually consistent, so a new instance may not be found by a query
+        # straight away (see KGObject.exists())
+        self._existence_cache: Dict[type, Dict[Tuple, str]] = defaultdict(dict)
+        # Instances with an openMINDS URI (e.g. controlled terms) are cached under their KG URI,
+        # so that a cached document is found, and cleared, whichever URI it was retrieved with
+        self._cache_aliases: Dict[str, str] = {}  # openMINDS URI -> KG URI
         self._query_cache: Dict[str, str] = {}
         self.accepted_terms_of_use = False
         if allow_interactive:
@@ -576,61 +594,91 @@ class KGClient(object):
         """
         release_status = handle_scope_keyword(scope, release_status)
         logger.debug("Retrieving instance from {}, api='core' use_cache={}".format(uri, use_cache))
+
+        def _full_data_only(data):
+            # in some circumstances, the KG returns "minimal" metadata,
+            # e.g. with just the id and fullName properties
+            # this means the user does not have full access, so we count this as no data
+            if require_full_data and data and "http://schema.org/identifier" not in data:
+                return None
+            return data
+
         data: JsonLdDocument
-        if use_cache and uri in self.cache:
-            logger.debug("Retrieving instance {} from cache".format(uri))
-            data = self.cache[uri]
-        else:
-
-            def _get_instance(release_status):
-                error_context = f"_get_instance(release_status={release_status} uri={uri})"
-                # Normal KG URIs start with https://kg.ebrains.eu/api/instances/ with a UUID
-                # but for openMINDS controlled terms we may have the openMINDS URI
-                # of the form https://openminds.om-i.org/instances/ageCategory/juvenile
-                # We use different query methods for these different cases.
-                kg_namespace = self._kg_client.instances._kg_config.id_namespace
-                if uri.startswith(kg_namespace):
-                    response = self._kg_client.instances.get_by_id(
-                        stage=STAGE_MAP[release_status],
-                        instance_id=self.uuid_from_uri(uri),
-                        extended_response_configuration=default_response_configuration,
-                    )
-                    response = self._check_response(response, error_context=error_context, ignore_not_found=True)
-                    if response.error:
-                        assert response.error.code == 404  # all other errors should have been trapped by the check
-                        data = None
-                    else:
-                        data = response.data
-                elif uri.startswith("https://openminds.om-i.org/instances"):
-                    payload = [uri]
-                    response = self._kg_client.instances.get_by_identifiers(
-                        stage=STAGE_MAP[release_status],
-                        payload=payload,
-                        extended_response_configuration=default_response_configuration,
-                    )
-                    # todo: handle errors
-                    data = expand_bare_uuids(response.data[payload[0]].data, kg_namespace)
-                else:
-                    raise Exception(f"This client cannot retrieve instances from {uri}")
-
-                # in some circumstances, the KG returns "minimal" metadata,
-                # e.g. with just the id and fullName properties
-                # this means the user does not have full access, so we count this as no data
-                if require_full_data and data and "http://schema.org/identifier" not in data:
-                    data = None
-                return data
-
-            if release_status == "any":
-                data_ip = _get_instance("in progress")
-                data_rel = _get_instance("released")
-                data = data_rel or data_ip
-                if data_ip is not None:
-                    data.update(data_ip)
+        if release_status == "any":
+            data_ip = self._instance_at_stage(uri, Stage.IN_PROGRESS, use_cache)
+            cache_key = self._cache_aliases.get(uri, uri)
+            if (
+                data_ip is not None
+                and use_cache
+                and self.cache.get(cache_key, {}).get(Stage.RELEASED) is _NOT_RELEASED
+            ):
+                data_rel = None
             else:
-                data = _get_instance(release_status)
+                data_rel = self._instance_at_stage(uri, Stage.RELEASED, use_cache)
+                kg_namespace = self._kg_client.instances._kg_config.id_namespace
+                if data_rel is None and data_ip is not None and uri.startswith(kg_namespace):
+                    self.cache.setdefault(uri, {})[Stage.RELEASED] = _NOT_RELEASED
+            data_ip = _full_data_only(data_ip)
+            data_rel = _full_data_only(data_rel)
+            # the documents are copies, so merging them leaves the cache unchanged
+            data = data_rel or data_ip
+            if data_ip is not None:
+                data.update(data_ip)
+        else:
+            data = _full_data_only(self._instance_at_stage(uri, STAGE_MAP[release_status], use_cache))
+        return data
 
-            if data:
-                self.cache[uri] = data
+    def _instance_at_stage(self, uri: str, stage: str, use_cache: bool) -> Optional[JsonLdDocument]:
+        """
+        Return a copy of the document for the instance with the given URI at the given stage
+        (Stage.IN_PROGRESS or Stage.RELEASED), or None if it does not exist at that stage.
+
+        Documents are cached whether or not the user has full access to them, since what
+        is returned to the user is decided afterwards.
+        """
+        if use_cache:
+            cached = self.cache.get(self._cache_aliases.get(uri, uri), {}).get(stage)
+            if cached is not None and cached is not _NOT_RELEASED:
+                logger.debug("Retrieving instance {} ({}) from cache".format(uri, stage))
+                return deepcopy(cached)
+
+        error_context = f"_instance_at_stage(stage={stage} uri={uri})"
+        # Normal KG URIs start with https://kg.ebrains.eu/api/instances/ with a UUID
+        # but for openMINDS controlled terms we may have the openMINDS URI
+        # of the form https://openminds.om-i.org/instances/ageCategory/juvenile
+        # We use different query methods for these different cases.
+        kg_namespace = self._kg_client.instances._kg_config.id_namespace
+        if uri.startswith(kg_namespace):
+            response = self._kg_client.instances.get_by_id(
+                stage=stage,
+                instance_id=self.uuid_from_uri(uri),
+                extended_response_configuration=default_response_configuration,
+            )
+            response = self._check_response(response, error_context=error_context, ignore_not_found=True)
+            if response.error:
+                assert response.error.code == 404  # all other errors should have been trapped by the check
+                data = None
+            else:
+                data = response.data
+        elif uri.startswith(OPENMINDS_INSTANCE_NAMESPACE):
+            payload = [uri]
+            response = self._kg_client.instances.get_by_identifiers(
+                stage=stage,
+                payload=payload,
+                extended_response_configuration=default_response_configuration,
+            )
+            # todo: handle errors
+            data = expand_bare_uuids(response.data[payload[0]].data, kg_namespace)
+        else:
+            raise Exception(f"This client cannot retrieve instances from {uri}")
+
+        if data:
+            # cache the document under its KG URI, recording any openMINDS URIs as aliases
+            kg_uri = data.get("@id", uri)
+            for identifier in as_list(data.get("http://schema.org/identifier", [])) + [uri]:
+                if isinstance(identifier, str) and identifier.startswith(OPENMINDS_INSTANCE_NAMESPACE):
+                    self._cache_aliases[identifier] = kg_uri
+            self.cache.setdefault(kg_uri, {})[stage] = deepcopy(data)
         return data
 
     @translate_network_errors
@@ -727,8 +775,15 @@ class KGClient(object):
             if not ignore_errors:
                 raise Exception(response.message)
         else:
-            self.cache.pop(self.uri_from_uuid(instance_id), None)
+            self._forget_instance(self.uri_from_uuid(instance_id))
         return response
+
+    def _forget_instance(self, uri: str):
+        """Remove a deleted instance from the document cache and the existence cache."""
+        self.cache.pop(uri, None)
+        for cached_ids in self._existence_cache.values():
+            for key in [key for key, cached_id in cached_ids.items() if cached_id == uri]:
+                del cached_ids[key]
 
     def uri_from_uuid(self, uuid: str) -> str:
         """Return an instance's URI given its UUID."""
@@ -769,6 +824,8 @@ class KGClient(object):
             )
 
         query_definition["@id"] = self.uri_from_uuid(query_id)
+        # the cached definition, if any, is now stale
+        self._query_cache.pop(query_label, None)
 
     @retry_on_connection_error
     @translate_network_errors
@@ -924,6 +981,7 @@ class KGClient(object):
         response = self._kg_client.instances.move(instance_id=self.uuid_from_uri(uri), space=destination_space)
         if response.error:
             raise Exception(response.error)
+        self.cache.pop(uri, None)  # the cached documents give the old space
 
     @retry_on_connection_error
     @translate_network_errors
@@ -1070,6 +1128,7 @@ class KGClient(object):
         response = self._kg_client.instances.release(self.uuid_from_uri(uri))
         if response:
             raise Exception(f"Can't release instance with id {uri}. Error message: {response}")
+        self.cache.pop(uri, None)  # the released document has changed
 
     @translate_network_errors
     def unrelease(self, uri: str):
@@ -1077,3 +1136,4 @@ class KGClient(object):
         response = self._kg_client.instances.unrelease(self.uuid_from_uri(uri))
         if response:
             raise Exception(f"Can't unrelease instance with id {uri}. Error message: {response}")
+        self.cache.pop(uri, None)  # there is no longer a released document

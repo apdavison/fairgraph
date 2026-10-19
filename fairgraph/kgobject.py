@@ -41,7 +41,7 @@ from openminds.base import LinkedNodeEmbedding
 from .utility import expand_uri, as_list, expand_filter, ActivityLog, normalize_data, handle_scope_keyword
 from .queries import Query, QueryProperty, Regex
 from .errors import AuthorizationError, ResourceExistsError, CannotBuildExistenceQuery
-from .caching import object_cache, save_cache, generate_cache_key
+from .caching import generate_cache_key
 from .base import ErrorHandling, Releasable, JSONdict
 from .utility.name_matching import KG_NAMELIKE_PROPERTIES, MATCH_TYPES, build_name_regex, matches_name
 from .node import KGNode, check_existence_match
@@ -630,23 +630,28 @@ class KGObject(KGNode, Releasable):
             # duplicate entries
             return False
 
+        existence_cache = client._existence_cache[self.__class__]
         query_cache_key = next(
-            (key for key in self._existence_cache_keys(existence_match) if key in save_cache[self.__class__]), None
+            (key for key in self._existence_cache_keys(existence_match) if key in existence_cache), None
         )
         if query_cache_key is not None:
             # Because the KnowledgeGraph is only eventually consistent, an instance
             # that has just been written to the KG may not appear in the query.
             # Therefore we cache the query when creating an instance and
             # where exists() returns True
-            self.id = save_cache[self.__class__][query_cache_key]
-            cached_obj = object_cache.get(self.id)
-            if cached_obj and cached_obj.remote_data:
-                self._raw_remote_data = cached_obj._raw_remote_data
+            self.id = existence_cache[query_cache_key]
+            data = client.instance_from_full_uri(self.id, release_status="any", require_full_data=False)
+            # If the instance is not found, we still treat it as existing, in case retrieving
+            # a newly-created instance by its id is also subject to delays.
+            # Instances deleted with this client are no longer in the existence cache.
+            if data:
+                if self._raw_remote_data is None:
+                    self._raw_remote_data = data
                 # this also updates `self.remote_data`. It must not be replaced by a
                 # direct assignment to `self.remote_data`: a property that is empty
                 # locally but present remotely would then look like a deliberate
                 # deletion, and be set to null by the next call to save().
-                self._update_empty_properties(cached_obj.remote_data)
+                self._update_empty_properties(data)
             return True
         return None
 
@@ -708,7 +713,7 @@ class KGObject(KGNode, Releasable):
         # the instance's actual location takes precedence over any space set locally
         if "https://schema.hbp.eu/myQuery/space" in match:
             self._space = match["https://schema.hbp.eu/myQuery/space"]
-        save_cache[self.__class__][self._existence_cache_keys(existence_match)[-1]] = self.id
+        client._existence_cache[self.__class__][self._existence_cache_keys(existence_match)[-1]] = self.id
         self._update_empty_properties(instance)  # also updates `remote_data`
         return True
 
@@ -971,20 +976,13 @@ class KGObject(KGNode, Releasable):
                 except CannotBuildExistenceQuery:
                     query_filter = None
                 if query_filter is not None:
-                    save_cache[self.__class__][generate_cache_key(query_filter)] = self.id
+                    client._existence_cache[self.__class__][generate_cache_key(query_filter)] = self.id
                 if activity_log:
                     activity_log.update(item=self, delta=instance_data, space=self.space, entry_type="create")
 
         # note: if an existing object is in a different space to the one specified here,
         #       it is updated in its own space (with a warning), not moved to the new space.
-        if self.id:
-            logger.debug(
-                "Updating cache for object {}. Current state: {}".format(
-                    self.id, self.to_jsonld(embed_linked_nodes=LinkedNodeEmbedding.NEVER)
-                )
-            )
-            object_cache[self.id] = self
-        else:
+        if not self.id:
             logger.warning("Object has no id - see log for the underlying error")
         return self.id
 
@@ -995,8 +993,6 @@ class KGObject(KGNode, Releasable):
         not exist. Otherwise, the method will finish silently.
         """
         client.delete_instance(self.uuid, ignore_not_found=ignore_not_found)
-        if self.id in object_cache:
-            object_cache.pop(self.id)
 
     def dump(self, file_path, indent=2):
         """
