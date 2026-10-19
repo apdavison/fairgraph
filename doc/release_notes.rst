@@ -111,10 +111,19 @@ Connection robustness
 Performance
 -----------
 
+- The openMINDS library instances (controlled terms, brain atlases, licences, content types, ...)
+  are now converted to fairgraph objects the first time each class's instances are used 
+  (e.g. by accessing ``Species.mus_musculus``, or by calling ``Species.instances()``
+  or ``Species.by_name("Mus musculus")`` without a client), rather than all of them being converted 
+  when fairgraph is imported. This reduces the time taken by ``import fairgraph``
+  from several seconds to well under one second, and its memory use from about 390 MB to about 155 MB
+  (`#155 <https://github.com/HumanBrainProject/fairgraph/issues/155>`_).
+
 - Property values are no longer validated when they are set on an object whose class has error handling
-  set to ``None``, since any validation failures would be ignored anyway. This roughly halves the time
-  taken by ``import fairgraph``, which casts the openMINDS instance library to fairgraph classes with
-  validation switched off (`#155 <https://github.com/HumanBrainProject/fairgraph/issues/155>`_).
+  set to ``None``, since any validation failures would be ignored anyway
+  (`#155 <https://github.com/HumanBrainProject/fairgraph/issues/155>`_).
+  Converting the openMINDS library instances to fairgraph objects, which is done without validation,
+  is also about twice as fast.
   Explicit validation, with :meth:`validate` or :attr:`is_valid`, is not affected.
 
 

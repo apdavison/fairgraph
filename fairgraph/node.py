@@ -23,7 +23,7 @@ from openminds.base import value_to_jsonld, Link, LinkedNodeEmbedding
 from openminds.properties import Property
 
 from .registry import NodeMeta
-from .base import Resolvable, ErrorHandling, Releasable
+from .base import Resolvable, ErrorHandling, Releasable, is_validation_suppressed
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
 from .queries import (
@@ -126,7 +126,11 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
                 super().__setattr__(name, value)
         else:
             # validation can be costly, so skip it when any failures would be ignored
-            if self.error_handling != ErrorHandling.none and not isinstance(value, KGQuery):
+            if (
+                self.error_handling != ErrorHandling.none
+                and not is_validation_suppressed()
+                and not isinstance(value, KGQuery)
+            ):
                 failures = prop.validate(value)
                 if failures:
                     errmsg = str(failures)  # todo: create a nicer error message
