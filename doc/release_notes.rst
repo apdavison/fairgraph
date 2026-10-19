@@ -108,6 +108,15 @@ Connection robustness
   retried automatically, since doing so risks duplicating or corrupting data if the original request
   actually succeeded but its response was lost.
 
+Performance
+-----------
+
+- Property values are no longer validated when they are set on an object whose class has error handling
+  set to ``None``, since any validation failures would be ignored anyway. This roughly halves the time
+  taken by ``import fairgraph``, which casts the openMINDS instance library to fairgraph classes with
+  validation switched off (`#155 <https://github.com/HumanBrainProject/fairgraph/issues/155>`_).
+  Explicit validation, with :meth:`validate` or :attr:`is_valid`, is not affected.
+
 
 Version 0.15.0
 ==============

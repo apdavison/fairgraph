@@ -384,6 +384,18 @@ class TestKGObject(object):
         assert obj.a_required_linked_object.a_required_linked_object.a == 1234
         assert obj.an_optional_list_of_embedded_objects[1].a_number == 19.0
 
+    def test_setattr_skips_validation_when_error_handling_is_none(self, monkeypatch):
+        obj = self._construct_object_all_properties()
+        prop = obj._property_lookup["an_optional_string"]
+        calls = []
+        monkeypatch.setattr(prop, "validate", lambda value: calls.append(value) or {})
+        obj.an_optional_string = "lime"
+        assert calls == ["lime"]
+        monkeypatch.setattr(MockKGObject, "error_handling", ErrorHandling.none)
+        obj.an_optional_string = "coconut"
+        assert calls == ["lime"]
+        assert obj.an_optional_string == "coconut"
+
     def test_uuid(self):
         obj = self._construct_object_required_properties()
         # this should probably be a UUID object but it"s not at present

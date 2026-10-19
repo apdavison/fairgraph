@@ -125,7 +125,8 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
             else:
                 super().__setattr__(name, value)
         else:
-            if not isinstance(value, KGQuery):
+            # validation can be costly, so skip it when any failures would be ignored
+            if self.error_handling != ErrorHandling.none and not isinstance(value, KGQuery):
                 failures = prop.validate(value)
                 if failures:
                     errmsg = str(failures)  # todo: create a nicer error message
