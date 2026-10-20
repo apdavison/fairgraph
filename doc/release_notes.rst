@@ -52,9 +52,11 @@ Changes in behaviour
   Documents from the Knowledge Graph always contain such keys (e.g. the space): fairgraph reads them with
   ``ignore_unexpected_keys=True``, and code that calls ``from_jsonld()`` on them directly must do the same.
 
-- Leading and trailing whitespace is now removed from text properties before they are saved
-  Text loaded from the Knowledge Graph is left as it is until saved, so saving a fetched object corrects
-  any untrimmed text that is stored.
+- Leading and trailing whitespace is now removed from text properties before they are saved,
+  and in single-line properties, such as names, each run of whitespace within the text (including line breaks
+  and tabs) is replaced by a single space. Whitespace within multi-line properties, such as descriptions,
+  is left as it is. Text loaded from the Knowledge Graph is left as it is until saved, so saving a fetched
+  object corrects any stored text that is not normalized in this way.
 
 - The existence query that :meth:`~fairgraph.kgobject.KGObject.exists` and
   :meth:`~fairgraph.kgobject.KGObject.save` use to decide whether an object is already in the KG
@@ -64,9 +66,9 @@ Changes in behaviour
   :class:`DatasetVersion` with the version identifier "1.0" no longer matches "1.0.1"
   (`#149 <https://github.com/HumanBrainProject/fairgraph/issues/149>`_).
 
-  Whitespace is significant in the match, so an existing object whose name has a leading or trailing space
-  will not be found by a local object whose name lacks it, and a new object will be created.
-  Since :meth:`~fairgraph.kgobject.KGObject.save` now removes leading and trailing whitespace from text properties
+  Whitespace is significant in the match, so an existing object whose name has a leading or trailing space,
+  or a double space, will not be found by a local object whose name lacks it, and a new object will be created.
+  Since :meth:`~fairgraph.kgobject.KGObject.save` now normalizes the whitespace in text properties
   (see above), this applies to any existing object whose text has stray whitespace.
   Pipelines that re-save objects and previously relied on such near-matches to update
   existing nodes may therefore now create new ones.

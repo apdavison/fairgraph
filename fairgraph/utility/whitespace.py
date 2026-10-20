@@ -27,14 +27,18 @@ def normalize_whitespace(value: str, prop: Property) -> str:
     """
     Normalize the whitespace in a text value, for storage in the Knowledge Graph.
 
+    Leading and trailing whitespace is removed. For a single-line property (e.g. a name), each run
+    of whitespace inside the text, including line breaks and tabs, is also replaced by a single space;
+    in a multi-line property (e.g. a description), whitespace inside the text is left as it is,
+    since it may be significant (e.g. paragraphs, or Markdown formatting).
+
     Args:
         value: the text to normalize.
         prop: the openMINDS property that the text is a value of.
     """
-    # Currently this only removes leading and trailing whitespace. It takes the property (rather than
-    # just the string) so that internal whitespace can later be handled differently for single-line
-    # and multi-line properties (using ``prop.multiline`` and ``prop.formatting``) by changing only this function.
-    return value.strip()
+    if prop.multiline:
+        return value.strip()
+    return " ".join(value.split())
 
 
 def normalize_property_value(prop: Property, value: Any) -> Any:
