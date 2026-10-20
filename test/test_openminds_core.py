@@ -514,6 +514,46 @@ def test__update():
     assert len(updated_data) == 0
 
 
+LONELY_MOUNTAIN_ID = "https://kg.ebrains.eu/api/instances/45678901-bcde-f012-3456-7890abcdef01"
+
+
+def _seed_lonely_mountain(mock_client):
+    mock_client.instances[LONELY_MOUNTAIN_ID] = {
+        "@id": LONELY_MOUNTAIN_ID,
+        "@type": ["https://openminds.om-i.org/types/Organization"],
+        "https://core.kg.ebrains.eu/vocab/meta/space": "common",
+        "https://openminds.om-i.org/props/fullName": "Kingdom under the Lonely Mountain",
+    }
+
+
+@pytest.mark.parametrize(
+    "full_name,existence_match",
+    [
+        ("kingdom under the lonely mountain", "equals"),  # differs only in case
+        ("Lonely Mountain", "contains"),
+        ("lonely mountain", "contains"),
+    ],
+)
+def test_inexact_existence_match_adopts_the_stored_value(mock_client, full_name, existence_match):
+    # see issue #170
+    _seed_lonely_mountain(mock_client)
+    org = omcore.Organization(full_name=full_name)
+    log = ActivityLog()
+    org.save(mock_client, space="common", existence_match=existence_match, activity_log=log)
+    assert org.id == LONELY_MOUNTAIN_ID
+    assert org.full_name == "Kingdom under the Lonely Mountain"
+    assert org.modified_data() == {}
+    assert [entry.type for entry in log.entries] == ["no-op"]
+    assert mock_client.updates == []
+
+    # a second object with the same search term is found in the existence cache, with the same result
+    org2 = omcore.Organization(full_name=full_name)
+    assert org2.exists(mock_client, existence_match=existence_match)
+    assert org2.id == LONELY_MOUNTAIN_ID
+    assert org2.full_name == "Kingdom under the Lonely Mountain"
+    assert org2.modified_data() == {}
+
+
 def test_save_same_person_twice_preserves_remote_only_properties(mock_client):
     """
     Metadata-harvesting scripts typically build a new Person object for each

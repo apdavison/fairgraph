@@ -237,7 +237,8 @@ class MockKGClient:
             if op == "EQUALS" and isinstance(item, str) and isinstance(value, str) and item.lower() == value.lower():
                 # the KG ignores case, but not whitespace, when matching
                 return True
-            if op == "CONTAINS" and isinstance(item, str) and isinstance(value, str) and value in item:
+            if op == "CONTAINS" and isinstance(item, str) and isinstance(value, str) and value.lower() in item.lower():
+                # the KG also ignores case for "contains"
                 return True
         return False
 
