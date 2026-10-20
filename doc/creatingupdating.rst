@@ -25,6 +25,8 @@ To update a node, edit the attributes of the corresponding Python object, then :
 
 .. note:: Before saving, **fairgraph** removes leading and trailing whitespace
           from properties that contain text (including those of embedded nodes).
+          In single-line properties, such as names, each run of whitespace within the text,
+          including line breaks, is also replaced by a single space.
 
 How does fairgraph distinguish between creating a new node and modifying an existing one?
 =========================================================================================

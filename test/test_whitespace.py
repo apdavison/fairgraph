@@ -30,16 +30,22 @@ def _seed_bilbo(mock_client, given_name="Bilbo", family_name="Baggins"):
 
 
 class TestNormalizeWhitespace:
-    prop = omcore.Person.get_property("given_name")
+    prop = omcore.Person.get_property("given_name")  # single-line
+    multiline_prop = omcore.Dataset.get_property("description")
 
     def test_strips_both_ends(self):
         assert normalize_whitespace("  Bilbo\t\n", self.prop) == "Bilbo"
 
-    def test_leaves_internal_whitespace_alone(self):
-        assert normalize_whitespace(" Bilbo  Baggins\nof Bag End ", self.prop) == "Bilbo  Baggins\nof Bag End"
+    def test_collapses_internal_whitespace_in_single_line_properties(self):
+        assert normalize_whitespace(" Bilbo  Baggins\nof\tBag End ", self.prop) == "Bilbo Baggins of Bag End"
+
+    def test_leaves_internal_whitespace_alone_in_multi_line_properties(self):
+        text = " There and back again.\n\n  - a hobbit's tale\n"
+        assert normalize_whitespace(text, self.multiline_prop) == "There and back again.\n\n  - a hobbit's tale"
 
     def test_all_whitespace_becomes_empty(self):
         assert normalize_whitespace(" \t ", self.prop) == ""
+        assert normalize_whitespace(" \n ", self.multiline_prop) == ""
 
 
 class TestNormalizePropertyValue:
@@ -80,10 +86,9 @@ class TestNormalizePropertyValue:
 
 
 @pytest.mark.parametrize("module", [omcore4, omcore5], ids=["v4", "v5"])
-def test_text_properties_have_the_formatting_information_that_future_normalization_relies_on(module):
+def test_text_properties_have_the_formatting_information_that_normalization_relies_on(module):
     """
-    A later version of `normalize_whitespace` is intended to treat single-line and multi-line
-    text differently, using `Property.formatting` and `Property.multiline`.
+    `normalize_whitespace` treats single-line and multi-line text differently, using `Property.multiline`.
     """
     n_checked = 0
     for name in dir(module):
@@ -105,6 +110,14 @@ class TestNormalizeText:
         assert person.given_name == "Bilbo"
         assert person.family_name == "Baggins"
         assert person.alternate_names == ["Barrel-rider"]
+
+    def test_collapses_whitespace_in_single_line_properties_only(self):
+        dataset = omcore.Dataset(
+            full_name="There  and\nback again", description="There and back again.\n\nA hobbit's tale.\n"
+        )
+        dataset._normalize_text()
+        assert dataset.full_name == "There and back again"
+        assert dataset.description == "There and back again.\n\nA hobbit's tale."
 
     def test_embedded_nodes_are_normalized(self):
         file = omcore.File(
