@@ -113,9 +113,8 @@ def test_retrieve_released_models_filter_species_by_uuid(kg_client):
 def test_retrieve_released_models_filter_species_by_id(kg_client):
     mouse = omterms.Species.by_name("Mus musculus", kg_client)
     models = omcore.Model.list(
-        kg_client, release_status="released", space="model", api="query", study_targets=IRI(mouse.id)
+        kg_client, release_status="released", space="model", api="query", study_targets=mouse.id
     )
-    # todo: fix so that don't need to wrap the id in an IRI
     assert len(models) > 0
     for model in models:
         if model.study_targets:

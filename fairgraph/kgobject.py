@@ -135,25 +135,6 @@ class KGObject(KGNode, Releasable):
         deserialized_data = cls._deserialize_data(data, include_id=True)
         return cls(id=data.get("@id", None), data=data, release_status=release_status, **deserialized_data)
 
-    # @classmethod
-    # def _fix_keys(cls, data):
-    #     """
-    #     The KG Query API does not allow the same property name to be used twice in a document.
-    #     This is a problem when resolving linked nodes which use the same property names
-    #     as the 'parent'. As a workaround, we prefix the property names in the linked node
-    #     with the class name.
-    #     This method removes this prefix.
-    #     This feels like a kludge, and I'd be happy to find a better solution.
-    #     """
-    #     prefix = cls.__name__ + "__"
-    #     for key in list(data):
-    #         # need to use list() in previous line to avoid
-    #         # "dictionary keys changed during iteration" error in Python 3.8+
-    #         if key.startswith(prefix):
-    #             fixed_key = key.replace(prefix, "")
-    #             data[fixed_key] = data.pop(key)
-    #     return data
-
     @classmethod
     def from_uri(
         cls,

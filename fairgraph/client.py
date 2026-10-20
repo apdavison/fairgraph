@@ -377,7 +377,6 @@ class KGClient(object):
                     if str(expected_instance_id) not in response.data[0][id_key]:
                         raise Exception("mismatched instance_id")
         if response.error:
-            # todo: handle "ignore_not_found"
             if response.error.code == 403:
                 raise AuthorizationError(f"{response} {error_context}")
             elif response.error.code == 401:
