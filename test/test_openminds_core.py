@@ -690,6 +690,14 @@ def test_reverse_property_query_uses_the_forward_property_name_of_each_class():
     assert class_filters["ModelVersion"] == {"licenses": REVERSE_TEST_ID}
 
 
+def test_KGQuery_repr_says_how_to_resolve():
+    query = KGQuery.from_reverse_property(omcore.DatasetVersion.get_property("is_version_of"), REVERSE_TEST_ID)
+    assert repr(query) == (
+        "KGQuery([Dataset], filter={'has_versions': '00000000-0000-0000-0000-000000000001'}) "
+        "[unresolved: call .resolve(client)]"
+    )
+
+
 def test_reverse_property_query_covers_every_forward_property_with_the_path():
     import fairgraph.openminds.v5.core as v5core
 

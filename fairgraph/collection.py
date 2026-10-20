@@ -51,7 +51,10 @@ class Collection(OMCollection):
     *nodes (LinkedMetadata):
         Nodes to store in the collection when creating it.
         Child nodes that are referenced from the explicitly
-        listed nodes will also be added.
+        listed nodes will also be added. This includes instances from the
+        built-in openMINDS instance library (controlled terms, licences, ...),
+        which are written out in full when the collection is saved to disk,
+        but are not uploaded by `upload()`, since they already exist in the KG.
     """
 
     def load(self, *paths):
@@ -67,6 +70,37 @@ class Collection(OMCollection):
         max_retries=5,
         upload_log_path=".kg_upload_log.txt",
     ):
+        """
+        Save the nodes in the collection to the Knowledge Graph.
+
+        Nodes are saved one at a time, in an order such that linked nodes are saved before
+        the nodes that link to them. Instances from the openMINDS instance library are not uploaded,
+        since they already exist in the KG.
+
+        Each node is saved with `KGObject.save()`, with `recursive=False` and `ignore_duplicates=True`,
+        so a node with no id that matches an existing instance (see `KGObject.exists()`) is not created
+        again. Note that the existence check searches all the spaces the user can read, and that a node
+        that matches an instance in another space is updated in that space, not in the target space.
+
+        Args:
+            client: KGClient object that handles the communication with the KG.
+            default_space (str, optional): The KG space to save nodes in, if not given by `space_map`.
+                If not given, each node's class's default space is used.
+            space_map (dict, optional): A mapping from classes to the KG spaces to save their instances in.
+            verbosity (int, optional): 0 for no output (default), 1 for a progress bar (needs `tqdm`),
+                2 to print each node as it is saved.
+            max_retries (int, optional): How many times to retry saving a node after a transient error
+                (a server error or a lost connection) or an authentication error, before giving up.
+                After an authentication error, `client.refresh()` is called before retrying. Defaults to 5.
+            upload_log_path (str, optional): The path of a file recording the KG id given to each node,
+                so that an interrupted upload can be resumed: nodes recorded in it are not saved again.
+                The file is not deleted afterwards, and is keyed on the nodes' local ids, so delete it
+                before uploading a different collection, or uploading this one again from scratch.
+                Defaults to ".kg_upload_log.txt", in the current directory.
+
+        Returns:
+            An `ActivityLog`, recording what was done with each node.
+        """
         nodes_to_save = [
             node
             for node in self.sort_nodes_for_upload()

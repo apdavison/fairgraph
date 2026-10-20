@@ -45,6 +45,20 @@ you can request a service account from EBRAINS Support::
 
     client = KGClient(client_id="my_client_id", client_secret="<secret value>")
 
+If more than one of these is available, the client uses the first of: a service account,
+a ``token`` argument, the EBRAINS Lab, :envvar:`KG_AUTH_TOKEN`, and finally logging in through a web browser.
+
+Access tokens expire. A client using a service account gets new tokens automatically, for as long as it runs.
+A client that logged in through the web browser also renews its token automatically, but only until the login
+session ends, after which it prints a new log-in link and waits until you have logged in again.
+A token given with ``token`` or :envvar:`KG_AUTH_TOKEN` is never renewed: once it expires, requests fail with
+:class:`~fairgraph.errors.AuthenticationError`. In the EBRAINS Lab, call ``client.refresh()`` to get a new token.
+
+Each new client that logs in through the web browser needs a new login.
+For scripts, especially when running several of them one after the other,
+it is more convenient to obtain a token once and set it in :envvar:`KG_AUTH_TOKEN`,
+as long as the token will not expire before the work is done.
+
 
 Listing the available metadata types
 ====================================
@@ -248,17 +262,36 @@ By default the search is for an exact, case-sensitive match, but this can be rel
     region = ParcellationEntity.by_name("raphe nuclei", client, ignore_accents=True)
     cells = CellType.by_name("interneuron", client, match="contains", all=True)
 
-If you provide the ``client`` argument, fairgraph searches the Knowledge Graph;
-if you don't provide it, the built-in openMINDS instance library is searched instead,
-and the objects found have semantic IRIs rather than UUID-based ids::
+
+Terminologies
+-------------
+
+For controlled terms, licences, content types and other classes for which openMINDS provides
+an instance library, the library is built in to **fairgraph**, so you can get these objects
+without contacting the Knowledge Graph.
+Each library instance is available as a class attribute::
+
+    >>> from fairgraph.openminds.controlled_terms import Species
+    >>> Species.mus_musculus.id
+    'https://openminds.om-i.org/instances/species/musMusculus'
+
+or you can search the library by name, by calling :meth:`by_name` without a client::
 
     >>> Species.by_name("Mus musculus").id
     'https://openminds.om-i.org/instances/species/musMusculus'
+
+These objects have semantic IRIs as their ids, and can be used directly as links in the Knowledge Graph,
+e.g. as the species of a :class:`Subject` that you then save.
+Only classes that have an instance library can be searched without a client; for any other class,
+``None`` is returned.
+
+If you provide the ``client`` argument, fairgraph searches the Knowledge Graph instead,
+and the objects found have UUID-based ids::
+
     >>> Species.by_name("Mus musculus", client).id
     'https://kg.ebrains.eu/api/instances/d9875ebd-260e-4337-a637-b62fed4aa91d'
 
-Only classes that have an instance library (controlled terms, licences, content types, ...)
-can be found without a client; for any other class, ``None`` is returned.
+In general there is no value in doing this: for preference use the built-in instances.
 
 
 Viewing metadata and connections
@@ -282,8 +315,12 @@ Connections between graph nodes are also available as attributes::
     KGProxy([License], '6ebce971-7f99-4fbc-9621-eeae47a70d85')
 
 By default, for performance reasons, connections are not followed, and instead you will see either
-a :class:`KGQuery` or :class:`KGProxy` object. In both these cases, follow the connection using the
-:meth:`resolve()` method, e.g.::
+a :class:`KGProxy` or a :class:`KGQuery` object.
+A :class:`KGProxy` stands for a node that this node links to, and whose id is already known.
+A :class:`KGQuery` stands for the nodes that link *to* this node, through a reverse property
+such as :attr:`is_version_of` on a dataset version, or :attr:`files` on a file repository.
+Finding them needs a query, which is not sent until you ask for it.
+In both cases, follow the connection using the :meth:`resolve()` method, e.g.::
 
     >>> license = dataset_of_interest.license.resolve(client)
 
@@ -319,7 +356,12 @@ rather than filtering all files by their repository::
 
 Both give the same answer, but the second builds a query over every File in the Knowledge Graph,
 and there are a great many of them. For a dataset version with a few thousand files, the first
-form returns in seconds where the second can take minutes.
+form returns in seconds where the second can take minutes, or fail with a
+:class:`~fairgraph.errors.KGConnectionError`.
+
+Note that :attr:`files` is a reverse property of :class:`FileRepository`: the link is stored on each file,
+as :attr:`file_repository`. Reverse properties, like :attr:`is_version_of` in the earlier example,
+can be followed with ``follow_links`` in the same way as ordinary ones.
 
 
 Error handling

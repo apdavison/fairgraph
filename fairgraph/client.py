@@ -30,7 +30,7 @@ from uuid import uuid4, UUID
 try:
     from kg_core.kg import kg
     from kg_core.request import Stage, Pagination, ExtendedResponseConfiguration, ReleaseTreeScope
-    from kg_core.response import ResultPage, JsonLdDocument, SpaceInformation, Error
+    from kg_core.response import ResultPage, JsonLdDocument, SpaceInformation, Error, User
 
     have_kg_core = True
 except ImportError:
@@ -215,6 +215,22 @@ class KGClient(object):
 
     It can be used to retrieve, add, update, and delete KG nodes.
 
+    Authentication uses the first of the following that is available:
+
+    1. `client_id` and `client_secret` (a service account). New tokens are obtained automatically, with no time limit.
+    2. `token`. The token is not renewed, so the client stops working when it expires.
+    3. When running in the EBRAINS Lab, the token of the logged-in user. It is not renewed automatically,
+       but calling `refresh()` gets a new one.
+    4. The environment variable `KG_AUTH_TOKEN`. The token is not renewed, as for `token`.
+    5. If `allow_interactive` is true, logging in through a web browser (the "device flow"). The client then
+       renews its token automatically until the login session ends. After that, it prints a new log-in link
+       and waits, with no timeout, until someone uses it, so this is not suitable for unattended jobs.
+       Each new `KGClient` also needs its own login.
+
+    For scripts that run unattended, or that run as several separate processes, get a token once
+    (e.g. from the KG Editor) and set it in `KG_AUTH_TOKEN`, so that each process does not need a login,
+    but make sure the token lasts long enough for the whole job.
+
     Attributes:
         cache (dict): A dictionary used for caching JSON-LD documents.
         accepted_terms_of_use (bool): A boolean indicating whether the user has accepted the terms of use.
@@ -246,7 +262,7 @@ class KGClient(object):
 
     Raises:
         ImportError: If the kg_core package is not installed.
-        AuthenticationError: If neither a token nor client ID/secret are provided.
+        AuthenticationError: If none of the authentication methods above is available.
         ValueError: If openminds_version is not "v4" or "v5".
     """
 
@@ -801,11 +817,16 @@ class KGClient(object):
 
     @retry_on_connection_error
     @translate_network_errors
-    def user_info(self) -> Dict[str, Any]:
+    def user_info(self) -> User:
         """
         Returns information about the current user.
 
         This information is that associated with the authorization token used.
+
+        Returns:
+            User: a `kg_core.response.User`, with attributes `name`, `given_name`,
+            `family_name`, `alternate_name` (the EBRAINS username), `email` and `identifiers`.
+            The result is cached for the lifetime of the client.
         """
         if self._user_info is None:
             response = self._kg_client.users.my_info()
@@ -824,12 +845,15 @@ class KGClient(object):
     def spaces(
         self, permissions: Optional[Iterable[str] | bool] = None, names_only: bool = False
     ) -> Union[List[str], List[SpaceInformation]]:
-        f"""
+        """
         Return a list of the Knowledge Graph spaces the user can access.
 
         Args:
-            permissions (Optional[Iterable[str]]): Return only spaces for which the user has specific permissions.
-                The available permissions are as follows: {AVAILABLE_PERMISSIONS}
+            permissions (Optional[Iterable[str] | bool]): Return only spaces for which the user has at least one of
+                the given permissions: "CREATE", "READ", "DELETE", "RELEASE", "INVITE_FOR_REVIEW",
+                "INVITE_FOR_SUGGESTION", "SUGGEST", "UNRELEASE", "READ_RELEASED", "RELEASE_STATUS" or "WRITE"
+                (see `AVAILABLE_PERMISSIONS`). If True, return all spaces, with the user's permissions
+                for each one in `SpaceInformation.permissions`.
             names_only (bool): Whether to return detailed information about each space (default) or only the space names.
 
         Returns:
