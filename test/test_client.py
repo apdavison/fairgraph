@@ -589,6 +589,46 @@ class TestSpaceInfoOffline:
         assert "Person 3" in out
         assert f"{self.unknown_type} 7" in out
 
+    def _space_with_released_person(self, mock_client, mocker):
+        """A space with two Persons, the second of which is released and cannot be deleted."""
+        from kg_core.response import Error
+        from openminds.registry import lookup_type
+
+        person = lookup_type(self.known_type, mock_client.openminds_version)
+        ids = [f"https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-00000000000{i}" for i in (1, 2)]
+        mock_client.space_info = mocker.Mock(
+            side_effect=lambda space, release_status: {person: 2 if release_status == "in progress" else 1}
+        )
+        mock_client.list = mocker.Mock(
+            return_value=MockKGResponse(
+                [{"@id": id, "https://core.kg.ebrains.eu/vocab/meta/space": "myspace"} for id in ids]
+            )
+        )
+        mock_client.uuid_from_uri = lambda uri: uri.split("/")[-1]
+        released_error = Error(code=409, message="Instance is released")
+        mock_client.delete_instance = mocker.Mock(side_effect=[None, released_error])
+        return mock_client
+
+    def test_clean_space_warns_that_released_instances_are_kept(self, mock_client, mocker, capsys):
+        client = self._space_with_released_person(mock_client, mocker)
+        mocker.patch("builtins.input", return_value="n")
+
+        KGClient.clean_space(client, "myspace")
+
+        out = capsys.readouterr().out
+        assert "One of these instances is released, and will not be deleted" in out
+        client.delete_instance.assert_not_called()
+
+    def test_clean_space_lists_instances_not_deleted(self, mock_client, mocker, capsys):
+        client = self._space_with_released_person(mock_client, mocker)
+        mocker.patch("builtins.input", return_value="y")
+
+        KGClient.clean_space(client, "myspace")
+
+        out = capsys.readouterr().out
+        assert "Not deleted (1):" in out
+        assert "Person 00000000-0000-0000-0000-000000000002: Instance is released" in out
+
 
 class TestBareUuidLinks:
     """Marmotgraph v4 gives links to other KG instances as bare UUIDs rather than full URIs.

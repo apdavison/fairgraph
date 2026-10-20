@@ -109,9 +109,10 @@ class KGQuery(Resolvable):
         ]
 
     def __repr__(self):
-        return f"""{self.__class__.__name__}([{", ".join(cls.__name__ for cls in self.classes)}], filter="{self.filter!r}")""".replace(
-            "https://kg.ebrains.eu/api/instances/", ""
-        )
+        # this often appears as the value of a reverse property, so say how to get the objects
+        classes = ", ".join(cls.__name__ for cls in self.classes)
+        filter_repr = repr(self.filter).replace("https://kg.ebrains.eu/api/instances/", "")
+        return f"{self.__class__.__name__}([{classes}], filter={filter_repr}) [unresolved: call .resolve(client)]"
 
     def resolve(
         self,
@@ -136,7 +137,11 @@ class KGQuery(Resolvable):
                 If not provided, the "preferred_release_status" provided when creating the proxy object will be used.
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
             follow_links (dict): The links in the graph to follow. Defaults to None.
-            with_reverse_properties (dict): Whether to include reverse properties. Defaults to False.
+            with_reverse_properties (bool): Whether to get the values of reverse properties (links to each object
+                from other objects) as part of the query, as `KGProxy` objects (or None if there are none).
+                Otherwise, each reverse property holds a `KGQuery`, which is only sent when you call its
+                `resolve()` method. To get resolved objects, name the reverse property in `follow_links` instead.
+                Defaults to False.
 
         Returns:
             a KGObject instance, of the appropriate subclass.

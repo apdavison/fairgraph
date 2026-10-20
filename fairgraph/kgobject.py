@@ -135,25 +135,6 @@ class KGObject(KGNode, Releasable):
         deserialized_data = cls._deserialize_data(data, include_id=True)
         return cls(id=data.get("@id", None), data=data, release_status=release_status, **deserialized_data)
 
-    # @classmethod
-    # def _fix_keys(cls, data):
-    #     """
-    #     The KG Query API does not allow the same property name to be used twice in a document.
-    #     This is a problem when resolving linked nodes which use the same property names
-    #     as the 'parent'. As a workaround, we prefix the property names in the linked node
-    #     with the class name.
-    #     This method removes this prefix.
-    #     This feels like a kludge, and I'd be happy to find a better solution.
-    #     """
-    #     prefix = cls.__name__ + "__"
-    #     for key in list(data):
-    #         # need to use list() in previous line to avoid
-    #         # "dictionary keys changed during iteration" error in Python 3.8+
-    #         if key.startswith(prefix):
-    #             fixed_key = key.replace(prefix, "")
-    #             data[fixed_key] = data.pop(key)
-    #     return data
-
     @classmethod
     def from_uri(
         cls,
@@ -175,7 +156,11 @@ class KGObject(KGNode, Releasable):
                 Defaults to "released".
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
             follow_links (dict): The links in the graph to follow. Defaults to None.
-            with_reverse_properties (bool): Whether to include reverse properties. Defaults to False.
+            with_reverse_properties (bool): Whether to get the values of reverse properties (links to this object
+                from other objects) as `KGProxy` objects (or None if there are none). Only has an effect together with `follow_links`.
+                Otherwise, each reverse property holds a `KGQuery`, which is only sent when you call its
+                `resolve()` method. To get resolved objects, name the reverse property in `follow_links` instead.
+                Defaults to False.
         """
         release_status = handle_scope_keyword(scope, release_status)
         if follow_links:
@@ -221,7 +206,11 @@ class KGObject(KGNode, Releasable):
                 Defaults to "released".
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
             follow_links (dict): The links in the graph to follow. Defaults to None.
-            with_reverse_properties (bool): Whether to include reverse properties. Defaults to False.
+            with_reverse_properties (bool): Whether to get the values of reverse properties (links to this object
+                from other objects) as `KGProxy` objects (or None if there are none). Only has an effect together with `follow_links`.
+                Otherwise, each reverse property holds a `KGQuery`, which is only sent when you call its
+                `resolve()` method. To get resolved objects, name the reverse property in `follow_links` instead.
+                Defaults to False.
 
         """
         release_status = handle_scope_keyword(scope, release_status)
@@ -263,7 +252,11 @@ class KGObject(KGNode, Releasable):
                 Defaults to "released".
             use_cache (bool): Whether to use cached data if they exist. Defaults to True.
             follow_links (dict): The links in the graph to follow. Defaults to None.
-            with_reverse_properties (bool): Whether to include reverse properties. Defaults to False.
+            with_reverse_properties (bool): Whether to get the values of reverse properties (links to this object
+                from other objects) as `KGProxy` objects (or None if there are none). Only has an effect together with `follow_links`.
+                Otherwise, each reverse property holds a `KGQuery`, which is only sent when you call its
+                `resolve()` method. To get resolved objects, name the reverse property in `follow_links` instead.
+                Defaults to False.
 
         Returns:
             Either a KGObject of the correct type, or None.
@@ -378,6 +371,15 @@ class KGObject(KGNode, Releasable):
         """
         List all objects of this type in the Knowledge Graph
 
+        Filtering on a link to a node is slow for types with very many instances, above all `File`,
+        and can fail with a `KGConnectionError`. It is often much faster to start from the node
+        at the other end of the link and follow it with `follow_links`. For example, to get the files
+        in a dataset version's repository, use
+
+            DatasetVersion.from_id(dataset_version_id, client, follow_links={"repository": {"files": {}}})
+
+        rather than `File.list(client, file_repository=repository)`.
+
         Args:
             client: KGClient object that handles the communication with the KG.
             size (int, optional): The maximum number of instances to return. Default is 100.
@@ -386,7 +388,11 @@ class KGObject(KGNode, Releasable):
             release_status (str, optional): The scope to use for the query. Can be 'released', 'in progress', or 'all'. Default is 'released'.
             space (str, optional): The KG space to be queried. If not specified, results from all accessible spaces will be included.
             follow_links (dict): The links in the graph to follow. Defaults to None.
-            with_reverse_properties (bool): Whether to include reverse properties. Defaults to False.
+            with_reverse_properties (bool): Whether to get the values of reverse properties (links to this object
+                from other objects) as `KGProxy` objects (or None if there are none). Only has an effect when the query API is used (with `follow_links` or filters, or with `api="query"`).
+                Otherwise, each reverse property holds a `KGQuery`, which is only sent when you call its
+                `resolve()` method. To get resolved objects, name the reverse property in `follow_links` instead.
+                Defaults to False.
             filters: Optional keyword arguments representing filters to apply to the query.
 
         Returns:
@@ -1017,6 +1023,11 @@ class KGObject(KGNode, Releasable):
         """
         Retrieve metadata objects based on their name, or name-like properties.
 
+        For controlled terms, licences, content types and other classes with an openMINDS instance library,
+        call this without `client`: the built-in library is searched, which needs no network access,
+        and the objects found can be used directly as links in the Knowledge Graph.
+        Only pass `client` to find terms that are newer than the installed openMINDS package.
+
         "Name-like properties" are "name", "lookup_label", "family_name", "full_name", "short_name", "abbreviation"
         and "synonyms".  If a class has such a property, it will be searched.
         Note that not all metadata classes have a name.
@@ -1154,7 +1165,11 @@ class KGObject(KGNode, Releasable):
             space (str, optional): if provided, restrict the query to metadata stored in the given KG space.
             filters (dict): A dictonary defining search parameters for the query.
             follow_links (dict): The links in the graph to follow. Defaults to None.
-            with_reverse_properties (dict): Whether to include reverse properties. Default False.
+            with_reverse_properties (bool): Whether to get the values of reverse properties (links to this object
+                from other objects) as part of the query, as `KGProxy` objects (or None if there are none).
+                Otherwise, each reverse property holds a `KGQuery`, which is only sent when you call its
+                `resolve()` method. To get resolved objects, name the reverse property in `follow_links` instead.
+                Defaults to False.
             label (str, optional): a label for the query
 
         Returns:

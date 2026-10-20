@@ -92,6 +92,10 @@ Changes in behaviour
 Bug fixes
 ---------
 
+- :meth:`~fairgraph.client.KGClient.clean_space` now says, before asking for confirmation, how many of the
+  instances are released and will therefore not be deleted, and afterwards lists the instances that were not
+  deleted, with the reason, rather than printing a list of raw error objects.
+
 - The client's cache of JSON-LD documents now takes the release status into account: previously, an instance
   retrieved as "released" was returned from the cache for a request for "in progress" content, and vice versa.
   Likewise, a document for which the user lacks full access, retrieved by

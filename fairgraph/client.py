@@ -32,7 +32,7 @@ from uuid import uuid4, UUID
 try:
     from kg_core.kg import kg
     from kg_core.request import Stage, Pagination, ExtendedResponseConfiguration, ReleaseTreeScope
-    from kg_core.response import ResultPage, JsonLdDocument, SpaceInformation, Error
+    from kg_core.response import ResultPage, JsonLdDocument, SpaceInformation, Error, User
 
     have_kg_core = True
 except ImportError:
@@ -225,6 +225,22 @@ class KGClient(object):
 
     It can be used to retrieve, add, update, and delete KG nodes.
 
+    Authentication uses the first of the following that is available:
+
+    1. `client_id` and `client_secret` (a service account). New tokens are obtained automatically, with no time limit.
+    2. `token`. The token is not renewed, so the client stops working when it expires.
+    3. When running in the EBRAINS Lab, the token of the logged-in user. It is not renewed automatically,
+       but calling `refresh()` gets a new one.
+    4. The environment variable `KG_AUTH_TOKEN`. The token is not renewed, as for `token`.
+    5. If `allow_interactive` is true, logging in through a web browser (the "device flow"). The client then
+       renews its token automatically until the login session ends. After that, it prints a new log-in link
+       and waits, with no timeout, until someone uses it, so this is not suitable for unattended jobs.
+       Each new `KGClient` also needs its own login.
+
+    For scripts that run unattended, or that run as several separate processes, get a token once
+    (e.g. from the KG Editor) and set it in `KG_AUTH_TOKEN`, so that each process does not need a login,
+    but make sure the token lasts long enough for the whole job.
+
     Attributes:
         cache (dict): A dictionary used for caching JSON-LD documents, keyed by the instance URI and then
             by the stage ("IN_PROGRESS" or "RELEASED") at which the document was retrieved.
@@ -257,7 +273,7 @@ class KGClient(object):
 
     Raises:
         ImportError: If the kg_core package is not installed.
-        AuthenticationError: If neither a token nor client ID/secret are provided.
+        AuthenticationError: If none of the authentication methods above is available.
         ValueError: If openminds_version is not "v4" or "v5".
     """
 
@@ -379,7 +395,6 @@ class KGClient(object):
                     if str(expected_instance_id) not in response.data[0][id_key]:
                         raise Exception("mismatched instance_id")
         if response.error:
-            # todo: handle "ignore_not_found"
             if response.error.code == 403:
                 raise AuthorizationError(f"{response} {error_context}")
             elif response.error.code == 401:
@@ -858,11 +873,16 @@ class KGClient(object):
 
     @retry_on_connection_error
     @translate_network_errors
-    def user_info(self) -> Dict[str, Any]:
+    def user_info(self) -> User:
         """
         Returns information about the current user.
 
         This information is that associated with the authorization token used.
+
+        Returns:
+            User: a `kg_core.response.User`, with attributes `name`, `given_name`,
+            `family_name`, `alternate_name` (the EBRAINS username), `email` and `identifiers`.
+            The result is cached for the lifetime of the client.
         """
         if self._user_info is None:
             response = self._kg_client.users.my_info()
@@ -881,12 +901,15 @@ class KGClient(object):
     def spaces(
         self, permissions: Optional[Iterable[str] | bool] = None, names_only: bool = False
     ) -> Union[List[str], List[SpaceInformation]]:
-        f"""
+        """
         Return a list of the Knowledge Graph spaces the user can access.
 
         Args:
-            permissions (Optional[Iterable[str]]): Return only spaces for which the user has specific permissions.
-                The available permissions are as follows: {AVAILABLE_PERMISSIONS}
+            permissions (Optional[Iterable[str] | bool]): Return only spaces for which the user has at least one of
+                the given permissions: "CREATE", "READ", "DELETE", "RELEASE", "INVITE_FOR_REVIEW",
+                "INVITE_FOR_SUGGESTION", "SUGGEST", "UNRELEASE", "READ_RELEASED", "RELEASE_STATUS" or "WRITE"
+                (see `AVAILABLE_PERMISSIONS`). If True, return all spaces, with the user's permissions
+                for each one in `SpaceInformation.permissions`.
             names_only (bool): Whether to return detailed information about each space (default) or only the space names.
 
         Returns:
@@ -1016,9 +1039,12 @@ class KGClient(object):
         return response
 
     def clean_space(self, space_name):
-        """Delete all instances from a given space."""
-        # todo: check for released instances, they must be unreleased
-        #       before deletion.
+        """
+        Delete all instances from a given space, after asking for confirmation.
+
+        Released instances are not deleted: the KG refuses to delete them, as a safeguard.
+        To delete them, unrelease them first.
+        """
         space_info = self.space_info(space_name, release_status="in progress")
         if sum(space_info.values()) > 0:
             print(f"The space '{space_name}' contains the following instances:\n")
@@ -1026,10 +1052,21 @@ class KGClient(object):
                 if count > 0:
                     label = cls if isinstance(cls, str) else cls.__name__
                     print(label, count)
+            n_released = sum(self.space_info(space_name, release_status="released").values())
+            if n_released > 0:
+                if n_released == 1:
+                    print(
+                        "\nOne of these instances is released, and will not be deleted. To delete it, unrelease it first."
+                    )
+                else:
+                    print(
+                        f"\n{n_released} of these instances are released, and will not be deleted. "
+                        "To delete them, unrelease them first."
+                    )
             response = input("\nAre you sure you want to delete them? ")
             if response not in ("y", "Y", "yes", "YES"):
                 return
-            error_messages = []
+            not_deleted = []
             for cls, count in space_info.items():
                 if isinstance(cls, str):
                     target_type = cls
@@ -1044,15 +1081,18 @@ class KGClient(object):
                     assert response.total <= count
                     for instance in response.data:
                         assert instance["https://core.kg.ebrains.eu/vocab/meta/space"] == space_name
-                        error = self.delete_instance(self.uuid_from_uri(instance["@id"]), ignore_not_found=False)
+                        uuid = self.uuid_from_uri(instance["@id"])
+                        error = self.delete_instance(uuid, ignore_not_found=False)
                         if error:
                             print("x", end="")
-                            error_messages.append(error)
+                            not_deleted.append((label, uuid, error))
                         else:
                             print(".", end="")
                     print()
-            if error_messages:
-                print(error_messages)
+            if not_deleted:
+                print(f"\nNot deleted ({len(not_deleted)}):")
+                for label, uuid, error in not_deleted:
+                    print(f"  {label} {uuid}: {getattr(error, 'message', None) or error}")
         else:
             print(f"The space '{space_name}' is already clean")
 

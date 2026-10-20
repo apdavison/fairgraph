@@ -112,9 +112,8 @@ def test_retrieve_released_models_filter_species_by_uuid(kg_client):
 def test_retrieve_released_models_filter_species_by_id(kg_client):
     mouse = omterms.Species.by_name("Mus musculus", kg_client)
     models = omcore.Model.list(
-        kg_client, release_status="released", space="model", api="query", study_targets=IRI(mouse.id)
+        kg_client, release_status="released", space="model", api="query", study_targets=mouse.id
     )
-    # todo: fix so that don't need to wrap the id in an IRI
     assert len(models) > 0
     for model in models:
         if model.study_targets:
@@ -790,6 +789,14 @@ def test_reverse_property_query_uses_the_forward_property_name_of_each_class():
     class_filters = dict((target.__name__, filter) for target, filter in query._class_filters())
     assert class_filters["DatasetVersion"] == {"license": REVERSE_TEST_ID}
     assert class_filters["ModelVersion"] == {"licenses": REVERSE_TEST_ID}
+
+
+def test_KGQuery_repr_says_how_to_resolve():
+    query = KGQuery.from_reverse_property(omcore.DatasetVersion.get_property("is_version_of"), REVERSE_TEST_ID)
+    assert repr(query) == (
+        "KGQuery([Dataset], filter={'has_versions': '00000000-0000-0000-0000-000000000001'}) "
+        "[unresolved: call .resolve(client)]"
+    )
 
 
 def test_reverse_property_query_covers_every_forward_property_with_the_path():

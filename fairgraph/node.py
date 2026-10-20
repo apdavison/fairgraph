@@ -284,8 +284,8 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
         Args:
             follow_links (dict): The links in the graph to follow when constructing the query.
                                  Defaults to None.
-            with_reverse_properties (bool): Whether to include reverse properties.
-                                       Defaults to False.`
+            with_reverse_properties (bool): Whether to include all reverse properties in the query.
+                Defaults to False.
         """
         if issubclass(cls, Releasable):  # KGObject
             query_properties = [
