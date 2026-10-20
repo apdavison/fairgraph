@@ -9,6 +9,11 @@ Version 0.16.0
 New features
 ------------
 
+- A filter value for a text property can now also be given as a :class:`~fairgraph.queries.Contains`,
+  alongside :class:`~fairgraph.queries.Equals` and :class:`~fairgraph.queries.Regex`, so that all three ways of
+  matching text can be written explicitly. A plain string means the same as a :class:`~fairgraph.queries.Contains`,
+  so existing code is unaffected.
+
 - ``File.download()`` now checks the downloaded file against the hash recorded in the Knowledge Graph
   (MD5, SHA1, or any other algorithm available in :mod:`hashlib`), and raises :exc:`ValueError` if it does
   not match. Pass ``check_hash=False`` to skip the check, e.g. for very large files.

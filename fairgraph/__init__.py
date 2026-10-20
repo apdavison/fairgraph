@@ -25,7 +25,7 @@ from .kgobject import KGObject
 from .embedded import KGEmbedded
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
-from .queries import Regex, Equals
+from .queries import Regex, Equals, Contains
 from .collection import Collection
 from . import client, errors, openminds, utility
 

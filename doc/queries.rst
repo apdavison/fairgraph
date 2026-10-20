@@ -177,25 +177,33 @@ For example, to see only datasets whose name contain the phrase 'patch-clamp'::
              e.g., ``DatasetVersion.property_names``
              or consult the inline help (``help(omcore.DatasetVersion)``).
 
-A plain string matches any property value that *contains* it.
-To require the whole value to match, pass an :class:`Equals` instead::
+For a property containing text, the filter value says how the text is to be matched:
 
-    from fairgraph import Equals
+- :class:`Contains`: the property value must *contain* the text. This is the default:
+  a plain string means the same, so ``full_name="patch-clamp"`` above is short for
+  ``full_name=Contains("patch-clamp")``.
+- :class:`Equals`: the whole property value must match.
+- :class:`Regex`: the property value must match a regular expression.
 
+In all three cases, case is ignored. For example::
+
+    from fairgraph import Contains, Equals
+
+    datasets = Dataset.list(client, short_name=Contains("FOO"))
     datasets = Dataset.list(client, short_name=Equals("FOO"))
 
-This finds datasets whose short name is "FOO", but not those named "FOO-BAR".
-Case is ignored, but whitespace is not, so "FOO " would not match.
+The first finds datasets whose short name is "FOO", "foo" or "FOO-BAR"; the second finds those whose short name
+is "FOO" or "foo", but not "FOO-BAR". Whitespace is not ignored, so "FOO " would not match :class:`Equals`.
 For a case-sensitive search on a property such as ``name``, see :meth:`by_name` below.
 
-For a more flexible search, pass a :class:`Regex` instead of a plain string::
+For a more flexible search, use a :class:`Regex`::
 
     from fairgraph import Regex
 
     datasets = Dataset.list(client, full_name=Regex("^Whole cell patch-clamp"))
 
 The KG applies the pattern as a *search*: a pattern with no anchors matches anywhere in the property value, 
-so ``Regex("patch-clamp")`` finds the same datasets as the plain string ``"patch-clamp"``. 
+so ``Regex("patch-clamp")`` finds the same datasets as ``Contains("patch-clamp")``. 
 The ``^`` in the example above is what restricts the match to names that *begin* with the phrase; 
 ``$`` likewise anchors to the end.
 
@@ -228,7 +236,7 @@ For example, to find software versions developed by both a Baggins and an Oakens
 
     versions = SoftwareVersion.list(client, developers__family_name=["Baggins", "Oakenshield"])
 
-Each item in the list may be a plain string ("contains"), an :class:`Equals` or a :class:`Regex`,
+Each item in the list may be a :class:`Contains` (or a plain string), an :class:`Equals` or a :class:`Regex`,
 or, for a linked property, an object or its id::
 
     from fairgraph.openminds.publications import Chapter

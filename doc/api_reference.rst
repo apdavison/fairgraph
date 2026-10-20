@@ -80,10 +80,13 @@ Queries
    :members:
    :show-inheritance:
 
-.. autoclass:: fairgraph.queries.Regex
+.. autoclass:: fairgraph.queries.Contains
    :show-inheritance:
 
 .. autoclass:: fairgraph.queries.Equals
+   :show-inheritance:
+
+.. autoclass:: fairgraph.queries.Regex
    :show-inheritance:
 
 Utility classes and functions
