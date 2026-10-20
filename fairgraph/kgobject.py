@@ -20,6 +20,7 @@ unique identifier (a URI).
 
 from __future__ import annotations
 from collections import defaultdict
+from contextvars import ContextVar
 import logging
 from uuid import UUID
 from warnings import warn
@@ -58,6 +59,10 @@ logger = logging.getLogger("fairgraph")
 # Number of results requested by existence queries, which must be more than one, to detect duplicates.
 # If more instances match, they are all retrieved in a second query.
 EXISTENCE_QUERY_SIZE = 2
+
+# Set while deserializing a document read with `ignore_unexpected_keys=True`, so that the linked nodes
+# embedded in it, which openMINDS deserializes with the default, are read in the same way.
+_ignoring_unexpected_keys: ContextVar[bool] = ContextVar("_ignoring_unexpected_keys", default=False)
 
 
 class KGObject(KGNode, Releasable):
@@ -130,10 +135,42 @@ class KGObject(KGNode, Releasable):
     def from_jsonld(
         cls, data: JSONdict, ignore_unexpected_keys: Optional[bool] = False, release_status: Optional[str] = None
     ) -> KGObject:
-        """Create an instance of the class from a JSON-LD document."""
-        # todo: handle ignore_unexpected_keys
-        deserialized_data = cls._deserialize_data(data, include_id=True)
+        """
+        Create an instance of the class from a JSON-LD document.
+
+        By default, a NameError is raised if the document contains keys that are neither properties
+        of this class nor "@context", "@id" or "@type", which catches mistakes in documents written by hand.
+        Documents from the Knowledge Graph contain other keys (e.g. the space), so fairgraph
+        always reads them with `ignore_unexpected_keys=True`, and you should too.
+        The choice applies to the whole document, including any linked nodes embedded in it.
+        """
+        if ignore_unexpected_keys:
+            token = _ignoring_unexpected_keys.set(True)
+            try:
+                deserialized_data = cls._deserialize_data(data, include_id=True)
+            finally:
+                _ignoring_unexpected_keys.reset(token)
+        else:
+            if not _ignoring_unexpected_keys.get():
+                cls._check_for_unexpected_keys(data)
+            deserialized_data = cls._deserialize_data(data, include_id=True)
         return cls(id=data.get("@id", None), data=data, release_status=release_status, **deserialized_data)
+
+    @classmethod
+    def _check_for_unexpected_keys(cls, data: JSONdict):
+        expected_paths = {expand_uri(prop.path, cls.context) for prop in cls.all_properties}
+        unexpected = []
+        for key in data:
+            if key in ("@context", "@id", "@type"):
+                continue
+            try:
+                expanded_key = expand_uri(key, cls.context)
+            except ValueError:  # a prefix that is not in the context
+                expanded_key = key
+            if expanded_key not in expected_paths:
+                unexpected.append(key)
+        if unexpected:
+            raise NameError(f"Unexpected arguments for {cls}: {tuple(unexpected)}")
 
     @classmethod
     def from_uri(
@@ -183,7 +220,7 @@ class KGObject(KGNode, Releasable):
         if data is None:
             return None
         else:
-            return cls.from_jsonld(data, release_status=release_status)
+            return cls.from_jsonld(data, ignore_unexpected_keys=True, release_status=release_status)
 
     @classmethod
     def from_uuid(
@@ -293,7 +330,7 @@ class KGObject(KGNode, Releasable):
                 assert len(type_) == 1
                 type_ = type_[0]
             cls_from_data = lookup_type(type_, client.openminds_version)
-            return cls_from_data.from_jsonld(data, release_status=release_status)
+            return cls_from_data.from_jsonld(data, ignore_unexpected_keys=True, release_status=release_status)
 
     @classmethod
     def from_alias(
@@ -451,7 +488,10 @@ class KGObject(KGNode, Releasable):
             ).data
         else:
             raise ValueError("'api' must be either 'query', 'core', or 'auto'")
-        return [cls.from_jsonld(data=instance, release_status=release_status) for instance in instances]
+        return [
+            cls.from_jsonld(data=instance, ignore_unexpected_keys=True, release_status=release_status)
+            for instance in instances
+        ]
 
     @classmethod
     def count(
