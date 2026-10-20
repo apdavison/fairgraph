@@ -1,12 +1,15 @@
     @classmethod
     def from_local_file(cls, relative_path):
+        mime_type = mimetypes.guess_type(relative_path)[0]
         obj = cls(
             name=relative_path,
             storage_size=QuantitativeValue(value=float(
-                os.stat(relative_path).st_size), unit=UnitOfMeasurement(name="bytes")),
+                os.stat(relative_path).st_size), unit=UnitOfMeasurement.byte),
             hashes=Hash(algorithm="SHA1", digest=sha1sum(relative_path)),
-            format=ContentType(name=mimetypes.guess_type(relative_path)[0])
-            # todo: query ContentTypes since that contains additional, EBRAINS-specific content types
+            # link to the content type from the openMINDS library, if there is one
+            format=ContentType.by_name(mime_type) if mime_type else None,
+            # todo: for file types that `mimetypes` doesn't know (e.g. NWB), look up the file extension in the
+            #       library's content types, using the result only if it is unambiguous
         )
         return obj
 

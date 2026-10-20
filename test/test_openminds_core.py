@@ -1560,8 +1560,18 @@ def test_file_from_local_file():
     file_obj = omcore.File.from_local_file("test/utils.py")
     assert file_obj.name == "test/utils.py"
     assert file_obj.storage_size.value == float(os.stat("test/utils.py").st_size)
-    assert file_obj.format.name == "text/x-python"
+    # the controlled terms are the instances from the openMINDS library, not new objects
+    assert file_obj.storage_size.unit is omterms.UnitOfMeasurement.byte
+    assert file_obj.format.id == "https://openminds.om-i.org/instances/contentTypes/text_x-python"
     assert file_obj.hashes.digest == sha1sum("test/utils.py")
+
+
+def test_file_from_local_file_with_unknown_type(tmp_path):
+    path = tmp_path / "recording.unknownextension"
+    path.write_bytes(b"\x00\x01")
+    file_obj = omcore.File.from_local_file(str(path))
+    assert file_obj.format is None
+    assert file_obj.storage_size.value == 2.0
 
 
 @skip_if_no_connection
