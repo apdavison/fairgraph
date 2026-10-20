@@ -981,9 +981,12 @@ class KGClient(object):
         return response
 
     def clean_space(self, space_name):
-        """Delete all instances from a given space."""
-        # todo: check for released instances, they must be unreleased
-        #       before deletion.
+        """
+        Delete all instances from a given space, after asking for confirmation.
+
+        Released instances are not deleted: the KG refuses to delete them, as a safeguard.
+        To delete them, unrelease them first.
+        """
         space_info = self.space_info(space_name, release_status="in progress")
         if sum(space_info.values()) > 0:
             print(f"The space '{space_name}' contains the following instances:\n")
@@ -991,10 +994,21 @@ class KGClient(object):
                 if count > 0:
                     label = cls if isinstance(cls, str) else cls.__name__
                     print(label, count)
+            n_released = sum(self.space_info(space_name, release_status="released").values())
+            if n_released > 0:
+                if n_released == 1:
+                    print(
+                        "\nOne of these instances is released, and will not be deleted. To delete it, unrelease it first."
+                    )
+                else:
+                    print(
+                        f"\n{n_released} of these instances are released, and will not be deleted. "
+                        "To delete them, unrelease them first."
+                    )
             response = input("\nAre you sure you want to delete them? ")
             if response not in ("y", "Y", "yes", "YES"):
                 return
-            error_messages = []
+            not_deleted = []
             for cls, count in space_info.items():
                 if isinstance(cls, str):
                     target_type = cls
@@ -1009,15 +1023,18 @@ class KGClient(object):
                     assert response.total <= count
                     for instance in response.data:
                         assert instance["https://core.kg.ebrains.eu/vocab/meta/space"] == space_name
-                        error = self.delete_instance(self.uuid_from_uri(instance["@id"]), ignore_not_found=False)
+                        uuid = self.uuid_from_uri(instance["@id"])
+                        error = self.delete_instance(uuid, ignore_not_found=False)
                         if error:
                             print("x", end="")
-                            error_messages.append(error)
+                            not_deleted.append((label, uuid, error))
                         else:
                             print(".", end="")
                     print()
-            if error_messages:
-                print(error_messages)
+            if not_deleted:
+                print(f"\nNot deleted ({len(not_deleted)}):")
+                for label, uuid, error in not_deleted:
+                    print(f"  {label} {uuid}: {getattr(error, 'message', None) or error}")
         else:
             print(f"The space '{space_name}' is already clean")
 
