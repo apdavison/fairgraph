@@ -165,7 +165,8 @@ class KGQuery(Resolvable):
                     release_status=release_status,
                 ).data
                 objects.extend(
-                    cls.from_jsonld(instance_data, release_status=release_status) for instance_data in instances
+                    cls.from_jsonld(instance_data, ignore_unexpected_keys=True, release_status=release_status)
+                    for instance_data in instances
                 )
         if self._reverse_paths is not None:
             # a node that links through more than one forward property is found more than once

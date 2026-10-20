@@ -501,7 +501,7 @@ def test__update():
         "https://openminds.om-i.org/props/familyName": "Bianchi",
         "https://openminds.om-i.org/props/givenName": "Daniela",
     }
-    person = omcore.Person.from_jsonld(example_data, release_status="in progress")
+    person = omcore.Person.from_jsonld(example_data, ignore_unexpected_keys=True, release_status="in progress")
     for key in (
         "http://schema.org/identifier",
         "https://core.kg.ebrains.eu/vocab/meta/revision",
@@ -512,6 +512,65 @@ def test__update():
     # this follows the sequence in person.save()
     updated_data = person.modified_data()
     assert len(updated_data) == 0
+
+
+def _person_document(extra_key=None, extra_key_in_link=None):
+    """A JSON-LD document for a Person, linking to an ORCID that is included in full."""
+    orcid = {
+        "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000002",
+        "@type": "https://openminds.om-i.org/types/ORCID",
+        "https://openminds.om-i.org/props/identifier": "https://orcid.org/0000-0002-1825-0097",
+    }
+    person = {
+        "@context": {"@vocab": "https://openminds.om-i.org/props/"},
+        "@id": "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000001",
+        "@type": "https://openminds.om-i.org/types/Person",
+        "givenName": "Ada",
+        "https://openminds.om-i.org/props/familyName": "Lovelace",
+        "https://openminds.om-i.org/props/digitalIdentifier": [orcid],
+    }
+    if extra_key:
+        person[extra_key] = "x"
+    if extra_key_in_link:
+        orcid[extra_key_in_link] = "x"
+    return person
+
+
+def test_from_jsonld_accepts_properties_compact_or_expanded():
+    person = omcore.Person.from_jsonld(_person_document())
+    assert person.given_name == "Ada"
+    assert person.family_name == "Lovelace"
+    assert person.digital_identifiers[0].identifier == "https://orcid.org/0000-0002-1825-0097"
+
+
+@pytest.mark.parametrize("extra_key", ["https://openminds.om-i.org/props/givenname", "nickname", "foo:bar"])
+def test_from_jsonld_rejects_unexpected_keys_by_default(extra_key):
+    with pytest.raises(NameError, match="Unexpected arguments"):
+        omcore.Person.from_jsonld(_person_document(extra_key=extra_key))
+
+
+def test_from_jsonld_rejects_unexpected_keys_in_linked_nodes_by_default():
+    with pytest.raises(NameError, match="ORCID"):
+        omcore.Person.from_jsonld(_person_document(extra_key_in_link="https://openminds.om-i.org/props/typo"))
+
+
+def test_from_jsonld_ignore_unexpected_keys_applies_to_the_whole_document():
+    space_key = "https://core.kg.ebrains.eu/vocab/meta/space"
+    data = _person_document(extra_key=space_key, extra_key_in_link=space_key)
+    person = omcore.Person.from_jsonld(data, ignore_unexpected_keys=True)
+    assert person.given_name == "Ada"
+    assert person.digital_identifiers[0].identifier == "https://orcid.org/0000-0002-1825-0097"
+    # the choice does not outlast the call
+    with pytest.raises(NameError):
+        omcore.Person.from_jsonld(data)
+
+
+def test_load_passes_ignore_unexpected_keys(tmp_path):
+    path = tmp_path / "person.jsonld"
+    path.write_text(json.dumps(_person_document(extra_key="nickname")))
+    with pytest.raises(NameError):
+        omcore.Person.load(str(path))
+    assert omcore.Person.load(str(path), ignore_unexpected_keys=True).given_name == "Ada"
 
 
 def test_save_same_person_twice_preserves_remote_only_properties(mock_client):
@@ -1571,7 +1630,7 @@ def test_with_new_namespace_from_core():
         "https://core.kg.ebrains.eu/vocab/meta/lastReleasedAt": "2023-03-23T10:09:30.130Z",
     }
     orig_type = omcore.Model.type_
-    obj = omcore.Model.from_jsonld(data, release_status="released")
+    obj = omcore.Model.from_jsonld(data, ignore_unexpected_keys=True, release_status="released")
     assert obj.abstraction_level
     assert len(obj.developers) == 5
     omcore.Model.type_ = orig_type
@@ -1661,7 +1720,7 @@ def test_with_new_namespace_from_query():
     }
     # omcore.set_error_handling("error")
     orig_types = (omcore.Model.type_, omcore.Person.type_)
-    obj = omcore.Model.from_jsonld(data, release_status="released")
+    obj = omcore.Model.from_jsonld(data, ignore_unexpected_keys=True, release_status="released")
     assert obj.abstraction_level
     assert len(obj.developers) == 5
     omcore.Model.type_, omcore.Person.type_ = orig_types
