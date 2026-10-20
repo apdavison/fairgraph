@@ -698,6 +698,7 @@ class KGObject(KGNode, Releasable):
                 # locally but present remotely would then look like a deliberate
                 # deletion, and be set to null by the next call to save().
                 self._update_empty_properties(data)
+                self._adopt_matched_values(data, existence_match)
             return True
         return None
 
@@ -761,7 +762,34 @@ class KGObject(KGNode, Releasable):
             self._space = match["https://schema.hbp.eu/myQuery/space"]
         client._existence_cache[self.__class__][self._existence_cache_keys(existence_match)[-1]] = self.id
         self._update_empty_properties(instance)  # also updates `remote_data`
+        self._adopt_matched_values(instance, existence_match)
         return True
+
+    def _adopt_matched_values(self, data: JSONdict, existence_match: str):
+        """
+        After an existence query has matched this object with the instance in `data`, replace the local value
+        of each property in the existence query whose value is a string with the stored one, where the two
+        differ only in ways the query ignores: case, and, with `existence_match="contains"`, the rest of the
+        stored value. Other properties are not changed.
+
+        Otherwise, the difference would count as a local modification, and saving would write the search term
+        over the stored value.
+        """
+        if not self.existence_query_properties:
+            return
+
+        stored_values = self.__class__._deserialize_data(data)
+        for property_name in self.existence_query_properties:
+            local_value = getattr(self, property_name, None)
+            stored_value = stored_values.get(property_name, None)
+            if not (isinstance(local_value, str) and isinstance(stored_value, str)) or local_value == stored_value:
+                continue
+            if existence_match == "contains":
+                matched = local_value.lower() in stored_value.lower()
+            else:
+                matched = local_value.lower() == stored_value.lower()
+            if matched:
+                setattr(self, property_name, stored_value)
 
     def modified_data(self) -> JSONdict:
         """

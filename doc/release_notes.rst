@@ -29,6 +29,13 @@ New features
 Changes in behaviour
 --------------------
 
+- When an existence query (in :meth:`~fairgraph.kgobject.KGObject.exists` or
+  :meth:`~fairgraph.kgobject.KGObject.save`) matches an object with a stored instance whose value differs
+  from the local one only in case, or, with ``existence_match="contains"``, contains the local value,
+  the object's attribute is now set to the stored value. Previously, the local value was kept and treated
+  as a modification, so ``save()`` wrote the search term over the stored name
+  (`#170 <https://github.com/HumanBrainProject/fairgraph/issues/170>`_).
+
 - fairgraph now requires Python 3.10 or later, as Python 3.9 has reached end of life.
   It is tested with Python 3.10 to 3.15.
 
