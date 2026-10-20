@@ -14,7 +14,7 @@ import fairgraph.openminds.v5.core as omcore5
 from fairgraph.utility import ActivityLog
 from fairgraph.utility.whitespace import normalize_property_value, normalize_whitespace
 
-from .utils import MockKGResponse, clear_caches, mock_client
+from .utils import MockKGResponse, mock_client
 
 BILBO_ID = "https://kg.ebrains.eu/api/instances/12345678-90ab-cdef-0123-4567890abcde"
 
@@ -125,7 +125,7 @@ class TestNormalizeText:
 
 
 class TestSave:
-    def test_new_object_is_saved_stripped(self, mock_client, clear_caches):
+    def test_new_object_is_saved_stripped(self, mock_client):
         person = omcore.Person(given_name=" Bilbo ", family_name="Baggins ")
         person.save(mock_client, space="common")
         (data,) = mock_client.instances.values()
@@ -135,13 +135,13 @@ class TestSave:
         assert person.given_name == "Bilbo"
         assert person.family_name == "Baggins"
 
-    def test_synonym_lists_are_saved_stripped(self, mock_client, clear_caches):
+    def test_synonym_lists_are_saved_stripped(self, mock_client):
         person = omcore.Person(given_name="Bilbo", family_name="Baggins", alternate_names=[" Barrel-rider "])
         person.save(mock_client, space="common")
         (data,) = mock_client.instances.values()
         assert data["https://openminds.om-i.org/props/alternateName"] == ["Barrel-rider"]
 
-    def test_untrimmed_new_object_finds_stored_object_and_creates_no_duplicate(self, mock_client, clear_caches):
+    def test_untrimmed_new_object_finds_stored_object_and_creates_no_duplicate(self, mock_client):
         _seed_bilbo(mock_client)
         person = omcore.Person(given_name="Bilbo ", family_name=" Baggins")
         log = ActivityLog()
@@ -151,7 +151,7 @@ class TestSave:
         assert [entry.type for entry in log.entries] == ["no-op"]
         assert mock_client.updates == []
 
-    def test_stored_untrimmed_value_is_not_matched_exactly(self, mock_client, clear_caches):
+    def test_stored_untrimmed_value_is_not_matched_exactly(self, mock_client):
         _seed_bilbo(mock_client, given_name="Bilbo ")
         # the value is stripped before saving, and an exact match does not ignore whitespace in the KG
         person = omcore.Person(given_name="Bilbo", family_name="Baggins")
@@ -159,14 +159,14 @@ class TestSave:
         assert person.id != BILBO_ID
         assert len(mock_client.instances) == 2
 
-    def test_stored_untrimmed_value_is_matched_with_existence_match_contains(self, mock_client, clear_caches):
+    def test_stored_untrimmed_value_is_matched_with_existence_match_contains(self, mock_client):
         _seed_bilbo(mock_client, given_name="Bilbo ")
         person = omcore.Person(given_name=" Bilbo", family_name="Baggins")
         person.save(mock_client, space="common", existence_match="contains")
         assert person.id == BILBO_ID
         assert len(mock_client.instances) == 1
 
-    def test_loaded_object_with_untrimmed_stored_value_is_repaired(self, mock_client, clear_caches):
+    def test_loaded_object_with_untrimmed_stored_value_is_repaired(self, mock_client):
         _seed_bilbo(mock_client, given_name="Bilbo ")
         person = omcore.Person.from_id(BILBO_ID, mock_client)
         assert person.given_name == "Bilbo "  # loading does not strip
@@ -178,7 +178,7 @@ class TestSave:
         assert instance_id == BILBO_ID.split("/")[-1]
         assert payload["https://openminds.om-i.org/props/givenName"] == "Bilbo"
 
-    def test_linked_child_is_left_alone_when_not_recursive(self, mock_client, clear_caches):
+    def test_linked_child_is_left_alone_when_not_recursive(self, mock_client):
         child = omcore.Person(id=BILBO_ID, given_name=" Frodo ", family_name="Baggins")
         parent = omcore.DatasetVersion(custodians=[child], version_identifier=" v1 ")
         parent.save(mock_client, space="dataset", recursive=False)
@@ -192,7 +192,7 @@ class TestExists:
         query = person._build_existence_query()
         assert query == {"given_name": "Bilbo ", "family_name": " Baggins"}
 
-    def test_exists_does_not_strip_and_does_not_change_the_object(self, mock_client, clear_caches):
+    def test_exists_does_not_strip_and_does_not_change_the_object(self, mock_client):
         _seed_bilbo(mock_client)
         person = omcore.Person(given_name="Bilbo ", family_name=" Baggins")
         assert not person.exists(mock_client)

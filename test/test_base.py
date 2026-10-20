@@ -12,12 +12,12 @@ from openminds.properties import Property
 from fairgraph.embedded import KGEmbedded
 from fairgraph.kgobject import KGObject
 from fairgraph.kgproxy import KGProxy
-from fairgraph.caching import generate_cache_key, object_cache, save_cache
+from fairgraph.caching import generate_cache_key
 from fairgraph.errors import CannotBuildExistenceQuery
 from fairgraph.base import ErrorHandling
 from fairgraph.utility import ActivityLog
 from fairgraph.queries import Equals
-from .utils import MockKGResponse, clear_caches, mock_client
+from .utils import MockKGResponse, mock_client
 
 import pytest
 
@@ -434,7 +434,7 @@ class TestKGObject(object):
         )
         assert query == resolved_obj._build_existence_query()
 
-    def test_exists__with_proxy_in_existence_query(self, mock_client, clear_caches, mocker):
+    def test_exists__with_proxy_in_existence_query(self, mock_client, mocker):
         proxy_obj, resolved_obj = self._construct_new_object_with_proxy_link()
         query = mocker.patch.object(mock_client, "query", return_value=MockKGResponse([]))
 
@@ -446,7 +446,7 @@ class TestKGObject(object):
         )
         assert query.call_args.kwargs["query"] == expected_query
 
-    def test_save__with_proxy_in_existence_query(self, mock_client, clear_caches, mocker):
+    def test_save__with_proxy_in_existence_query(self, mock_client, mocker):
         proxy_obj, resolved_obj = self._construct_new_object_with_proxy_link()
         mocker.patch.object(mock_client, "query", return_value=MockKGResponse([]))
         log = ActivityLog()
@@ -455,9 +455,9 @@ class TestKGObject(object):
 
         assert [entry.type for entry in log.entries] == ["create"]
         assert len(mock_client.instances) == 1
-        # the save cache is keyed on the id of the linked object, as it is for a resolved node
+        # the existence cache is keyed on the id of the linked object, as it is for a resolved node
         cache_key = generate_cache_key(resolved_obj._build_existence_query())
-        assert save_cache[MockKGObject] == {cache_key: proxy_obj.id}
+        assert mock_client._existence_cache[MockKGObject] == {cache_key: proxy_obj.id}
 
     @pytest.fixture()
     def list_existence_query(self, monkeypatch):
@@ -512,9 +512,7 @@ class TestKGObject(object):
         with pytest.raises(CannotBuildExistenceQuery, match="MockKGObject2 has no existence query"):
             obj._build_existence_query()
 
-    def test_exists_and_save__with_lists_in_existence_query(
-        self, list_existence_query, mock_client, clear_caches, mocker
-    ):
+    def test_exists_and_save__with_lists_in_existence_query(self, list_existence_query, mock_client, mocker):
         obj = self._construct_object_all_properties()
         obj.id = None
         query = mocker.patch.object(mock_client, "query", return_value=MockKGResponse([]))
@@ -762,12 +760,12 @@ class TestKGObject(object):
         obj.remote_data = {}
         return obj
 
-    def _register_in_save_cache(self, obj):
+    def _register_in_save_cache(self, client, obj):
         """Mimic the caching that exists() and save() perform for an object in the KG."""
-        save_cache[MockKGObject][generate_cache_key(obj._build_existence_query())] = obj.id
-        object_cache[obj.id] = obj
+        client._existence_cache[MockKGObject][generate_cache_key(obj._build_existence_query())] = obj.id
+        client.instances[obj.id] = self._kg_record(obj)
 
-    def test_exists__found_via_save_cache(self, clear_caches):
+    def test_exists__found_via_save_cache(self, mock_client):
         """
         An object found through the save cache - i.e. an equivalent object was
         already looked up or saved earlier in the same run - must have its empty
@@ -776,14 +774,14 @@ class TestKGObject(object):
         provided locally looks like a deliberate deletion to modified_data().
         """
         orig_object = self._construct_object_as_found_in_kg()
-        self._register_in_save_cache(orig_object)
+        self._register_in_save_cache(mock_client, orig_object)
 
         new_obj = self._construct_object_not_yet_in_kg()
         assert new_obj.an_optional_string is None
 
-        assert new_obj.exists(client=None)
+        assert new_obj.exists(mock_client)
         assert new_obj.id == orig_object.id
-        assert new_obj.an_optional_string == "lime"  # filled in from the cached object
+        assert new_obj.an_optional_string == "lime"  # filled in from the instance in the KG
         assert new_obj.modified_data() == {}  # so nothing would be nulled by a save
         # both objects hold the same record of what the KG contains, in separate
         # top-level dicts, so neither can rewrite the other's record. Nested values
@@ -792,7 +790,7 @@ class TestKGObject(object):
         assert new_obj.remote_data == orig_object.remote_data
         assert new_obj.remote_data is not orig_object.remote_data
 
-    def test_exists__found_via_save_cache_keeps_local_values(self, clear_caches):
+    def test_exists__found_via_save_cache_keeps_local_values(self, mock_client):
         """
         Being recognized through the save cache tells an object which KG instance
         it is, not what its properties should be. Values provided locally are the
@@ -800,25 +798,24 @@ class TestKGObject(object):
         seen as modified relative to what the KG holds.
         """
         orig_object = self._construct_object_as_found_in_kg()
-        self._register_in_save_cache(orig_object)
+        self._register_in_save_cache(mock_client, orig_object)
 
         new_obj = self._construct_object_not_yet_in_kg()
         new_obj.an_optional_string = "kiwi"  # differs from the value in the KG
 
-        assert new_obj.exists(client=None)
+        assert new_obj.exists(mock_client)
         assert new_obj.id == orig_object.id
         assert new_obj.an_optional_string == "kiwi"  # not overwritten with "lime"
         assert new_obj.modified_data() == {"https://openminds.ebrains.eu/vocab/anOptionalString": "kiwi"}
-        assert orig_object.an_optional_string == "lime"  # and the cached object is untouched
+        assert orig_object.an_optional_string == "lime"  # and the original object is untouched
 
-    def test_save__found_via_save_cache_does_not_null_properties(self, mock_client, clear_caches):
+    def test_save__found_via_save_cache_does_not_null_properties(self, mock_client):
         """
         Saving a freshly-built object that is found through the save cache must
         not set the properties it doesn't know about to null in the KG.
         """
         orig_object = self._construct_object_as_found_in_kg()
-        self._register_in_save_cache(orig_object)
-        mock_client.instances[orig_object.id] = self._kg_record(orig_object)
+        self._register_in_save_cache(mock_client, orig_object)
 
         new_obj = self._construct_object_not_yet_in_kg()
         log = ActivityLog()
@@ -839,7 +836,7 @@ class TestKGObject(object):
         assert instance_id == new_obj.uuid
         assert payload == {"https://openminds.ebrains.eu/vocab/anOptionalString": "kiwi"}
 
-    def test_save__no_cache_entry_without_existence_query(self, mock_client, clear_caches):
+    def test_save__no_cache_entry_without_existence_query(self, mock_client):
         """
         Objects for which no existence query can be built are allowed to be duplicated,
         so creating one must not add an entry to the save cache.
@@ -853,7 +850,7 @@ class TestKGObject(object):
             ids.append(obj.id)
 
         assert ids[0] != ids[1]
-        assert len(save_cache[MockKGObject2]) == 0
+        assert len(mock_client._existence_cache[MockKGObject2]) == 0
 
     def test_exists_insufficient_query_properties(self):
         """If an object is missing required metadata, exists should return False"""

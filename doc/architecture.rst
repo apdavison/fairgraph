@@ -53,7 +53,7 @@ Package layout
    * - :file:`fairgraph/collection.py`
      - :class:`~fairgraph.Collection`, for loading and uploading groups of objects
    * - :file:`fairgraph/caching.py`
-     - module-level caches of resolved objects and of the results of existence queries
+     - generation of cache keys from existence queries
    * - :file:`fairgraph/errors.py`, :file:`fairgraph/introspection.py`
      - exception classes, and functions for listing classes and setting error handling
    * - :file:`fairgraph/utility/`
@@ -153,8 +153,10 @@ When an object is retrieved, each forward link is represented by a :class:`~fair
 holding the linked node's id and its possible types, and each reverse property is represented by a
 :class:`~fairgraph.KGQuery`, holding a filter that selects the nodes that link to this object
 (e.g., ``{"performed_by": <person id>}``).
-Both have a ``resolve()`` method that retrieves the real object(s);
-resolved objects are cached in ``fairgraph.caching.object_cache``, by id.
+Both have a ``resolve()`` method that retrieves the real object(s).
+A proxy is resolved by retrieving the instance with :meth:`KGObject.from_uri`, which goes through
+the client's cache of JSON-LD documents (``KGClient.cache``). This holds the "in progress" and "released" documents
+of each instance separately, and is cleared for an instance when it is changed through the same client.
 
 The ``follow_links`` argument of ``list()``, ``from_id()`` and ``resolve()`` instead retrieves linked nodes
 in the same request, by including them in the query (see below).
@@ -195,8 +197,10 @@ If the object has an id, fairgraph tries to retrieve the instance with that id
 Otherwise, it runs an *existence query*, which looks for a node of the same type whose values
 for the class's ``existence_query_properties`` match those of the object
 (exactly, ignoring case, or, with ``existence_match="contains"``, as substrings).
-The ids found are remembered in ``fairgraph.caching.save_cache``, so that saving an equal object again
-needs no query.
+The ids found are remembered by the client, so that saving an equal object again needs no query.
+This matters because the KG is only eventually consistent: an instance that has just been created
+may not yet be found by a query. All caches belong to a client, so objects retrieved with one user's
+token are never seen by another client.
 
 A new object is then created, or an existing one updated with only the properties that have changed
 (or replaced entirely, with ``replace=True``).

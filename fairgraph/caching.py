@@ -17,8 +17,7 @@ to avoid making unnecessary API calls.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from collections import defaultdict
-from typing import Dict, Any, Tuple
+from typing import Dict, Tuple
 
 
 def generate_cache_key(qd: Dict[str, str]) -> Tuple:
@@ -47,7 +46,3 @@ def generate_cache_key(qd: Dict[str, str]) -> Tuple:
                 raise TypeError(errmsg.format(key, type(value)))
             cache_key.append((key, value))
     return tuple(cache_key)
-
-
-object_cache: Dict[str, Any] = {}  # for caching based on object ids
-save_cache: Dict[type, Dict[Tuple, str]] = defaultdict(dict)  # for caching based on queries

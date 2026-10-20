@@ -26,7 +26,6 @@ from openminds.base import Link
 from openminds.registry import lookup
 
 from .errors import ResolutionFailure
-from .caching import object_cache
 from .base import Releasable
 
 if TYPE_CHECKING:
@@ -127,22 +126,18 @@ class KGProxy(Releasable, Link):
         Returns:
             a KGObject instance, of the appropriate subclass.
         """
-        if use_cache and self.id in object_cache:
-            obj = object_cache[self.id]
-        else:
-            release_status = release_status or self.preferred_release_status
-            obj = None
-            for cls in self.classes:
-                # this is inefficient, we should just get the data from the id, then get the correct type from the data
-                try:
-                    obj = cls.from_uri(self.id, client, release_status=release_status)
-                except TypeError:
-                    pass
-                else:
-                    break
-            if obj is None:
-                raise ResolutionFailure(f"Cannot resolve proxy object of type {self.classes} with id {self.uuid}")
-            object_cache[self.id] = obj
+        release_status = release_status or self.preferred_release_status
+        obj = None
+        for cls in self.classes:
+            # this is inefficient, we should just get the data from the id, then get the correct type from the data
+            try:
+                obj = cls.from_uri(self.id, client, use_cache=use_cache, release_status=release_status)
+            except TypeError:
+                pass
+            else:
+                break
+        if obj is None:
+            raise ResolutionFailure(f"Cannot resolve proxy object of type {self.classes} with id {self.uuid}")
         if follow_links:
             return obj.resolve(client, release_status=release_status, use_cache=use_cache, follow_links=follow_links)
         else:

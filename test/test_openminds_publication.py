@@ -5,10 +5,9 @@ from openminds import IRI
 import fairgraph.openminds.core as omcore
 import fairgraph.openminds.publications as ompub
 from fairgraph.kgproxy import KGProxy
-from fairgraph.caching import object_cache
 from fairgraph.utility import as_list
 
-from test.utils import MockKGResponse, clear_caches, kg_client, mock_client, skip_if_no_connection
+from test.utils import MockKGResponse, kg_client, mock_client, skip_if_no_connection
 
 
 def test_get_journal():
@@ -33,32 +32,29 @@ def test_get_journal():
     assert article.get_citation_string(client=None) == expected
 
 
-def test_get_journal_with_issue_proxy_journal():
+def test_get_journal_with_issue_proxy_journal(mock_client):
     """When data comes from the KG, volume.is_part_of is a KGProxy, not a resolved Periodical.
     get_journal() should resolve the proxy rather than failing the isinstance assertion."""
     periodical_id = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000001"
     jphysiol = ompub.Periodical(name="The Journal of Physiology", id=periodical_id)
-    object_cache[periodical_id] = jphysiol
+    mock_client.instances[periodical_id] = jphysiol.to_jsonld(include_empty_properties=False)
 
-    try:
-        journal_proxy = KGProxy(ompub.Periodical, periodical_id)
-        volume = ompub.PublicationVolume(is_part_of=journal_proxy, volume_number="117")
-        issue = ompub.PublicationIssue(is_part_of=volume, issue_number="4")
-        article = ompub.ScholarlyArticle(
-            name="A quantitative description of membrane current and its application to conduction and excitation in nerve",
-            authors=[
-                omcore.Person(given_name="AL", family_name="Hodgkin"),
-                omcore.Person(given_name="AF", family_name="Huxley"),
-            ],
-            is_part_of=issue,
-            publication_date=datetime.date(1952, 8, 1),
-            pagination="500–44",
-        )
-        assert article.get_journal(client=None) == jphysiol
-        assert article.get_journal(client=None, with_volume=True) == (jphysiol, volume)
-        assert article.get_journal(client=None, with_volume=True, with_issue=True) == (jphysiol, volume, issue)
-    finally:
-        del object_cache[periodical_id]
+    journal_proxy = KGProxy(ompub.Periodical, periodical_id)
+    volume = ompub.PublicationVolume(is_part_of=journal_proxy, volume_number="117")
+    issue = ompub.PublicationIssue(is_part_of=volume, issue_number="4")
+    article = ompub.ScholarlyArticle(
+        name="A quantitative description of membrane current and its application to conduction and excitation in nerve",
+        authors=[
+            omcore.Person(given_name="AL", family_name="Hodgkin"),
+            omcore.Person(given_name="AF", family_name="Huxley"),
+        ],
+        is_part_of=issue,
+        publication_date=datetime.date(1952, 8, 1),
+        pagination="500–44",
+    )
+    assert article.get_journal(client=mock_client) == jphysiol
+    assert article.get_journal(client=mock_client, with_volume=True) == (jphysiol, volume)
+    assert article.get_journal(client=mock_client, with_volume=True, with_issue=True) == (jphysiol, volume, issue)
 
 
 def test_get_journal_no_issue():
@@ -82,7 +78,7 @@ def test_get_journal_no_issue():
     assert article.get_citation_string(client=None) == expected
 
 
-def test_new_book_with_date_is_saved(mock_client, clear_caches, mocker):
+def test_new_book_with_date_is_saved(mock_client, mocker):
     book = ompub.Book(name="The Hobbit", publication_date=datetime.date(1937, 9, 21))
     query = mocker.patch.object(mock_client, "query", return_value=MockKGResponse([]))
     book.save(mock_client, space="myspace_1234", recursive=False)
@@ -93,7 +89,7 @@ def test_new_book_with_date_is_saved(mock_client, clear_caches, mocker):
     )
 
 
-def test_book_with_date_exists(mock_client, clear_caches, mocker):
+def test_book_with_date_exists(mock_client, mocker):
     book = ompub.Book(name="The Hobbit", publication_date=datetime.date(1937, 9, 21))
     query = mocker.patch.object(mock_client, "query", return_value=MockKGResponse([]))
 

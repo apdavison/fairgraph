@@ -27,7 +27,6 @@ from fairgraph.utility import ActivityLog, sha1sum, normalize_data
 
 from test.utils import (
     MockKGResponse,
-    clear_caches,
     mock_client,
     kg_client,
     skip_if_no_connection,
@@ -514,7 +513,7 @@ def test__update():
     assert len(updated_data) == 0
 
 
-def test_save_same_person_twice_preserves_remote_only_properties(mock_client, clear_caches):
+def test_save_same_person_twice_preserves_remote_only_properties(mock_client):
     """
     Metadata-harvesting scripts typically build a new Person object for each
     role a person has (developer, custodian, ...) and for each project, so the
@@ -557,7 +556,7 @@ def test_save_same_person_twice_preserves_remote_only_properties(mock_client, cl
     assert mock_client.updates == []
 
 
-def test_save_same_new_person_twice_does_not_duplicate(mock_client, clear_caches, monkeypatch):
+def test_save_same_new_person_twice_does_not_duplicate(mock_client, monkeypatch):
     """
     Because the KG is only eventually consistent, an instance that has just been
     created may not yet appear in query results. When a harvesting script builds
@@ -593,7 +592,110 @@ def test_save_same_new_person_twice_does_not_duplicate(mock_client, clear_caches
     assert len(queries) == 1  # the KG was not queried again
 
 
-def test_collection_upload_with_link_to_existing_instance(mock_client, clear_caches, mocker, tmp_path):
+PERSON_ID = "https://kg.ebrains.eu/api/instances/12345678-90ab-cdef-0123-4567890abcde"
+
+
+def _person_in_kg(mock_client):
+    mock_client.instances[PERSON_ID] = {
+        "@id": PERSON_ID,
+        "@type": ["https://openminds.om-i.org/types/Person"],
+        "https://core.kg.ebrains.eu/vocab/meta/space": "common",
+        "https://openminds.om-i.org/props/givenName": "Bilbo",
+        "https://openminds.om-i.org/props/familyName": "Baggins",
+    }
+
+
+def test_rejected_update_is_not_seen_when_resolving(mock_client, mocker):
+    """
+    An object whose update was rejected must not be returned, with its unsaved changes,
+    when a link to it is later resolved (see issue #80).
+    """
+    from fairgraph.errors import AuthorizationError
+
+    _person_in_kg(mock_client)
+    person = omcore.Person.from_uri(PERSON_ID, mock_client)
+    person.given_name = "Frodo"
+    mocker.patch.object(mock_client, "update_instance", side_effect=AuthorizationError("no write access"))
+    person.save(mock_client, space="common", ignore_auth_errors=True)
+    assert KGProxy(omcore.Person, PERSON_ID).resolve(mock_client).given_name == "Bilbo"
+
+
+def test_resolving_twice_gives_independent_objects(mock_client):
+    _person_in_kg(mock_client)
+    proxy = KGProxy(omcore.Person, PERSON_ID)
+    first = proxy.resolve(mock_client)
+    first.given_name = "Frodo"
+    second = proxy.resolve(mock_client)
+    assert second is not first
+    assert second.given_name == "Bilbo"
+
+
+def test_exists_after_delete_queries_the_kg(mock_client, mocker):
+    """After an object is deleted, an equal object must not be matched to the deleted instance."""
+    person = omcore.Person(given_name="Bilbo", family_name="Baggins")
+    person.save(mock_client, space="common")
+    person.delete(mock_client)
+    query = mocker.spy(mock_client, "query")
+    new_person = omcore.Person(given_name="Bilbo", family_name="Baggins")
+    assert not new_person.exists(mock_client)
+    assert query.call_count == 1
+
+
+def test_existence_cache_hit_when_instance_cannot_yet_be_retrieved(mock_client, mocker):
+    """
+    An object found in the existence cache is still treated as existing if retrieving it by id
+    finds nothing, in case retrieval of a newly-created instance is also subject to delays.
+    """
+    person = omcore.Person(given_name="Bilbo", family_name="Baggins")
+    person.save(mock_client, space="common")
+    mocker.patch.object(mock_client, "instance_from_full_uri", return_value=None)
+    query = mocker.spy(mock_client, "query")
+    new_person = omcore.Person(given_name="Bilbo", family_name="Baggins")
+    assert new_person.exists(mock_client)
+    assert new_person.id == person.id
+    assert query.call_count == 0
+
+
+def test_existence_cache_is_not_shared_between_clients(mock_client):
+    from test.utils import MockKGClient
+
+    person = omcore.Person(given_name="Bilbo", family_name="Baggins")
+    person.save(mock_client, space="common")
+    other_client = MockKGClient()
+    new_person = omcore.Person(given_name="Bilbo", family_name="Baggins")
+    assert not new_person.exists(other_client)
+    assert new_person.id is None
+
+
+def test_query_results_keep_release_status(mock_client, mocker):
+    """
+    Objects obtained by resolving a KGQuery (e.g. a reverse property) carry the release status
+    they were retrieved with, so that resolving their own links uses the same release status.
+    """
+    contact_id = "https://kg.ebrains.eu/api/instances/23456789-0abc-def0-1234-567890abcdef"
+    person_document = {
+        "@id": PERSON_ID,
+        "@type": ["https://openminds.om-i.org/types/Person"],
+        "https://openminds.om-i.org/props/givenName": "Bilbo",
+        "https://openminds.om-i.org/props/familyName": "Baggins",
+        "https://openminds.om-i.org/props/contactInformation": {"@id": contact_id},
+    }
+    mock_client.instances[contact_id] = {
+        "@id": contact_id,
+        "@type": ["https://openminds.om-i.org/types/ContactInformation"],
+        "https://openminds.om-i.org/props/email": "bilbo@bag-end.example",
+    }
+    mocker.patch.object(mock_client, "query", return_value=MockKGResponse([person_document]))
+    retrieve = mocker.spy(mock_client, "instance_from_full_uri")
+
+    person = KGQuery([omcore.Person], {"family_name": "Baggins"}).resolve(mock_client, release_status="in progress")
+    assert person.release_status == "in progress"
+
+    person.resolve(mock_client, follow_links={"contact_information": {}})
+    assert retrieve.call_args.kwargs["release_status"] == "in progress"
+
+
+def test_collection_upload_with_link_to_existing_instance(mock_client, mocker, tmp_path):
     """
     A node loaded from JSON-LD that links to an instance already in the KG (not in the collection)
     holds a KGProxy for that link. Uploading it must not fail when the link is part of the
@@ -930,7 +1032,7 @@ def test_save_replace_existing_mock(mock_client):
 
 
 @skip_if_using_production_server
-def test_save_new_recursive_mock(mock_client, clear_caches):
+def test_save_new_recursive_mock(mock_client):
     new_person = omcore.Person(
         given_name="Thorin",
         family_name="Oakenshield",
@@ -972,7 +1074,7 @@ def _seed_dataset(mock_client, short_name, space="myspace", uuid="12345678-90ab-
     return dataset_id
 
 
-def test_exists_does_not_match_a_longer_name(mock_client, clear_caches):
+def test_exists_does_not_match_a_longer_name(mock_client):
     """An object must not be identified with an existing one whose name merely contains its own"""
     _seed_dataset(mock_client, "FOO-BAR")
     dataset = omcore.Dataset(short_name="FOO")
@@ -981,34 +1083,34 @@ def test_exists_does_not_match_a_longer_name(mock_client, clear_caches):
     assert not dataset.exists(mock_client, existence_match="equals")
 
 
-def test_exists_matches_the_same_name(mock_client, clear_caches):
+def test_exists_matches_the_same_name(mock_client):
     dataset_id = _seed_dataset(mock_client, "FOO-BAR")
     dataset = omcore.Dataset(short_name="FOO-BAR")
     assert dataset.exists(mock_client)
     assert dataset.id == dataset_id
 
 
-def test_exists_ignores_case_when_matching(mock_client, clear_caches):
+def test_exists_ignores_case_when_matching(mock_client):
     dataset_id = _seed_dataset(mock_client, "FOO-BAR")
     dataset = omcore.Dataset(short_name="foo-bar")
     assert dataset.exists(mock_client)
     assert dataset.id == dataset_id
 
 
-def test_exists_does_not_ignore_whitespace_when_matching(mock_client, clear_caches):
+def test_exists_does_not_ignore_whitespace_when_matching(mock_client):
     _seed_dataset(mock_client, "FOO-BAR ")
     dataset = omcore.Dataset(short_name="FOO-BAR")
     assert not dataset.exists(mock_client)
 
 
-def test_exists_with_contains_matches_a_longer_name(mock_client, clear_caches):
+def test_exists_with_contains_matches_a_longer_name(mock_client):
     dataset_id = _seed_dataset(mock_client, "FOO-BAR")
     dataset = omcore.Dataset(short_name="FOO")
     assert dataset.exists(mock_client, existence_match="contains")
     assert dataset.id == dataset_id
 
 
-def test_exists_with_contains_does_not_affect_later_exact_lookups(mock_client, clear_caches):
+def test_exists_with_contains_does_not_affect_later_exact_lookups(mock_client):
     """Adopting a partial match must not make a later exact lookup find it, via the save cache"""
     _seed_dataset(mock_client, "FOO-BAR")
     assert omcore.Dataset(short_name="FOO").exists(mock_client, existence_match="contains")
@@ -1016,7 +1118,7 @@ def test_exists_with_contains_does_not_affect_later_exact_lookups(mock_client, c
     assert omcore.Dataset(short_name="FOO").exists(mock_client, existence_match="contains")
 
 
-def test_exists_with_contains_uses_exact_matches_cached_by_earlier_saves(mock_client, clear_caches):
+def test_exists_with_contains_uses_exact_matches_cached_by_earlier_saves(mock_client):
     dataset = omcore.Dataset(short_name="FOO")
     dataset.save(mock_client, space="myspace", recursive=False)
     other = omcore.Dataset(short_name="FOO")
@@ -1024,7 +1126,7 @@ def test_exists_with_contains_uses_exact_matches_cached_by_earlier_saves(mock_cl
     assert other.id == dataset.id
 
 
-def test_exists_rejects_an_invalid_existence_match(mock_client, clear_caches):
+def test_exists_rejects_an_invalid_existence_match(mock_client):
     dataset = omcore.Dataset(short_name="FOO")
     with pytest.raises(ValueError, match="existence_match"):
         dataset.exists(mock_client, existence_match="fuzzy")
@@ -1032,7 +1134,7 @@ def test_exists_rejects_an_invalid_existence_match(mock_client, clear_caches):
         dataset.save(mock_client, space="myspace", recursive=False, existence_match="fuzzy")
 
 
-def test_save_with_contains_updates_a_longer_name(mock_client, clear_caches):
+def test_save_with_contains_updates_a_longer_name(mock_client):
     dataset_id = _seed_dataset(mock_client, "FOO-BAR")
     dataset = omcore.Dataset(short_name="FOO")
     dataset.save(mock_client, space="myspace", recursive=False, existence_match="contains")
@@ -1040,7 +1142,7 @@ def test_save_with_contains_updates_a_longer_name(mock_client, clear_caches):
     assert len(mock_client.instances) == 1
 
 
-def test_save_creates_a_new_object_when_only_a_longer_name_exists(mock_client, clear_caches):
+def test_save_creates_a_new_object_when_only_a_longer_name_exists(mock_client):
     dataset_id = _seed_dataset(mock_client, "FOO-BAR")
     dataset = omcore.Dataset(short_name="FOO")
     dataset.save(mock_client, space="myspace", recursive=False)
@@ -1048,7 +1150,7 @@ def test_save_creates_a_new_object_when_only_a_longer_name_exists(mock_client, c
     assert len(mock_client.instances) == 2
 
 
-def test_save_passes_existence_match_to_children(mock_client, clear_caches):
+def test_save_passes_existence_match_to_children(mock_client):
     child_id = _seed_person(mock_client, "myspace")
     parent = omcore.Dataset(short_name="FOO", custodians=[omcore.Person(given_name="Bil", family_name="Bag")])
     parent.save(mock_client, space="myspace", recursive=True, existence_match="contains")
@@ -1068,7 +1170,7 @@ def _spy_on_query(mock_client, monkeypatch):
     return restrictions
 
 
-def test_save_recursive_finds_child_in_other_space(mock_client, clear_caches):
+def test_save_recursive_finds_child_in_other_space(mock_client):
     """
     A locally-constructed child that already exists in a different space from its parent
     should be linked to the existing instance, not duplicated in the parent's space (#136).
@@ -1097,7 +1199,7 @@ def test_save_recursive_finds_child_in_other_space(mock_client, clear_caches):
     assert model.space == "myspace"
 
 
-def test_save_finds_object_in_other_space(mock_client, clear_caches):
+def test_save_finds_object_in_other_space(mock_client):
     person_id = _seed_person(mock_client, "common")
     person = omcore.Person(given_name="Bilbo", family_name="Baggins")
     log = ActivityLog()
@@ -1109,7 +1211,7 @@ def test_save_finds_object_in_other_space(mock_client, clear_caches):
     assert [(entry.type, entry.space) for entry in log.entries] == [("no-op", "common")]
 
 
-def test_save_prefers_instance_in_target_space(mock_client, clear_caches, monkeypatch, recwarn):
+def test_save_prefers_instance_in_target_space(mock_client, monkeypatch, recwarn):
     """
     If the object exists both in the target space and elsewhere, the instance in the target space
     is used, and the other one is not treated as a duplicate.
@@ -1127,7 +1229,7 @@ def test_save_prefers_instance_in_target_space(mock_client, clear_caches, monkey
     assert not [w for w in recwarn if "already exists in space" in str(w.message)]
 
 
-def test_save_new_object_queries_all_spaces_once(mock_client, clear_caches, monkeypatch):
+def test_save_new_object_queries_all_spaces_once(mock_client, monkeypatch):
     _seed_person(mock_client, "common")
     restrictions = _spy_on_query(mock_client, monkeypatch)
     person = omcore.Person(given_name="Frodo", family_name="Baggins")
@@ -1138,7 +1240,7 @@ def test_save_new_object_queries_all_spaces_once(mock_client, clear_caches, monk
     assert len(mock_client.instances) == 2
 
 
-def test_save_object_with_local_space_found_in_other_space(mock_client, clear_caches):
+def test_save_object_with_local_space_found_in_other_space(mock_client):
     person_id = _seed_person(mock_client, "common")
     person = omcore.Person(given_name="Bilbo", family_name="Baggins", space="myspace")
     log = ActivityLog()
@@ -1150,7 +1252,7 @@ def test_save_object_with_local_space_found_in_other_space(mock_client, clear_ca
     assert len(mock_client.instances) == 1
 
 
-def test_save_duplicates_in_target_space(mock_client, clear_caches):
+def test_save_duplicates_in_target_space(mock_client):
     _seed_person(mock_client, "common")
     _seed_person(mock_client, "myspace", uuid="23456789-0abc-def0-1234-567890abcdef")
     _seed_person(mock_client, "myspace", uuid="34567890-abcd-ef01-2345-67890abcdef0")
@@ -1160,7 +1262,7 @@ def test_save_duplicates_in_target_space(mock_client, clear_caches):
     assert len(mock_client.instances) == 3
 
 
-def test_save_retrieves_all_matches_if_more_than_query_size(mock_client, clear_caches, monkeypatch):
+def test_save_retrieves_all_matches_if_more_than_query_size(mock_client, monkeypatch):
     """
     The existence query asks for only a few results. If more instances match, they are all retrieved,
     so that an instance in the target space is not missed.
@@ -1187,7 +1289,7 @@ def test_save_retrieves_all_matches_if_more_than_query_size(mock_client, clear_c
     assert person.id == target_id
 
 
-def test_exists_connection_lost(mock_client, clear_caches, monkeypatch):
+def test_exists_connection_lost(mock_client, monkeypatch):
     def disconnected_query(*args, **kwargs):
         raise ConnectionError(
             ("Connection aborted.", RemoteDisconnected("Remote end closed connection without response"))
@@ -1199,7 +1301,7 @@ def test_exists_connection_lost(mock_client, clear_caches, monkeypatch):
         assert not person.exists(mock_client)
 
 
-def test_exists_other_connection_error(mock_client, clear_caches, monkeypatch):
+def test_exists_other_connection_error(mock_client, monkeypatch):
     def refused_query(*args, **kwargs):
         raise ConnectionError("Failed to establish a new connection: [Errno 61] Connection refused")
 
@@ -1211,7 +1313,7 @@ def test_exists_other_connection_error(mock_client, clear_caches, monkeypatch):
         person.save(mock_client, space="myspace", recursive=False)
 
 
-def test_save_duplicates_in_other_spaces(mock_client, clear_caches):
+def test_save_duplicates_in_other_spaces(mock_client):
     first_id = _seed_person(mock_client, "common")
     _seed_person(mock_client, "collab-foo", uuid="23456789-0abc-def0-1234-567890abcdef")
 

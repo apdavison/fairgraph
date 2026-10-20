@@ -1,3 +1,4 @@
+from collections import defaultdict
 from copy import deepcopy
 import os
 import re
@@ -7,7 +8,6 @@ from typing import Optional
 from requests.exceptions import RequestException, SSLError
 
 from fairgraph.base import OPENMINDS_VERSION
-from fairgraph.caching import object_cache, save_cache
 from fairgraph.client import KGClient
 from fairgraph.errors import AuthenticationError, AuthorizationError
 from fairgraph.utility.name_matching import KG_NAMELIKE_PROPERTIES
@@ -78,6 +78,7 @@ class MockKGClient:
         self.openminds_version = openminds_version
         self.instances = {}
         self.cache = {}
+        self._existence_cache = defaultdict(dict)
         self.updates = []  # (instance_id, payload) for each update_instance() call
         self.replacements = []  # (instance_id, payload) for each replace_instance() call
 
@@ -259,6 +260,13 @@ class MockKGClient:
         assert data is not None
         self.replacements.append((instance_id, deepcopy(data)))
 
+    def delete_instance(self, instance_id, ignore_not_found=True, ignore_errors=True):
+        # unlike the KG, the mock stores instances under bare UUIDs
+        self.instances.pop(instance_id, None)
+        self._forget_instance(instance_id)
+
+    _forget_instance = KGClient._forget_instance
+
     def uri_from_uuid(self, uuid):
         return f"https://kg.ebrains.eu/api/instances/{uuid}"
 
@@ -266,18 +274,3 @@ class MockKGClient:
 @pytest.fixture
 def mock_client():
     return MockKGClient()
-
-
-@pytest.fixture
-def clear_caches():
-    """
-    Ensure a test starts and finishes with empty global caches.
-
-    `save_cache` and `object_cache` are module-level globals, so tests that
-    exercise them would otherwise leak into one another.
-    """
-    save_cache.clear()
-    object_cache.clear()
-    yield
-    save_cache.clear()
-    object_cache.clear()

@@ -71,12 +71,53 @@ Changes in behaviour
   now emit a :exc:`DeprecationWarning`. All deprecated names will be removed in version 1.0;
   see :doc:`deprecations` (`#122 <https://github.com/HumanBrainProject/fairgraph/issues/122>`_).
 
+- All caching is now done by the :class:`~fairgraph.client.KGClient`, so nothing retrieved with one client,
+  e.g. with one user's token in a web service, is seen by another (`#80 <https://github.com/HumanBrainProject/fairgraph/issues/80>`_):
+
+  - The module-level caches ``fairgraph.caching.object_cache`` and ``fairgraph.caching.save_cache``
+    have been removed. The ids of instances found by, or created after, an existence query are now remembered
+    by the client, and on reuse the instance is retrieved by its id (through the client's cache)
+    to fill in properties not given locally.
+  - :meth:`KGProxy.resolve() <fairgraph.kgproxy.KGProxy.resolve>` now retrieves the instance through the
+    client's cache of JSON-LD documents, and returns a new object each time. It only finds an instance at the
+    requested release status (by default ``"released"``), so a link to an instance that has not been released,
+    including one created in the same session, must now be resolved with ``release_status="in progress"``
+    (or ``"any"``). With ``follow_links``, such links are left as proxies, with a warning.
+    Resolving a proxy without a client is no longer possible.
+  - ``KGClient.cache`` is now keyed by the instance's KG URI and then by stage (``"IN_PROGRESS"`` or ``"RELEASED"``),
+    and returns copies of the cached documents. An instance that also has an openMINDS URI (e.g. a controlled term)
+    is cached once, under its KG URI, whichever URI it was retrieved with, so that it is cleared from the cache
+    when it is changed.
+
 Bug fixes
 ---------
 
 - :meth:`~fairgraph.client.KGClient.clean_space` now says, before asking for confirmation, how many of the
   instances are released and will therefore not be deleted, and afterwards lists the instances that were not
   deleted, with the reason, rather than printing a list of raw error objects.
+
+- The client's cache of JSON-LD documents now takes the release status into account: previously, an instance
+  retrieved as "released" was returned from the cache for a request for "in progress" content, and vice versa.
+  Likewise, a document for which the user lacks full access, retrieved by
+  :meth:`~fairgraph.kgobject.KGObject.exists` (e.g. while saving), is no longer returned where full access
+  is required. The cache is now also cleared for an instance when it is released, unreleased or moved to
+  another space (`#80 <https://github.com/HumanBrainProject/fairgraph/issues/80>`_).
+
+- Resolving a link no longer returns an object whose update was rejected
+  (with ``save(..., ignore_auth_errors=True)``), with its unsaved changes, as if it were in the KG
+  (`#80 <https://github.com/HumanBrainProject/fairgraph/issues/80>`_).
+
+- After an object is deleted, saving an equal object no longer matches it to the deleted instance
+  (`#80 <https://github.com/HumanBrainProject/fairgraph/issues/80>`_).
+
+- Objects obtained by resolving a :class:`~fairgraph.kgquery.KGQuery`, e.g. a reverse property such as
+  ``person.activities.resolve(client, release_status="in progress")``, now have their ``release_status`` set,
+  so that resolving their own links uses the same release status, where it previously reverted to "released"
+  (`#80 <https://github.com/HumanBrainProject/fairgraph/issues/80>`_).
+
+- :meth:`KGClient.retrieve_query() <fairgraph.client.KGClient.retrieve_query>` no longer returns
+  a stored query's previous definition after it has been replaced with
+  :meth:`~fairgraph.client.KGClient.store_query` (`#80 <https://github.com/HumanBrainProject/fairgraph/issues/80>`_).
 
 - :meth:`~fairgraph.kgobject.KGObject.exists`, and therefore :meth:`~fairgraph.kgobject.KGObject.save` and
   :meth:`~fairgraph.collection.Collection.upload`, no longer raises :exc:`TypeError` when a  property used
