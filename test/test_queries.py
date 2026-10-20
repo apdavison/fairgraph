@@ -4,7 +4,7 @@ from datetime import date
 from openminds import IRI
 import pytest
 from kg_core.request import Stage, Pagination
-from fairgraph.queries import Query, QueryProperty, Filter, PathElement, Regex, Equals
+from fairgraph.queries import Query, QueryProperty, Filter, PathElement, Regex, Equals, Contains
 import fairgraph.openminds.core as omcore
 import fairgraph.openminds.controlled_terms as omterms
 from .utils import kg_client, mock_client, skip_if_no_connection
@@ -777,6 +777,56 @@ def test_equals_is_exported_from_the_package():
     import fairgraph
 
     assert fairgraph.Equals is Equals
+
+
+def test_contains_marker_filters_with_contains_operator_like_a_plain_string(mock_client):
+    queries = [
+        omcore.Dataset.generate_query(client=mock_client, space=None, filters={"short_name": value})
+        for value in (Contains("FOO"), "FOO")
+    ]
+    assert queries[0] == queries[1]
+    filters = [prop["filter"] for prop in queries[0]["structure"] if prop.get("propertyName", None) == "Qshort_name"]
+    assert filters == [{"op": "CONTAINS", "value": "FOO"}]
+
+
+def test_contains_is_exported_from_the_package():
+    import fairgraph
+
+    assert fairgraph.Contains is Contains
+
+
+def test_normalize_filter_makes_plain_strings_for_text_properties_explicit():
+    instance_id = "https://kg.ebrains.eu/api/instances/00000000-0000-0000-0000-000000000001"
+    normalized = omcore.DatasetVersion.normalize_filter(
+        {
+            "short_name": "FOO",
+            "version_identifier": Equals("1.0"),
+            "version_innovation": Regex("^first"),
+            "is_new_version_of": instance_id,
+            "release_date": date(2024, 1, 1),
+        }
+    )
+    # a plain string for a text property becomes a Contains; explicit filter values are kept as given
+    assert type(normalized["short_name"]) is Contains
+    assert type(normalized["version_identifier"]) is Equals
+    assert type(normalized["version_innovation"]) is Regex
+    # an id for a linked node, and a date, are not text, so they are left as plain strings
+    assert type(normalized["is_new_version_of"]) is str
+    assert type(normalized["release_date"]) is str
+
+
+def test_list_of_mixed_filter_values_gives_one_filter_per_item(mock_client):
+    query = omcore.Dataset.generate_query(
+        client=mock_client,
+        space=None,
+        filters={"short_name": ["a", Contains("b"), Equals("c"), Regex("^d")]},
+    )
+    filters = sorted(
+        (prop["filter"]["value"], prop["filter"]["op"])
+        for prop in query["structure"]
+        if prop.get("propertyName", "").startswith("Qshort_name")
+    )
+    assert filters == [("^d", "REGEX"), ("a", "CONTAINS"), ("b", "CONTAINS"), ("c", "EQUALS")]
 
 
 @pytest.mark.parametrize(

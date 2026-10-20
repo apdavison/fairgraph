@@ -16,7 +16,7 @@ from fairgraph.caching import generate_cache_key
 from fairgraph.errors import CannotBuildExistenceQuery
 from fairgraph.base import ErrorHandling
 from fairgraph.utility import ActivityLog
-from fairgraph.queries import Equals
+from fairgraph.queries import Contains, Equals
 from .utils import MockKGResponse, mock_client
 
 import pytest
@@ -489,7 +489,7 @@ class TestKGObject(object):
         obj = self._construct_object_all_properties()
         query = obj._build_existence_query("contains")
         assert query["a_required_list_of_strings"] == ["banana", "pear"]
-        assert not any(isinstance(item, Equals) for item in query["a_required_list_of_strings"])
+        assert all(isinstance(item, Contains) for item in query["a_required_list_of_strings"])
 
     def test_build_existence_query__with_empty_list(self, list_existence_query):
         obj = self._construct_object_all_properties()

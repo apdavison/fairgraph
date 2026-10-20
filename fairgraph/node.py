@@ -27,6 +27,7 @@ from .base import Resolvable, ErrorHandling, Releasable
 from .kgproxy import KGProxy
 from .kgquery import KGQuery
 from .queries import (
+    Contains,
     Equals,
     QueryProperty,
     get_query_properties,
@@ -609,9 +610,12 @@ class KGNode(Resolvable, metaclass=NodeMeta):  # KGObject and KGEmbedded
             )
             if query_val is None:
                 raise CannotBuildExistenceQuery(f"Required value for '{property_name}' is missing")
-            if isinstance(query_val, str) and existence_match == "equals":
-                # match exactly, so that we don't identify this object with one whose value merely contains ours
-                query_val = Equals(query_val)
+            if isinstance(query_val, str):
+                if existence_match == "equals":
+                    # match exactly, so that we don't identify this object with one whose value merely contains ours
+                    query_val = Equals(query_val)
+                else:
+                    query_val = Contains(query_val)
             return query_val
 
 
