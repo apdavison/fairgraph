@@ -98,6 +98,11 @@ Changes in behaviour
 Bug fixes
 ---------
 
+- ``File.from_local_file()`` now links to the content type and unit of measurement from the openMINDS
+  instance library, rather than creating new, unsaved terms: the unit was called "bytes", which does not exist
+  in openMINDS ("byte" does). If the content type cannot be determined, ``format`` is left unset
+  (`#177 <https://github.com/HumanBrainProject/fairgraph/issues/177>`_).
+
 - :meth:`~fairgraph.client.KGClient.clean_space` now says, before asking for confirmation, how many of the
   instances are released and will therefore not be deleted, and afterwards lists the instances that were not
   deleted, with the reason, rather than printing a list of raw error objects.
