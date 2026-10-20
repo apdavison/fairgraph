@@ -18,7 +18,7 @@ All public names are re-exported here, so they can be imported from ``fairgraph.
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from .misc import ATTACHMENT_SIZE_LIMIT, as_list, invert_dict, sha1sum
+from .misc import ATTACHMENT_SIZE_LIMIT, as_list, hexdigest, invert_dict, sha1sum
 from .jsonld import JSONdict, expand_uri, compact_uri, normalize_data, expand_filter
 from .activity_log import LogEntry, ActivityLog
 from .terms_of_use import TERMS_OF_USE, accepted_terms_of_use, in_notebook

@@ -7,6 +7,7 @@ from datetime import datetime
 import shutil
 import tempfile
 import urllib.request
+import warnings
 
 from http.client import RemoteDisconnected
 
@@ -1347,6 +1348,51 @@ def test_file_download():
     assert sha1sum(local_filename) == file_obj.hashes.digest
 
     shutil.rmtree(local_dir)
+
+
+def _local_file_obj(tmp_path, algorithm, digest):
+    source = tmp_path / "source.txt"
+    source.write_text("There and back again\n")
+    return omcore.File(
+        name="source.txt",
+        iri=IRI(source.as_uri()),
+        hashes=omcore.Hash(algorithm=algorithm, digest=digest),
+    )
+
+
+@pytest.mark.parametrize("algorithm", ["MD5", "SHA1", "SHA-256"])
+def test_file_download_checks_hash(tmp_path, algorithm):
+    import hashlib
+
+    content = b"There and back again\n"
+    digest = hashlib.new(algorithm.lower().replace("-", ""), content).hexdigest()
+    file_obj = _local_file_obj(tmp_path, algorithm, digest)
+    local_filename = file_obj.download(tmp_path / "copy.txt", client=None, accept_terms_of_use=True)
+    assert open(local_filename, "rb").read() == content
+
+
+def test_file_download_raises_if_hash_does_not_match(tmp_path):
+    file_obj = _local_file_obj(tmp_path, "MD5", "0" * 32)
+    with pytest.raises(ValueError, match="does not match the MD5 digest"):
+        file_obj.download(tmp_path / "copy.txt", client=None, accept_terms_of_use=True)
+    # the check can be skipped
+    file_obj.download(tmp_path / "copy2.txt", client=None, accept_terms_of_use=True, check_hash=False)
+
+
+def test_file_download_skips_multipart_md5_digests(tmp_path):
+    # e.g. a file uploaded to the EBRAINS data store in 4 parts
+    file_obj = _local_file_obj(tmp_path, "MD5", "9b2cf535f27731c974343645a3985328-4")
+    with pytest.warns(UserWarning, match="from an upload in several parts"):
+        file_obj.download(tmp_path / "copy.txt", client=None, accept_terms_of_use=True)
+    # no warning if the check was not requested
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        file_obj.download(tmp_path / "copy2.txt", client=None, accept_terms_of_use=True, check_hash=False)
+
+
+def test_file_download_skips_unknown_hash_algorithms(tmp_path):
+    file_obj = _local_file_obj(tmp_path, "NOT-AN-ALGORITHM", "1234")
+    file_obj.download(tmp_path / "copy.txt", client=None, accept_terms_of_use=True)
 
 
 def test_file_from_local_file():

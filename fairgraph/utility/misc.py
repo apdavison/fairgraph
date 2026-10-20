@@ -64,9 +64,10 @@ def invert_dict(D):
     return newD
 
 
-def sha1sum(filename):
+def hexdigest(filename, algorithm="sha1"):
+    """Return the digest of a file's contents, computed with the given `hashlib` algorithm, as a hex string."""
     BUFFER_SIZE = 128 * 1024
-    h = hashlib.sha1()
+    h = hashlib.new(algorithm)
     with open(filename, "rb") as fp:
         while True:
             data = fp.read(BUFFER_SIZE)
@@ -74,3 +75,7 @@ def sha1sum(filename):
                 break
             h.update(data)
     return h.hexdigest()
+
+
+def sha1sum(filename):
+    return hexdigest(filename, "sha1")

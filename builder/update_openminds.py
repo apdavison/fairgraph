@@ -753,16 +753,18 @@ from pathlib import Path
 from fairgraph.utility import accepted_terms_of_use"""
 
 preamble = {
-    "File": """import os
+    "File": """import hashlib
+import os
 import mimetypes
 from pathlib import Path
 from urllib.request import urlretrieve
 from urllib.parse import quote, urlparse, urlunparse
+from warnings import warn
 from .hash import Hash
 from .content_type import ContentType
 from ..miscellaneous.quantitative_value import QuantitativeValue
 from ...controlled_terms.unit_of_measurement import UnitOfMeasurement
-from fairgraph.utility import accepted_terms_of_use, sha1sum
+from fairgraph.utility import accepted_terms_of_use, as_list, hexdigest, sha1sum
 
 mimetypes.init()""",
     "DatasetVersion": preamble_for_download,
