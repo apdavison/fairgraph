@@ -481,14 +481,14 @@ class TestCacheInvalidationOnWrite:
         )
 
         # 1. Load fresh, link a subject, save.
-        dsv = DatasetVersion.from_id(self.uuid, offline_kg_client, scope="any")
+        dsv = DatasetVersion.from_id(self.uuid, offline_kg_client, release_status="any")
         dsv.studied_specimens = [Subject(id=sub_uri)]
         dsv.save(offline_kg_client, space="myspace", recursive=False)
         assert studied_specimen_path in server_state, "first save should have linked the subject"
 
         # 2. Re-fetch via from_id. Before the fix, this would have returned
         # stale cached data with no studiedSpecimen.
-        dsv2 = DatasetVersion.from_id(self.uuid, offline_kg_client, scope="any")
+        dsv2 = DatasetVersion.from_id(self.uuid, offline_kg_client, release_status="any")
         assert dsv2.studied_specimens is not None, "re-fetched object must see the link added by the prior save"
 
         # 3. Unlink and save. The PATCH must clear studiedSpecimen on the server.
@@ -530,7 +530,7 @@ class TestCacheInvalidationOnWrite:
             contribute_to_partial_replacement,
         )
 
-        dsv = DatasetVersion.from_id(self.uuid, offline_kg_client, scope="any")
+        dsv = DatasetVersion.from_id(self.uuid, offline_kg_client, release_status="any")
         assert dsv._raw_remote_data is not None  # populated by from_id
 
         dsv.short_name = "updated"
