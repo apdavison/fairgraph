@@ -32,6 +32,14 @@ Changes in behaviour
 - fairgraph now requires Python 3.10 or later, as Python 3.9 has reached end of life.
   It is tested with Python 3.10 to 3.15.
 
+- :meth:`KGObject.from_jsonld() <fairgraph.kgobject.KGObject.from_jsonld>` now respects
+  ``ignore_unexpected_keys``, which it previously accepted but ignored. As in openMINDS Python, the default
+  is to raise :exc:`NameError` if the document contains keys that are not properties of the class,
+  including in linked nodes included in the document, so that mistakes in documents written by hand are caught.
+  This also applies to ``load()`` and :meth:`Collection.load() <fairgraph.collection.Collection.load>`.
+  Documents from the Knowledge Graph always contain such keys (e.g. the space): fairgraph reads them with
+  ``ignore_unexpected_keys=True``, and code that calls ``from_jsonld()`` on them directly must do the same.
+
 - Leading and trailing whitespace is now removed from text properties before they are saved
   Text loaded from the Knowledge Graph is left as it is until saved, so saving a fetched object corrects
   any untrimmed text that is stored.
