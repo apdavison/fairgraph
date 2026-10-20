@@ -9,6 +9,12 @@ Version 0.16.0
 New features
 ------------
 
+- ``File.download()`` now checks the downloaded file against the hash recorded in the Knowledge Graph
+  (MD5, SHA1, or any other algorithm available in :mod:`hashlib`), and raises :exc:`ValueError` if it does
+  not match. Pass ``check_hash=False`` to skip the check, e.g. for very large files.
+  Files uploaded to the EBRAINS data store in several parts have an MD5 digest with a "-N" suffix,
+  which is not a digest of the file: these cannot be checked, and a warning is emitted.
+
 - Filters may now be given as an :class:`~fairgraph.queries.Equals` instead of a plain string,
   which selects the KG's "EQUALS" operator in place of "CONTAINS", so that the whole property value
   must match. For example, ``Dataset.list(client, short_name=Equals("FOO"))`` does not return

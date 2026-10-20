@@ -8,16 +8,18 @@ from openminds.properties import Property
 from openminds.v4.core import File as OMFile
 from fairgraph import KGObject
 
+import hashlib
 import os
 import mimetypes
 from pathlib import Path
 from urllib.request import urlretrieve
 from urllib.parse import quote, urlparse, urlunparse
+from warnings import warn
 from .hash import Hash
 from .content_type import ContentType
 from ..miscellaneous.quantitative_value import QuantitativeValue
 from ...controlled_terms.unit_of_measurement import UnitOfMeasurement
-from fairgraph.utility import accepted_terms_of_use, sha1sum
+from fairgraph.utility import accepted_terms_of_use, as_list, hexdigest, sha1sum
 
 mimetypes.init()
 from openminds import IRI
@@ -257,7 +259,17 @@ class File(KGObject, OMFile):
         )
         return obj
 
-    def download(self, local_path, client, accept_terms_of_use=False):
+    def download(self, local_path, client, accept_terms_of_use=False, check_hash=True):
+        """
+        Download the file to `local_path`, which may be a directory or a file name.
+
+        If `check_hash` is True (the default), the downloaded file is checked against the first of the
+        file's `hashes` whose algorithm is available in Python's `hashlib`, and a ValueError is raised
+        if it does not match. Set `check_hash` to False to skip this, e.g. for very large files.
+        MD5 digests with a "-N" suffix cannot be checked: they come from uploading the file in N parts,
+        and are a digest of the parts' digests, not of the file. If the file has no other hash,
+        a warning is emitted.
+        """
         if accepted_terms_of_use(client, accept_terms_of_use=accept_terms_of_use):
             local_path = Path(local_path)
             if local_path.is_dir():
@@ -269,8 +281,30 @@ class File(KGObject, OMFile):
             url_parts = url_parts._replace(path=quote(url_parts.path))
             url = urlunparse(url_parts)
             local_filename, headers = urlretrieve(url, local_filename)
-            # todo: check hash value of downloaded file
+            if check_hash:
+                self._check_hash(local_filename)
             # todo: if local_path isn't an existing directory but looks like a directory name
             #       rather than a filename, create that directory and save a file called self.name
             #       within it
             return local_filename
+
+    def _check_hash(self, local_filename):
+        multipart_digest = None
+        for hash in as_list(self.hashes):
+            algorithm = (hash.algorithm or "").lower().replace("-", "")
+            if algorithm == "md5" and "-" in (hash.digest or ""):
+                multipart_digest = hash.digest  # a digest of the digests of the parts of a multipart upload
+                continue
+            if hash.digest and algorithm in hashlib.algorithms_available:
+                actual_digest = hexdigest(local_filename, algorithm)
+                if actual_digest != hash.digest.lower():
+                    raise ValueError(
+                        f"The downloaded file {local_filename} does not match the {hash.algorithm} digest "
+                        f"recorded in the Knowledge Graph: expected {hash.digest}, got {actual_digest}"
+                    )
+                return
+        if multipart_digest:
+            warn(
+                f"Unable to check the downloaded file {local_filename}: its MD5 digest in the Knowledge Graph "
+                f"({multipart_digest}) is from an upload in several parts, so it is not a digest of the whole file"
+            )
