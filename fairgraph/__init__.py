@@ -29,7 +29,7 @@ from .queries import Regex, Equals, Contains
 from .collection import Collection
 from . import client, errors, openminds, utility
 
-__version__ = "0.16.0"
+__version__ = "0.17.0.dev0"
 
 # the library instances are recast to fairgraph objects the first time they are used
 utility.register_instances(
