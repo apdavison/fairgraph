@@ -89,6 +89,13 @@ Queries
 .. autoclass:: fairgraph.queries.Regex
    :show-inheritance:
 
+Exceptions
+==========
+
+.. automodule:: fairgraph.errors
+   :members:
+   :show-inheritance:
+
 Utility classes and functions
 =============================
 

@@ -6,168 +6,118 @@ Release notes
 Version 0.16.0
 ==============
 
-New features
-------------
+This release requires Python 3.10 or later, as Python 3.9 has reached end of life.
+fairgraph is now tested with Python 3.10 to 3.15.
 
-- A filter value for a text property can now also be given as a :class:`~fairgraph.queries.Contains`,
-  alongside :class:`~fairgraph.queries.Equals` and :class:`~fairgraph.queries.Regex`, so that all three ways of
-  matching text can be written explicitly. A plain string means the same as a :class:`~fairgraph.queries.Contains`,
-  so existing code is unaffected.
+Upgrading from 0.15
+-------------------
 
-- ``File.download()`` now checks the downloaded file against the hash recorded in the Knowledge Graph
-  (MD5, SHA1, or any other algorithm available in :mod:`hashlib`), and raises :exc:`ValueError` if it does
-  not match. Pass ``check_hash=False`` to skip the check, e.g. for very large files.
-  Files uploaded to the EBRAINS data store in several parts have an MD5 digest with a "-N" suffix,
-  which is not a digest of the file: these cannot be checked, and a warning is emitted.
+Most code works unchanged, but check the following:
 
-- Filters may now be given as an :class:`~fairgraph.queries.Equals` instead of a plain string,
-  which selects the KG's "EQUALS" operator in place of "CONTAINS", so that the whole property value
-  must match. For example, ``Dataset.list(client, short_name=Equals("FOO"))`` does not return
-  a dataset called "FOO-BAR". As with :class:`~fairgraph.queries.Regex`, matching ignores case.
+- :meth:`~fairgraph.KGObject.save` and :meth:`~fairgraph.KGObject.exists` now match
+  the strings in an existence query *exactly*, rather than matching any stored value that *contains* the local value, 
+  and ``save()`` now normalizes whitespace in text. Pipelines that re-save objects may therefore create new nodes 
+  where they previously updated existing ones. See `Saving and existence queries`_.
+- :meth:`Collection.load() <fairgraph.Collection.load>` now raises :exc:`NameError` by default
+  for keys that are not properties of the class, matching the behaviour of openMINDS-Python. 
+  See `Reading JSON-LD documents`_.
+- The module-level caches in ``fairgraph.caching``, and the deprecated ``fields`` attributes and module, have been
+  removed. See `Caching and release status`_ and `Removed and deprecated names`_.
 
-- A filter may now be given a list of values, and a result must match every value in the list, e.g.
-  ``SoftwareVersion.list(client, developers__family_name=["Baggins", "Oakenshield"])``.
-  The items may be plain strings, :class:`~fairgraph.queries.Equals` or :class:`~fairgraph.queries.Regex` objects,
-  or, for linked properties, objects or ids (`#150 <https://github.com/HumanBrainProject/fairgraph/issues/150>`_). 
-  See :doc:`queries`.
 
-Changes in behaviour
---------------------
+Saving and existence queries
+----------------------------
 
-- When an existence query (in :meth:`~fairgraph.kgobject.KGObject.exists` or
-  :meth:`~fairgraph.kgobject.KGObject.save`) matches an object with a stored instance whose value differs
-  from the local one only in case, or, with ``existence_match="contains"``, contains the local value,
-  the object's attribute is now set to the stored value. Previously, the local value was kept and treated
-  as a modification, so ``save()`` wrote the search term over the stored name
-  (`#170 <https://github.com/HumanBrainProject/fairgraph/issues/170>`_).
-
-- fairgraph now requires Python 3.10 or later, as Python 3.9 has reached end of life.
-  It is tested with Python 3.10 to 3.15.
-
-- :meth:`KGObject.from_jsonld() <fairgraph.kgobject.KGObject.from_jsonld>` now respects
-  ``ignore_unexpected_keys``, which it previously accepted but ignored. As in openMINDS Python, the default
-  is to raise :exc:`NameError` if the document contains keys that are not properties of the class,
-  including in linked nodes included in the document, so that mistakes in documents written by hand are caught.
-  This also applies to ``load()`` and :meth:`Collection.load() <fairgraph.collection.Collection.load>`.
-  Documents from the Knowledge Graph always contain such keys (e.g. the space): fairgraph reads them with
-  ``ignore_unexpected_keys=True``, and code that calls ``from_jsonld()`` on them directly must do the same.
-
-- Leading and trailing whitespace is now removed from text properties before they are saved,
-  and in single-line properties, such as names, each run of whitespace within the text (including line breaks
-  and tabs) is replaced by a single space. Whitespace within multi-line properties, such as descriptions,
-  is left as it is. Text loaded from the Knowledge Graph is left as it is until saved, so saving a fetched
-  object corrects any stored text that is not normalized in this way.
-
-- The existence query that :meth:`~fairgraph.kgobject.KGObject.exists` and
-  :meth:`~fairgraph.kgobject.KGObject.save` use to decide whether an object is already in the KG
+- The existence query that :meth:`~fairgraph.KGObject.exists` and
+  :meth:`~fairgraph.KGObject.save` use to decide whether an object is already in the KG
   now matches string properties exactly, ignoring case, where it previously matched any value that
-  merely *contained* the local one. Saving a :class:`Dataset` with the short name "FOO" therefore
-  no longer finds, and overwrites, an existing one called "FOO-BAR"; likewise, a
-  :class:`DatasetVersion` with the version identifier "1.0" no longer matches "1.0.1"
+  merely *contained* the local one. Saving a :class:`~fairgraph.openminds.core.Dataset` with the short name "Foo" therefore
+  no longer finds, and overwrites, an existing one called "Foo-Bar"; likewise, a
+  :class:`~fairgraph.openminds.core.DatasetVersion` with the version identifier "1.0" no longer matches "1.0.1"
   (`#149 <https://github.com/HumanBrainProject/fairgraph/issues/149>`_).
 
-  Whitespace is significant in the match, so an existing object whose name has a leading or trailing space,
-  or a double space, will not be found by a local object whose name lacks it, and a new object will be created.
-  Since :meth:`~fairgraph.kgobject.KGObject.save` now normalizes the whitespace in text properties
-  (see above), this applies to any existing object whose text has stray whitespace.
-  Pipelines that re-save objects and previously relied on such near-matches to update
-  existing nodes may therefore now create new ones.
-
   To restore the previous behaviour for a call, pass ``existence_match="contains"`` to
-  :meth:`~fairgraph.kgobject.KGObject.exists` or :meth:`~fairgraph.kgobject.KGObject.save`
+  :meth:`~fairgraph.KGObject.exists` or :meth:`~fairgraph.KGObject.save`
   (the default is ``existence_match="equals"``). With ``recursive=True`` the setting applies to
   child objects as well.
 
-- Queries generated by fairgraph now sort results by exactly one property, as the KG query API requires.
-  Previously, classes with both ``name`` and ``lookup_label`` requested sorting by both, and the KG used
-  whichever came first. The property is now given by each class's new ``sort_property`` attribute.
-  As a result, :class:`SlicingDevice`, :class:`Electrode`, :class:`ElectrodeArray` and :class:`Pipette`
-  are now sorted by ``name`` instead of ``lookup_label``, and :class:`Person`, previously unsorted,
-  is now sorted by ``family_name``. The ordering of results is now described in :doc:`queries`
-  (`#129 <https://github.com/HumanBrainProject/fairgraph/issues/129>`_).
+- :meth:`~fairgraph.KGObject.save` now removes leading and trailing whitespace from text properties,
+  and in single-line properties, such as names, replaces multiple spaces or tabs within the text
+  with a single space. Whitespace within multi-line properties, such as descriptions,
+  is left as it is. Text loaded from the Knowledge Graph is left as it is until saved, so saving a fetched
+  object corrects any stored text that is not normalized in this way.
 
-- The remaining deprecated names from the renaming of "fields" to "properties" in version 0.12.0 have been removed:
+- When an existence query matches a stored instance whose value differs from the local one (for example,
+  because of using ``existence_match="contains"``) the object's attribute is now set to the
+  stored value. Previously, the local value was kept and treated as a modification, so ``save()`` wrote the search
+  term over the stored name (`#170 <https://github.com/HumanBrainProject/fairgraph/issues/170>`_).
 
-  - the class attributes ``fields``, ``field_names``, ``required_field_names`` and ``existence_query_fields``;
-    use ``properties`` (with ``reverse_properties``, or ``all_properties`` for both), ``property_names``,
-    ``required_property_names`` and ``existence_query_properties`` instead.
-    Note that ``required_field_names`` returned the names of all properties, not only the required ones.
-  - the ``fairgraph.fields`` module, which has not worked since version 0.13.0, as importing it raised
-    :exc:`ModuleNotFoundError`. Use ``openminds.properties.Property`` in place of ``Field``.
+- Objects whose existence query includes a property holding a list, such as ``Chapter.authors`` or
+  ``LearningResource.about``, can now be found in the KG: every item in the local list must be present in the
+  stored one, in any order. Previously, such objects could not be checked, so each ``save()`` created a new node.
 
-- The deprecated aliases ``EmbeddedMetadata``, ``ContainsMetadata``, ``RepresentsSingleObject`` and ``Node``
-  now emit a :exc:`DeprecationWarning`. All deprecated names will be removed in version 1.0;
-  see :doc:`deprecations` (`#122 <https://github.com/HumanBrainProject/fairgraph/issues/122>`_).
-
-- All caching is now done by the :class:`~fairgraph.client.KGClient`, so nothing retrieved with one client,
-  e.g. with one user's token in a web service, is seen by another (`#80 <https://github.com/HumanBrainProject/fairgraph/issues/80>`_):
-
-  - The module-level caches ``fairgraph.caching.object_cache`` and ``fairgraph.caching.save_cache``
-    have been removed. The ids of instances found by, or created after, an existence query are now remembered
-    by the client, and on reuse the instance is retrieved by its id (through the client's cache)
-    to fill in properties not given locally.
-  - :meth:`KGProxy.resolve() <fairgraph.kgproxy.KGProxy.resolve>` now retrieves the instance through the
-    client's cache of JSON-LD documents, and returns a new object each time. It only finds an instance at the
-    requested release status (by default ``"released"``), so a link to an instance that has not been released,
-    including one created in the same session, must now be resolved with ``release_status="in progress"``
-    (or ``"any"``). With ``follow_links``, such links are left as proxies, with a warning.
-    Resolving a proxy without a client is no longer possible.
-  - ``KGClient.cache`` is now keyed by the instance's KG URI and then by stage (``"IN_PROGRESS"`` or ``"RELEASED"``),
-    and returns copies of the cached documents. An instance that also has an openMINDS URI (e.g. a controlled term)
-    is cached once, under its KG URI, whichever URI it was retrieved with, so that it is cleared from the cache
-    when it is changed.
-
-Bug fixes
----------
-
-- ``File.from_local_file()`` now links to the content type and unit of measurement from the openMINDS
-  instance library, rather than creating new, unsaved terms: the unit was called "bytes", which does not exist
-  in openMINDS ("byte" does). If the content type cannot be determined, ``format`` is left unset
-  (`#177 <https://github.com/HumanBrainProject/fairgraph/issues/177>`_).
-
-- :meth:`~fairgraph.client.KGClient.clean_space` now says, before asking for confirmation, how many of the
-  instances are released and will therefore not be deleted, and afterwards lists the instances that were not
-  deleted, with the reason, rather than printing a list of raw error objects.
-
-- The client's cache of JSON-LD documents now takes the release status into account: previously, an instance
-  retrieved as "released" was returned from the cache for a request for "in progress" content, and vice versa.
-  Likewise, a document for which the user lacks full access, retrieved by
-  :meth:`~fairgraph.kgobject.KGObject.exists` (e.g. while saving), is no longer returned where full access
-  is required. The cache is now also cleared for an instance when it is released, unreleased or moved to
-  another space (`#80 <https://github.com/HumanBrainProject/fairgraph/issues/80>`_).
-
-- Resolving a link no longer returns an object whose update was rejected
-  (with ``save(..., ignore_auth_errors=True)``), with its unsaved changes, as if it were in the KG
-  (`#80 <https://github.com/HumanBrainProject/fairgraph/issues/80>`_).
-
-- After an object is deleted, saving an equal object no longer matches it to the deleted instance
-  (`#80 <https://github.com/HumanBrainProject/fairgraph/issues/80>`_).
-
-- Objects obtained by resolving a :class:`~fairgraph.kgquery.KGQuery`, e.g. a reverse property such as
-  ``person.activities.resolve(client, release_status="in progress")``, now have their ``release_status`` set,
-  so that resolving their own links uses the same release status, where it previously reverted to "released"
-  (`#80 <https://github.com/HumanBrainProject/fairgraph/issues/80>`_).
-
-- :meth:`KGClient.retrieve_query() <fairgraph.client.KGClient.retrieve_query>` no longer returns
-  a stored query's previous definition after it has been replaced with
-  :meth:`~fairgraph.client.KGClient.store_query` (`#80 <https://github.com/HumanBrainProject/fairgraph/issues/80>`_).
-
-- :meth:`~fairgraph.kgobject.KGObject.exists`, and therefore :meth:`~fairgraph.kgobject.KGObject.save` and
-  :meth:`~fairgraph.collection.Collection.upload`, no longer raises :exc:`TypeError` when a  property used
+- :meth:`~fairgraph.KGObject.exists`, and therefore :meth:`~fairgraph.KGObject.save` and
+  :meth:`~fairgraph.Collection.upload`, no longer raises :exc:`TypeError` when a property used
   in the existence query holds an unresolved link (a :class:`~fairgraph.kgproxy.KGProxy`),
   as happens when a link is taken from a fetched object or read from a JSON-LD file.
   Such a link now gives the same existence query as the object it points to
   (`#145 <https://github.com/HumanBrainProject/fairgraph/issues/145>`_).
 
+
+Filtering and sorting query results
+-----------------------------------
+
+- A filter on a text property can now say explicitly how its value is matched:
+  with :class:`~fairgraph.queries.Equals`, the whole property value must match (the KG's "EQUALS" operator);
+  with :class:`~fairgraph.queries.Contains`, the property value need only contain it ("CONTAINS");
+  and with :class:`~fairgraph.queries.Regex`, added in 0.15.0, it must match a regular expression.
+  A plain string means the same as :class:`~fairgraph.queries.Contains`, so existing code is unaffected.
+  For example, ``Dataset.list(client, short_name=Equals("FOO"))``
+  does not return a dataset called "FOO-BAR", while ``short_name="FOO"`` does.
+  Matching ignores case in all three cases.
+
+- A filter may now be given a list of values, and a result must match every value in the list, e.g.
+  ``SoftwareVersion.list(client, developers__family_name=["Baggins", "Oakenshield"])``.
+  The items may be plain strings, :class:`~fairgraph.queries.Contains`, :class:`~fairgraph.queries.Equals`
+  or :class:`~fairgraph.queries.Regex` objects, or, for linked properties, objects or ids
+  (`#150 <https://github.com/HumanBrainProject/fairgraph/issues/150>`_). See :doc:`queries`.
+
+- Filters on several properties of the same linked node, e.g.
+  ``developers__given_name="Bilbo", developers__family_name="Baggins"``, are now all applied.
+  Previously, all but the last were silently ignored.
+
 - Resolving or counting a reverse property, e.g. ``license.is_applied_to.resolve(client)``, no longer raises
   :exc:`ValueError` ("Invalid filter") when the linking property has different names in different classes
-  (here ``license`` in :class:`DatasetVersion` but ``licenses`` in :class:`ModelVersion`),
+  (here ``license`` in :class:`~fairgraph.openminds.core.DatasetVersion` but ``licenses`` in :class:`~fairgraph.openminds.core.ModelVersion`),
   and now finds the nodes linking through any of the forward properties a reverse property stands for,
   where previously only the first was used
   (`#92 <https://github.com/HumanBrainProject/fairgraph/issues/92>`_).
 
+- Queries generated by fairgraph now sort results by exactly one property, as the KG query API requires.
+  Previously, classes with both ``name`` and ``lookup_label`` requested sorting by both, and the KG used
+  whichever came first. The property is now given by each class's new ``sort_property`` attribute.
+  As a result, :class:`~fairgraph.openminds.specimen_prep.SlicingDevice`, :class:`~fairgraph.openminds.ephys.Electrode`, 
+  :class:`~fairgraph.openminds.ephys.ElectrodeArray` and :class:`~fairgraph.openminds.ephys.Pipette`
+  are now sorted by ``name`` instead of ``lookup_label``, and :class:`~fairgraph.openminds.core.Person`, previously unsorted,
+  is now sorted by ``family_name``. The ordering of results is now described in :doc:`queries`
+  (`#129 <https://github.com/HumanBrainProject/fairgraph/issues/129>`_).
+
+
+Caching and release status
+--------------------------
+
+All caching is now done by the :class:`~fairgraph.client.KGClient`, so nothing retrieved with one client,
+e.g., with one user's token in a web service, is seen by another, and several cases in which the cache returned
+stale or incorrect content have been fixed (`#80 <https://github.com/HumanBrainProject/fairgraph/issues/80>`_).
+
+In particular, the cache now takes the release status into account: previously, an instance retrieved as "released" was returned
+from the cache for a request for "in progress" content, and vice versa. Likewise, a document for which the user
+lacks full access, retrieved by :meth:`~fairgraph.KGObject.exists` (e.g. while saving), is no longer
+returned where full access is required. The cache is now also cleared for an instance when it is released,
+unreleased or moved to another space.
+
 Connection robustness
-----------------------
+---------------------
 
 - :class:`~fairgraph.client.KGClient` now applies a timeout to requests to the KG, so that a request
   which loses its connection (for example, when a laptop sleeps and resumes on a different network)
@@ -177,7 +127,7 @@ Connection robustness
 - Network failures now raise a new, clearer :exc:`~fairgraph.errors.KGConnectionError` rather than
   a lower-level exception.
 
-- Read-only requests to the KG (e.g., :meth:`~fairgraph.kgobject.KGObject.list`) are now retried
+- Read-only requests to the KG (e.g., :meth:`~fairgraph.KGObject.list`) are now retried
   automatically if they fail with a connection error. This helps with
   queries that are naturally slow (e.g., against types with very many instances, such as ``File``),
   where transient connection errors or timeouts are common but often succeed on a second attempt.
@@ -186,23 +136,85 @@ Connection robustness
   retried automatically, since doing so risks duplicating or corrupting data if the original request
   actually succeeded but its response was lost.
 
+
+Files
+-----
+
+- ``File.download()`` now checks the downloaded file against the hash recorded in the Knowledge Graph
+  (MD5, SHA1, or any other algorithm available in :mod:`hashlib`), and raises :exc:`ValueError` if it does
+  not match. Pass ``check_hash=False`` to skip the check, e.g. for very large files.
+  Files uploaded to the EBRAINS data store in several parts have an MD5 digest with a "-N" suffix,
+  which is not a digest of the file: these cannot be checked, and a warning is emitted.
+
+- ``File.from_local_file()`` now links to the content type and unit of measurement from the openMINDS
+  instance library, rather than creating new, unsaved terms. 
+  If the content type cannot be determined, ``format`` is left unset
+  (`#177 <https://github.com/HumanBrainProject/fairgraph/issues/177>`_).
+
+
+Reading JSON-LD documents
+-------------------------
+
+- :meth:`KGObject.from_jsonld() <fairgraph.KGObject.from_jsonld>` now respects
+  ``ignore_unexpected_keys``, which it previously accepted but ignored. As in openMINDS Python, the default
+  is to raise :exc:`NameError` if the document contains keys that are not properties of the class,
+  including in linked nodes included in the document, so that mistakes in documents written by hand are caught.
+  This also applies to ``load()`` and :meth:`Collection.load() <fairgraph.Collection.load>`.
+  Documents from the Knowledge Graph always contain such keys (e.g., the space): fairgraph reads them with
+  ``ignore_unexpected_keys=True``, and code that calls ``from_jsonld()`` on them directly must do the same.
+
+
 Performance
 -----------
 
 - The openMINDS library instances (controlled terms, brain atlases, licences, content types, ...)
-  are now converted to fairgraph objects the first time each class's instances are used 
+  are now converted to fairgraph objects the first time each class's instances are used
   (e.g. by accessing ``Species.mus_musculus``, or by calling ``Species.instances()``
-  or ``Species.by_name("Mus musculus")`` without a client), rather than all of them being converted 
+  or ``Species.by_name("Mus musculus")``), rather than all of them being converted
   when fairgraph is imported. This reduces the time taken by ``import fairgraph``
-  from several seconds to well under one second, and its memory use from about 390 MB to about 155 MB
+  from several seconds to well under one second, and more than halves memory use
   (`#155 <https://github.com/HumanBrainProject/fairgraph/issues/155>`_).
 
 - Property values are no longer validated when they are set on an object whose class has error handling
-  set to ``None``, since any validation failures would be ignored anyway
-  (`#155 <https://github.com/HumanBrainProject/fairgraph/issues/155>`_).
-  Converting the openMINDS library instances to fairgraph objects, which is done without validation,
-  is also about twice as fast.
-  Explicit validation, with :meth:`validate` or :attr:`is_valid`, is not affected.
+  set to ``None``, since any validation failures would be ignored anyway.
+  Converting the openMINDS library instances to fairgraph objects
+  is also about twice as fast as a result (`#155 <https://github.com/HumanBrainProject/fairgraph/issues/155>`_).
+  Explicit validation, with :meth:`~openminds.base.LinkedMetadata.validate` or :attr:`is_valid`, is not affected.
+
+
+Removed and deprecated names
+----------------------------
+
+- The remaining deprecated names from the renaming of "fields" to "properties" in version 0.12.0 have been removed:
+
+  - the class attributes ``fields``, ``field_names``, ``required_field_names`` and ``existence_query_fields``;
+    use ``properties`` (with ``reverse_properties``, or ``all_properties`` for both), ``property_names``,
+    ``required_property_names`` and ``existence_query_properties`` instead.
+  - the ``fairgraph.fields`` module. Use ``openminds.properties.Property`` in place of ``Field``.
+
+- The deprecated aliases ``EmbeddedMetadata``, ``ContainsMetadata``, ``RepresentsSingleObject`` and ``Node``
+  now emit a :exc:`DeprecationWarning`. All deprecated names will be removed in version 1.0;
+  see :doc:`deprecations` (`#122 <https://github.com/HumanBrainProject/fairgraph/issues/122>`_).
+
+
+Other changes
+-------------
+
+- :meth:`~fairgraph.KGClient.clean_space` now says, before asking for confirmation, how many of the
+  instances are released and will therefore not be deleted, and afterwards lists the instances that were not
+  deleted, with the reason, rather than printing a list of raw error objects.
+
+
+Documentation
+-------------
+
+- New pages describe the deprecation policy and the deprecated names (:doc:`deprecations`), and, for developers,
+  fairgraph's internal architecture (:doc:`architecture`) and how the project is maintained (:doc:`maintenance`).
+- :doc:`queries` now describes how results are ordered, the three kinds of text filter, lists of filter values,
+  how to work with controlled terms (under "Terminologies"), and the ways of authenticating, including when access
+  tokens are renewed.
+- Two tutorial notebooks, for data consumers and data providers, are in ``examples/notebooks``, and can be opened
+  directly in the EBRAINS Lab (see the README there).
 
 
 Version 0.15.0
