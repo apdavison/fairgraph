@@ -124,9 +124,12 @@ which is how :meth:`KGObject.from_id` finds the right class for an instance of u
 
 This only works if each fairgraph class is defined before a property that refers to it is first used,
 which is why importing :mod:`fairgraph` imports all of the generated classes.
-On import, fairgraph also converts the instances that openMINDS Python provides as class attributes
-(e.g., ``Species.rattus_norvegicus``) into instances of the fairgraph classes
-(:func:`~fairgraph.utility.initialise_instances`).
+fairgraph also converts the instances that openMINDS Python provides as class attributes
+(e.g., ``Species.rattus_norvegicus``) into instances of the fairgraph classes.
+Since there are many thousands of these, each class's instances are converted the first time they are used:
+on import, :func:`~fairgraph.utility.register_instances` replaces them with placeholders, and accessing one of them,
+or calling ``instances()`` or ``by_name()`` without a client, converts all of that class's instances
+(:func:`~fairgraph.utility.recast_instances`), together with those of any other classes they link to.
 
 
 Properties

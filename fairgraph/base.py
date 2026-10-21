@@ -20,6 +20,8 @@ and contain code common to sub-classes, to avoid code duplication.
 
 from __future__ import annotations
 from typing import TYPE_CHECKING, Optional, Dict, List, Any, Union
+from contextlib import contextmanager
+from contextvars import ContextVar
 from enum import Enum
 import logging
 from uuid import UUID
@@ -37,6 +39,25 @@ logger = logging.getLogger("fairgraph")
 
 JSONdict = Dict[str, Any]  # see https://github.com/python/typing/issues/182 for some possible improvements
 
+# Set while fairgraph builds objects that are intentionally incomplete (e.g. the openMINDS library instances).
+# A context variable applies only to the current thread (or asyncio task), so validation of other objects,
+# built concurrently, is unaffected.
+_validation_suppressed: ContextVar[bool] = ContextVar("validation_suppressed", default=False)
+
+
+@contextmanager
+def validation_suppressed():
+    """Switch off validation, whatever the error handling setting, within this context."""
+    token = _validation_suppressed.set(True)
+    try:
+        yield
+    finally:
+        _validation_suppressed.reset(token)
+
+
+def is_validation_suppressed():
+    return _validation_suppressed.get()
+
 
 class ErrorHandling(str, Enum):
     error = "error"
@@ -46,6 +67,8 @@ class ErrorHandling(str, Enum):
 
     @classmethod
     def handle_violation(cls, value, errmsg=""):
+        if is_validation_suppressed():
+            return
         if value == cls.error:
             raise ValueError(errmsg)
         elif value == cls.warning:

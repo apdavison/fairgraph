@@ -120,7 +120,7 @@ def test_initialise_instances_resolves_cross_references():
     # Regression for the fairgraph side of openMINDS issue #94
     # (https://github.com/openMetadataInitiative/openMINDS_Python/issues/94).
     #
-    # Importing fairgraph recasts the openMINDS library instances to their fairgraph
+    # fairgraph recasts the openMINDS library instances to their fairgraph
     # subclasses. Cross-references between those instances (e.g. ParcellationEntityVersion
     # -> ParcellationEntity via `has_parents`) must be resolved to the actual recast
     # fairgraph objects, not left as raw {"@id": ...} dicts or unresolved KGProxy objects.
@@ -128,21 +128,21 @@ def test_initialise_instances_resolves_cross_references():
     # Previously the recast serialised each instance with embed_linked_nodes=ALWAYS, which
     # recursed without bound over the cyclic ParcellationEntity <-> ParcellationEntityVersion
     # instance graph (RecursionError, and then out-of-memory once a cycle guard was added).
-    # initialise_instances now does a shallow recast (links become KGProxy) followed by a
+    # Recasting is now a shallow recast (links become KGProxy) followed by a
     # resolution pass against an id -> object lookup.
     import fairgraph
     from fairgraph.openminds.sands import ParcellationEntity, ParcellationEntityVersion
     from fairgraph.kgproxy import KGProxy
 
     # The library instances were recast to typed fairgraph objects.
-    pe_by_id = {obj.id: obj for obj in vars(ParcellationEntity).values() if isinstance(obj, ParcellationEntity)}
+    pe_by_id = {obj.id: obj for obj in ParcellationEntity.instances()}
     assert pe_by_id, "no ParcellationEntity library instances were recast"
     assert all(isinstance(pe, fairgraph.KGObject) for pe in pe_by_id.values())
 
     # Find a version that references a parent entity and check the reference is resolved.
     parent = None
-    for version in vars(ParcellationEntityVersion).values():
-        if not isinstance(version, ParcellationEntityVersion) or not version.has_parents:
+    for version in ParcellationEntityVersion.instances():
+        if not version.has_parents:
             continue
         parents = version.has_parents
         parents = parents if isinstance(parents, (list, tuple)) else [parents]
@@ -160,17 +160,18 @@ def test_initialise_instances_resolves_cross_references():
 
 
 def test_import_fairgraph_is_silent_and_does_not_crash():
-    # Regression: importing fairgraph recasts the openMINDS library instances. This used to
-    # recurse without bound over the cyclic ParcellationEntity <-> ...Version instance graph
-    # (RecursionError, then out-of-memory), and once that was fixed it emitted validation
-    # warnings for the intentionally-incomplete library instances. A bare `import fairgraph`
-    # must now complete cleanly and produce no output on stdout or stderr.
+    # Regression: recasting the openMINDS library instances, which used to happen when
+    # importing fairgraph, used to recurse without bound over the cyclic
+    # ParcellationEntity <-> ...Version instance graph (RecursionError, then out-of-memory),
+    # and once that was fixed it emitted validation warnings for the intentionally-incomplete
+    # library instances. Importing fairgraph and recasting these instances must now complete
+    # cleanly and produce no output on stdout or stderr.
     #
-    # This runs in a subprocess because fairgraph is already imported in the test session
-    # (the recast runs only once, at import time), so the behaviour can only be observed
-    # from a fresh interpreter.
+    # This runs in a subprocess because the library instances are recast at most once
+    # per session, so the behaviour can only be observed from a fresh interpreter.
+    code = "import fairgraph; fairgraph.openminds.sands.ParcellationEntityVersion.instances()"
     result = subprocess.run(
-        [sys.executable, "-c", "import fairgraph"],
+        [sys.executable, "-c", code],
         capture_output=True,
         text=True,
         timeout=120,
@@ -180,14 +181,134 @@ def test_import_fairgraph_is_silent_and_does_not_crash():
     assert result.stderr == "", f"unexpected stderr:\n{result.stderr}"
 
 
-def test_error_handling_restored_to_default_after_import():
-    # initialise_instances suppresses validation handling globally while recasting the
-    # library instances, then restores the default ("log") in a finally block. Guard against
-    # that restore being dropped, which would silently leave validation disabled (error
-    # handling set to None) for the whole session, for both linked and embedded classes.
-    import fairgraph  # noqa: F401
-    from fairgraph.base import ErrorHandling
+def test_validation_restored_after_recasting():
+    # Recasting the library instances suppresses validation. Guard against that suppression
+    # outlasting the recast, which would silently leave validation disabled for the whole
+    # session, for both linked and embedded classes.
+    from fairgraph.base import ErrorHandling, is_validation_suppressed
     from fairgraph.openminds.sands import ParcellationEntity, AtlasAnnotation
+
+    ParcellationEntity.instances()
+    assert not is_validation_suppressed()
 
     assert ParcellationEntity.error_handling == ErrorHandling.log  # a KGObject class
     assert AtlasAnnotation.error_handling == ErrorHandling.log  # an embedded (KGEmbedded) class
+
+
+def _run_in_fresh_interpreter(code):
+    # library instances are recast at most once per session, so their recasting
+    # can only be observed from a fresh interpreter
+    result = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, timeout=120)
+    assert result.returncode == 0, result.stderr
+    assert result.stderr == "", f"unexpected stderr:\n{result.stderr}"
+
+
+def test_library_instances_are_recast_on_first_use():
+    _run_in_fresh_interpreter("""
+import fairgraph
+from fairgraph.openminds.controlled_terms import BiologicalSex, Species
+from fairgraph.openminds.v5.controlled_terms import Species as SpeciesV5
+
+assert not isinstance(Species.__dict__["mus_musculus"], Species)  # not recast at import
+mouse = Species.mus_musculus
+assert isinstance(mouse, Species) and isinstance(mouse, fairgraph.KGObject)
+assert Species.__dict__["mus_musculus"] is mouse
+assert mouse in Species.instances()
+assert Species.by_name("Mus musculus") is mouse
+# other classes are left alone
+assert not isinstance(BiologicalSex.__dict__["male"], BiologicalSex)
+assert not isinstance(SpeciesV5.__dict__["mus_musculus"], SpeciesV5)
+""")
+
+
+def test_library_instances_recast_through_by_name():
+    _run_in_fresh_interpreter("""
+import fairgraph
+from fairgraph.openminds.controlled_terms import Species
+
+assert isinstance(Species.by_name("Mus musculus"), Species)
+""")
+
+
+def test_library_instances_recast_after_openminds_by_name():
+    # by_name() caches a lookup table on the class; the fairgraph class must not
+    # use one built by its openMINDS parent, which holds openMINDS objects
+    _run_in_fresh_interpreter("""
+import fairgraph
+import openminds.v4.controlled_terms
+from fairgraph.openminds.controlled_terms import Species
+
+assert not isinstance(openminds.v4.controlled_terms.Species.by_name("Mus musculus"), fairgraph.KGObject)
+assert isinstance(Species.by_name("Mus musculus"), Species)
+""")
+
+
+def test_library_instances_recast_with_links_to_other_classes():
+    # recasting a class recasts the classes whose library instances it links to
+    _run_in_fresh_interpreter("""
+from fairgraph.openminds.sands import ParcellationEntity, ParcellationEntityVersion
+
+from fairgraph.utility import as_list
+
+assert not any(isinstance(value, ParcellationEntity) for value in vars(ParcellationEntity).values())
+parents = [
+    parent
+    for version in ParcellationEntityVersion.instances()
+    for parent in as_list(version.has_parents)
+    if isinstance(parent, ParcellationEntity)
+]
+assert parents
+assert all(any(parent is value for value in vars(ParcellationEntity).values()) for parent in parents[:10])
+""")
+
+
+def test_recasting_library_instances_keeps_error_handling():
+    _run_in_fresh_interpreter("""
+from fairgraph.base import ErrorHandling
+from fairgraph.openminds.controlled_terms import Species
+from fairgraph.openminds.core import Person
+from fairgraph.openminds.sands import AtlasAnnotation, ParcellationEntityVersion
+
+Species.set_error_handling("error")
+Person.set_error_handling("warning")
+Species.mus_musculus
+ParcellationEntityVersion.instances()
+assert Species.error_handling == ErrorHandling.error
+assert Person.error_handling == ErrorHandling.warning
+assert ParcellationEntityVersion.error_handling == ErrorHandling.log
+assert AtlasAnnotation.error_handling == ErrorHandling.log
+""")
+
+
+def test_validation_suppressed_only_in_current_thread():
+    import threading
+    import warnings
+    from fairgraph.base import ErrorHandling, validation_suppressed
+
+    def violate():
+        with warnings.catch_warnings(record=True) as caught:
+            warnings.simplefilter("always")
+            ErrorHandling.handle_violation(ErrorHandling.warning, "a violation")
+        return len(caught)
+
+    # The other thread is started before validation is suppressed, as since Python 3.14 a thread can
+    # start with a copy of the context of the code that starts it (the default on free-threaded builds).
+    # It reports a violation while this thread is inside the block; the two never warn at the same time,
+    # as catch_warnings() is not thread-safe.
+    go, done = threading.Event(), threading.Event()
+    results = []
+
+    def other_thread():
+        go.wait()
+        results.append(violate())
+        done.set()
+
+    thread = threading.Thread(target=other_thread)
+    thread.start()
+    with validation_suppressed():
+        assert violate() == 0
+        go.set()
+        assert done.wait(timeout=10)
+    thread.join()
+    assert results == [1]
+    assert violate() == 1

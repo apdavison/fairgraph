@@ -31,7 +31,8 @@ from . import client, errors, openminds, utility
 
 __version__ = "0.16.0.dev0"
 
-utility.initialise_instances(
+# the library instances are recast to fairgraph objects the first time they are used
+utility.register_instances(
     [
         openminds.sands.BrainAtlas,
         openminds.sands.BrainAtlasVersion,
@@ -45,7 +46,7 @@ utility.initialise_instances(
     + openminds.controlled_terms.list_kg_classes()
 )
 
-utility.initialise_instances(
+utility.register_instances(
     [
         openminds.v5.sands.AnatomicalAtlas,
         openminds.v5.sands.AnatomicalAtlasVersion,

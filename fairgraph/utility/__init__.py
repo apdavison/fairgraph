@@ -22,5 +22,5 @@ from .misc import ATTACHMENT_SIZE_LIMIT, as_list, hexdigest, invert_dict, sha1su
 from .jsonld import JSONdict, expand_uri, compact_uri, normalize_data, expand_filter
 from .activity_log import LogEntry, ActivityLog
 from .terms_of_use import TERMS_OF_USE, accepted_terms_of_use, in_notebook
-from .initialisation import initialise_instances
+from .initialisation import initialise_instances, recast_instances, register_instances
 from .deprecation import handle_scope_keyword, deprecated_aliases
